@@ -83,6 +83,7 @@ def stop_mattermost():
     _running = False
 
 def send_message(text):
+    text = text.replace("\\n", "\n")
     if not _connected:
         return
     requests.post(
