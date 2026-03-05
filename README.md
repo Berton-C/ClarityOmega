@@ -17,7 +17,7 @@ The agent core comprises approximately 200 lines of code.
 
 - MeTTaClaw uses a token-efficient agentic loop, enabling low-cost long-term operation and embodiment in domains that require real-time learning and decision-making.
 
-- The agent can learn to represent its memories in different formats, including formats that allow other Hyperon components to operate on the same memories within the same Atomspace. However, the agent is not hardcoded to any particular memory format, and different memory representations can co-exist.
+- The agent can learn to represent its memories in different ways, including such that allow other Hyperon components to operate on the same memories within the same Atomspace. Each memory item is stored as a triplet `(timestamp, atom, embedding)`, while the agent remains flexible in choosing the representation for the atom itself. Consequently, the agent is not hardcoded to any particular memory representation, and different formats can co-exist in the same atom space.
 
 The following example demonstrates learning and decision-making in a textually represented grid-world environment adapted from [NACE](https://github.com/patham9/NACE):
 
