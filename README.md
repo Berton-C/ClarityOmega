@@ -1,6 +1,6 @@
 ## MeTTaClaw
 
-<img width="362" alt="image" src="https://github.com/user-attachments/assets/a99b1c8b-0793-42bc-8ab4-129d89c29cbd" />
+<img width="362" alt="image" src="https://github.com/user-attachments/assets/445ce38c-b9ad-4079-9538-72e491c58fc4" />
 
 
 An agentic AI system implemented in MeTTa, guided by the MeTTaClaw proposal and an agent core inspired by Nanobot.
