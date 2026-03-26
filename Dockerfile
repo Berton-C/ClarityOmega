@@ -1,4 +1,4 @@
-# Dockerfile to create MettaWamJam docker server
+# Dockerfile to spin up MeTTaclaw 
 #
 # Includes:  PeTTa, MORK, PathMap
 
