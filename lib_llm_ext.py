@@ -8,7 +8,7 @@ def _init_openai_client(var_name, base_url):
 
 ASI_CLIENT = _init_openai_client(
     var_name="ASI_API_KEY",
-    base_url="https://inference.asicloud.cudos.org/v1")
+    base_url="https://inference.asicloud.cudos.org/v1"
 )
 
 ANTHROPIC_CLIENT = _init_openai_client(
