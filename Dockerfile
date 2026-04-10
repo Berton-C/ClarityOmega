@@ -47,6 +47,12 @@ RUN sh build.sh
 RUN mkdir -p /PeTTa/repos \
  && git clone --depth 1 --branch "${CHROMADB_REF}" "${CHROMADB_REPO}" /PeTTa/repos/petta_lib_chromadb
 
+RUN python3 -m pip install --no-cache-dir --break-system-packages \
+      janus-swi \
+      openai \
+      uagents \
+      chromadb
+
 FROM ${SWIPL_IMAGE} AS runtime
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -58,7 +64,6 @@ RUN apt-get update \
  && apt-get install -y --no-install-recommends \
       ca-certificates \
       python3 \
-      python3-pip \
       libopenblas-dev \
       libblas-dev \
       liblapack-dev \
@@ -66,11 +71,6 @@ RUN apt-get update \
       libgflags-dev \
       nano \
  && rm -rf /var/lib/apt/lists/*
-
-RUN python3 -m pip install --no-cache-dir --break-system-packages \
-      openai \
-      uagents \
-      chromadb
 
 WORKDIR /PeTTa
 
