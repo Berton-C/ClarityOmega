@@ -27,14 +27,19 @@
            (appendToHistory ((get_time_as_string) (newline) $response (newline)))
            (appendToHistory ((get_time_as_string) (newline) $response (newline) ERROR_FEEDBACK: (get-state &error))))))
 
+(= (embed $x)
+   (if (== (embeddingprovider) Local)
+       (py-call (llm.useLocalEmbedding (string-safe $str)))
+       (useGPTEmbedding (string-safe $str))))
+
 (= (appendToHistory $addition)
    (append-file (library mettaclaw ./memory/history.metta) (swrite $addition)))
 
 (= (remember $str)
-   (py-call (lib_chromadb.remember $str (useGPTEmbedding (string-safe $str)) (get_time_as_string))))
+   (py-call (lib_chromadb.remember $str (embed (string-safe $str)) (get_time_as_string))))
 
 (= (query $str)
-   (py-call (lib_chromadb.query (useGPTEmbedding (string-safe $str)) (maxRecallItems))))
+   (py-call (lib_chromadb.query (embed (string-safe $str)) (maxRecallItems))))
 
 (= (episodes $time)
    (py-call (helper.around_time $time (maxEpisodeRecallLines))))
