@@ -1,0 +1,58 @@
+# docker-compose.yml -- ClarityClaw on OmegaClaw base
+# Platform: Mac M4, Docker Desktop, Rosetta 2
+#
+# This compose file runs ONLY the ClarityClaw agent.
+# Mattermost and Postgres run from the clarityclaw-main stack.
+# The agent joins clarityclaw_net (external) to reach Mattermost.
+#
+# Prerequisites:
+#   - Mattermost running from clarityclaw-main: docker compose up -d
+#   - .env file with ANTHROPIC_API_KEY, MM_BOT_TOKEN, MM_CHANNEL_ID
+#
+# Usage:
+#   docker compose build --no-cache
+#   docker compose up -d
+#   docker compose logs -f clarityclaw
+
+services:
+
+  # ----------------------------------------------------------------
+  # ClarityClaw Agent (OmegaClaw base + soul architecture)
+  # Connects to Mattermost at http://mattermost:8065 (Docker internal)
+  # ----------------------------------------------------------------
+  clarityclaw:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    platform: linux/amd64
+    container_name: clarity_omega
+    command: ["commchannel=mattermost", "MM_URL=http://mattermost:8065", "MM_CHANNEL_ID=${MM_CHANNEL_ID}", "MM_BOT_TOKEN=${MM_BOT_TOKEN}"]
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      # Persistent memory: soul notes, conversation history, audit log
+      - ./volumes/omegaclaw/memory:/PeTTa/repos/omegaclaw/memory
+      # ChromaDB vector store: soul seeds, all remember()/query() data
+      - ./volumes/omegaclaw/chroma_db:/PeTTa/chroma_db
+      # Shared files: container /tmp mapped to host for inspection
+      - ./shared_files:/tmp
+    environment:
+      # Anthropic API key -- primary LLM provider (Decision E)
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      # Optional -- uncomment if switching LLM provider to OpenAI
+      # - OPENAI_API_KEY=${OPENAI_API_KEY}
+      # Mattermost: Docker DNS resolves "mattermost" to the container
+      - MM_URL=http://mattermost:8065
+      - MM_CHANNEL_ID=${MM_CHANNEL_ID}
+      - MM_BOT_TOKEN=${MM_BOT_TOKEN}
+      # Communication channel -- override OmegaClaw's IRC default
+      - COMMCHANNEL=mattermost
+    networks:
+      - clarityclaw_net
+
+# Use the existing network from clarityclaw-main stack
+networks:
+  clarityclaw_net:
+    external: true
+    name: clarityclaw_net

@@ -1,0 +1,52 @@
+{
+  "g1": {
+    "weight": 0.999,
+    "last_access": 1776291838.0833142,
+    "access_count": 4
+  },
+  "g2": {
+    "weight": 0.999,
+    "last_access": 1776291838.0847023,
+    "access_count": 3
+  },
+  "br1": {
+    "weight": 0.999,
+    "last_access": 1776291838.0845308,
+    "access_count": 4
+  },
+  "b1": {
+    "weight": 0.999,
+    "last_access": 1776291838.0848439,
+    "access_count": 3
+  },
+  "b2": {
+    "weight": 0.999,
+    "last_access": 1776291637.7255576,
+    "access_count": 1
+  },
+  "m1": {
+    "weight": 0.999,
+    "last_access": 1776292040.9743443,
+    "access_count": 1
+  },
+  "m2": {
+    "weight": 0.999,
+    "last_access": 1776292040.9766662,
+    "access_count": 1
+  },
+  "m3": {
+    "weight": 0.999,
+    "last_access": 1776292040.9769955,
+    "access_count": 1
+  },
+  "e1": {
+    "weight": 0.999,
+    "last_access": 1776292040.9772484,
+    "access_count": 1
+  },
+  "e2": {
+    "weight": 0.999,
+    "last_access": 1776292040.9775004,
+    "access_count": 1
+  }
+}

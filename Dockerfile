@@ -26,6 +26,7 @@ RUN apt-get update \
       gfortran \
       libgflags-dev \
       nano \
+      poppler-utils \
  && rm -rf /var/lib/apt/lists/*
 
 # Build dependencies from source. Pin refs at build time for reproducibility.

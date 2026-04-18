@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "composite": 0.5944,
+  "dimensions": {
+    "agency": {
+      "freq": 0.7,
+      "conf": 0.75,
+      "score": 0.525,
+      "hits": [
+        "consider",
+        "might",
+        "you"
+      ]
+    },
+    "wonder": {
+      "freq": 0.7,
+      "conf": 0.9,
+      "score": 0.63,
+      "hits": [
+        "notice",
+        "patterns",
+        "question",
+        "what"
+      ]
+    },
+    "thinking": {
+      "freq": 0.7286,
+      "conf": 0.9,
+      "score": 0.6557,
+      "hits": [
+        "answer",
+        "changes",
+        "frameworks",
+        "how",
+        "problem",
+        "think",
+        "whether"
+      ]
+    },
+    "attention": {
+      "freq": 0.63,
+      "conf": 0.9,
+      "score": 0.567,
+      "hits": [
+        "here",
+        "just",
+        "key",
+        "rather",
+        "worth"
+      ]
+    }
+  },
+  "low_dims": [],
+  "threshold": 0.3
+}

@@ -1,0 +1,1 @@
+(: (define perceive (sense-and-integrate environmental-signal into internal-model)) MeTTa)

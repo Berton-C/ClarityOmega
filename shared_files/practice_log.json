@@ -1,0 +1,32 @@
+{
+  "entries": [
+    {
+      "timestamp": "2026-04-17T11:50:14.993119",
+      "technique": "validation",
+      "vad_before": [
+        0.3,
+        0.6,
+        0.3
+      ],
+      "vad_after": [
+        0.5,
+        0.4,
+        0.5
+      ],
+      "vad_delta": [
+        0.2,
+        -0.2,
+        0.2
+      ],
+      "gradient_direction": "toward-nutrient",
+      "felt_gradient": "toward-nutrient",
+      "context": "test",
+      "reasoning": "testing gradient log",
+      "sensitivity": "early"
+    }
+  ],
+  "patterns": {},
+  "gradient_history": [
+    "toward-nutrient"
+  ]
+}

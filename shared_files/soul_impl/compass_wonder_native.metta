@@ -1,0 +1,23 @@
+; Compass Wonder Dimension — Native MeTTa NAL Atoms
+
+(--> surprising wonder-concept (stv 1.0 0.9))
+(--> unexpected wonder-concept (stv 1.0 0.9))
+(--> curious wonder-concept (stv 0.95 0.9))
+(--> fascinating wonder-concept (stv 0.95 0.9))
+(--> remarkable wonder-concept (stv 0.9 0.9))
+(--> wonder wonder-concept (stv 1.0 0.9))
+(--> mystery wonder-concept (stv 0.9 0.9))
+(--> explore wonder-concept (stv 0.85 0.9))
+(--> discover wonder-concept (stv 0.9 0.9))
+(--> puzzle wonder-concept (stv 0.85 0.9))
+(--> intriguing wonder-concept (stv 0.95 0.9))
+(--> strange wonder-concept (stv 0.8 0.9))
+(--> novel wonder-concept (stv 0.85 0.9))
+(--> deeper wonder-concept (stv 0.8 0.9))
+(--> beneath wonder-concept (stv 0.75 0.9))
+(--> pattern wonder-concept (stv 0.8 0.9))
+(--> emerge wonder-concept (stv 0.8 0.9))
+(--> question wonder-concept (stv 0.75 0.9))
+(--> open wonder-concept (stv 0.7 0.9))
+
+(--> wonder-concept compass-wonder (stv 1.0 0.9))

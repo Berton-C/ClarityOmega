@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-04-15T22:33:07.795295",
+  "health": "NEEDS_ATTENTION",
+  "link_mean": 0.229,
+  "link_stdev": 0.079,
+  "weights": {
+    "count": 10,
+    "avg": 0.997,
+    "min": 0.996,
+    "max": 0.999,
+    "spread": 0.003
+  },
+  "links": {
+    "count": 8,
+    "avg_strength": 0.229,
+    "min_strength": 0.107,
+    "max_strength": 0.337
+  },
+  "syntheses_count": 1
+}

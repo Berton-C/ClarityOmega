@@ -1,0 +1,77 @@
+{
+  "scan_time": "2026-04-16T16:02:31.476337",
+  "threshold": 0.45,
+  "gaps_found": 7,
+  "gaps": [
+    {
+      "domain": "decision-card-effectiveness",
+      "claim": "empirical-validation",
+      "frequency": 0.6,
+      "confidence": 0.225,
+      "severity": "speculative",
+      "goal": "Gather evidence for decision-card-effectiveness -> empirical-validation",
+      "strategy": "needs-empirical-grounding: build minimal test case",
+      "generated_at": "2026-04-16T16:02:31.476153"
+    },
+    {
+      "domain": "hyperseed-scaling",
+      "claim": "high-dim-vsa",
+      "frequency": 0.6,
+      "confidence": 0.25,
+      "severity": "speculative",
+      "goal": "Gather evidence for hyperseed-scaling -> high-dim-vsa",
+      "strategy": "needs-empirical-grounding: build minimal test case",
+      "generated_at": "2026-04-16T16:02:31.476157"
+    },
+    {
+      "domain": "semantic-compass",
+      "claim": "deep-evaluation",
+      "frequency": 0.5,
+      "confidence": 0.3,
+      "severity": "exploratory",
+      "goal": "Gather evidence for semantic-compass -> deep-evaluation",
+      "strategy": "needs-evidence-accumulation: run experiments, revise via NAL",
+      "generated_at": "2026-04-16T16:02:31.476156"
+    },
+    {
+      "domain": "structural-confidence-ceiling",
+      "claim": "formal-grounding",
+      "frequency": 0.75,
+      "confidence": 0.35,
+      "severity": "exploratory",
+      "goal": "Gather evidence for structural-confidence-ceiling -> formal-grounding",
+      "strategy": "needs-validation: test in live interaction or new domain",
+      "generated_at": "2026-04-16T16:02:31.476155"
+    },
+    {
+      "domain": "compass-keyword-heuristic",
+      "claim": "semantic-accuracy",
+      "frequency": 0.55,
+      "confidence": 0.35,
+      "severity": "exploratory",
+      "goal": "Gather evidence for compass-keyword-heuristic -> semantic-accuracy",
+      "strategy": "needs-validation: test in live interaction or new domain",
+      "generated_at": "2026-04-16T16:02:31.476159"
+    },
+    {
+      "domain": "cross-domain-transfer",
+      "claim": "substrate-capability",
+      "frequency": 0.7,
+      "confidence": 0.4,
+      "severity": "exploratory",
+      "goal": "Gather evidence for cross-domain-transfer -> substrate-capability",
+      "strategy": "needs-validation: test in live interaction or new domain",
+      "generated_at": "2026-04-16T16:02:31.475925"
+    },
+    {
+      "domain": "emotion-bridge",
+      "claim": "live-detection-quality",
+      "frequency": 0.65,
+      "confidence": 0.4,
+      "severity": "exploratory",
+      "goal": "Gather evidence for emotion-bridge -> live-detection-quality",
+      "strategy": "needs-validation: test in live interaction or new domain",
+      "generated_at": "2026-04-16T16:02:31.476167"
+    }
+  ]
+}

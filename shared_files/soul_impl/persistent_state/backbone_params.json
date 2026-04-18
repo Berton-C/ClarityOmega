@@ -1,0 +1,18 @@
+{
+  "tensor_strength": [
+    0.87,
+    0.8696
+  ],
+  "join_breadth": [
+    0.8,
+    0.5
+  ],
+  "meet_floor": [
+    0.6,
+    0.5
+  ],
+  "alignment_coupling": [
+    0.7864,
+    0.9041
+  ]
+}

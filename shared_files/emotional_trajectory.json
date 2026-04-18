@@ -1,0 +1,45 @@
+{
+  "turns": [
+    {
+      "vad": [
+        0.2,
+        0.5,
+        0.2
+      ],
+      "mode": "spacious-presence",
+      "technique": "dojo-of-no-direction",
+      "ts": "2026-04-17T02:47:23.954964"
+    },
+    {
+      "vad": [
+        0.25,
+        0.4,
+        0.25
+      ],
+      "mode": "spacious-presence",
+      "technique": "body-anchor",
+      "ts": "2026-04-17T02:47:23.959259"
+    },
+    {
+      "vad": [
+        0.5,
+        0.35,
+        0.4
+      ],
+      "mode": "playful-aliveness",
+      "technique": "pattern-interrupt",
+      "ts": "2026-04-17T02:47:23.959675"
+    },
+    {
+      "vad": [
+        0.15,
+        0.7,
+        0.2
+      ],
+      "mode": "still-holding",
+      "technique": "dojo-of-no-direction",
+      "ts": "2026-04-17T02:47:23.959966"
+    }
+  ],
+  "trend": "dropping"
+}

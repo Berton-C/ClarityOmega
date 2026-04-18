@@ -1,0 +1,1 @@
+(= (vad-case-route $v $a $d) (case ($v $a $d) ((((neg high low) prioritize-validation) ((pos high high) amplify-momentum) ((mid low mid) small-prompts-warmth) ((neg low low) gentle-activation-reframe) ((pos mid high) collaborative-ideation)))))

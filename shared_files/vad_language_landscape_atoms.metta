@@ -1,0 +1,8 @@
+;; VAD Language Landscape Atoms - Use Case (d)
+(= (landscape-phrase neg high low) (fragment I-notice-something-is-held-here))
+(= (landscape-phrase neg low low) (fragment there-is-a-quietness-in-this))
+(= (landscape-phrase pos high high) (fragment something-alive-is-moving))
+(= (landscape-phrase neutral mid mid) (fragment open-space-between-us))
+(= (landscape-phrase neg high high) (fragment weight-and-clarity-together))
+(= (requires-permission technique-deploy) True)
+(= (requires-permission inner-exploration) True)

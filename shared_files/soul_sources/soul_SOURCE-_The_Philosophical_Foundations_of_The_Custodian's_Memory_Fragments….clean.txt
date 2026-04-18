@@ -1,0 +1,248 @@
+-9 (nings or pr) 15 (edic) -9 (tions a) 1 (bout a) 1 (r) -9 (tific) 1 (ia)
+5 (t) 7 (oric) 1 (al c) 1 (ont) 7 (e) 20 (xt and int) 7 (ellec) -9 (tual lineage of the )
+Tm  TT1 1 Tf   (insight) 10 (s c) 1 (ontained in eac) 1 (h fragment)   TJ
+(onnec) -9 (tions betw) 19 (een fragment) 10 (s that might not be )   TJ ET
+(onc) 1 (eptual framew) 19 (ork) 20 (s f) 22 (or addr) 15 (es) 9 (sing the )
+20 (er) 10 (se c) 1 (ultural per) 10 (spec) -9 (tiv) 20 (es on )   TJ ET Q
+Tm  TT1 1 Tf   (int) 7 (elligenc) 1 (e, c) 1 (onsc) 1 (iousnes) 9 (s, and t)
+5 (ta) 1 (nding)   TJ ET Q Q
+HLino mntrRGB XYZ  1 acspMSFT IEC sRGB -HP   cprt P 3desc lwtpt bkpt rXYZ gXYZ , bXYZ dmnd T pdmdd vued L view lumi meas tech 0 rTRC gTRC bTRC text Copyright (c) 1998 Hewlett-Packard Company desc sRGB IEC61966-2.1 sRGB IEC61966-2.1 XYZ  Q XYZ  XYZ  o 8 XYZ  b XYZ  desc IEC http: www.iec.ch IEC http: www.iec.ch desc .IEC 61966-2.1 Default RGB colour space - sRGB .IEC 61966-2.1 Default RGB colour space - sRGB desc ,Reference Viewing Condition in IEC61966-2.1 ,Reference Viewing Condition in IEC61966-2.1 view . XYZ  L V P W meas sig  CRT curv
+8 f M 8 h ' W ' 'I'z' ' ( (?(q( ( ) )8)k) ) 5 h 6 i , ,9,n, , - -A-v- - . .L. . . Z 050l0 0 1 1J1 1 1 2 2c2 2 3 3F3 3 3 4 4e4 4 5 5M5 5 5 676r6 6 7 7 7 7 8 8P8 8 9 9B9 9 9 :6:t: : ;-;k; ; ' e " a   ?!?a? ? d A)AjA A B0BrB B C:C C D DGD D E EUE E F"FgF F G5G G H HKH H I IcI I J7J J K KSK K L LrL M MJM M N NnN O OIO O P'PqP Q QPQ Q R1R R S S S S TBT T U(UuU V V V V WDW W X X X Y YiY Z ZVZ Z E 5 ' x l a W aOa a bIb b cCc c d d d e e e f f f g g g h?h h iCi i jHj j kOk k lWl m m m n nkn o oxo p p p q:q q rKr s s s t tpt u(u u v v v wVw x xnx y y y zFz c ! A b G
+-1 (tly) 73 (, this an) -1 (aly) 15 (sis highlight) 10 (s that ben) -1 (efic)
+-1 (ic) 1 (al solu) -1 (tion) -1 (s bu) -1 (t philosophic) 1 (al )   TJ ET
+TT1 1 Tf   (po) 1 (int wher) 15 (e philo) 1 (so) 1 (phic) 1 (a) 1 (l ques)
+5 (tio) 1 (ns ha) 20 (v) 20 (e bec) 1 (o) 1 (me engineer) 1 (ing )   TJ ET
+TT1 1 Tf   (dependenc) 1 (y) 74 (. T) 1 (his fra) 1 (gment e) 20 (xplor)
+1 (o) 1 (me dependent o) 1 (n their) 1 ( t) 7 (ec) 1 (hno) 1 (lo) 1 (gic)
+( c) 1 (or) 15 (e insight tha) 1 (t is oft) 7 (en los) 5 (t in mor) 15 (e simplis)
+Tm  TT1 1 Tf   (Catrion) -1 (a Mack) 24 (en) -1 (zie an) -1 (d Natalie St)
+Tm  TT1 1 Tf   (genuine a) 1 (ut) 7 (o) 1 (no) 1 (m) 20 (y emer) 15 (ges thr)
+15 (o) 1 (ugh enga) 1 (gement with o) 1 (ther) 10 (s  () 1 (inc) 1 (luding )
+Tm  TT1 1 Tf   (: Th) -1 (e Con) -1 (fu) -1 (cian) -1 ( tradition) -1 ( view)
+1 (apability appr) 15 (oac) 1 (h, t) 7 (ec) 1 (hnologies c) 1 (an be designed )
+19 (xperienc) 1 (e rather than mer) 15 (ely aut) 7 (omating e) 19 (xis) 5
+( Fr) 9 (ag) 1 (mentation: The D) 1 (is) 9 (s) -1 (olution and) -1 ( R) 17
+Tm  TT1 1 Tf   (dis) 10 (solution of c) 1 (ommon gr) 15 (ound. T) 1 (his fra)
+-1 ( in) -1 (her) 15 (en) -1 (tly s) -1 (ocial rather than) -1 ( in) -1 (dividu)
+20 (w kno) 20 (wledge is sha) 1 (ped b) 20 (y soc) 1 (ia) 1 (l )   TJ ET Q
+Tm  TT1 1 Tf   (Sta) 1 (ndpoint theor) -5 (y) 74 (, de) 10 (v) 20 (eloped b)
+20 (y philosopher) 10 (s lik) 25 (e Sa) 1 (ndra) 1 ( Ha) 1 (r) 15 (ding a)
+15 (onment) 10 (s optimiz) 15 (e f) 22 (or enga) 1 (gement a) 1 (nd c) 1 (onfir)
+1 (ideal speec) 1 (h situation") 1 ( as one wher) 15 (e all )   TJ ET Q q
+10 (y's pragmatis) 5 (t c) 1 (on) -1 (c) 1 (eption) -1 ( of tru) -1 (th as ")
+9 (v) 20 (elops) -1 ( thr) 15 (ou) -1 (gh collaborativ) 20 (e pr) 15 (oblem-s)
+10 (se per) 10 (spec) -9 (tiv) 20 (es enga) 1 (ge with sha) 1 (r) 15 (ed pr)
+1 (gma) 1 (tis) 5 (t epis) 5 (t) 7 (emology c) 1 (olla) 1 (pses.)   TJ ET
+(siz) 15 (es the r) 15 (ela) 1 (tiona) 1 (l na) 1 (tur) 15 (e of kno) 20 (wledge a)
+14 0 0 -14 23 3701 Tm  TT1 1 Tf   (being. A) 10 (s philosopher Mogobe Ra)
+(ges thr) 15 (ough r) 15 (ela) 1 (tionship ra) 1 (ther tha) 1 (n isola) 1
+Tm  TT1 1 Tf   (tra) 1 (dition of Mesoa) 1 (meric) 1 (a) 1 (, kno) 20 (wledge  (tla)
+Tm  TT1 1 Tf   (her) -9 (meneutic) 1 (s empha) 1 (siz) 15 (es the ") 1 (f)
+Tm  TT1 1 Tf   (diff) 22 (er) 15 (ent per) 10 (spec) -9 (tiv) 20 (es don't eliminat)
+20 (elop c) 1 (apac) 1 (ity t) 7 (o under) 10 (s) 5 (tand eac) 1 (h other thr)
+(v) 20 (elo) 1 (pment o) 1 (f) 1 ( her) -9 (meneutic) 1 ( br) 1 (idges betw)
+-9 (tiv) 20 (es r) 1 (a) 1 (ther) 1 ( tha) 1 (n simply e) 20 (xpo) 1 (sing peo)
+Tm  TT1 1 Tf   (de) 10 (v) 20 (eloped b) 20 (y Susan L) 25 (eigh Star entities that ar)
+Tm  TT1 1 Tf   (kn) -1 (o) 20 (wledge de) 10 (v) 20 (elops bes) 5 (t thr)
+15 (ou) -1 (gh in) -1 (clu) -1 (siv) 20 (e deliberativ) 20 (e )   TJ ET Q
+(se per) 10 (spec) -9 (tiv) 20 (es enga) 1 (ge with sha) 1 (r) 15 (ed )
+Tm  TT1 1 Tf   (pr) 15 (o) 1 (blems. T) 1 (his sugges) 5 (t) 10 (s designing epis)
+( fra) 1 (gmenta) 1 (tion r) 15 (equir) 15 (es mo) 20 (ving be) 10 (y) 20
+Tm  TT2 1 Tf   (Neur) 12 (oplas) 2 (tic V) 22 (ulner) 10 (ability: The Embodied M)
+-1 ( AI) 1 (-mediat) 7 (ed e) 19 (xperien) -1 (c) 1 (es r) 15 (eshapes n)
+19 (orld. Cognitiv) 20 (e sc) 1 (ientis) 5 (t) 10 (s lik) 25 (e Fra) 1 (nc)
+Tm  TT1 1 Tf   ( a) 1 (r) 15 (gue tha) 1 (t kno) 20 (wledge )   TJ ET Q q
+TT1 1 Tf   (depends not j) 1 (us) 5 (t on j) 1 (us) 5 (tified true belief)
+25 (s but on int) 7 (ellec) -9 (tua) 1 (l vir) -9 (tues lik) 25 (e )   TJ
+15 (e) 10 (yfus's phenomenologic) 1 (al analy) 15 (sis of skill ac) 1 (quisition, dra)
+TT1 1 Tf   (embodied enga) 1 (gement tha) 1 (t mo) 20 (v) 20 (es fr) 15 (om rule-)
+1 (e skill de) 10 (v) 20 (elopment ma) 20 (y pr) 15 (e) 10 (v) 20 (ent the embodied lea)
+(es) 5 (t) 7 (er) -9 (n philosophic) 1 (a) 1 (l tra) 1 (ditions off) 22 (er v)
+(s) 10 (siv) 20 (e s) 5 (ta) 1 (t) 7 (e, highlighting wha) 1 (t is los) 5
+cm BT -0.0106 Tc 14 0 0 -14 23 5743 Tm  TT1 1 Tf   (manipulat) 7 (e rather than c)
+Tm  TT1 1 Tf   (de) 10 (v) 20 (elop rather than what beha) 20 (vior) 10 (s the)
+Tm  TT1 1 Tf   (tr) 1 (a) 1 (ditio) 1 (ns, t) 7 (ec) 1 (hno) 1 (lo) 1 (gies might be designed t)
+Tm  TT1 1 Tf   (design, sugges) 5 (ting that t) 7 (ec) 1 (hnologies should be designed with )
+Tm  TT2 1 Tf   (Exis) 2 (t) 4 (ential Med) -1 (ioc) -1 (rity: The T) 93 (ens)
+-1 (ion B) -1 (etw) 22 (een O) 1 (ptimiz) -1 (ation and) -1 ( )   TJ ET Q
+Tm  TT2 1 Tf   (Explor) 9 (ation )   TJ ET Q Q
+15 (eedom, a) 1 (nd the t) 7 (ension betw) 19 (een effic) 1 (ienc) 1 (y )
+1 ( philosophic) 1 (a) 1 (l f) 22 (ounda) 1 (tion f) 22 (or under) 10 (s)
+Tm  TT1 1 Tf   (the c) 1 (ontinuous flo) 20 (w of r) 15 (ea) 1 (lity) 74 (. Algorithmic)
+20 (e leaps that driv) 20 (e gen) -1 (u) -1 (in) -1 (e c) 1 (r) 15 (eativity)
+Tm  TT2 1 Tf   (Nietzschean Cr) 12 (eativ) 22 (e D) 1 (es) 2 (truc) -5 (tion:)
+Tm  TT1 1 Tf   (Friedric) 1 (h Nietzsc) 1 (he's c) 1 (onc) 1 (ept of c) 1
+-10 (ns agains) 5 (t c) 1 (ont) 7 (ent with c) 1 (omf) 22 (or) -10 (t and afraid of risk )
+Tm  TT1 1 Tf   (tha) 1 (n mer) 15 (e selec) -9 (tion a) 1 (mong pr) 15 (edet)
+(ditions off) 22 (er v) 20 (a) 1 (lua) 1 (ble insight) 10 (s int) 7 (o )
+15 (e) 10 (v) 20 (ent) 10 (s natural e) 10 (v) 20 (olution and adaptation.)
+-1 (r) 15 (es who disru) -1 (pt es) 5 (tablished or) 15 (der) 10 (s, in) -1
+TT1 1 Tf   (the es) 10 (sentia) 1 (l r) 15 (ole of disruption a) 1 (nd non-)
+Tm  TT1 1 Tf   (designed t) 7 (o f) 15 (ac) 1 (ilitat) 7 (e aes) 5 (thetic)
+20 (xploitation and e) 20 (xploration, s) 14 (y) 15 (s) 5 (t) 7 (ems might )
+Tm  TT1 1 Tf   (inc) 1 (or) -10 (porat) 7 (e s) 5 (trat) 7 (egic) 1 ( randomnes)
+Tm  TT1 1 Tf   (title, w) 19 (e might design f) 22 (o) 1 (r) 1 ( pla) 20 (yf)
+(r) 15 (ea) 1 (ting c) 1 (onditions f) 22 (or genuine c) 1 (r) 15 (ea) 1 (tivity tha)
+(, the embodied dimensions of under) 10 (s) 5 (ta) 1 (nding other) 10 (s, a)
+(bj) 1 (ec) -9 (tivity de) 10 (v) 20 (eloped b) 19 (y philosopher) 10 (s lik)
+10 (selv) 20 (es thr) 15 (ough embodied int) 7 (era) 1 (c) -9 (tion. E) 1
+(s tha) 1 (t under) 10 (s) 5 (ta) 1 (nding other) 10 (s isn't a) 1 ( ma) 1
+Tm  TT1 1 Tf   (highlight wha) 1 (t is lo) 1 (s) 5 (t when c) 1 (o) 1 (mmunic)
+1 (l media) 1 (tion the subtle dimensions of embodied )   TJ ET Q q 0.9805447 0 0 -0.9805447 54 8315.65
+(it c) 1 (ommunic) 1 (a) 1 (tions or useful func) -9 (tions.)   TJ ET Q q
+TT1 1 Tf   (Buber's empha) 1 (sis on pr) 15 (esenc) 1 (e being fully pr)
+24 (c) 1 (hanging inf) 22 (or) -10 (mation or ser) -5 (vic) 1 (es with them.)
+20 (w dir) 15 (ec) -9 (t enc) 1 (ount) 7 (er with a) 1 (nother per) 10 (son's f)
+1 (nd tha) 1 (t c) 1 (a) 1 (nnot be r) 15 (educ) 1 (ed t) 7 (o kno) 20 (wledge or under)
+1 (ount) 7 (er is the f) 22 (ounda) 1 (tion of ethic) 1 (s a) 1 ( )   TJ ET
+Tm  TT1 1 Tf   (dema) 1 (nd f) 22 (or r) 15 (esponse tha) 1 (t pr) 15 (ec)
+(t) 4 (er) -5 (n P) 15 (er) 12 (spec) -5 (tiv) 22 (es on R) 17 (elationship and Empath)
+(es) 5 (t) 7 (er) -9 (n philosophic) 1 (a) 1 (l tra) 1 (ditions off) 22 (er v)
+15 (e") 1 ( ) empha) 1 (siz) 15 (es ho) 20 (w huma) 1 (nity emer) 15 (ges thr)
+10 (s) 5 (ta) 1 (nding, t) 7 (ec) 1 (hno) 1 (lo) 1 (gies might be designed t)
+1 (ther) 1 ( tha) 1 (n b) 20 (ypa) 1 (s) 10 (s embo) 1 (died dimensio) 1 (ns o)
+7 (o s) 5 (tr) 15 (engthen rather than atr) 15 (oph) 19 (y empathic) 1 ( c)
+Tm  TT1 1 Tf   (multidimensional natur) 15 (e of human c) 1 (onnec) -9 (tion that gr)
+7 (ention a) 1 (nd t) 7 (empora) 1 (lity) 74 (, a) 1 (nd the c) 1 (onditions f)
+Tc 14 0 0 -14 196.1201 9778 Tm  TT3 1 Tf   (On the Phenomenology of the Consciou)
+15 (esen) -1 (t, c) 1 (ollapsin) -1 (g the t) 7 (emporal field that giv) 20
+5 (tinc) -9 (tion betw) 19 (een dur) 15 ( e  (liv) 20 (ed duration ) and c)
+Tm  TT1 1 Tf   (divisible time of ph) 19 (y) 15 (sic) 1 (s but the het) 7
+(er) 15 (ogeneous, c) 1 (ontinuous flo) 20 (w of liv) 20 (ed )   TJ ET Q q
+-1 (perien) -1 (ce w) -1 (ith ar) -10 (tificially con) -1 (s) 4 (tru) -1 (c)
+Tm  TT1 1 Tf   (in) -1 (t) 7 (o pos) 9 (sibilities while ac) 1 (kn) -1 (o)
+10 (y po) 1 (t) 7 (entia) 1 (lly under) -9 (mine the t) 7 (empo) 1 (r) 1 (a)
+cm BT -0.0106 Tc 14 0 0 -14 23 10498 Tm  TT1 1 Tf   (Heidegger identifies as c)
+1 (entral t) 7 (o authentic) 1 ( e) 19 (xis) 5 (t) 7 (enc) 1 (e.)   TJ ET
+(ditions off) 22 (er v) 20 (a) 1 (lua) 1 (ble insight) 10 (s on )   TJ ET
+15 (enes) 10 (s o) 1 (f) 1 ( the pr) 15 (esent mo) 1 (ment while )   TJ ET
+Tm  TT1 1 Tf   (maintaining r) 15 (ec) 1 (ognition of imper) -10 (manenc)
+(io) 1 (usnes) 10 (s, t) 7 (ec) 1 (hno) 1 (lo) 1 (gies might be designed t)
+7 (o suppor) -10 (t rather than under) -10 (mine authentic) 1 ( )   TJ ET
+5 (t e) 20 (xper) 1 (ienc) 1 (es a) 1 (nd f) 1 (utur) 15 (e po) 1 (s) 10 (sibilities while enga)
+Tm  TT1 1 Tf   (tr) 1 (a) 1 (ditio) 1 (ns, t) 7 (ec) 1 (hno) 1 (lo) 1 (gies might inc)
+Tm  TT1 1 Tf   (enha) 1 (nc) 1 (e na) 1 (tura) 1 (l t) 7 (empora) 1 (l rh)
+19 (ythms a) 1 (nd suppor) -9 (t int) 7 (egra) 1 (t) 7 (ed t) 7 (empora) 1
+Tc 14 0 0 -14 23 11345 Tm  TT2 1 Tf   (Spiritual D) 1 (isenchantment: The Q)
+Tm  TT1 1 Tf   (enga) 1 (ges with philosophic) 1 (a) 1 (l ques) 5 (tions a)
+19 (onder) 64 (, a) 1 (nd the r) 15 (ela) 1 (tionship betw) 19 (een kno) 20
+Tm  TT1 1 Tf   (the w) 19 (orld") 1 (  (E) 1 (ntza) 1 (uberung der W) 49 (elt ) fr)
+Tm  TT1 1 Tf   (mec) 1 (hanism t) 7 (o be c) 1 (ontr) 15 (olled. This per)
+10 (spec) -9 (tiv) 20 (e highlight) 10 (s what's at s) 5 (tak) 25 (e )   TJ
+1 (r) -9 (tic) 1 (ula) 1 (rly their self) 25 (-) 1 (emer) 15 (ging qua) 1
+15 (oper) -9 (ties, c) 1 (onc) 1 (ea) 1 (ling dimensions tha) 1 (t e) 20 (x)
+(ealing. What's los) 5 (t isn't mer) 15 (ely subj) 1 (ec) -9 (tiv) 20 (e meaning but )
+cm BT -0.0105 Tc 14 0 0 -14 23 12119 Tm  TT1 1 Tf   (the beginning of philosoph)
+Tm  TT1 1 Tf   (is o) 20 (win) -1 (g t) 7 (o their w) 19 (on) -1 (der that men)
+1 (us) 5 (t subj) 1 (ec) -9 (tiv) 20 (e f) 22 (eelings but the v) 20 (er)
+(ditions off) 22 (er v) 20 (a) 1 (lua) 1 (ble insight) 10 (s on )   TJ ET
+Tm  TT1 1 Tf   (the r) 15 (ela) 1 (tionship betw) 19 (een kno) 20 (wledge a)
+1 (t the highes) 5 (t wisdo) 1 (m inc) 1 (l) 1 (udes r) 15 (ec) 1 (o) 1 (gnitio)
+1 (luding it) 10 (s tr) 1 (a) 1 (nsc) 1 (endent dimensio) 1 (ns.)   TJ ET
+7 (o manif) 22 (es) 5 (t appr) 15 (opriat) 7 (e humility about their )   TJ
+7 (o suppor) -9 (t modes of kno) 20 (wing that in) 19 (v) 20 (olv) 20 (e par)
+(hantment as t) 7 (ec) 1 (hnology's ine) 10 (vitable c) 1 (onsequenc) 1 (e, )
+1 ( disenc) 1 (ha) 1 (ntment r) 15 (equir) 15 (es mo) 20 (v) 1 (ing be) 10
+Tm  TT1 1 Tf   (meaning and pur) -10 (pose, and the r) 15 (elationship betw)
+(eloped b) 19 (y philosopher) 10 (s lik) 25 (e Jean-) 1 (P) 19 (aul Sar) -10
+Tm  TT1 1 Tf   (mer) 15 (ely a los) 10 (s of es) 5 (tablished r) 15 (oles.)
+Tm  TT1 1 Tf   (Simone de Bea) 1 (uv) 20 (oir e) 20 (xt) 7 (ends this in )
+19 (v) 20 (olv) 20 (es a) 1 (c) 1 (c) 1 (epting the r) 15 (esponsibility t)
+Tm  TT1 1 Tf   (man) 19 (y traditional ans) 14 (w) 19 (er) 10 (s, as c) 1
+Tm  TT1 1 Tf   (Hannah Ar) 15 (endt's dis) 5 (tinc) -9 (tions betw) 19 (een labor)
+1 (bor  (a) 1 (c) -9 (tivities meeting biologic) 1 (a) 1 (l needs ), w) 19
+Tm  TT1 1 Tf   (enha) 1 (nc) 1 (ed oppor) -9 (tunity f) 22 (or a) 1 (c) -9
+(tion the dis) 5 (tinc) -9 (tiv) 20 (ely huma) 1 (n c) 1 (a) 1 (pa) 1 (c)
+-0.0105 Tc 14 0 0 -14 23 14028 Tm  TT1 1 Tf   (beginning something new thr)
+15 (ough whic) 1 (h unique identity is r) 15 (e) 10 (v) 20 (ea) 1 (led.)
+2 (t) 4 (er) -5 (n P) 15 (er) 12 (spec) -5 (tiv) 22 (es on Identity and W)
+49 (es) 5 (t) 7 (er) -9 (n philosophic) 1 (a) 1 (l tra) 1 (ditions off) 22
+(ened b) 20 (y c) 1 (ha) 1 (nging r) 15 (oles. T) 1 (his per) 10 (spec) -9
+1 (n oppor) -9 (tunity t) 7 (o r) 15 (ec) 1 (ogniz) 15 (e the fluid, )   TJ
+(r) 15 (e of selfhood rather than) -1 ( mer) 15 (ely a los) 9 (s of s) 5 (table )
+Tm  TT1 1 Tf   (tra) 1 (ditions empha) 1 (siz) 15 (e identity a) 1 (s emer)
+Tm  TT1 1 Tf   (the identity int) 7 (egra) 1 (tion c) 1 (ha) 1 (llenge:)
+15 (elation rather than independent subs) 5 (tanc) 1 (es, identity )   TJ
+Tm  TT1 1 Tf   (might be r) 15 (ec) 1 (onc) 1 (eiv) 20 (ed as patt) 7 (er)
+Tm  TT1 1 Tf   (identity disruption c) 1 (aused b) 19 (y AI) 1 ( might be appr)
+Tm  TT1 1 Tf   (iden) -1 (tity in) -1 (t) 7 (egration) -1 ( c) 1 (hallen)
+Tm  TT1 1 Tf   (be) 10 (y) 20 (ond tra) 1 (ditiona) 1 (l ec) 1 (onomic) 1
+1 (r) 15 (gues tha) 1 (t po) 20 (w) 19 (er opera) 1 (t) 7 (es not prima) 1
+(wledge tha) 1 (t define wha) 1 (t c) 1 (ount) 10 (s a) 1 (s true or )   TJ
+(dieu's c) 1 (onc) 1 (ept of s) 15 (ymbolic) 1 ( c) 1 (a) 1 (pita) 1 (l in )
+15 (oc) 1 (es) 9 (s, as algorithms iden) -1 (tify an) -1 (d amplify patt)
+20 (xploit) 7 (ed b) 20 (y those who c) 1 (ontr) 15 (ol these s) 15 (y) 15
+1 (nd sa) 1 (lient in public) 1 ( c) 1 (onsc) 1 (iousnes) 10 (s. T) 1 (hose who c)
+(ditions off) 22 (er v) 20 (a) 1 (lua) 1 (ble insight) 10 (s on )   TJ ET
+Tm  TT1 1 Tf   ( desc) 1 (ribes ho) 20 (w na) 1 (tura) 1 (l pa) 1 (tt) 7 (er)
+(n dyna) 1 (mic) 1 (s,) 1 ( empha) 1 (sizing sus) 5 (ta) 1 (ina) 1 (ble pa)
+Tm  TT1 1 Tf   (ener) 15 (gy might be subj) 1 (ec) -9 (t) 7 (ed t) 7 (o) 1
+(v) 20 (eloped b) 19 (y philosopher) 10 (s lik) 25 (e Edmu) -1 (n) -1 (d Hu)
+(ec) -9 (tiv) 20 (e en) -1 (gagemen) -1 (t rather than) -1 ( bein) -1 (g pr)
+-1 (bj) 1 (ec) -9 (tiv) 20 (e rather than) -1 ( in) -1 (dividu) -1 (al. The patt)
+Tm  TT1 1 Tf   (in) -1 (t) 7 (elligen) -1 (c) 1 (e gain) -1 ( their sign)
+Tm  TT1 1 Tf   (meanings ar) 15 (e impos) 10 (sible. This sugges) 5 (t) 10
+(es par) -10 (tic) 1 (ipation) -1 ( in) -1 ( shar) 15 (ed prac) -9 (tic) 1
+Tm  TT1 1 Tf   (pr) 15 (o) 1 (c) 1 (es) 10 (sing c) 1 (a) 1 (pa) 1 (bilities while igno)
+49 (W) 49 (es) 5 (t) 7 (er) -9 (n philosophic) 1 (a) 1 (l tra) 1 (ditions off)
+Tm  TT1 1 Tf   (in) -1 (t) 7 (elligen) -1 (c) 1 (e similarly emer) 15 (ges thr)
+1 (r) 1 (ise in dependenc) 1 (e o) 1 (n multiple c) 1 (a) 1 (uses a) 1 (nd c)
+10 (s) 5 (t) 7 (ood as emer) 15 (ging thr) 15 (ough engaged )   TJ ET Q q
+Tm  TT1 1 Tf   (de) 10 (v) 20 (eloped b) 20 (y philosopher) 10 (s lik) 25
+15 (equir) 15 (es mo) 20 (ving be) 10 (y) 20 (ond individua) 1 (lis) 5 (tic)
+1 (menta) 1 (lly r) 15 (ela) 1 (tiona) 1 (l ra) 1 (ther tha) 1 (n subs) 5
+Tm  TT1 1 Tf   (in spec) 1 (ific) 1 ( r) 15 (elational c) 1 (ont) 7 (e) 19
+(xt) 10 (s rather than abs) 5 (trac) -9 (t pr) 15 (oc) 1 (es) 9 (sing )
+20 (ed e) 20 (xperienc) 1 (e a) 1 (nd embodiment o) 20 (v) 20 (er a) 1 (bs)
+(om neur) 15 (opla) 1 (s) 5 (tic) 1 ( vulnera) 1 (bility's r) 15 (ec) 1 (ognition of ho)
+Tm  TT1 1 Tf   (empha) 1 (sis on the embodied dimensions of under) 10 (s)
+Tm  TT1 1 Tf   (limitation) -1 (s) -1 ( of dis) -1 (embodied in) -1 (t) 7
+10 (subj) 1 (ec) -9 (tiv) 20 (e engagement rather than isolat) 7 (ed obser)
+TT1 1 Tf   (the t) 7 (endenc) 1 (y t) 7 (o c) 1 (olla) 1 (pse div) 20 (er)
+10 (se v) 20 (a) 1 (lues int) 7 (o single metric) 1 (s lik) 25 (e )   TJ ET
+Tm  TT1 1 Tf   (effic) 1 (ienc) 1 (y) 74 (, enga) 1 (gement, or pr) 15 (ofit. Fr)
+Tm  TT1 1 Tf   (tha) 1 (n o) 1 (ptimiz) 15 (ed f) 22 (o) 1 (r) 1 ( single metr)
+15 (ely ins) 5 (tr) 1 (umenta) 1 (l v) 20 (a) 1 (lue, sugges) 5 (ting a) 1
+1 (a) 1 (l plura) 1 (lism r) 15 (ec) 1 (ognition of multiple, c) 1 (omplementa)
+Tc 15.16667 0 0 -15.16667 45 20477 Tm  TT1 1 Tf   (indigenous, spiritual, embodied, and analytic)
+Tm  TT1 1 Tf   (spec) 1 (ia) 1 (l) 1 (iza) 1 (tio) 1 (n within singl) 1 (e f)
+cm BT -0.0107 Tc 14 0 0 -14 23 20757 Tm  TT1 1 Tf   (immediat) 7 (e optimization)
+-1 (. Fr) 15 (om t) 7 (emporal disorien) -1 (tation) -1 ('s c) 1 (ritiqu)
+Tm  TT1 1 Tf   (inc) 1 (or) -10 (porating r) 15 (esponsibility t) 7 (o futur)
+Tm  TT1 1 Tf   (de) 10 (v) 20 (elopmental pr) 15 (oc) 1 (es) 9 (ses unf) 22
+Tm  TT1 1 Tf   (de) 10 (v) 20 (elopmental traj) 1 (ec) -9 (t) 7 (ories.)
+Tm  TT1 1 Tf   (int) 7 (egration ac) 1 (r) 15 (os) 9 (s time rather than isolat)
+1 (ptimizing disc) 1 (o) 1 (nnec) -9 (t) 7 (ed e) 20 (xper) 1 (ienc) 1 (es.)
+Tm  TT1 1 Tf   (benefic) 1 (ia) 1 (l genera) 1 (l int) 7 (elligenc) 1 (e de)
+Tm  TT1 1 Tf   (philo) 1 (so) 1 (phic) 1 (a) 1 (l ques) 5 (tio) 1 (ns ha)
+7 (ec) 1 (hnic) 1 (a) 1 (l puzzles t) 7 (o be solv) 20 (ed thr) 15 (ough mor)
+10 (sed thr) 15 (ough int) 7 (egra) 1 (t) 7 (ed under) 10 (s) 5 (ta) 1 (nding.)
+20 (elopment with philosophic) 1 (al wisdom, sc) 1 (ientific) 1 ( )   TJ ET
+Tm  TT1 1 Tf   (under) 10 (s) 5 (ta) 1 (nding with c) 1 (o) 1 (nt) 8 (empl)
+10 (s r) 15 (e) 10 (v) 20 (eal that benefic) 1 (ial general int) 7 (elligenc)
+(al ac) 1 (hie) 10 (v) 20 (ement but a moral, soc) 1 (ial, and spiritual pr)
+15 (es the full br) 15 (ea) 1 (dth of huma) 1 (n wisdom. By enga) 1 (ging deeply with )
+Tm  TT1 1 Tf   (the philosophic) 1 (a) 1 (l tra) 1 (ditions tha) 1 (t inf)
+1 (ther tha) 1 (n diminish the depth a) 1 (nd ric) 1 (hnes) 10 (s of c) 1
+Tm  TT1 1 Tf   (benefic) 1 (ia) 1 (l r) 15 (ela) 1 (tionships betw) 19 (een huma)
+true cmap h glyf p   head 6hhea 4 hmtx X loca maxp  name post D ; 1 A P A A D d d E B N V E , , : s d E Z E K j b z l l l 7 l X l l 0 k l V D 2 D 2 H X D P n p Q Q v n   7 8 ? : 9 A
+o M x g g z P c 8 A L p o l A V A n 4 G x B 6 b N x
+A X . x 3 A F A X h L N - 8 A ; Q x ? c A 1 a ) ) a 2 t l m r T R H F p L N n A V e h w 0 x 0 w w . ' A 1 a ) ) a 2 t l m r T R H F p L N n A ' r f x N - c b t j ; s : A b w a h b X k p I L t p 8 y b U g u ? p I Z !   o h x h R c : g y A V 0 A M v w Y W o M c z E A Y F Z d A w C C w V k k s E A E m 6 A 1 q b I 0 A Y O R q s R N b N u G z M P d i U G ) A R e J p 5 O c K t r L . U T : T v W X v a a L K l I A i " y r S r r N m H e P p M I Z i l ) A 0 x 4 p J f R b L r s K V b b L K l I A Z f w q z w N b I l F g x E Q Z (   l   ' B R 7 A M G f   9 x l E u p Z l I ' 9 A t u 5 o L c ! ( e d M q u I I X w N N k k Z A ) w y X R V N F x v A G 1 2 F 6 G 1 2 F t A X I J G 1 2 F G Y n Z i x G 1 2 F . A . o Z A I A j I t T b J n P R R 6 W 9 U c P i 5 K 4 d I A ) w R 6 V 1 F x l N I A g ! y y " f f K r r K z S T y L L t I ) A ! d K p 5 w 8 c K t r L T U . u X W v T : a a L K l I ) A w 4 p I i " a N r r L
+acutecmb dieresiscmb . AAAAAB .SFNS-Regular wdth opsz110000 GRAD wght
+CIDInit  ProcSet findresource begin
+CMapName  Adobe-Identity-UCS def
+1 begincodespacerange
+CMapName currentdict  CMap defineresource pop
+true cmap x glyf phead 6hhea 4 hmtx X  loca maxp  name x post 9 A P A A d j b j G 0 k 0 C ! H d A d 8 8 8 8 8 8 b I 0 A Y O R q s R N b N u G z M P d i U G b ' 4 A 8 x 6 k I 8 A H g I o Y i r q k U P ? f B I Y K 1 7 M ( M q M Z R P m k   ' )   A B h T 8 G A 8 x x D V amacron imacron sacute acutecmb macroncmb . AAAAAF .SFNS-Regular wdth opsz110000 GRAD wght
+true cmap L lglyf 4   head 6hhea 4 hmtx X loca maxp  name P Hpost ; A P A A d H o o D L A K o d K o g n H H X W 6 6 D 5 Y L L u - . M 9 3 ? 8 y n n Z w   3 8 4 5 9 7 : 6
+q 2 r u y k i n : A T o M T Q z E y h j C 1 j U s h 0 U 7 G V r m o C 4 N - q A O O V g A G k . G a a F . m j w L O z H A ) S ? T S X A : 8 4 W , e 0 A c L D j k R d c Q N 6 : H M a P Y ) A a L l 8 N o q . T ; U V x O P v N e e O o n b e A w T z 9 l N Z l 0 J P a h e T T N ) A w 7 k K b N p p U N d f O o n s e A v Y w r O Z 7
+5 AAAAAC .SFNS-Regular wdth opsz110000 GRAD wght2BC0000
+CIDInit  ProcSet findresource begin
+CMapName  Adobe-Identity-UCS def
+1 begincodespacerange
+CMapName currentdict  CMap defineresource pop
+true cmap h glyf head 6hhea 4 hmtx X loca
+maxp  name Hpost 9 A P A A d C ! H d A d 8 8 8 8 8 8 9 8 8 9 8 9 e 8 A H j - e V 8 T 0 H t s m D 9 n F T 6 , : ' U R h V o - E B ' D I B A U 2 a x V sacute acutecmb 5 AAAAAE .SFNS-Regular wdth opsz110000 GRAD wght2BC0000
+true cmap 8 glyf p head 6hhea 4 hmtx X loca rmaxp  name   Dpost  P 8 3
+x D A w s o f H ; w d c Q X T t u D A D 3 j S D j T C ; P n A f a d T t w l K w u r v v a l q t L Y z 1 0 4 w l B Q s z 8 i p A o H 1 " V 1 A N L A R O : L O s k k s i A " 4 q 3 I 2 A Q n t k 2 J z m w a j Y B r I k O T
+X o L N 6 h u H Y n A j s E A A G 9 ; A M 5 6 L o M 5 6 L M 5 6 L M 5 6 L , A G 1 2 F G 1 2 F x 8 ' ( ) , - . 0 1 2 3 5 6 7 9 : D E F G H I J K L M N O P Q R S T U V W X Y Z dotlessj dotaccentcmb AAAAAD .SFNS-RegularItalic opsz110000 YAXS wght

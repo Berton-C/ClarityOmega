@@ -94,7 +94,7 @@ def _get_display_name(user_id):
 def _ws_loop():
     global _ws, _connected, BOT_USER_ID
 
-    ws_url = MM_URL.replace("https", "wss") + "/api/v4/websocket"
+    ws_url = MM_URL.replace("https", "wss").replace("http://", "ws://") + "/api/v4/websocket"
     ws = websocket.WebSocket()
     ws.connect(ws_url, header=[f"Authorization: Bearer {BOT_TOKEN}"])
 
