@@ -9,3 +9,10 @@ repos/
 
 # editor backup files
 *~
+
+# Shared files: track Clarity's work product, exclude runtime data
+shared_files/repos/clarity_archive/volumes/
+shared_files/chroma_db/
+shared_files/repos/omega_archive/volumes/
+shared_files/repos/omega_archive/.git/
+shared_files/repos/clarity_archive/.git/
