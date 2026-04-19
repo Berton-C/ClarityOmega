@@ -345,6 +345,45 @@ def soul_mutation_lock_str(arg):
     return "LOCKED: " + str(arg)
 
 
+def soul_is_metta_cmd(cmd_str):
+    """Check if a command string represents a metta() call. Returns 'True' or 'False' as string."""
+    s = str(cmd_str).strip()
+    if s.startswith('(metta ') or s.startswith('(metta"') or s == '(metta)':
+        return 'True'
+    return 'False'
+
+
+def soul_any_metta_cmd(cmds_str):
+    """Check if any command in a list string contains a metta() call. Returns 'True' or 'False'."""
+    s = str(cmds_str)
+    if '(metta ' in s or '(metta"' in s:
+        return 'True'
+    return 'False'
+
+
+def soul_mutation_gate(cmds_str, lock_state):
+    """Full mutation gate: checks if metta commands target soul namespace.
+    Returns one of: empty string, SOUL-NAMESPACE-MUTATION-PENDING, SOUL-NAMESPACE-MUTATION-CONFLICT."""
+    s = str(cmds_str)
+    # Step 1: any metta commands?
+    if '(metta ' not in s and '(metta"' not in s:
+        return ''
+    # Step 2: do any target soul namespace?
+    soul_targets = ['add-atom &self (soul-', 'add-atom &self (priority',
+                    'add-atom &self (irreversible', 'add-atom &self (tension']
+    targets_soul = any(t in s for t in soul_targets)
+    if not targets_soul:
+        return ''
+    # Step 3: is mutation already pending?
+    if 'LOCKED:' in str(lock_state):
+        return 'SOUL-NAMESPACE-MUTATION-CONFLICT'
+    # Step 4: extract first metta arg for lock string
+    import re
+    match = re.search(r'\(metta "(.*?)"\)', s)
+    arg = match.group(1)[:200] if match else 'unknown'
+    return 'SOUL-NAMESPACE-MUTATION-PENDING:' + arg
+
+
 # --- Soul Task Context --------------------------------------------
 
 def soul_task_context_init(plan):

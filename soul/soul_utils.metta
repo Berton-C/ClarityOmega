@@ -136,12 +136,11 @@
 ;; ============================================================
 
 ;; soul-is-metta-cmd?: True if command is a metta() invocation
-(= (soul-is-metta-cmd? (metta $arg)) True)
-(= (soul-is-metta-cmd? $cmd)         False)
+(= (soul-is-metta-cmd? $cmd) False)
 
 ;; soul-any-metta?: True if any command in list is a metta() call
 (= (soul-any-metta? $cmds)
-   (any (collapse (let $c (superpose $cmds) (soul-is-metta-cmd? $c)))))
+   (any (collapse (let $c (superpose $cmds) (progn (println! (SOUL-ANY-METTA-ITEM: $c)) (soul-is-metta-cmd? $c))))))
 
 ;; soul-extract-metta-arg: extracts the argument from a metta() command
 (= (soul-extract-metta-arg (metta $arg)) $arg)
