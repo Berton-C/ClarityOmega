@@ -13,6 +13,11 @@
 !(import! &self (library omegaclaw ./src/channels))
 !(import! &self (library omegaclaw ./src/skills))
 !(import! &self (library omegaclaw ./src/memory))
+
+;; CLARITYCLAW SOUL imports
+!(import! &self (library omegaclaw ./soul/soul_kernel))
+!(import! &self (library omegaclaw ./soul/soul_utils))
+!(import! &self (library omegaclaw ./soul/soul_memory))
 !(import! &self (library omegaclaw ./src/channels))
 !(import! &self (library omegaclaw ./src/context))
 !(import! &self (library omegaclaw ./src/loop))

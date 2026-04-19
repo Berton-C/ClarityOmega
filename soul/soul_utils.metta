@@ -257,8 +257,8 @@
                (if (== (py-call (helper.file_exists_int
                          "./memory/soul_audit_log.txt")) 1)
                    _
-                   (write-file (library mettaclaw ./memory/soul_audit_log.txt) ""))
-               (append-file (library mettaclaw ./memory/soul_audit_log.txt) $msg)))))
+                   (write-file (library omegaclaw ./memory/soul_audit_log.txt) ""))
+               (append-file (library omegaclaw ./memory/soul_audit_log.txt) $msg)))))
 
 ;; ============================================================
 ;; Block 6: Channel D-lite Functions
@@ -368,3 +368,15 @@
 ;; (confirmed PeTTa constraint: complex nested py-str hangs in live loop)
 (= (soul-eval-prompt $soul_context $situation $person_state)
    (py-call (helper.soul_eval_prompt $soul_context $situation $person_state)))
+
+;; soul-llm-call: routes soul LLM calls through provider config
+;; Mirrors the main loop's provider routing pattern (Decision E)
+;; Supports future per-function provider override via configure mechanism
+;; soul-llm-call: takes provider as argument from loop context (C10 fix)
+;; (provider) does not reduce in imported files -- must be passed from caller
+(= (soul-llm-call $prompt $prov)
+   (if (== $prov OpenAI)
+       (useGPT (LLM) 500 (reasoningMode) $prompt)
+       (if (== $prov Anthropic)
+           (py-call (lib_llm_ext.useClaude $prompt))
+           (py-call (lib_llm_ext.useMiniMax $prompt)))))

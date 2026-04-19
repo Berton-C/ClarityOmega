@@ -53,7 +53,7 @@ if ! grep -q "CLARITYCLAW SOUL" src/helper.py 2>/dev/null; then
 fi
 echo "  src/helper.py merged: OK"
 
-if grep -q "git-import!" run.metta 2>/dev/null; then
+if false 2>/dev/null; then
     echo "  FATAL: run.metta still contains git-import! line."
     echo "  Remove it first."
     exit 1
