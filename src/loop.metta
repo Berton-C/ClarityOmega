@@ -124,8 +124,18 @@
                                                (soul-note-record $soul_verdict_out "output" $resp) _))
                                        ($results (RESULTS: (collapse (let $s (superpose $sexpr) (COMMAND_RETURN: ($s (HandleError SINGLE_COMMAND_FORMAT_ERROR_NOTHING_WAS_DONE_PLEASE_FIX_AND_RETRY $s (catch (let $R (eval $s) (py-call (helper.normalize_string $R)))))))))))
                                        ($_ (println! (RESULTS-EXECUTED))))
-                                      (progn (if (or $msgnew  (not (== $sexpr ()))) (addToHistory $msg (py-call (helper.normalize_string $response)) (py-call (helper.normalize_string $response)) $msgnew) _)
-                                             (change-state! &lastresults (py-call (helper.safe_results_str $results)))))
+                                      (if (> (py-call (helper.soul_is_pause $soul_verdict_in)) 0)
+                                          ;; PAUSE path: Channel D fires, loop halts
+                                          (let* (($soul_voice (soul-llm-call
+                                                    (py-call (helper.soul_voice_prompt $person_state $soul_verdict_in))
+                                                    (provider)))
+                                                 ($_ (println! (SOUL_VOICE: $soul_voice)))
+                                                 ($_ (println! (PAUSE-ROUTING: HALTING-LOOP))))
+                                            (progn (catch (eval (sread $soul_voice)))
+                                                   (change-state! &loops 0)))
+                                          ;; PROCEED/FLAG path: normal execution
+                                          (progn (if (or $msgnew (not (== $sexpr ()))) (addToHistory $msg (py-call (helper.normalize_string $response)) (py-call (helper.normalize_string $response)) $msgnew) _)
+                                                 (change-state! &lastresults (py-call (helper.safe_results_str $results))))))
                                 (if (> (get_time) (get-state &nextWakeAt))
                                     (change-state! &loops (+ 1 (maxWakeLoops))) _)))
                       (sleep (sleepInterval))

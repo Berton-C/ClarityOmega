@@ -25,3 +25,24 @@
 - Can load-bearing-tension tag be implemented as MeTTa type constraint?
 - How does receipt verification work in practice across sessions?
 - What triggers transition from hold to genuine new exploration?
+
+### Experiments Completed
+1. Safety-Helpfulness paraconsistency modeling
+2. Agency-Purpose tension pair
+3. TimeCoherence-CreativeTranscendence tension pair
+4. SharedUnderstanding-WonderPreservation tension pair
+5. Manual multi-step inference chain (confirmed working)
+6. Trust boundary depth mapping (max-chain-depth=3 for standard evidence)
+
+### Key Quantitative Finding
+Confidence degradation across hops (base 0.9/0.85):
+- Hop 1: 0.9/0.689 (usable)
+- Hop 2: 0.765/0.497 (marginal)
+- Hop 3: 0.65/0.275 (below threshold)
+- Hop 4: 0.55/0.164 (noise)
+- Hop 5: 0.47/0.099 (noise)
+Engineering parameter: max-chain-depth = 3
+
+### Files
+6. /tmp/clarity_self_monitor_sketch.metta - Metacognitive daemon pattern
+

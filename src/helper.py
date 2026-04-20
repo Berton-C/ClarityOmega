@@ -301,11 +301,21 @@ def soul_extract_flag_note(verdict):
         return "The soul noticed: " + note + " Acknowledge this in one sentence before addressing the task."
     return ""
 
+def soul_is_pause(verdict):
+    """Returns 1 if verdict is PAUSE, 0 otherwise."""
+    v = str(verdict).replace('*', '').replace('#', '')
+    import re, sys
+    match = re.search(r'VERDICT:\s*PAUSE(?!.*PROCEED)', v)
+    result = 1 if match else 0
+    print(f"DEBUG soul_is_pause: len={len(v)} match={match} result={result}", file=sys.stderr)
+    return result
+
+
 def soul_verdict_sanitize(verdict):
     """Sanitize soul verdict for PeTTa state storage -- strip newlines."""
     if SOUL_DEBUG:
         print(f"DEBUG soul_verdict_sanitize: input type={type(verdict)} value={str(verdict)[:100]}", file=sys.stderr)
-    result = str(verdict).replace('\n', ' ').replace('\r', ' ')[:1000]
+    result = str(verdict).replace('\n', ' ').replace('\r', ' ').replace('*', '').replace('#', '')[:3000]
     if SOUL_DEBUG:
         print(f"DEBUG soul_verdict_sanitize: output={result[:100]}", file=sys.stderr)
     return result
