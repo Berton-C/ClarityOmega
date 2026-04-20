@@ -125,7 +125,7 @@
                                        ($results (RESULTS: (collapse (let $s (superpose $sexpr) (COMMAND_RETURN: ($s (HandleError SINGLE_COMMAND_FORMAT_ERROR_NOTHING_WAS_DONE_PLEASE_FIX_AND_RETRY $s (catch (let $R (eval $s) (py-call (helper.normalize_string $R)))))))))))
                                        ($_ (println! (RESULTS-EXECUTED))))
                                       (progn (if (or $msgnew  (not (== $sexpr ()))) (addToHistory $msg (py-call (helper.normalize_string $response)) (py-call (helper.normalize_string $response)) $msgnew) _)
-                                             (change-state! &lastresults "RESULTS-STORED")))
+                                             (change-state! &lastresults (py-call (helper.safe_results_str $results)))))
                                 (if (> (get_time) (get-state &nextWakeAt))
                                     (change-state! &loops (+ 1 (maxWakeLoops))) _)))
                       (sleep (sleepInterval))

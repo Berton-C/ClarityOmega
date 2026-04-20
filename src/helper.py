@@ -345,6 +345,18 @@ def soul_mutation_lock_str(arg):
     return "LOCKED: " + str(arg)
 
 
+def safe_results_str(results):
+    """Safely stringify command results for LAST_SKILL_USE_RESULTS.
+    Bypasses Prolog atom_string which crashes on complex terms."""
+    try:
+        s = str(results)
+        if len(s) > 50000:
+            s = s[:50000] + '...(truncated)'
+        return s
+    except Exception:
+        return 'RESULTS-STRINGIFY-FAILED' 
+
+
 def soul_is_metta_cmd(cmd_str):
     """Check if a command string represents a metta() call. Returns 'True' or 'False' as string."""
     s = str(cmd_str).strip()
