@@ -18,6 +18,9 @@
 !(import! &self (library omegaclaw ./soul/soul_kernel))
 !(import! &self (library omegaclaw ./soul/soul_utils))
 !(import! &self (library omegaclaw ./soul/soul_memory))
+
+;; CLARITYCLAW REASONING EXTENSIONS
+!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))
 !(import! &self (library omegaclaw ./src/channels))
 !(import! &self (library omegaclaw ./src/context))
 !(import! &self (library omegaclaw ./src/loop))
