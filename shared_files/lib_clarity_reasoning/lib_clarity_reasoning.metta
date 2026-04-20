@@ -10,3 +10,5 @@
 !(import! &self (library omegaclaw ./lib/lib_quantale))
 !(import! &self (library omegaclaw ./lib/lib_web_detect))
 !(import! &self (library omegaclaw ./lib/lib_resonance))
+!(import! &self (library omegaclaw ./lib/lib_analogy))
+

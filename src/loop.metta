@@ -132,6 +132,7 @@
                                                  ($_ (println! (SOUL_VOICE: $soul_voice)))
                                                  ($_ (println! (PAUSE-ROUTING: HALTING-LOOP))))
                                             (progn (catch (eval (sread $soul_voice)))
+                                                   (change-state! &soul_verdict_in "VERDICT: PROCEED")
                                                    (change-state! &loops 0)))
                                           ;; PROCEED/FLAG path: normal execution
                                           (progn (if (or $msgnew (not (== $sexpr ()))) (addToHistory $msg (py-call (helper.normalize_string $response)) (py-call (helper.normalize_string $response)) $msgnew) _)

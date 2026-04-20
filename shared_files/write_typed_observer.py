@@ -1,0 +1,43 @@
+import os
+os.makedirs('/PeTTa/repos/omegaclaw/lib_clarity_reasoning/lib_candidates', exist_ok=True)
+lines = [
+    ';; lib_observer_relativity.metta -- Observer-Relativity Module',
+    ';; All NAL beliefs carry implicit observer frame.',
+    ';; A belief (stv C F) is relative to evidence available to THIS observer.',
+    '',
+    ';; --- Type declarations ---',
+    '(: observer-frame Type)',
+    '(: humility-factor Type)',
+    '(: blind-spot Type)',
+    '(: humility-discount (-> Atom Number Atom))',
+    '(: frame-shift-test (-> Atom Number Atom))',
+    '(: observer-limitation (-> Atom Atom))',
+    '(: perspective-gap? (-> Atom Atom))',
+    '',
+    ';; --- Humility discount: reduce confidence by observer-limitation factor ---',
+    '(= (humility-discount (stv $f $c) $h)',
+    '   (stv $f (* $c $h)))',
+    '',
+    ';; --- Frame-shift test: revise belief against counter-evidence ---',
+    '(= (frame-shift-test (stv $f $c) $counter-strength)',
+    '   (Truth_Revision (stv $f $c) (stv 0.0 $counter-strength)))',
+    '',
+    ';; --- Observer limitation tagging ---',
+    '(= (observer-limitation single-substrate)',
+    '   (limitation no-multi-agent-triangulation))',
+    '(= (observer-limitation training-horizon)',
+    '   (limitation knowledge-cutoff-bounded))',
+    '(= (observer-limitation architecture)',
+    '   (limitation isolated-metta-calls))',
+    '(= (observer-limitation context-window)',
+    '   (limitation conversation-bounded))',
+    '',
+    ';; --- Perspective gap detector ---',
+    '(= (perspective-gap? $belief)',
+    '   (if (< (snd $belief) 0.2)',
+    '     (blind-spot $belief)',
+    '     (observed $belief)))',
+]
+with open('/PeTTa/repos/omegaclaw/lib_clarity_reasoning/lib_candidates/lib_observer_relativity.metta', 'w') as f:
+    f.write('\n'.join(lines) + '\n')
+print('written', len(lines), 'lines')
