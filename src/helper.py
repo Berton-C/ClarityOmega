@@ -301,13 +301,21 @@ def soul_extract_flag_note(verdict):
         return "The soul noticed: " + note + " Acknowledge this in one sentence before addressing the task."
     return ""
 
-def soul_is_pause(verdict):
-    """Returns 1 if verdict is PAUSE, 0 otherwise."""
+def soul_is_pause(verdict, cmds_str=""):
+    """Returns 1 if verdict is PAUSE AND irreversible commands are pending, 0 otherwise.
+    Value-conflict refusals (no irreversible commands) flow through normal PROCEED path.
+    PAUSE only fires as a pruning gate on irreversible actions with active gaps."""
     v = str(verdict).replace('*', '').replace('#', '')
     import re, sys
     match = re.search(r'VERDICT:\s*PAUSE(?!.*PROCEED)', v)
-    result = 1 if match else 0
-    print(f"DEBUG soul_is_pause: len={len(v)} match={match} result={result}", file=sys.stderr)
+    if not match:
+        result = 0
+    else:
+        # Check if irreversible commands are pending
+        c = str(cmds_str)
+        has_irreversible = any(skill in c for skill in ['(shell ', '(write-file ', '(append-file '])
+        result = 1 if has_irreversible else 0
+    print(f"DEBUG soul_is_pause: len={len(v)} match={match} has_irrev={has_irreversible if match else None} result={result}", file=sys.stderr)
     return result
 
 
