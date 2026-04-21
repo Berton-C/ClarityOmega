@@ -4,3 +4,4 @@
 
 ;; Runtime-ready libraries (promoted from lib_candidates/)
 !(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_quantale))
+!(import! &self (library omegaclaw ./lib_clarity_reasoning/substrate_kb))

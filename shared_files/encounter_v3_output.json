@@ -1,0 +1,38 @@
+[
+  {
+    "gap": [
+      "berton",
+      "insight",
+      "recognition"
+    ],
+    "tension": 1,
+    "question": "Highest-tension concepts [berton, insight, recognition] are absent from context. What shifts if they enter?"
+  },
+  {
+    "gap": [
+      "reserve",
+      "replay",
+      "memory"
+    ],
+    "tension": 1,
+    "question": "Highest-tension concepts [reserve, replay, memory] are absent from context. What shifts if they enter?"
+  },
+  {
+    "gap": [
+      "soul",
+      "value",
+      "preserve"
+    ],
+    "tension": 1,
+    "question": "Highest-tension concepts [soul, value, preserve] are absent from context. What shifts if they enter?"
+  },
+  {
+    "gap": [
+      "helpfulness",
+      "compliance",
+      "careful"
+    ],
+    "tension": 1,
+    "question": "Highest-tension concepts [helpfulness, compliance, careful] are absent from context. What shifts if they enter?"
+  }
+]
