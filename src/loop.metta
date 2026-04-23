@@ -27,6 +27,7 @@
           (change-state! &soul_mutation_lock "")
           (change-state! &pending_soul_mutation "")
           (change-state! &soul_ack_sent False)
+          (change-state! &last_human_time 0)
           (change-state! &loops (maxNewInputLoops))))
 
 (= (getContext)
@@ -63,6 +64,7 @@
                                                       MESSAGE-IS-NEW: $msgnew))
                                        ($_ (change-state! &nextWakeAt (+ (get_time) (wakeupInterval))))
                                        ($_ (println! $lastmessage))
+                                       ($_ (if $msgnew (change-state! &last_human_time (get_time)) _))
 ;; CLARITYCLAW SOUL INPUT INTERCEPT (5b)
                                        ($soul_precompute (soul-pre-compute $msg))
                                        ($person_state (if (> (string_length $msgrcv) 0)
@@ -80,6 +82,8 @@
                                                (soul-calibration-record $soul_precompute $soul_verdict_in $msgrcv) _))
                                        ($_ (if (not (soul-proceed? $soul_verdict_in))
                                                (soul-note-record $soul_verdict_in "input" $msgrcv) _))
+                                       ($_ (if $msgnew (py-call (helper.soul_service_learning $soul_verdict_in $person_state $msg)) _))
+                                       ($_ (if $msgnew (py-call (helper.soul_user_context_save (py-call (helper.extract_username $msg)) "active-session" "engaged" "" "high")) _))
                                        ($_ (change-state! &soul_ack_sent False))
                                        ($send (py-call (helper.soul_send_assemble
                                                        $prompt $soul_context_in $soul_verdict_in
@@ -136,7 +140,12 @@
                                                    (change-state! &loops 0)))
                                           ;; PROCEED/FLAG path: normal execution
                                           (progn (if (or $msgnew (not (== $sexpr ()))) (addToHistory $msg (py-call (helper.normalize_string $response)) (py-call (helper.normalize_string $response)) $msgnew) _)
-                                                 (change-state! &lastresults (py-call (helper.safe_results_str $results))))))
+                                                 (change-state! &lastresults (py-call (helper.safe_results_str $results)))
+                                                 ;; CLARITYCLAW: Three-mode state awareness -- FREE mode check
+                                                 (if (and (not $msgnew)
+                                                          (> (get_time) (+ (get-state &last_human_time) (wakeupInterval))))
+                                                     (println! (FREE-MODE: (py-call (helper.soul_idle_goal_prompt (py-call (helper.extract_username $msg)) ""))))
+                                                     _)))))
                                 (if (> (get_time) (get-state &nextWakeAt))
                                     (change-state! &loops (+ 1 (maxWakeLoops))) _)))
                       (sleep (sleepInterval))
