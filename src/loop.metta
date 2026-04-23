@@ -145,7 +145,7 @@
                                                  (if (and (not $msgnew)
                                                           (> (get_time) (+ (get-state &last_human_time) (wakeupInterval))))
                                                      (println! (FREE-MODE: (py-call (helper.soul_idle_goal_prompt (py-call (helper.extract_username $msg)) ""))))
-                                                     _)))))
+                                                     _))))
                                 (if (> (get_time) (get-state &nextWakeAt))
                                     (change-state! &loops (+ 1 (maxWakeLoops))) _)))
                       (sleep (sleepInterval))
