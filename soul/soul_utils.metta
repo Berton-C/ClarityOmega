@@ -182,7 +182,7 @@
 ;; Fresh system stub -- returns baseline until calibration data accumulates.
 ;; Phase 2 replaces this with live ChromaDB query + PLN truth values.
 (= (soul-pre-compute $msg)
-   "PRE-COMPUTE primed=() affective=fresh-system will=INSUFFICIENT-DATA")
+   (py-call (helper.soul_pre_compute $msg)))
 
 ;; ============================================================
 ;; Block 3: Layer 3 Calibration Functions
@@ -203,7 +203,7 @@
 ;; Reads calibration records from LTM and counts AGREE tags.
 ;; Returns INSUFFICIENT-DATA on fresh system.
 (= (soul-calibration-confidence $p)
-   INSUFFICIENT-DATA)
+   (py-call (helper.soul_calibration_confidence_query)))
 
 ;; soul-calibration-report: human-readable calibration summary.
 ;; Returns a string describing current soul calibration state.
