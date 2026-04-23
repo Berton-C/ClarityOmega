@@ -324,7 +324,7 @@ def soul_verdict_sanitize(verdict):
         print(f"DEBUG soul_verdict_sanitize: output={result[:100]}", file=sys.stderr)
     return result
 
-def soul_send_assemble(prompt, soul_context, soul_verdict, person_state, soul_note, lastmessage):
+def soul_send_assemble(prompt, soul_context, soul_verdict, person_state, soul_note, lastmessage, idle_directive=""):
     """Assembles $send for main agent LLM.
     Soul brief excluded -- it confuses the agent about its role.
     Only verdict outcome and person state included."""
@@ -339,12 +339,15 @@ def soul_send_assemble(prompt, soul_context, soul_verdict, person_state, soul_no
         verdict_summary = "VERDICT: PROCEED"
     soul_note_str = str(soul_note)
     note_section = (" SOUL-NOTE: " + soul_note_str) if soul_note_str else ""
+    idle_str = str(idle_directive)
+    idle_section = (" IDLE_DIRECTIVE: " + idle_str) if idle_str and len(idle_str) > 5 else ""
     return (str(prompt) +
             " SOUL_CONTEXT: " + str(soul_context) +
             " SOUL_VERDICT: " + verdict_summary +
             " PERSON_STATE: " + str(person_state) +
             note_section +
-            " " + str(lastmessage))
+            " " + str(lastmessage) +
+            idle_section)
 
 def soul_affective_state_str():
     """Returns primed pattern state -- static for fresh system."""

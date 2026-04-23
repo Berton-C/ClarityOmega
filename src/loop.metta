@@ -85,11 +85,12 @@
                                        ($_ (if $msgnew (py-call (helper.soul_service_learning $soul_verdict_in $person_state $msg)) _))
                                        ($_ (if $msgnew (py-call (helper.soul_user_context_save (py-call (helper.extract_username $msg)) "active-session" "engaged" "" "high")) _))
                                        ($_ (change-state! &soul_ack_sent False))
+                                       ($idle_directive (if (and (not $msgnew) (> (get_time) (+ (get-state &last_human_time) (wakeupInterval)))) (py-call (helper.soul_idle_goal_prompt (py-call (helper.extract_username $msg)) "")) ""))
                                        ($send (py-call (helper.soul_send_assemble
                                                        $prompt $soul_context_in $soul_verdict_in
                                                        $person_state
                                                        (soul-extract-flag-note $soul_verdict_in)
-                                                       $lastmessage)))
+                                                       $lastmessage $idle_directive)))
                                        ($_ (println! (CHARS_SENT: (string_length $send) $send)))
                                        ($respi (if (== (provider) OpenAI)
                                                    (useGPT (LLM) (maxOutputToken) (reasoningMode) $send)
@@ -140,12 +141,7 @@
                                                    (change-state! &loops 0)))
                                           ;; PROCEED/FLAG path: normal execution
                                           (progn (if (or $msgnew (not (== $sexpr ()))) (addToHistory $msg (py-call (helper.normalize_string $response)) (py-call (helper.normalize_string $response)) $msgnew) _)
-                                                 (change-state! &lastresults (py-call (helper.safe_results_str $results)))
-                                                 ;; CLARITYCLAW: Three-mode state awareness -- FREE mode check
-                                                 (if (and (not $msgnew)
-                                                          (> (get_time) (+ (get-state &last_human_time) (wakeupInterval))))
-                                                     (println! (FREE-MODE: (py-call (helper.soul_idle_goal_prompt (py-call (helper.extract_username $msg)) ""))))
-                                                     _))))
+                                                 (change-state! &lastresults (py-call (helper.safe_results_str $results))))))
                                 (if (> (get_time) (get-state &nextWakeAt))
                                     (change-state! &loops (+ 1 (maxWakeLoops))) _)))
                       (sleep (sleepInterval))
