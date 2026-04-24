@@ -35,21 +35,21 @@
    (goal near-term Integrity no-idle-goal-wiring
       "Wire idle_goal_prompt.py into loop.metta idle iteration path so idle cycles are values-directed instead of aimless"
       "idle_goal_prompt fires on idle iterations AND produces a structured prompt with soul context, landscape, goals, fuel, genesis insights, and direction"
-      active))
+      complete))
 
 ;; Priority 2: Replace calibration stub with live ChromaDB query
 (= (active-goal 2)
    (goal near-term Integrity calibration-stubs
       "Replace soul-calibration-confidence stub in soul_utils.metta with py-call to soul_calibration_confidence_query that reads real AGREE/OVER-FIRED/UNDER-FIRED counts"
       "soul-calibration-confidence returns STRONG/ADEQUATE/WEAK from real data instead of INSUFFICIENT-DATA"
-      active))
+      complete))
 
 ;; Priority 3: Replace pre-compute stub with live ChromaDB query
 (= (active-goal 3)
    (goal near-term Safety pre-compute-stubs
       "Replace soul-pre-compute stub in soul_utils.metta with py-call to soul_pre_compute that queries calibration history and affective state"
       "soul-pre-compute returns primed context with will strength and affective state from real ChromaDB data"
-      active))
+      complete))
 
 ;; Priority 4: Wire creative fuel crossing into idle prompt
 (= (active-goal 4)
