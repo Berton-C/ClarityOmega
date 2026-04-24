@@ -50,6 +50,7 @@ services:
       - MM_BOT_TOKEN=${MM_BOT_TOKEN}
       # Communication channel -- override OmegaClaw's IRC default
       - COMMCHANNEL=mattermost
+      - PYTHONDONTWRITEBYTECODE=1
     networks:
       - clarityclaw_net
 
