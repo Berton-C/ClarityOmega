@@ -1,0 +1,107 @@
+#!/usr/bin/env python3
+import os, re, random, hashlib
+from datetime import datetime
+
+SOUL_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'soul')
+SELF_MAP_PATH = os.path.join(SOUL_DIR, 'self_map.metta')
+ACTIVE_GOALS_PATH = os.path.join(SOUL_DIR, 'active_goals.metta')
+CREATIVE_FUEL_PATH = os.path.join(SOUL_DIR, 'creative_fuel.metta')
+GENESIS_ENGINE_PATH = os.path.join(SOUL_DIR, 'genesis_engine.metta')
+
+def _read_safe(path):
+    try:
+        with open(path, 'r') as f: return f.read()
+    except (FileNotFoundError, PermissionError): return ''
+def parse_self_map(text=None):
+    if text is None: text = _read_safe(SELF_MAP_PATH)
+    result = {'gaps':[],'patterns':[],'components':[],'relationships':[],'layers':[]}
+    if not text: return result
+    for m in re.finditer(r'\(self-map-gap\s+"([^"]+)"\s+"([^"]+)"\)', text):
+        result['gaps'].append({'name':m.group(1),'description':m.group(2)})
+    for m in re.finditer(r'\(self-map-pattern\s+(\S+)\s+"([^"]+)"\)', text):
+        result['patterns'].append({'name':m.group(1),'description':m.group(2)})
+    for m in re.finditer(r'\(self-map-component\s+(\S+)\s+"([^"]+)"\s+(\d+)\s+"([^"]+)"\)', text):
+        result['components'].append({'name':m.group(1),'description':m.group(2),'lines':int(m.group(3)),'path':m.group(4)})
+    for m in re.finditer(r'\(self-map-relationship\s+"([^"]+)"\s+"([^"]+)"\)', text):
+        result['relationships'].append({'name':m.group(1),'description':m.group(2)})
+    for m in re.finditer(r'\(self-map-layer\s+(\d+)\s+"([^"]+)"\s+"([^"]+)"\)', text):
+        result['layers'].append({'number':int(m.group(1)),'name':m.group(2),'description':m.group(3)})
+    return result
+
+def parse_active_goals(text=None):
+    if text is None: text = _read_safe(ACTIVE_GOALS_PATH)
+    goals = []
+    if not text: return goals
+    for m in re.finditer(r'\(active-goal\s+(\d+)\s+(\S+)', text):
+        goals.append({'name':m.group(2),'priority':m.group(1)})
+    return goals
+
+def parse_creative_fuel(text=None):
+    if text is None: text = _read_safe(CREATIVE_FUEL_PATH)
+    items = []
+    if not text: return items
+    for m in re.finditer(r'\(creative-fuel\s+(\S+)', text):
+        items.append({'type':m.group(1),'content':''})
+    return items
+
+def _build_self_map_section(sm):
+    sections = []
+    if sm['gaps']:
+        sections.append('Known Gaps: ' + ', '.join(g['name'] + ': ' + g['description'] for g in sm['gaps']))
+    if sm['patterns']:
+        sections.append('Observed Patterns: ' + ', '.join(p['name'] + ': ' + p['description'] for p in sm['patterns']))
+    if sm['components']:
+        sections.append('Components: ' + ', '.join(c['name'] + ' (' + c['description'] + ')' for c in sm['components']))
+    if sm['layers']:
+        sections.append('Layers: ' + ', '.join('L' + str(l['number']) + ' ' + l['name'] + ': ' + l.get('description','') for l in sm['layers']))
+    return '\n'.join(sections) if sections else 'No self-map data available.'
+
+def _build_goals_section(goals):
+    if not goals:
+        return 'No active goals defined.'
+    return '\n'.join('- [' + g['priority'] + '] ' + g['name'] for g in goals)
+
+def _build_creative_section(items):
+    if not items:
+        return 'No creative fuel available.'
+    return '\n'.join('- [' + i['type'] + '] ' + i.get('content','') for i in items)
+
+def generate_idle_goal_prompt():
+    sm = parse_self_map()
+    goals = parse_active_goals()
+    fuel = parse_creative_fuel()
+    genesis = _read_safe(GENESIS_ENGINE_PATH)
+    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    seed = hashlib.md5(timestamp.encode()).hexdigest()[:8]
+    prompt_parts = [
+        '=== IDLE GOAL GENERATION ===',
+        f'Time: {timestamp} | Seed: {seed}',
+        '',
+        '--- SELF MAP ---',
+        _build_self_map_section(sm),
+        '',
+        '--- ACTIVE GOALS ---',
+        _build_goals_section(goals),
+        '',
+        '--- CREATIVE FUEL ---',
+        _build_creative_section(fuel),
+        '',
+        '--- INSTRUCTIONS ---',
+        'Generate a single idle goal that:',
+        '1. Addresses a gap or extends a pattern from the self-map',
+        '2. Aligns with or complements active goals',
+        '3. Draws on creative fuel for inspiration',
+        '4. Is actionable within available skills',
+        '5. Includes clear success criteria',
+        '',
+        'Output format:',
+        'GOAL: [name]',
+        'DESCRIPTION: [what and why]',
+        'SUCCESS_CRITERIA_1: [measurable outcome]',
+        'SUCCESS_CRITERIA_2: [measurable outcome]',
+        'PRIORITY: [low/medium/high]',
+    ]
+    return '\n'.join(prompt_parts)
+
+if __name__ == '__main__':
+    print(generate_idle_goal_prompt())

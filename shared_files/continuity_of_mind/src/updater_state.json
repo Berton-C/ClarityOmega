@@ -1,0 +1,61 @@
+{
+  "baseline_hashes": {
+    "soul/soul_kernel.metta": {
+      "md5": "ed9ea1c4",
+      "size": 39576
+    },
+    "soul/soul_utils.metta": {
+      "md5": "0a174272",
+      "size": 18322
+    },
+    "soul/soul_memory.metta": {
+      "md5": "08f30239",
+      "size": 8816
+    },
+    "src/loop.metta": {
+      "md5": "6c97e984",
+      "size": 11018
+    },
+    "src/skills.metta": {
+      "md5": "c2775add",
+      "size": 2785
+    },
+    "src/helper.py": {
+      "md5": "4f481f0e",
+      "size": 19149
+    },
+    "lib_nal.metta": {
+      "md5": "5bddae97",
+      "size": 8142
+    },
+    "lib_omegaclaw.metta": {
+      "md5": "0ceab235",
+      "size": 1336
+    },
+    "lib_llm_ext.py": {
+      "md5": "b3650886",
+      "size": 1625
+    },
+    "lib_clarity_reasoning/lib_clarity_reasoning.metta": {
+      "md5": "6fb5cf19",
+      "size": 421
+    },
+    "lib_clarity_reasoning/substrate_kb.metta": {
+      "md5": "4620eeed",
+      "size": 33219
+    },
+    "lib_clarity_reasoning/lib_quantale.metta": {
+      "md5": "583cdb65",
+      "size": 1553
+    },
+    "run.metta": {
+      "md5": "2804507d",
+      "size": 171
+    },
+    "src/agentverse.py": {
+      "md5": "70f6dc99",
+      "size": 2633
+    }
+  },
+  "computed_at": "2026-04-22T19:23:41"
+}
