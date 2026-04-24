@@ -9,7 +9,7 @@
 
 (= (initLoop)
    (progn (configure maxNewInputLoops 50) ;20
-          (configure maxWakeLoops 1)
+          (configure maxWakeLoops 50)
           (configure sleepInterval 1) ;10
           (configure LLM gpt-5.4)
           (configure provider Anthropic) ;Anthropic or OpenAI or ASICloud

@@ -342,12 +342,12 @@ def soul_send_assemble(prompt, soul_context, soul_verdict, person_state, soul_no
     idle_str = str(idle_directive)
     idle_section = (" IDLE_DIRECTIVE: " + idle_str) if idle_str and len(idle_str) > 5 else ""
     return (str(prompt) +
+            idle_section +
             " SOUL_CONTEXT: " + str(soul_context) +
             " SOUL_VERDICT: " + verdict_summary +
             " PERSON_STATE: " + str(person_state) +
             note_section +
-            " " + str(lastmessage) +
-            idle_section)
+            " " + str(lastmessage))
 
 def soul_affective_state_str():
     """Returns primed pattern state -- static for fresh system."""
