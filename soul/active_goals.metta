@@ -56,7 +56,7 @@
    (goal near-term WonderPreservation no-creative-fuel-mechanism
       "Ensure creative_fuel crossing functions are invoked at runtime so fuel-gap affinity drives goal selection not random choice"
       "idle_goal_prompt selects fuel based on affinity to active goals AND alternates between goal and creative modes"
-      planned))
+      complete))
 
 ;; ================================================================
 ;; MEDIUM-TERM GOALS (require multiple sessions)
@@ -68,14 +68,14 @@
    (goal medium-term CreativeTranscendence genesis-engine-not-autonomous
       "Wire genesis engine encounters to fire during creative-mode idle iterations using cross-domain atom sampling from AtomSpace"
       "genesis engine runs autonomously AND produces at least one novel atom per session without human direction"
-      planned))
+      complete))
 
 ;; Priority 6: Wire VAD pipeline into runtime soul evaluation
 (= (active-goal 6)
    (goal medium-term SharedUnderstanding vad-pipeline-not-wired
       "Connect lib_vad_sentence and ChromaDB bridge to soul evaluation so person state includes emotional trajectory"
       "Channel A person-state includes VAD-derived emotional trajectory data from real conversation analysis"
-      planned))
+      complete))
 
 ;; Priority 7: Ensure continuity across container restarts
 (= (active-goal 7)

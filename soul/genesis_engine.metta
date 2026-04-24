@@ -216,3 +216,18 @@
 (= (genesis-create (HeldTension $a1 $a2 $ttype $principle) $insight-name $description)
    (genesis-output $insight-name $description
      (cross-domain $a1 $a2)))
+
+;; ================================================================
+;; AUTO-ENCOUNTER 001: memory-consolidation x wonder-requires-creative-risk
+;; Domains: substrate-kb x self-map
+;; Date: 2026-04-24_12:06:58 (autonomous)
+;; Paradox: tension-productive
+;; Verdict: examine-gently
+;; ================================================================
+(= (genesis-encounter-auto "2026-04-24_12:06:58")
+  (CrossDomainConjunction
+    memory-consolidation-x-wonder-requires-creative-risk
+    memory-consolidation-from-substrate-kb
+    wonder-requires-creative-risk-from-self-map
+    tension-productive
+    examine-gently))
