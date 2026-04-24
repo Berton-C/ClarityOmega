@@ -85,6 +85,7 @@
                                        ($_ (if $msgnew (py-call (helper.soul_service_learning $soul_verdict_in $person_state $msg)) _))
                                        ($_ (if $msgnew (py-call (helper.soul_user_context_save (py-call (helper.extract_username $msg)) "active-session" "engaged" "" "high")) _))
                                        ($_ (change-state! &soul_ack_sent False))
+                                       ($atomspace_test (py-call (helper.soul_atomspace_bridge_test (collapse (match &self (= (active-goal $n) $g) ($n $g))))))
                                        ($idle_directive (if (and (not $msgnew) (> (get_time) (+ (get-state &last_human_time) (wakeupInterval)))) (py-call (helper.soul_idle_goal_prompt (py-call (helper.extract_username $msg)) "")) ""))
                                        ($send (py-call (helper.soul_send_assemble
                                                        $prompt $soul_context_in $soul_verdict_in

@@ -936,3 +936,10 @@ def soul_mark_goal_complete(goal_name=''):
         return 'GOAL-MARKED-COMPLETE: %s' % goal_name
     except Exception as e:
         return 'ERROR: %s' % str(e)
+
+
+def soul_atomspace_bridge_test(query_results=''):
+    """Phase A test: What format do MeTTa query results arrive in via py-call?"""
+    result_str = str(query_results)
+    print("ATOMSPACE-BRIDGE-TEST type=%s len=%d first200=%s" % (type(query_results).__name__, len(result_str), result_str[:200]))
+    return result_str[:100]
