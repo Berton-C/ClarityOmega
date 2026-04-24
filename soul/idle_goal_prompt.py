@@ -188,12 +188,17 @@ def flip_mode(state):
 # ================================================================
 
 def supervisor_select_goal(goals, state):
-    """Select the highest-priority non-complete goal."""
-    active = [g for g in goals if g.get('status', 'planned') != 'complete']
+    """Select the highest-priority non-complete goal.
+    Filters out goals marked complete in the file AND goals
+    completed at runtime (tracked in state['completed_goals'])."""
+    completed = set(state.get('completed_goals', []))
+    active = [g for g in goals
+              if g.get('status', 'planned') != 'complete'
+              and g.get('name', '') not in completed]
     if not active:
         return None
     current = state.get('current_goal', '')
-    if current:
+    if current and current not in completed:
         for g in active:
             if g['name'] == current:
                 return g
@@ -396,14 +401,15 @@ def run_meta_awareness(state):
         lines.append('1. Evaluate the state summary above against your assigned goal and done-when criteria.')
         lines.append('2. If coherent: report (pin "META-AWARE: on track, [brief status]") and proceed with goal work.')
         lines.append('3. If any discrepancy: report (pin "META-AWARE: [what you found], [what you will do differently]").')
-        lines.append('4. If you detect a gap in your capacity:')
+        lines.append('4. If the goal is COMPLETE: call (py-call (helper.soul_mark_goal_complete "goal-name")) to advance to the next goal.')
+        lines.append('5. If you detect a gap in your capacity:')
         lines.append('   a. Describe the gap specifically.')
         lines.append('   b. Write a MeTTa solution in lib_candidates/ via (write-file ...).')
         lines.append('   c. Test it via (metta !(import! &self ...)) to load and verify.')
         lines.append('   d. If it works, the new atom is live in the AtomSpace immediately.')
         lines.append('   e. Report (pin "META-AWARE: capacity gap [name] addressed, new atom loaded, resuming [goal]").')
         lines.append('   f. Resume the original goal on the next iteration with the new capacity available.')
-        lines.append('5. If you need human input: say so via (send "I need input on [specific thing]").')
+        lines.append('6. If you need human input: say so via (send "I need input on [specific thing]").')
         
         return chr(10).join(lines)
     except Exception:
@@ -419,6 +425,30 @@ def assemble_prompt(username='', user_context=''):
     MeTTa decides. This function formats. LLM executes.
     Meta-awareness checks for drift, looping, fabrication before directing."""
     state = get_idle_state()
+    
+    # Initialize completed_goals list if not present
+    if 'completed_goals' not in state:
+        state['completed_goals'] = []
+    
+    # GOAL COMPLETION DETECTION
+    # If the supervisor has been on the same goal for 15+ iterations,
+    # the goal is either complete or stuck. The meta-awareness evaluation
+    # at iteration 3 will have assessed coherence. At 15 iterations,
+    # if the supervisor_evaluate_previous says WARNING, the goal needs
+    # advancing. Check if a completion marker was set by the helper function
+    # soul_mark_goal_complete (called by Clarity via py-call when meta-awareness
+    # confirms completion).
+    if state.get('goal_marked_complete', False):
+        current = state.get('current_goal', '')
+        if current and current not in state['completed_goals']:
+            state['completed_goals'].append(current)
+        state['current_goal'] = ''
+        state['current_goal_action'] = ''
+        state['current_goal_done_when'] = ''
+        state['current_goal_fuel'] = ''
+        state['iterations_on_goal'] = 0
+        state['goal_marked_complete'] = False
+    
     state = flip_mode(state)
 
     # META-AWARENESS CHECK (every 3 iterations in goal mode)

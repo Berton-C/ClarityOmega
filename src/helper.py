@@ -915,3 +915,24 @@ def soul_meta_awareness_check(current_goal='', current_goal_action='',
     
     except Exception as e:
         return 'META-AWARENESS-ERROR: %s' % str(e)
+
+
+def soul_mark_goal_complete(goal_name=''):
+    """Mark a goal as complete in the supervisor state."""
+    if not goal_name:
+        return 'ERROR: no goal name provided'
+    try:
+        import json
+        state_file = '/PeTTa/repos/omegaclaw/soul/idle_state.json'
+        try:
+            with open(state_file, 'r') as f:
+                state = json.loads(f.read().strip())
+        except Exception:
+            state = {}
+        state['goal_marked_complete'] = True
+        state['goal_just_completed'] = str(goal_name)
+        with open(state_file, 'w') as f:
+            json.dump(state, f)
+        return 'GOAL-MARKED-COMPLETE: %s' % goal_name
+    except Exception as e:
+        return 'ERROR: %s' % str(e)
