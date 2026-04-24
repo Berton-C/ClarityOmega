@@ -1080,7 +1080,10 @@ def soul_idle_goal_prompt_v2(username='', user_context='', atomspace_goals=None,
         return directive
         
     except Exception as e:
-        # On any error, fall back to v1
+        # Log the error so we can see why v2 fails in PeTTa
+        import traceback
+        print("PHASE-D-V2-ERROR: %s" % str(e))
+        traceback.print_exc()
         return soul_idle_goal_prompt(username, user_context)
 
 
