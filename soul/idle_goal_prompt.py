@@ -146,9 +146,9 @@ def parse_self_map():
 def get_idle_state():
     try:
         with open(STATE_FILE, 'r') as f:
-            return json.loads(f.read().strip())
+            state = json.loads(f.read().strip())
     except Exception:
-        return {
+        state = {
             'mode': 'goal',
             'counter': 0,
             'current_goal': '',
@@ -158,6 +158,25 @@ def get_idle_state():
             'last_evaluation': '',
             'iterations_on_goal': 0
         }
+    
+    # SYNC: Ensure completed_goals includes all goals marked complete in the file.
+    # This prevents desync between file-level status and runtime tracking.
+    if 'completed_goals' not in state:
+        state['completed_goals'] = []
+    try:
+        file_goals = parse_active_goals()
+        file_complete = [g['name'] for g in file_goals if g.get('status') == 'complete']
+        for name in file_complete:
+            if name not in state['completed_goals']:
+                state['completed_goals'].append(name)
+        # If current_goal is in completed_goals, clear it so supervisor picks next
+        if state.get('current_goal', '') in state['completed_goals']:
+            state['current_goal'] = ''
+            state['iterations_on_goal'] = 0
+    except Exception:
+        pass
+    
+    return state
 
 
 def save_idle_state(state):
