@@ -979,6 +979,7 @@ def soul_idle_goal_prompt_v2(username='', user_context='', atomspace_goals=None,
         )
         
         # Convert AtomSpace results to the dict format the supervisor expects
+        print('PHASE-D-DEBUG goals_type=%s gaps_type=%s fuel_type=%s goals_sample=%s gaps_sample=%s fuel_sample=%s' % (type(atomspace_goals).__name__, type(atomspace_gaps).__name__, type(atomspace_fuel).__name__, str(atomspace_goals)[:200], str(atomspace_gaps)[:200], str(atomspace_fuel)[:200]))
         goals = _atomspace_to_goals(atomspace_goals)
         gaps = _atomspace_to_gaps(atomspace_gaps)
         fuels = _atomspace_to_fuel(atomspace_fuel)
@@ -1096,14 +1097,17 @@ def _atomspace_to_goals(raw):
                 n = item[0]
                 fields = item[1]
                 if isinstance(fields, (list, tuple)) and len(fields) >= 6:
+                    # AtomSpace returns [constructor, tier, fuel, name, action, done_when, status]
+                    # The constructor ('goal') is at index 0 when 7+ fields present
+                    off = 1 if len(fields) >= 7 else 0
                     goals.append({
                         'priority': str(n),
-                        'tier': str(fields[0]),
-                        'fuel': str(fields[1]),
-                        'name': str(fields[2]),
-                        'action': str(fields[3]),
-                        'done_when': str(fields[4]),
-                        'status': str(fields[5]) if len(fields) > 5 else 'planned'
+                        'tier': str(fields[off]),
+                        'fuel': str(fields[off+1]),
+                        'name': str(fields[off+2]),
+                        'action': str(fields[off+3]),
+                        'done_when': str(fields[off+4]),
+                        'status': str(fields[off+5]) if len(fields) > off+5 else 'planned'
                     })
     except Exception:
         pass
