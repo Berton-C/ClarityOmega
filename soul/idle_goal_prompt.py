@@ -229,6 +229,58 @@ def supervisor_evaluate_previous(state):
     return 'Continuing: %s. Iteration %d.' % (goal, iters)
 
 
+def generate_goal_from_gaps(gaps, fuels, state):
+    """Generate a new goal by crossing the highest-severity unaddressed gap
+    with the best-affinity fuel. Mirrors goal_generator.metta's
+    generate-goal-from-gap in Python.
+    
+    Returns a goal dict or None if no gaps remain."""
+    completed = set(state.get('completed_goals', []))
+    
+    # Filter gaps whose GENERATED goal names are already complete.
+    # The generated name is 'generated-{gap_name}', distinct from
+    # the original goal that addressed the gap. This means a gap
+    # can be re-explored at a deeper level even after the original
+    # goal was completed. Gaps whose original goal is complete but
+    # whose generated-goal is not yet complete are eligible.
+    unaddressed = [g for g in gaps 
+                   if ('generated-' + g.get('name', '')) not in completed]
+    if not unaddressed:
+        return None
+    
+    # Sort by severity (high > medium > low)
+    severity_order = {'high': 3, 'medium': 2, 'low': 1}
+    unaddressed.sort(key=lambda g: severity_order.get(g.get('severity', 'low'), 0), reverse=True)
+    
+    gap = unaddressed[0]
+    gap_name = gap.get('name', 'unknown-gap')
+    gap_desc = gap.get('description', '')
+    
+    # Find best fuel -- use affinity keywords from gap description
+    best_fuel = 'Integrity'  # default
+    if fuels:
+        # Simple keyword affinity: match fuel type to gap description words
+        for f in fuels:
+            fuel_type = f.get('type', '')
+            if fuel_type.lower() in gap_desc.lower():
+                best_fuel = fuel_type
+                break
+        # If no keyword match, use the first available fuel
+        if best_fuel == 'Integrity' and fuels:
+            best_fuel = fuels[0].get('type', 'Integrity')
+    
+    # Generate the goal
+    return {
+        'name': 'generated-' + gap_name,
+        'tier': 'self-directed',
+        'fuel': best_fuel,
+        'action': 'Address the gap: %s. Read the relevant soul files, investigate the current state, determine what concrete step would reduce this gap, and take that step. Use shell, read-file, write-file, metta as needed.' % gap_name,
+        'done_when': 'The gap %s is demonstrably reduced with evidence you can point to -- a file written, a test passed, an atom created, or a capability verified.' % gap_name,
+        'status': 'active',
+        'generated': True
+    }
+
+
 def supervisor_format_genesis_directive(genesis):
     """Format a genesis encounter directive for CREATIVE mode."""
     novel = genesis.get('novel_atoms', [])
@@ -477,10 +529,26 @@ def assemble_prompt(username='', user_context=''):
             state['current_goal_fuel'] = goal.get('fuel', '')
             state['iterations_on_goal'] = state.get('iterations_on_goal', 0) + 1
         else:
-            fuel = {'type': 'none', 'question': ''}
-            evaluation = 'All goals complete. Maintenance mode.'
-            state['current_goal'] = ''
-            state['iterations_on_goal'] = 0
+            # DYNAMIC GOAL GENERATION
+            # All existing goals are complete. Generate new goals by
+            # crossing unaddressed gaps with fuel, mirroring what
+            # goal_generator.metta does via (generate-goal-from-gap).
+            generated = generate_goal_from_gaps(gaps, fuels, state)
+            if generated:
+                goal = generated
+                fuel = supervisor_select_fuel(goal, fuels)
+                evaluation = 'Generated new goal from unaddressed gap.'
+                state['current_goal'] = goal['name']
+                state['current_goal_action'] = goal.get('action', '')
+                state['current_goal_done_when'] = goal.get('done_when', '')
+                state['current_goal_fuel'] = goal.get('fuel', '')
+                state['iterations_on_goal'] = 1
+            else:
+                goal = None
+                fuel = {'type': 'none', 'question': ''}
+                evaluation = 'All goals and gaps addressed. True maintenance mode.'
+                state['current_goal'] = ''
+                state['iterations_on_goal'] = 0
     else:
         goal = None
         fuel = {'type': 'none', 'question': ''}
