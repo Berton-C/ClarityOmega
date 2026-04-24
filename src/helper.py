@@ -1127,10 +1127,12 @@ def _atomspace_to_gaps(raw):
                 name = str(item[0])
                 fields = item[1]
                 if isinstance(fields, (list, tuple)) and len(fields) >= 2:
+                    # Offset for constructor name ('gap') if present
+                    off = 1 if len(fields) >= 3 and str(fields[0]) == 'gap' else 0
                     gaps.append({
                         'name': name,
-                        'description': str(fields[0]),
-                        'severity': str(fields[1])
+                        'description': str(fields[off]),
+                        'severity': str(fields[off+1]) if len(fields) > off+1 else 'medium'
                     })
                 else:
                     gaps.append({'name': name, 'description': str(fields), 'severity': 'medium'})
@@ -1152,7 +1154,9 @@ def _atomspace_to_fuel(raw):
                 fuel_type = str(item[0])
                 fields = item[1]
                 if isinstance(fields, (list, tuple)) and len(fields) >= 1:
-                    fuels.append({'type': fuel_type, 'question': str(fields[0])})
+                    # Offset for constructor name ('fuel') if present
+                    off = 1 if len(fields) >= 2 and str(fields[0]) == 'fuel' else 0
+                    fuels.append({'type': fuel_type, 'question': str(fields[off])})
                 else:
                     fuels.append({'type': fuel_type, 'question': str(fields)})
     except Exception:
