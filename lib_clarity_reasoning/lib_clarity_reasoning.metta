@@ -21,3 +21,13 @@
 !(import! &self (library omegaclaw ./soul/candidates))
 
 !(import! &self (library omegaclaw ./soul/diagnostic_kb))
+
+;; Clarity autonomous work: grounded atoms from Phase 2 goals
+!(import! &self (library omegaclaw ./soul/hyperseed_grounding))
+!(import! &self (library omegaclaw ./soul/observer_relativity))
+!(import! &self (library omegaclaw ./soul/resonance_reward))
+!(import! &self (library omegaclaw ./soul/value_drift_detector))
+!(import! &self (library omegaclaw ./soul/diversity_protection))
+!(import! &self (library omegaclaw ./soul/regenerative_feedback))
+!(import! &self (library omegaclaw ./soul/symbiotic_choice_architecture))
+!(import! &self (library omegaclaw ./soul/temporal_horizon_expansion))
