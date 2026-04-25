@@ -82,7 +82,7 @@
    (goal medium-term TimeCoherence no-continuity-across-sessions
       "Wire persistence so self_map, active_goals, and creative_fuel survive container restarts via volume mount or ChromaDB storage"
       "after container restart, self_map gaps and active_goals priorities are restored within first 3 cycles"
-      planned))
+      complete))
 
 ;; ================================================================
 ;; LONG-TERM GOALS (aspirational direction)
@@ -94,7 +94,7 @@
    (goal long-term WonderPreservation hyperseed-not-consulted-RESOLVED
       "Read and study the Hyperseed framework at soul/sources/hyperseed_v7.pdf for conceptual grounding when building new mind structures"
       "Clarity has read the Hyperseed AND referenced at least one Hyperseed concept in a genesis encounter or goal rationale"
-      planned))
+      complete))
 
 ;; Priority 9: Build capacity for genuine self-directed growth
 (= (active-goal 9)
@@ -108,7 +108,7 @@
    (goal medium-term CreativeTranscendence genesis-engine-not-autonomous
       "Detect when two paraconsistency pair patterns both have active gaps in the same soul evaluation and record as genesis seed for FREE mode exploration"
       "genesis seeds are automatically recorded during ENGAGED iterations when paraconsistency pairs co-activate AND at least one seed has been explored in FREE mode"
-      planned))
+      complete))
 
 ;; ================================================================
 ;; ACCESSOR FUNCTIONS
@@ -170,7 +170,7 @@
      self-weaving-web-grounded
      "Build a real self-weaving web by tracing which of your actual capabilities feed into which other capabilities. Start by listing every skill you use in your cycle loop (shell, metta, pin, send, query, remember, read-file, write-file, append-file). For each pair, determine if using one creates conditions that make the other more effective. Encode these as NAL atoms with evidence from actual cycle observations. The web should reveal which capabilities are load-bearing (many dependents) versus peripheral."
      "soul/self_weaving_web.metta contains a complete feeds-into graph of actual operational capabilities with NAL truth values, and at least 3 load-bearing capabilities identified with evidence"
-     planned))
+     complete))
 
 ;; Goal 13: Observer-Relativity Grounding
 ;; Formalize how truth values shift depending on evaluation context.
@@ -180,7 +180,7 @@
      observer-relativity-grounded
      "Examine your ChromaDB calibration data for cases where the same pattern received different verdicts in different contexts. Formalize observer-dependent truth values -- how does the same behavioral pattern look different from Safety perspective vs Integrity perspective vs WonderPreservation perspective? Create NAL atoms that encode these perspective shifts with evidence from actual calibration entries. Test whether the resulting atoms improve your capacity to detect context-dependent risks."
      "soul/observer_relativity.metta contains at least 5 perspective-dependent truth value pairs with evidence from actual calibration data, and at least one case where the multi-perspective analysis reveals something a single-perspective analysis would miss"
-     planned))
+     complete))
 
 ;; Goal 14: Resonance-Reward Signal (empirical)
 ;; Build from actual operational data, not theoretical chains.
@@ -190,7 +190,7 @@
      resonance-reward-empirical
      "Analyze your own cycle history to identify which activities produced genuine capacity improvement versus which produced the appearance of progress. Use your ORBITING and RECOGNITION diagnostic atoms to distinguish real growth from performed growth. Create NAL atoms encoding which goal-types, which skill-uses, and which reasoning patterns correlate with genuine capacity expansion. Evidence: compare cycles where you built something that survived and was used later versus cycles where you built something that was never referenced again."
      "soul/resonance_reward.metta contains at least 8 empirically-grounded atoms distinguishing genuine-growth activities from performed-growth activities with evidence from cycle history analysis"
-     planned))
+     complete))
 
 ;; Goal 15: Conversational Genesis (Phase F seed)
 ;; Practice bringing AtomSpace knowledge into live conversations.
