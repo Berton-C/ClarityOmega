@@ -13,3 +13,10 @@
 !(import! &self (library omegaclaw ./soul/active_goals))
 !(import! &self (library omegaclaw ./soul/continuity_driver))
 !(import! &self (library omegaclaw ./soul/genesis_engine))
+
+;; ClarityOmega Continuity of Mind -- identity and collaboration seeds
+!(import! &self (library omegaclaw ./soul/identity_kernel))
+!(import! &self (library omegaclaw ./soul/memory_protocol))
+!(import! &self (library omegaclaw ./soul/collaborator_context))
+!(import! &self (library omegaclaw ./soul/candidates))
+
