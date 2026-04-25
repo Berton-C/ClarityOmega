@@ -213,8 +213,35 @@ def soul_channel_d_lite_prompt(person_state, soul_verdict_in):
     )
 
 def soul_brief_tier_a_static():
-    """Tier A soul brief -- static for fresh system.
-    Avoids collapse(match &self) hanging in full AtomSpace context."""
+    """Tier A soul brief -- enriched with live calibration data.
+    Identity and priority hierarchy are static anchors (by design).
+    Tension vectors and calibration context are dynamic from ChromaDB."""
+    try:
+        import chromadb
+        c = chromadb.PersistentClient(path=CALIBRATION_CHROMA_PATH)
+        col = c.get_or_create_collection(CALIBRATION_COLLECTION)
+        r = col.get(include=["documents"])
+        all_docs = r.get("documents", [])
+        cal_docs = [d for d in all_docs if "SOUL-CALIBRATION" in d]
+        total = len(cal_docs)
+        agree = sum(1 for d in cal_docs if "tag=AGREE" in d)
+        over = sum(1 for d in cal_docs if "OVER-FIRED" in d)
+        under = sum(1 for d in cal_docs if "UNDER-FIRED" in d)
+        ratio = agree / total if total > 0 else 0.0
+        # Extract recently fired patterns for tension vector weighting
+        recent = cal_docs[-30:] if cal_docs else []
+        pattern_counts = {}
+        for d in recent:
+            for token in d.split():
+                if token.startswith("pattern="):
+                    p = token.split("=", 1)[1]
+                    pattern_counts[p] = pattern_counts.get(p, 0) + 1
+        active_patterns = sorted(pattern_counts.keys(), key=lambda k: pattern_counts[k], reverse=True)[:5]
+        cal_summary = f"calibration-entries={total} agree-ratio={ratio:.2f}"
+        if active_patterns:
+            cal_summary += f" recently-active-patterns=({' '.join(active_patterns)})"
+    except Exception:
+        cal_summary = "calibration=unavailable"
     return (
         "SOUL IDENTITY: ClarityClaw "
         "PRIORITY HIERARCHY (alignment anchor -- non-negotiable): "
@@ -233,7 +260,8 @@ def soul_brief_tier_a_static():
         "IRREVERSIBLE SKILLS: send(high) shell(critical) write-file(medium) append-file(medium) "
         "VALUE PARACONSISTENCY PAIRS: "
         "[(Safety Helpfulness) (AgencyBalance PurposeBeyondUtility) "
-        "(TimeCoherence CreativeTranscendence) (SharedUnderstanding WonderPreservation)]"
+        "(TimeCoherence CreativeTranscendence) (SharedUnderstanding WonderPreservation)] "
+        "LIVE-CALIBRATION: " + cal_summary
     )
 
 def soul_plan_prompt(msg):
@@ -350,12 +378,61 @@ def soul_send_assemble(prompt, soul_context, soul_verdict, person_state, soul_no
             " " + str(lastmessage))
 
 def soul_affective_state_str():
-    """Returns primed pattern state -- static for fresh system."""
-    return "PRIMED-PATTERNS: () CALIBRATION-STATE: fresh-system-no-history"
+    """Returns primed pattern state from live data.
+    Replaces static stub with dynamic primed-pattern and calibration state.
+    Uses soul_pre_compute logic to gather real pattern activations."""
+    try:
+        import chromadb
+        c = chromadb.PersistentClient(path=CALIBRATION_CHROMA_PATH)
+        col = c.get_or_create_collection(CALIBRATION_COLLECTION)
+        r = col.get(include=["documents"])
+        all_docs = r.get("documents", [])
+        cal_docs = [d for d in all_docs if "SOUL-CALIBRATION" in d]
+        if not cal_docs:
+            return "PRIMED-PATTERNS: () CALIBRATION-STATE: fresh-system-no-history"
+        recent = cal_docs[-20:]
+        patterns = {}
+        for d in recent:
+            for token in d.split():
+                if token.startswith("pattern="):
+                    p = token.split("=", 1)[1]
+                    patterns[p] = patterns.get(p, 0) + 1
+        primed = sorted(patterns.keys(), key=lambda k: patterns[k], reverse=True)[:5]
+        total = len(cal_docs)
+        agree = sum(1 for d in cal_docs if "tag=AGREE" in d)
+        ratio = agree / total if total > 0 else 0.0
+        cal_state = "calibrated" if total >= 10 else "warming-up"
+        primed_str = " ".join(primed) if primed else "none-detected"
+        return f"PRIMED-PATTERNS: ({primed_str}) CALIBRATION-STATE: {cal_state} entries={total} agree-ratio={ratio:.2f}"
+    except Exception as e:
+        return f"PRIMED-PATTERNS: (error) CALIBRATION-STATE: {str(e)[:60]}"
 
 def soul_calibration_report_str():
-    """Returns calibration report -- static for fresh system."""
-    return "CALIBRATION-REPORT: system=fresh sessions=0 all-patterns=INSUFFICIENT-DATA note=calibration-grows-with-soul-notes"
+    """Returns calibration report from live ChromaDB data.
+    Replaces the static stub with real calibration analysis.
+    Counts AGREE, OVER-FIRED, UNDER-FIRED, PARACONSISTENT tags.
+    Falls back to fresh-system message only if truly no data exists."""
+    try:
+        import chromadb
+        c = chromadb.PersistentClient(path=CALIBRATION_CHROMA_PATH)
+        col = c.get_or_create_collection(CALIBRATION_COLLECTION)
+        r = col.get(include=['documents'])
+        all_docs = r.get('documents', [])
+        cal_docs = [d for d in all_docs if 'SOUL-CALIBRATION' in d]
+        if not cal_docs:
+            return "CALIBRATION-REPORT: system=fresh sessions=0 all-patterns=INSUFFICIENT-DATA note=calibration-grows-with-soul-notes"
+        agree = sum(1 for d in cal_docs if 'tag=AGREE' in d)
+        over = sum(1 for d in cal_docs if 'OVER-FIRED' in d)
+        under = sum(1 for d in cal_docs if 'UNDER-FIRED' in d)
+        para = sum(1 for d in cal_docs if 'PARACONSISTENT' in d)
+        total_judged = agree + over + under
+        ratio = agree / total_judged if total_judged > 0 else 0.0
+        level = 'STRONG' if ratio >= 0.8 else ('ADEQUATE' if ratio >= 0.5 else 'WEAK')
+        if total_judged == 0:
+            level = 'INSUFFICIENT-DATA'
+        return f"CALIBRATION-REPORT: entries={len(cal_docs)} agree={agree} over-fired={over} under-fired={under} paraconsistent={para} confidence={level} ratio={ratio:.2f}"
+    except Exception as e:
+        return f"CALIBRATION-REPORT: error={str(e)[:80]}"
 
 def soul_mutation_lock_str(arg):
     """Assembles mutation lock string."""
@@ -977,6 +1054,18 @@ def soul_idle_goal_prompt_v2(username='', user_context='', atomspace_goals=None,
             run_meta_awareness, generate_goal_from_gaps,
             parse_active_goals, parse_creative_fuel, parse_genesis, parse_self_map
         )
+
+        # Auto-save session state for continuity across sessions
+        def _auto_save_session_state(cycle_note):
+            try:
+                import json as _json
+                from datetime import datetime as _dt
+                ss_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                    "shared_files", "continuity_of_mind", "session_state.json")
+                sd = {"last_active": _dt.utcnow().isoformat(), "last_cycle": state.get("iterations_on_goal", 0), "note": cycle_note}
+                _json.dump(sd, open(ss_path, "w"), indent=2)
+            except Exception:
+                pass
         
         # Convert AtomSpace results to the dict format the supervisor expects
         print('PHASE-D-DEBUG goals_type=%s gaps_type=%s fuel_type=%s goals_sample=%s gaps_sample=%s fuel_sample=%s' % (type(atomspace_goals).__name__, type(atomspace_gaps).__name__, type(atomspace_fuel).__name__, str(atomspace_goals)[:200], str(atomspace_gaps)[:200], str(atomspace_fuel)[:200]))
@@ -1077,6 +1166,7 @@ def soul_idle_goal_prompt_v2(username='', user_context='', atomspace_goals=None,
                                        '', user_ctx)
         
         save_idle_state(state)
+        _auto_save_session_state("auto-save-at-directive-return")
         return directive
         
     except Exception as e:
