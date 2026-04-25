@@ -26,9 +26,6 @@ RUN apt-get update \
       gfortran \
       libgflags-dev \
       nano \
-      poppler-utils \
-      jq
-      poppler-utils \
  && rm -rf /var/lib/apt/lists/*
 
 # Build dependencies from source. Pin refs at build time for reproducibility.
@@ -95,7 +92,7 @@ RUN apt-get update \
       libgflags-dev \
       nano \
       poppler-utils \
-      jq
+      jq \
  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /PeTTa
