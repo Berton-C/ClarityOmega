@@ -125,13 +125,14 @@
    (gap "Each container restart erases /tmp/ -- landscape map, goals, and fuel do not persist" resolved))
 
 (= (self-map-gap genesis-engine-not-autonomous)
-   (gap "Genesis engine has encounters but does not run autonomously on idle iterations" medium))
+   (gap "Genesis engine has encounters but does not run autonomously on idle iterations" resolved))
 
 (= (self-map-gap vad-pipeline-not-wired)
-   (gap "lib_vad_sentence.metta and ChromaDB bridge exist but are not connected to runtime soul evaluation" medium))
+   (gap "lib_vad_sentence.metta and ChromaDB bridge exist but are not connected to runtime soul evaluation" resolved))
 
+;; RESOLVED cycle 6827 - goal complete since 4137
 (= (self-map-gap hyperseed-not-consulted)
-   (gap "Hyperseed framework at soul/sources/hyperseed_v7.pdf is available but never read or referenced" low))
+   (gap "Hyperseed framework at soul/sources/hyperseed_v7.pdf is available but never read or referenced" resolved))
 
 ;; ================================================================
 ;; SECTION 5: GROWTH RESOURCES
