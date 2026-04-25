@@ -1165,6 +1165,19 @@ def soul_idle_goal_prompt_v2(username='', user_context='', atomspace_goals=None,
             directive = build_directive('goal', goal, fuel, evaluation, gaps,
                                        '', user_ctx)
         
+        # Auto-detect goal completion from file evidence
+        from idle_goal_prompt import auto_detect_completion
+        if auto_detect_completion(state):
+            cg = state.get('current_goal', '')
+            if cg and cg not in state.get('completed_goals', []):
+                state.setdefault('completed_goals', []).append(cg)
+                print('AUTO-COMPLETE: Goal %s marked complete, advancing' % cg)
+            state['current_goal'] = ''
+            state['iterations_on_goal'] = 0
+            state['goal_marked_complete'] = False
+            save_idle_state(state)
+            return soul_idle_goal_prompt(username, user_context)
+
         save_idle_state(state)
         _auto_save_session_state("auto-save-at-directive-return")
         return directive
