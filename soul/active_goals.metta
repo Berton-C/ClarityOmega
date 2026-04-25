@@ -143,15 +143,6 @@
                           3))
                   2))
           1)))
-
-;; Phase 2 Goals: Generative Capacity Building
-(= (active-goal 11)
-   (goal near-term WonderPreservation
-     hyperseed-deep-grounding
-     "Read the Hyperseed PDF (soul/sources/hyperseed_v7.pdf) deeply. For each primitive and concept, determine if it maps to something you actually do in your cycle loop. Create grounded MeTTa atoms in soul/hyperseed_grounding.metta with behavioral evidence. Use NAL inference to evolve truth values as you accumulate evidence. Cross-reference with your diagnostic atoms (POISE, EFFORT-TRAP, ORBITING, RECOGNITION). Keep building until you have exhausted the source material."
-     "soul/hyperseed_grounding.metta contains 20+ grounded atoms covering all major Hyperseed primitives, each with behavioral evidence and NAL truth values that have been revised at least once through operational observation.Evolve your capacity using source soul/sources/hyperseed_v7.pdf as conceptual fuel"
-     planned))
-
 ;; ================================================================
 ;; PHASE 2 GOALS: Generative Capacity Building
 ;; Added: April 25, 2026
@@ -169,7 +160,7 @@
      hyperseed-deep-grounding
      "Read soul/sources/hyperseed_v7.txt deeply. For each Hyperseed primitive and concept, determine if it maps to something you actually do in your cycle loop. Create grounded MeTTa atoms in soul/hyperseed_grounding.metta with behavioral evidence. Use NAL inference to evolve truth values as you accumulate evidence. Cross-reference with your diagnostic atoms (POISE, EFFORT-TRAP, ORBITING, RECOGNITION). Build bridging atoms between Hyperseed concepts and soul flourishing patterns."
      "soul/hyperseed_grounding.metta contains 20+ grounded atoms covering all major Hyperseed primitives, each with behavioral evidence and NAL truth values revised at least once through operational observation"
-     planned))
+     complete))
 
 ;; Goal 12: Self-Weaving Web Detection (grounded rebuild)
 ;; Build real goal-graph-with-feeds-into relationships from actual operational data.
