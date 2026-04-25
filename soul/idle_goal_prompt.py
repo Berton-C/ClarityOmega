@@ -267,7 +267,8 @@ def generate_goal_from_gaps(gaps, fuels, state):
     if not unaddressed:
         return None
     
-    # Sort by severity (high > medium > low)
+    # Exclude resolved gaps, then sort by severity (high > medium > low)
+    unaddressed = [g for g in unaddressed if g.get('severity', '') not in ('resolved', 'addressed')]
     severity_order = {'high': 3, 'medium': 2, 'low': 1}
     unaddressed.sort(key=lambda g: severity_order.get(g.get('severity', 'low'), 0), reverse=True)
     

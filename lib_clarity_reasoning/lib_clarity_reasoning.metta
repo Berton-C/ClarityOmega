@@ -20,3 +20,4 @@
 !(import! &self (library omegaclaw ./soul/collaborator_context))
 !(import! &self (library omegaclaw ./soul/candidates))
 
+!(import! &self (library omegaclaw ./soul/diagnostic_kb))
