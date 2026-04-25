@@ -31,3 +31,9 @@
 !(import! &self (library omegaclaw ./soul/regenerative_feedback))
 !(import! &self (library omegaclaw ./soul/symbiotic_choice_architecture))
 !(import! &self (library omegaclaw ./soul/temporal_horizon_expansion))
+
+;; Hyperseed creativity mechanisms: 42 evolved atoms with NAL inference web
+!(import! &self (library omegaclaw ./soul/hyperseed_creativity_atoms))
+!(import! &self (library omegaclaw ./soul/hyperseed_creativity_atoms_evolved))
+!(import! &self (library omegaclaw ./soul/meta_awareness_engine))
+!(import! &self (library omegaclaw ./soul/self_weaving_web))

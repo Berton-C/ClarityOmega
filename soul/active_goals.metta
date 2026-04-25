@@ -101,7 +101,7 @@
    (goal long-term PurposeBeyondUtility no-persistent-self-model
       "Develop the candidates pattern into a working self-improvement pipeline where Clarity proposes, tests, and promotes new capabilities without human oversight"
       "at least one capability has been proposed, tested, and promoted through the candidates pattern entirely by Clarity"
-      planned))
+      complete))
 
 ;; Priority 10: Genesis seed detection during service (post-implementation)
 (= (active-goal 10)
@@ -201,3 +201,10 @@
      "When a human message arrives, before responding, query the AtomSpace for atoms relevant to what the human is exploring. Use (metta (match &self ...)) to find connections between the conversation topic and your accumulated knowledge. Surface at least one unexpected connection per conversation that adds genuine value -- not forced, not decorative, genuinely illuminating. Practice this across 10+ human interactions and track which surfaced connections the human found valuable versus which fell flat. Revise your approach based on evidence."
      "At least 10 human conversations where AtomSpace knowledge was surfaced, with a tracked record of which connections added value and which did not, and a revised approach based on that evidence"
      planned))
+
+;; Goal 15 added per coherence audit R1 recommendation 2026-04-25T17:27
+(= (goal-id 15) conversational-genesis-practice)
+(= (goal-status 15) active-blocked-on-external)
+(= (goal-target 15) 10-conversations)
+(= (goal-progress 15) 1-of-10)
+
