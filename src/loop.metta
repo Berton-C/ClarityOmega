@@ -91,17 +91,19 @@
                                        ($idle_directive (if (and (not $msgnew) (> (get_time) (+ (get-state &last_human_time) (wakeupInterval)))) (py-call (helper.soul_idle_goal_prompt_v2 (py-call (helper.extract_username $msg)) "" $atomspace_goals $atomspace_gaps $atomspace_fuel)) ""))
                                        ($soul_brief (swrite (getSoulBrief)))
                                        ($enriched_prompt (string_concat $soul_brief $prompt))
-                                       ($send (py-call (helper.soul_send_assemble
+                                       ($aliveness (aliveness-gate $msgnew))
+                                       ($_ (println! (ALIVENESS_VERDICT: $aliveness)))
+                                       ($send (if (== $aliveness SILENT) "" (py-call (helper.soul_send_assemble
                                                        $enriched_prompt $soul_context_in $soul_verdict_in
                                                        $person_state
                                                        (soul-extract-flag-note $soul_verdict_in)
-                                                       $lastmessage $idle_directive)))
-                                       ($_ (println! (CHARS_SENT: (string_length $send) $send)))
-                                       ($respi (if (== (provider) OpenAI)
+                                                       $lastmessage $idle_directive))))
+                                       ($_ (if (not (== $aliveness SILENT)) (println! (CHARS_SENT: (string_length $send) $send)) (println! (SILENT_CYCLE))))
+                                       ($respi (if (== $aliveness SILENT) "" (if (== (provider) OpenAI)
                                                    (useGPT (LLM) (maxOutputToken) (reasoningMode) $send)
                                                    (if (== (provider) Anthropic)
                                                        (py-call (lib_llm_ext.useClaude $send))
-                                                       (py-call (lib_llm_ext.useMiniMax $send)))))
+                                                       (py-call (lib_llm_ext.useMiniMax $send))))))
                                        ($resp (py-call (helper.normalize_string (py-call (helper.balance_parentheses $respi)))))
                                        ($response (if (== "(" (first_char $resp)) $resp (progn (println! $resp) (repr (REMEMBER:OUTPUT_NOTHING_ELSE_THAN: ((skill arg) ...))))))
                                        ($sexpr (catch (sread $response)))

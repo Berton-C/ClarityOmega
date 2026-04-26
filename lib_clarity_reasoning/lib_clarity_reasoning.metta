@@ -43,3 +43,4 @@
 !(import! &self (library omegaclaw ./soul/orbit_detector))
 !(import! &self (library omegaclaw ./soul/task_selector))
 !(import! &self (library omegaclaw ./soul/get_soul_brief))
+!(import! &self (library omegaclaw ./soul/aliveness_gate))
