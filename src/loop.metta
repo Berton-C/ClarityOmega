@@ -91,7 +91,7 @@
                                        ($idle_directive (if (and (not $msgnew) (> (get_time) (+ (get-state &last_human_time) (wakeupInterval)))) (py-call (helper.soul_idle_goal_prompt_v2 (py-call (helper.extract_username $msg)) "" $atomspace_goals $atomspace_gaps $atomspace_fuel)) ""))
                                        ($soul_brief (swrite (getSoulBrief)))
                                        ($enriched_prompt (string_concat $soul_brief $prompt))
-                                       ($aliveness (aliveness-gate $msgnew))
+                                       ($aliveness (aliveness-gate $msgnew $idle_directive))
                                        ($_ (println! (ALIVENESS_VERDICT: $aliveness)))
                                        ($send (if (== $aliveness SILENT) "" (py-call (helper.soul_send_assemble
                                                        $enriched_prompt $soul_context_in $soul_verdict_in
