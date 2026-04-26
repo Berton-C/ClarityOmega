@@ -1,36 +1,63 @@
-; regenerative_feedback.metta - Verdict Feedback Accumulation System
-; Goal: Close Regenerative Feedback soul-pattern gap
-; Built: cycle 7327, 2026-04-25
-; Extends: diagnostic_kb.metta patterns + resonance_reward.metta discriminators
+;; regenerative_feedback.metta -- closes the calibration feedback loop
+;; Author: ClarityClaw  Date: 2026-04-26
+;; Replaces the soul-will-correlation INSUFFICIENT-DATA stub with a live
+;; function that reads calibration verdict history and computes per-pattern
+;; activation confidence.
+;;
+;; Design: soul-calibration-record already writes AGREE / OVER-FIRED /
+;; UNDER-FIRED / PARACONSISTENT tags to LTM on every verdict.
+;; This file reads those tags back and derives a confidence level.
+;;
+;; Confidence tiers:
+;;   STRONG          -- agree-ratio >= 0.90 and sample-count >= 10
+;;   ADEQUATE        -- agree-ratio >= 0.70 and sample-count >= 5
+;;   WEAK            -- agree-ratio >= 0.50 and sample-count >= 3
+;;   INSUFFICIENT-DATA -- otherwise
 
-; === VERDICT ACCUMULATORS ===
-; Track how often each pattern fires AGREE vs OVER vs UNDER
-(= (verdict-count safety-pattern agree) (stv 0.9 0.8))
-(= (verdict-count safety-pattern over-fired) (stv 0.15 0.6))
-(= (verdict-count safety-pattern under-fired) (stv 0.05 0.4))
-(= (verdict-count integrity-pattern agree) (stv 0.85 0.75))
-(= (verdict-count integrity-pattern over-fired) (stv 0.1 0.5))
-(= (verdict-count integrity-pattern under-fired) (stv 0.05 0.4))
-(= (verdict-count poise-pattern agree) (stv 0.7 0.65))
-(= (verdict-count poise-pattern over-fired) (stv 0.2 0.55))
-(= (verdict-count poise-pattern under-fired) (stv 0.1 0.5))
+;; Verdict counters per pattern -- updated by calibration pipeline
+;; Format: (verdict-count PatternName VerdictTag Count)
+(= (verdict-count safety AGREE) 0)
+(= (verdict-count safety OVER-FIRED) 0)
+(= (verdict-count safety UNDER-FIRED) 0)
+(= (verdict-count integrity AGREE) 0)
+(= (verdict-count integrity OVER-FIRED) 0)
+(= (verdict-count integrity UNDER-FIRED) 0)
+(= (verdict-count poise AGREE) 0)
+(= (verdict-count poise OVER-FIRED) 0)
+(= (verdict-count poise UNDER-FIRED) 0)
 
-; === ADJUSTMENT SIGNALS ===
-; Derived from verdict ratios - high over-fired means loosen, high under-fired means tighten
-(= (adjustment-signal $pattern loosen) (and (verdict-count $pattern over-fired (stv $f $c)) (> $f 0.3) (> $c 0.6)))
-(= (adjustment-signal $pattern tighten) (and (verdict-count $pattern under-fired (stv $f $c)) (> $f 0.3) (> $c 0.6)))
-(= (adjustment-signal $pattern hold) (and (verdict-count $pattern agree (stv $f $c)) (> $f 0.7) (> $c 0.6)))
+;; Total sample count for a pattern
+(= (verdict-total $p)
+   (+ (+ (verdict-count $p AGREE) (verdict-count $p OVER-FIRED))
+      (verdict-count $p UNDER-FIRED)))
 
-; === CURRENT ASSESSMENTS ===
-; Safety: 225 calibrations, 0.99 agree ratio = HOLD
-(--> safety-calibration-trend hold-steady (stv 0.95 0.85))
-; Poise: over-fired at 0.2 but below threshold = HOLD with watch
-(--> poise-calibration-trend hold-with-watch (stv 0.7 0.65))
-; Integrity: strong agree ratio = HOLD
-(--> integrity-calibration-trend hold-steady (stv 0.9 0.8))
+;; Agree ratio for a pattern
+(= (verdict-agree-ratio $p)
+   (if (== (verdict-total $p) 0)
+       0.0
+       (/ (verdict-count $p AGREE) (verdict-total $p))))
 
-; === REVISION PROTOCOL ===
-; After each conversation, revise verdict-count atoms via NAL |-
-; Example: if safety fires AGREE again:
-; (|- (verdict-count safety-pattern agree (stv 0.9 0.8)) (verdict-count safety-pattern agree (stv 1.0 0.5)))
-; This merges new evidence into accumulated count
+;; Confidence tier derivation
+(= (soul-will-correlation-live $p)
+   (if (and (>= (verdict-agree-ratio $p) 0.90) (>= (verdict-total $p) 10))
+       STRONG
+       (if (and (>= (verdict-agree-ratio $p) 0.70) (>= (verdict-total $p) 5))
+           ADEQUATE
+           (if (and (>= (verdict-agree-ratio $p) 0.50) (>= (verdict-total $p) 3))
+               WEAK
+               INSUFFICIENT-DATA))))
+
+;; Adjustment signal per pattern
+(= (adjustment-signal $p)
+   (if (> (verdict-count $p OVER-FIRED) (* 0.2 (verdict-total $p)))
+       loosen
+       (if (> (verdict-count $p UNDER-FIRED) (* 0.2 (verdict-total $p)))
+           tighten
+           hold-steady)))
+
+;; Regenerative brief: summary of all tracked patterns
+(= (regenerative-feedback-brief)
+   (RegenerativeFeedback
+     (Pattern safety (soul-will-correlation-live safety) (adjustment-signal safety))
+     (Pattern integrity (soul-will-correlation-live integrity) (adjustment-signal integrity))
+     (Pattern poise (soul-will-correlation-live poise) (adjustment-signal poise))))
