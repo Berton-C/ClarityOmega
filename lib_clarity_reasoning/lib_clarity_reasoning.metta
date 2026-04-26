@@ -37,3 +37,9 @@
 !(import! &self (library omegaclaw ./soul/hyperseed_creativity_atoms_evolved))
 !(import! &self (library omegaclaw ./soul/meta_awareness_engine))
 !(import! &self (library omegaclaw ./soul/self_weaving_web))
+
+;; Reasoning sovereignty: MeTTa functions replacing LLM calls
+!(import! &self (library omegaclaw ./soul/goal_completion_checker))
+!(import! &self (library omegaclaw ./soul/orbit_detector))
+!(import! &self (library omegaclaw ./soul/task_selector))
+!(import! &self (library omegaclaw ./soul/get_soul_brief))
