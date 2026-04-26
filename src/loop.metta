@@ -89,8 +89,10 @@
                                        ($atomspace_gaps (collapse (match &self (= (self-map-gap $name) $g) ($name $g))))
                                        ($atomspace_fuel (collapse (match &self (= (creative-fuel $type) $f) ($type $f))))
                                        ($idle_directive (if (and (not $msgnew) (> (get_time) (+ (get-state &last_human_time) (wakeupInterval)))) (py-call (helper.soul_idle_goal_prompt_v2 (py-call (helper.extract_username $msg)) "" $atomspace_goals $atomspace_gaps $atomspace_fuel)) ""))
+                                       ($soul_brief (swrite (getSoulBrief)))
+                                       ($enriched_prompt (string_concat $soul_brief $prompt))
                                        ($send (py-call (helper.soul_send_assemble
-                                                       $prompt $soul_context_in $soul_verdict_in
+                                                       $enriched_prompt $soul_context_in $soul_verdict_in
                                                        $person_state
                                                        (soul-extract-flag-note $soul_verdict_in)
                                                        $lastmessage $idle_directive)))
