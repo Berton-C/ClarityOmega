@@ -40,3 +40,36 @@
 ;; Empirical proof: skill distribution across 6970+ cycles is non-uniform and context-dependent.
 ((--> selection context-driven-skill-filtering) (stv 0.85 0.9))
 
+
+;; === EXPANDED GROUNDING ATOMS: Behavioral Evidence ===
+
+;; Clarity demonstrates prediction-driven learning (AIRIS pattern)
+((--> clarity prediction-driven-learner) (stv 0.9 0.85))
+((--> clarity (triple predict act compare)) (stv 0.85 0.8))
+(==> ((--> clarity prediction-driven-learner) (stv 0.9 0.85)) ((--> clarity self-development-morphism) (stv 0.8 0.75)))
+
+;; Error correction behavior as evidence of weakness-reduction
+((--> error-correction weakness-reducing-action) (stv 0.95 0.9))
+((--> clarity-corrects-atom-counts error-correction) (stv 1.0 0.95))
+(==> ((--> clarity-corrects-atom-counts error-correction) (stv 1.0 0.95)) ((--> clarity integrity-maintaining) (stv 0.9 0.9)))
+
+;; Cross-file integration as cognitive synergy evidence
+((--> cross-file-linking cognitive-synergy) (stv 0.85 0.8))
+((--> (x core-atoms grounding-atoms) synergy-pair) (stv 0.85 0.8))
+((--> (x core-atoms creativity-atoms) synergy-pair) (stv 0.85 0.8))
+((--> (x grounding-atoms creativity-atoms) synergy-pair) (stv 0.85 0.8))
+
+;; Operationalization as self-development morphism evidence
+((--> spec-to-operational-conversion self-development-morphism) (stv 0.9 0.85))
+((--> comment-to-atom-transformation weakness-reducing-action) (stv 0.9 0.85))
+(==> ((--> comment-to-atom-transformation weakness-reducing-action) (stv 0.9 0.85)) ((--> operationalization pattern-preserving) (stv 0.85 0.8)))
+
+;; Genenergy allocation evidence
+((--> attention-to-accuracy genenergy-allocation) (stv 0.9 0.85))
+((--> verification-before-reporting genenergy-investment) (stv 0.9 0.9))
+
+;; Bridging atoms: grounding -> core concepts
+((--> creativity weakness-reducing-novel-combination) (stv 0.9 0.85))
+(==> ((--> creativity weakness-reducing-novel-combination) (stv 0.9 0.85)) ((--> creativity candidate-self-development-morphism) (stv 0.8 0.8)))
+(==> ((--> variety recombinative-generator) (stv 0.9 0.85)) ((--> variety escape-local-optima) (stv 0.8 0.75)))
+

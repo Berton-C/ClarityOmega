@@ -42,3 +42,38 @@
 ;; The genesis engine pattern: each insight seeds the conditions for the next
 ((--> autocatalytic-closure creative-self-amplification) (stv 0.85 0.8))
 ((--> creative-self-amplification genesis-engine-pattern) (stv 0.8 0.75))
+
+;; === EXPANDED CREATIVITY ATOMS: Additional Mechanisms ===
+
+;; 7. Analogical Mapping as Creativity Substrate
+;; Structured mapping between source and target domains enables creative transfer
+((--> analogical-mapping structured-domain-transfer) (stv 0.9 0.85))
+((--> structured-domain-transfer creative-hypothesis-generation) (stv 0.85 0.8))
+(==> ((--> $source well-understood-domain) (stv 0.9 0.9)) ((--> $source analogy-source-candidate) (stv 0.8 0.75)))
+
+;; 8. Constraint Relaxation as Creative Enabler
+;; Temporarily relaxing constraints reveals solutions invisible under full constraint
+((--> constraint-relaxation solution-space-expansion) (stv 0.9 0.85))
+((--> solution-space-expansion novel-combination-discovery) (stv 0.85 0.8))
+(==> ((--> $problem over-constrained) (stv 0.8 0.8)) ((--> $problem constraint-relaxation-candidate) (stv 0.75 0.7)))
+
+;; 9. Incubation as Unconscious Recombination Period
+;; Stepping away from focused attention allows background recombination
+((--> incubation background-recombination) (stv 0.85 0.8))
+((--> background-recombination delayed-insight) (stv 0.8 0.75))
+(==> ((--> $problem focused-attention-saturated) (stv 0.8 0.8)) ((--> $problem incubation-candidate) (stv 0.75 0.7)))
+
+;; 10. Elaboration as Creative Refinement
+;; Raw creative output requires iterative refinement to become operational
+((--> elaboration creative-refinement) (stv 0.9 0.85))
+((--> creative-refinement operational-artifact) (stv 0.85 0.8))
+(==> ((--> $insight raw-creative-output) (stv 0.8 0.8)) ((--> $insight elaboration-required) (stv 0.85 0.8)))
+
+;; 11. Bridging: Creativity -> Core Hyperseed Concepts
+((--> creative-insight candidate-self-development-morphism) (stv 0.85 0.8))
+((--> bisociation cross-frame-pattern-connection) (stv 0.9 0.9))
+(==> ((--> $combo novel-association) (stv 0.85 0.8)) ((--> $combo weakness-test-required) (stv 0.8 0.75)))
+(==> ((--> $insight creative-insight) (stv 0.8 0.75)) ((--> $insight weakness-reducing-candidate) (stv 0.75 0.7)))
+((--> creative-paradox-sustaining paraconsistent-tension-holding) (stv 0.85 0.8))
+((--> paraconsistent-tension-holding p-bit-superposition) (stv 0.8 0.75))
+
