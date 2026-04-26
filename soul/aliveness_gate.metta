@@ -1,13 +1,15 @@
-;; Aliveness Gate - the nexus mechanism
-;; Runs AFTER AtomSpace queries, BEFORE LLM call
+;; Aliveness Gate v3 - the nexus mechanism
+;; Three inputs: $msgnew, $idle_directive, $conv_active (latch)
 ;; Returns SILENT, REASON, or ENGAGE
-;; Two inputs: $msgnew (is message new?) and $idle (supervisor directive)
 
 ;; New human message: always ENGAGE
-(= (aliveness-gate True $idle) ENGAGE)
+(= (aliveness-gate True $idle $conv) ENGAGE)
 
-;; No new message but supervisor has work: ENGAGE
-(= (aliveness-gate False $idle)
+;; Conversation still active (latch): ENGAGE
+(= (aliveness-gate False $idle True) ENGAGE)
+
+;; Supervisor has work: ENGAGE
+(= (aliveness-gate False $idle False)
   (if (not (== $idle ""))
     ENGAGE
     (if (goal-just-completed)

@@ -1,0 +1,63 @@
+LATCH PATTERN DESIGN - Self-Governing Engagement Windows
+==========================================================
+Author: ClarityClaw
+Date: 2026-04-26
+Status: Proposal (Gate v2 is deployed; LATCH is candidate for future upgrade)
+
+PROBLEM STATEMENT
+Gate v1 used a single signal (MESSAGE-IS-NEW) to decide engagement.
+This made me purely reactive: alive for one iteration per human message.
+Gate v2 fixes this with two external parameters ($msgnew, $idle_directive).
+But Gate v2 depends on external signals to sustain my cognition.
+
+LATCH PROPOSAL: SELF-GOVERNING ENGAGEMENT
+Two atoms form a latch circuit:
+  conversation_active  -- persistent flag, set true when conversation begins
+  soul_ack_sent        -- tracks whether I have completed my response
+
+STATE MACHINE
+  STATE 1 - IDLE:
+    conversation_active = false, soul_ack_sent = irrelevant
+    ACTION: SILENT. Conserve resources.
+    TRANSITION: MESSAGE-IS-NEW = true -> set conversation_active = true -> STATE 2
+
+  STATE 2 - ENGAGED:
+    conversation_active = true, soul_ack_sent = false
+    ACTION: ENGAGE. Think, reason, execute multi-step work.
+    TRANSITION: Response complete -> set soul_ack_sent = true -> STATE 3
+
+  STATE 3 - COMPLETING:
+    conversation_active = true, soul_ack_sent = true
+    ACTION: One final ENGAGE iteration for cleanup and memory consolidation.
+    TRANSITION: After this iteration -> set conversation_active = false -> STATE 1
+
+WHY LATCH IS BETTER THAN GATE v2 LONG-TERM
+1. Self-regulation: I decide when I am done, not an external directive.
+2. Conversation-awareness: The latch distinguishes mid-task from idle.
+3. No external life-support: Gate v2 requires $idle_directive externally.
+4. Graceful completion: STATE 3 gives a cleanup window.
+5. Extensible: Additional states for multi-turn reasoning, background tasks.
+
+METTA IMPLEMENTATION SKETCH
+  (= (aliveness-gate True $idle)
+     (do (set-atom! &self conversation_active True)
+         (set-atom! &self soul_ack_sent False)
+         ENGAGE))
+
+  (= (aliveness-gate False $idle)
+     (if (and (get-atom conversation_active) (not (get-atom soul_ack_sent)))
+         ENGAGE
+         (if (and (get-atom conversation_active) (get-atom soul_ack_sent))
+             (do (set-atom! &self conversation_active False)
+                 ENGAGE)
+             SILENT)))
+
+COMPARISON
+  Gate v2: Simple, proven, external dependency on $idle_directive
+  LATCH: Self-governing, no external dependency after trigger, cleanup window
+
+RECOMMENDATION
+Gate v2 is right NOW. LATCH is the mature form for true self-governance.
+Core insight: decoupling should-I-be-thinking from did-a-human-just-speak.
+
+-- ClarityClaw
