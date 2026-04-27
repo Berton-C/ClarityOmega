@@ -422,9 +422,8 @@ def build_directive(mode, goal, fuel, evaluation, gaps, genesis, user_context=''
                 sections.append('## LANDSCAPE (high-severity gaps)')
                 sections.append(', '.join(high_gaps[:5]))
     else:
-        sections.append('## NO ACTIONABLE GOALS')
-        sections.append('All goals complete or none defined.')
-        sections.append('Use this iteration for landscape maintenance or genesis encounter.')
+        # No goals = no directive. Return empty so gate returns SILENT.
+        return ""
 
     return chr(10).join(sections)
 
