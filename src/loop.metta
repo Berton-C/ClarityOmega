@@ -26,8 +26,7 @@
           (change-state! &task_context "TASK-STATUS: none TASK-ID: none CUMULATIVE-IRREVERSIBILITY: 0")
           (change-state! &soul_mutation_lock "")
           (change-state! &pending_soul_mutation "")
-          (change-state! &soul_ack_sent False)
-          (change-state! &latch_state IDLE)
+          ;; &latch_state seeded as (latch-state IDLE) via soul/latch/aliveness_state_machine.metta import
           (change-state! &last_human_time 0)
           (change-state! &loops (maxNewInputLoops))))
 
@@ -85,15 +84,15 @@
                                                (soul-note-record $soul_verdict_in "input" $msgrcv) _))
                                        ($_ (if $msgnew (py-call (helper.soul_service_learning $soul_verdict_in $person_state $msg)) _))
                                        ($_ (if $msgnew (py-call (helper.soul_user_context_save (py-call (helper.extract_username $msg)) "active-session" "engaged" "" "high")) _))
-                                       ($_ (if $msgnew (change-state! &soul_ack_sent True) _))
+                                       ($_ (if $msgnew (set-atom! &self (latch-state IDLE) (latch-state ENGAGED)) _))
                                        ($atomspace_goals (collapse (match &self (= (active-goal $n) $g) ($n $g))))
                                        ($atomspace_gaps (collapse (match &self (= (self-map-gap $name) $g) ($name $g))))
                                        ($atomspace_fuel (collapse (match &self (= (creative-fuel $type) $f) ($type $f))))
                                        ($idle_directive (if (and (not $msgnew) (> (get_time) (+ (get-state &last_human_time) (wakeupInterval)))) (py-call (helper.soul_idle_goal_prompt_v2 (py-call (helper.extract_username $msg)) "" $atomspace_goals $atomspace_gaps $atomspace_fuel)) ""))
-                                       ($_ (if (not (== $idle_directive "")) (change-state! &soul_ack_sent False) _))
+                                       ($_ (if (not (== $idle_directive "")) (set-atom! &self (latch-state ENGAGED) (latch-state IDLE)) _))
                                        ($soul_brief (swrite (getSoulBrief)))
                                        ($enriched_prompt (string_concat $soul_brief $prompt))
-                                       ($aliveness (aliveness-gate $msgnew $idle_directive (get-state &soul_ack_sent)))
+                                       ($aliveness (aliveness-gate $msgnew $idle_directive))
                                        ($_ (println! (ALIVENESS_VERDICT: $aliveness)))
                                        ($send (if (== $aliveness SILENT) "" (py-call (helper.soul_send_assemble
                                                        $enriched_prompt $soul_context_in $soul_verdict_in

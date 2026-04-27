@@ -10,7 +10,7 @@
 ;;   and temporal state journaling (build path 3)
 
 ;; Import set-atom! implementation
-!(import! &self soul/set_atom_impl)
+;; set_atom_impl imported via lib_clarity_reasoning.metta import chain
 
 ;; Initialize state atom -- IDLE is the ground state
 !(add-atom &self (latch-state IDLE))
