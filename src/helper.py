@@ -1123,7 +1123,11 @@ def soul_idle_goal_prompt_v2(username='', user_context='', atomspace_goals=None,
         
         # Supervisor decides
         if state['mode'] == 'goal':
+            print('IDLE-DEBUG: goals_count=%d completed=%s' % (len(goals), str(state.get('completed_goals', []))))
+            for g in goals:
+                print('IDLE-DEBUG: goal=%s status=%s in_completed=%s' % (g.get('name','?'), g.get('status','?'), g.get('name','') in state.get('completed_goals',[])))
             goal = supervisor_select_goal(goals, state)
+            print('IDLE-DEBUG: selected_goal=%s' % (goal.get('name') if goal else 'None'))
             if goal:
                 fuel = supervisor_select_fuel(goal, fuels)
                 evaluation = supervisor_evaluate_previous(state)
