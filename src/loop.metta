@@ -27,6 +27,7 @@
           (change-state! &soul_mutation_lock "")
           (change-state! &pending_soul_mutation "")
           (change-state! &soul_ack_sent False)
+          (change-state! &latch_state IDLE)
           (change-state! &last_human_time 0)
           (change-state! &loops (maxNewInputLoops))))
 
