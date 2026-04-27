@@ -1,6 +1,5 @@
-;; Aliveness Gate v6 - Reads queryable state atoms from AtomSpace
-;; State stored as (latch-state IDLE/ENGAGED/COMPLETING) atom in &self
-;; State managed by loop.metta via set-atom! transitions
+;; Aliveness Gate v7 - Reads queryable state atoms, with fallback
+;; If no latch-state atom exists, defaults to SILENT (safe)
 
 (= (aliveness-gate $msgnew $idle)
   (if (not (== $idle ""))
@@ -15,3 +14,4 @@
 (= (latch-dispatch IDLE) SILENT)
 (= (latch-dispatch ENGAGED) ENGAGE)
 (= (latch-dispatch COMPLETING) ENGAGE)
+(= (latch-dispatch $other) SILENT)
