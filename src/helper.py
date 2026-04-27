@@ -1184,6 +1184,7 @@ def soul_idle_goal_prompt_v2(username='', user_context='', atomspace_goals=None,
 
         save_idle_state(state)
         _auto_save_session_state("auto-save-at-directive-return")
+        print('IDLE-DEBUG-RETURN: directive_len=%d directive_empty=%s' % (len(directive), directive == ''))
         return directive
         
     except Exception as e:
