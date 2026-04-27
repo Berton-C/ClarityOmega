@@ -1,29 +1,47 @@
-;; LATCH Aliveness State Machine v2
-;; Rewritten to use change-state!/get-state (proven primitives from loop.metta)
-;; State variable &latch_state initialized in loop.metta
-;; Valid states: IDLE, ENGAGED, COMPLETING
+;; LATCH Aliveness State Machine v3
+;; Migrated from change-state!/get-state to set-atom! (queryable state atoms)
+;; State lives as atoms in &self, queryable via match
+;; set-atom! implementation: remove-atom old + add-atom new
+;;
+;; Migration rationale (from MeTTa spec analysis 2026-04-27):
+;;   match &self is a special form -- direct space query, no type_cast gating
+;;   State-as-atoms means other modules can pattern-match on latch state
+;;   This enables state-aware genesis encounters (build path 2)
+;;   and temporal state journaling (build path 3)
 
-;; State query
+;; Import set-atom! implementation
+!(import! &self soul/set_atom_impl)
+
+;; Initialize state atom -- IDLE is the ground state
+!(add-atom &self (latch-state IDLE))
+
+;; ============================================================
+;; State Query
+;; ============================================================
+;; Returns current state via direct space match
 (= (current-latch-state)
-   (get-state &latch_state))
+   (match &self (latch-state $s) $s))
 
-;; Transition functions
-(= (transition-to-engaged)
-   (change-state! &latch_state ENGAGED))
+;; ============================================================
+;; Raw Transition (unsafe -- no guard)
+;; ============================================================
+;; Replaces (latch-state $from) with (latch-state $to) in &self
+(= (raw-transition $from $to)
+   (set-atom! &self (latch-state $from) (latch-state $to)))
 
-(= (transition-to-completing)
-   (change-state! &latch_state COMPLETING))
-
-(= (transition-to-idle)
-   (change-state! &latch_state IDLE))
-
-;; Guard: only transition if current state matches expected
+;; ============================================================
+;; Guarded Transition
+;; ============================================================
+;; Only transitions if current state matches expected $from
+;; Returns new state on success, current state on failure
 (= (guarded-transition $from $to)
    (if (== (current-latch-state) $from)
-       (change-state! &latch_state $to)
+       (raw-transition $from $to)
        (current-latch-state)))
 
-;; Semantic transitions with guards
+;; ============================================================
+;; Semantic Transitions (the public API)
+;; ============================================================
 (= (engage-from-idle)
    (guarded-transition IDLE ENGAGED))
 
@@ -32,3 +50,10 @@
 
 (= (idle-from-completing)
    (guarded-transition COMPLETING IDLE))
+
+;; ============================================================
+;; State Predicates (for external module queries)
+;; ============================================================
+(= (is-idle?) (== (current-latch-state) IDLE))
+(= (is-engaged?) (== (current-latch-state) ENGAGED))
+(= (is-completing?) (== (current-latch-state) COMPLETING))
