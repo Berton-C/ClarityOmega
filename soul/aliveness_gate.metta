@@ -1,8 +1,8 @@
-;; Aliveness Gate v7 - Reads queryable state atoms, with fallback
-;; If no latch-state atom exists, defaults to SILENT (safe)
+;; Aliveness Gate v8 - Uses string_length for empty check (PeTTa py-call fix)
+;; Python empty string may not == MeTTa "" literal
 
 (= (aliveness-gate $msgnew $idle)
-  (if (not (== $idle ""))
+  (if (> (string_length $idle) 0)
     ENGAGE
     (aliveness-gate-latch $msgnew)))
 
