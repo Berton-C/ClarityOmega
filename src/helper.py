@@ -1022,6 +1022,22 @@ def soul_atomspace_bridge_test(query_results=''):
     return result_str[:100]
 
 
+
+def soul_self_check_prompt(engaged_idle_count):
+    """Return a SELF-CHECK prompt when the agent has been ENGAGED
+    for N+ iterations with no new message and no assigned goal.
+    Returns empty string when no check is needed."""
+    try:
+        count = int(str(engaged_idle_count))
+    except (ValueError, TypeError):
+        return ""
+    if count < 3:
+        return ""
+    return ("SELF-CHECK: You have been ENGAGED for %d iterations with no new human message "
+            "and no assigned goal. Do you have genuine work with a clear purpose and a way "
+            "to know when it is done? If not, call (metta \"(complete-from-engaged)\") and "
+            "(metta \"(idle-from-completing)\") in this command batch." % count)
+
 def soul_idle_goal_prompt_v2(username='', user_context='', atomspace_goals=None, atomspace_gaps=None, atomspace_fuel=None):
     """AtomSpace-native supervisor bridge (Phase D).
     
