@@ -1165,11 +1165,13 @@ def soul_idle_goal_prompt_v2(username='', user_context='', atomspace_goals=None,
                     state['current_goal_fuel'] = goal.get('fuel', '')
                     state['iterations_on_goal'] = 1
                 else:
-                    goal = None
-                    fuel = {'type': 'none', 'question': ''}
-                    evaluation = 'All goals and gaps addressed. True maintenance mode.'
+                    # No goals, no gaps: switch to creative mode for genesis work
+                    state['mode'] = 'creative'
                     state['current_goal'] = ''
                     state['iterations_on_goal'] = 0
+                    goal = None
+                    fuel = {'type': 'none', 'question': ''}
+                    evaluation = 'All goals and gaps addressed. Switching to genesis exploration.'
         else:
             goal = None
             fuel = {'type': 'none', 'question': ''}
