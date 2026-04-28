@@ -1034,7 +1034,7 @@ def soul_self_check_prompt(engaged_idle_count):
     if count < 3:
         return ""
     return ("SELF-CHECK: You have been ENGAGED for %d iterations with no new human message "
-            "and no assigned goal. Do you have genuine work with a clear purpose and a way "
+            "and no assigned goal or genesis directive. Do you have genuine work with a clear purpose and a way "
             "to know when it is done? If not, call (metta \"(complete-from-engaged)\") and "
             "(metta \"(idle-from-completing)\") in this command batch." % count)
 

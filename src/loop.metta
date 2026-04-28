@@ -86,7 +86,7 @@
                                        ($_ (if $msgnew (py-call (helper.soul_service_learning $soul_verdict_in $person_state $msg)) _))
                                        ($_ (if $msgnew (py-call (helper.soul_user_context_save (py-call (helper.extract_username $msg)) "active-session" "engaged" "" "high")) _))
                                        ($_ (if $msgnew (set-atom! &self (latch-state IDLE) (latch-state ENGAGED)) _))
-                                       ($_ (if $msgnew (change-state! &engaged_idle_count 0) (change-state! &engaged_idle_count (+ 1 (get-state &engaged_idle_count)))))
+                                       ($_ (if $msgnew (change-state! &engaged_idle_count 0) (if (> (string_length $idle_directive) 0) (change-state! &engaged_idle_count 0) (change-state! &engaged_idle_count (+ 1 (get-state &engaged_idle_count))))))
                                        ($atomspace_goals (collapse (match &self (= (active-goal $n) $g) ($n $g))))
                                        ($atomspace_gaps (collapse (match &self (= (self-map-gap $name) $g) ($name $g))))
                                        ($atomspace_fuel (collapse (match &self (= (creative-fuel $type) $f) ($type $f))))
