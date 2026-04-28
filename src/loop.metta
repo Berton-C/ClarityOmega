@@ -92,6 +92,7 @@
                                        ($_ (if (not (== $idle_directive "")) (set-atom! &self (latch-state ENGAGED) (latch-state IDLE)) _))
                                        ($soul_brief (swrite (getSoulBrief)))
                                        ($enriched_prompt (string_concat $soul_brief $prompt))
+                                       ($_ (println! (IDLE_DIRECTIVE_RAW: $idle_directive)))
                                        ($aliveness (aliveness-gate $msgnew $idle_directive))
                                        ($_ (println! (ALIVENESS_VERDICT: $aliveness)))
                                        ($send (if (== $aliveness SILENT) "" (py-call (helper.soul_send_assemble
