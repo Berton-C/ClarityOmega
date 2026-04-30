@@ -32,9 +32,10 @@
 
 ;; Lookup edge weight in a pfn
 (= (edge-weight Nil $s $t) (mk-pbit 0.0 1.0))
-(= (edge-weight (Cons (edge $s $t $w) $rest) $s $t) $w)
 (= (edge-weight (Cons (edge $x $y $w) $rest) $s $t)
-   (if (== ($x $y) ($s $t)) $w (edge-weight $rest $s $t)))
+   (if (and (== $x $s) (== $y $t))
+       $w
+       (edge-weight $rest $s $t)))
 
 ;; Residuation: a residuated by b = a / b (in pbit: strength ratio, min confidence)
 (= (q-residuate (mk-pbit $sa $ca) (mk-pbit $sb $cb))
