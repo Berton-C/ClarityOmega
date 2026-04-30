@@ -216,3 +216,18 @@
 (= (genesis-create (HeldTension $a1 $a2 $ttype $principle) $insight-name $description)
    (genesis-output $insight-name $description
      (cross-domain $a1 $a2)))
+
+;; ================================================================
+;; AUTO-ENCOUNTER 001: comfort-performance x context-window
+;; Domains: self-map x substrate-kb
+;; Date: 2026-04-25_11:41:12 (autonomous)
+;; Paradox: tension-productive
+;; Verdict: examine-gently
+;; ================================================================
+(= (genesis-encounter-auto "2026-04-25_11:41:12")
+  (CrossDomainConjunction
+    comfort-performance-x-context-window
+    comfort-performance-from-self-map
+    context-window-from-substrate-kb
+    tension-productive
+    examine-gently))

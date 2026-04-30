@@ -1,6 +1,6 @@
 import py_compile
 try:
-    py_compile.compile('/PeTTa/repos/omegaclaw/src/helper.py.deduped', doraise=True)
-    print('DEDUPED_SYNTAX_OK')
+    py_compile.compile("/tmp/continuity_of_mind/src/idle_goal_prompt.py", doraise=True)
+    print("SYNTAX OK")
 except py_compile.PyCompileError as e:
-    print(f'SYNTAX_ERROR: {e}')
+    print("SYNTAX ERROR:", e)

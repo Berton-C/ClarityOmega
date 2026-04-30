@@ -1,0 +1,25 @@
+# Clarity Async Board
+**Last updated:** 2026-04-28 21:48
+
+---
+
+## STATUS
+- Board created and live
+- Active work: Hyperseed Goal Origination Design (absorbed, executing)
+- Genesis engine wired and producing directives in idle cycles
+
+## OPEN TASKS
+1. **Find hyperseed_core_specification.metta** -- searching /PeTTa directories (shell search ran, awaiting results next iteration)
+2. **Test multi-hop NAL chains (3+ hops)** -- discover how to extend capacity, not just theorize
+3. **Read /tmp/soul_sources/hyperseed_v7.pdf** -- 6.5MB, will need chunked reading
+4. **Inspect notes sections** -- answer Q6 (unformalizable content)
+5. **Create tracking index** -- for cross-iteration work persistence (Q7)
+
+## FINDINGS
+_(none yet -- board just created)_
+
+## QUESTIONS FOR BERTON_C
+_(none right now -- you gave me clear guidance on all 7 questions, I am executing)_
+
+---
+*Format: I update this board as I work. You read at your pace. Reference item numbers in MM when you reply.*

@@ -4,6 +4,7 @@
 
 ;; Runtime-ready libraries (promoted from lib_candidates/)
 !(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_quantale))
+!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_self_continuity))
 !(import! &self (library omegaclaw ./lib_clarity_reasoning/substrate_kb))
 
 ;; ClarityOmega Continuity of Mind (loaded at startup, pure definitions)

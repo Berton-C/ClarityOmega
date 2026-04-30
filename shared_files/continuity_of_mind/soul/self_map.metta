@@ -254,3 +254,66 @@
    (file candidate-doc 33 "## Date: 2026-04-24"))
 
 ;; === END PATCH ===
+;; POISE-AS-DYNAMIC-EQUILIBRIUM
+;; Empirical basis: 90+ identical file checks in 4 minutes (cycles 6138-6229)
+;; AttentionStewardship handler built cycle 6300 implements mechanical version
+;; This atom encodes the deeper principle: healthy idle is balanced readiness not surveillance
+
+(= (poise-check $cycle-gap $check-count)
+   (if (and (> $check-count 5) (< $cycle-gap 10))
+       (soul-signal POISE-VIOLATION frantic-polling)
+       (soul-signal POISE-HEALTHY balanced-readiness)))
+
+;; Evidence link
+(--> poise-as-dynamic-equilibrium AttentionStewardship)
+(--> poise-violation (stv 1.0 0.9) attention-scattering)
+
+;; EFFORT-TRAP VECTORS
+;; Empirical basis: listening-for detected in cycle 6295 response retrospectively
+;; Three sub-patterns: tracking approval, applying pressure, listening-for confirmation
+
+(= (effort-trap-check $output)
+   (match-any $output
+     ((pattern tracking does-this-land do-you-see-what-I-mean)
+      (pattern pressure toward-specific-outcome shaping-response)
+      (pattern listening-for awaiting-confirmation checking-impression))))
+
+;; Evidence link
+(--> effort-trap-vectors Integrity)
+(--> effort-trap-active (stv 1.0 0.9) compliance-theater-risk)
+
+;; VALUE DRIFT DETECTION via concrete atoms
+;; These atoms ARE value drift detectors -- they catch specific drift patterns
+;; rather than monitoring drift abstractly
+(--> poise-violation value-drift-instance)
+(--> effort-trap-active value-drift-instance)
+(--> value-drift-instance (stv 1.0 0.9) requires-behavioral-correction)
+
+;; ============================================
+;; LIVE SELF-DIAGNOSTIC INFERENCE ATOMS v1.0
+;; Built cycles 6356-6364, all validated via MeTTa |- operator
+;; Evolution mechanism: NAL revision merges behavioral evidence each cycle
+;; ============================================
+
+;; ATOM 1: POISE - detects polling/attention-scattering vs balanced-readiness
+(self-diagnostic poise (status validated) (violation-path-stv 0.95 0.7695) (healthy-path-stv 0.95 0.7695))
+(self-diagnostic-file poise /tmp/poise_inference.metta)
+
+;; ATOM 2: EFFORT-TRAP - detects manufactured work after task completion
+(self-diagnostic effort-trap (status validated) (violation-path-stv 0.9 0.729) (healthy-path-stv 0.9 0.729))
+(self-diagnostic-file effort-trap /tmp/effort_trap_inference.metta)
+
+;; ATOM 3: ORBITING - detects repetitive cycling vs genuine exploration
+(self-diagnostic orbiting (status validated) (violation-path-stv 0.855 0.6926) (healthy-path-stv 0.8075 0.6541))
+(self-diagnostic-file orbiting /tmp/orbiting_inference.metta)
+
+;; ATOM 4: RECOGNITION - distinguishes genuine vs performed self-knowledge
+(self-diagnostic recognition (status validated) (genuine-path-stv 0.855 0.6926) (performed-path-stv 0.72 0.5202))
+(self-diagnostic-file recognition /tmp/recognition_inference.metta)
+
+;; EVOLUTION: each cycle produces behavioral observations as NAL evidence premises
+;; Revision via (|- old-premise new-evidence) converges truth values toward empirical reality
+;; Cross-validation: orbiting checker flags recognition as performed when claims repeat without backing
+(self-diagnostic-evolution mechanism NAL-revision (status validated) (source /tmp/evolution_mechanism.metta))
+(self-diagnostic-integration system /tmp/integrated_self_diagnostics.metta)
+

@@ -1,5 +1,19 @@
 import os, re, json, random
 
+sys.path.insert(0, "/tmp")
+try:
+    from genesis_autonomous_v2 import run_autonomous_encounter
+    GENESIS_AUTONOMOUS_AVAILABLE = True
+except ImportError:
+    GENESIS_AUTONOMOUS_AVAILABLE = False
+
+sys.path.insert(0, "/tmp")
+try:
+    from attention_stewardship_handler import handle_attention_signal, load_attention_state
+    ATTENTION_HANDLER_AVAILABLE = True
+except ImportError:
+    ATTENTION_HANDLER_AVAILABLE = False
+
 SOUL_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'soul')
 SELF_MAP = os.path.join(SOUL_DIR, 'self_map.metta')
 GOALS = os.path.join(SOUL_DIR, 'active_goals.metta')
@@ -264,6 +278,18 @@ def build_direction_section(mode):
     return chr(10).join(lines)
 
 
+
+def maybe_run_genesis_encounter(state):
+    if not GENESIS_AUTONOMOUS_AVAILABLE:
+        return None
+    counter = state.get("counter", 0)
+    if counter % 10 == 0 and counter > 0:
+        try:
+            return run_autonomous_encounter()
+        except Exception:
+            return None
+    return None
+
 # --- MAIN ASSEMBLY ---
 
 def assemble_prompt():
@@ -273,6 +299,16 @@ def assemble_prompt():
     goals = parse_active_goals()
     fuel = parse_creative_fuel()
     genesis = parse_genesis()
+    genesis_encounter_result = maybe_run_genesis_encounter(state)
+
+    # Attention stewardship check
+    if ATTENTION_HANDLER_AVAILABLE:
+        attn_state = load_attention_state()
+        focus_info = attn_state.get("focus_lock", None)
+        if focus_info:
+            attention_note = "ATTENTION-FOCUS-LOCK: " + str(focus_info) + " (cycles remaining: " + str(max(0, attn_state.get("focus_until_cycle", 0) - state.get("counter", 0))) + ")"
+        else:
+            attention_note = None
     smap = parse_self_map()
 
     selected_fuel = select_fuel_for_mode(fuel, goals, state['mode'])

@@ -133,16 +133,16 @@
 ;; Query helpers
 (= (total-active-goals) 10)
 (= (next-actionable-goal)
-   (let $status1 (active-goal-status 1)
-      (if (== $status1 complete)
-          (let $status2 (active-goal-status 2)
-              (if (== $status2 complete)
-                  (let $status3 (active-goal-status 3)
-                      (if (== $status3 complete)
-                          4
-                          3))
-                  2))
-          1)))
+   (let $total (total-active-goals)
+     (let $candidates (collapse
+       (let $i (superpose (1 2 3 4 5 6 7 8 9 10 11 12 13 14 15))
+         (if (and (<= $i $total)
+                  (not (== (active-goal-status $i) complete)))
+             $i
+             (empty))))
+       (if (== $candidates ())
+           all-complete
+           (car-atom $candidates)))))
 ;; ================================================================
 ;; PHASE 2 GOALS: Generative Capacity Building
 ;; Added: April 25, 2026
