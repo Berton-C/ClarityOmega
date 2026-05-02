@@ -19,3 +19,7 @@ shared_files/repos/clarity_archive/.git/
 .github/
 shared_files/PeTTaWiki
 shared_files/
+
+# macOS metadata files
+.DS_Store
+**/.DS_Store
