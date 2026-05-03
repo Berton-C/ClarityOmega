@@ -126,7 +126,8 @@
                                        ($_ (if (and (not (soul-proceed? $soul_verdict_out)) (== (get-state &error) ()))
                                                (soul-note-record $soul_verdict_out "output" $resp) _))
                                        ($results (RESULTS: (collapse (let $s (superpose $sexpr) (COMMAND_RETURN: ($s (HandleError SINGLE_COMMAND_FORMAT_ERROR_NOTHING_WAS_DONE_PLEASE_FIX_AND_RETRY $s (catch (let $R (eval $s) (py-call (helper.normalize_string $R)))))))))))
-                                       ($_ (println! (RESULTS-EXECUTED))))
+                                       ($_ (println! (RESULTS-EXECUTED)))
+                                       ($_ (populate-recent-action $sexpr $msgnew $k)))
                                       (if (> (py-call (helper.soul_is_pause $soul_verdict_in)) 0)
                                           ;; PAUSE path: Channel D fires, loop halts
                                           (let* (($soul_voice (soul-llm-call

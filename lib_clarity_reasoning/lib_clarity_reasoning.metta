@@ -50,3 +50,9 @@
 
 ;; Behavioral guidance: substrate-callable text for surfaces previously hardcoded
 !(import! &self (library omegaclaw ./soul/behavioral_guidance))
+
+;; Cycle classifier: per-iteration behavioral signature for recent-action populator
+!(import! &self (library omegaclaw ./soul/cycle_classifier))
+
+;; Recent-action populator: writes recent-action atoms each iteration with pruning
+!(import! &self (library omegaclaw ./soul/recent_action_populator))
