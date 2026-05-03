@@ -93,7 +93,7 @@
                                        ($_ (if $msgnew (change-state! &engaged_idle_count 0) (if (> (string_length $idle_directive) 0) (change-state! &engaged_idle_count 0) (change-state! &engaged_idle_count (+ 1 (get-state &engaged_idle_count))))))
                                        ($soul_brief (swrite (getSoulBrief)))
                                        ($enriched_prompt (string_concat $soul_brief $prompt))
-                                       ($self_check (py-call (helper.soul_self_check_prompt (get-state &engaged_idle_count))))
+                                       ($self_check (self-check-guidance (get-state &engaged_idle_count)))
                                        ($final_prompt (string_concat $self_check $enriched_prompt))
                                        ($_ (println! (IDLE_DIRECTIVE_RAW: $idle_directive)))
                                        ($aliveness (aliveness-gate $msgnew $idle_directive))
