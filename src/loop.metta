@@ -123,20 +123,6 @@
                                                        (collapse (superpose $sexpr))
                                                        ()))
                                        ($soul_mutation_flag (py-call (helper.soul_mutation_gate (repr $metta_cmds) (get-state &soul_mutation_lock))))
-                                         ;; (if (soul-any-metta? $metta_cmds)
-                                             ;; (let $args (collapse (let $c (superpose $metta_cmds)
-                                                           ;; (if (soul-is-metta-cmd? $c)
-                                                               ;; (soul-extract-metta-arg $c) ())))
-                                                  ;; (if (any (collapse (let $a (superpose $args)
-                                                              ;; (soul-metta-targets-soul-namespace? $a))))
-                                                      ;; (if (soul-mutation-pending?)
-                                                          ;; "SOUL-NAMESPACE-MUTATION-CONFLICT"
-                                                          ;; (progn
-                                                            ;; (change-state! &soul_mutation_lock
-                                                              ;; (py-call (helper.soul_mutation_lock_str (car-atom $args))))
-                                                            ;; "SOUL-NAMESPACE-MUTATION-PENDING"))
-                                                      ;; ""))
-                                             ;; ""))
                                        ($_ (if (and (not (soul-proceed? $soul_verdict_out)) (== (get-state &error) ()))
                                                (soul-note-record $soul_verdict_out "output" $resp) _))
                                        ($results (RESULTS: (collapse (let $s (superpose $sexpr) (COMMAND_RETURN: ($s (HandleError SINGLE_COMMAND_FORMAT_ERROR_NOTHING_WAS_DONE_PLEASE_FIX_AND_RETRY $s (catch (let $R (eval $s) (py-call (helper.normalize_string $R)))))))))))
