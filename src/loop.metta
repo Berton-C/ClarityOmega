@@ -31,9 +31,10 @@
           (change-state! &engaged_idle_count 0)
           (change-state! &loops (maxNewInputLoops))))
 
-(= (getContext)
+(= (getContext $k)
    (string-safe (py-str ("PROMPT: " (getPrompt) " SKILLS: " (getSkills)
                          " " (output-format-guidance)
+                         " YOUR_LAST_ACTION: " (your-last-action-block $k)
                          " LAST_SKILL_USE_RESULTS: " (last_chars (get-state &lastresults) (maxFeedback)) " HISTORY: " (getHistory) " TIME: " (get_time_as_string)))))
 
 (= (HandleError $msg $cmd $sexpr)
@@ -51,7 +52,7 @@
                                (soul-rationality-startup-check)  ;; CLARITYCLAW SOUL: structural health check
                                (initChannels))
                         (change-state! &loops (- (get-state &loops) 1)))
-          (let $prompt (getContext)
+          (let $prompt (getContext $k)
                (progn (println! (---------iteration $k))
                       (let* (($msgrcv (string-safe (repr (receive))))
                              ($msgnew (prog1 (and (> (string_length $msgrcv) 0) (!= $msgrcv (get-state &prevmsg)))

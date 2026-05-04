@@ -56,3 +56,6 @@
 
 ;; Recent-action populator: writes recent-action atoms each iteration with pruning
 !(import! &self (library omegaclaw ./soul/recent_action_populator))
+
+;; Recent-action retriever: reads recent-action atoms for YOUR_LAST_ACTION prompt context
+!(import! &self (library omegaclaw ./soul/recent_action_retriever))

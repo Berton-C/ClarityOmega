@@ -1291,3 +1291,71 @@ def _atomspace_to_fuel(raw):
     except Exception:
         pass
     return fuels
+
+
+# ============================================================================
+# Sprint 3 Change 3.3: Recent-action retriever helpers
+# ============================================================================
+# Two Python helpers for YOUR_LAST_ACTION prompt-context block.
+# MeTTa-first principle: these exist ONLY because of PeTTa C1 constraint
+# (nested py-str hangs when py-str is the final assembly step in an
+# evaluation chain whose result feeds further MeTTa evaluation).
+#
+# - format_action_line: string truncation + line formatting (one C1 boundary)
+# - assemble_action_block: empty-filtering + sentinel + final block compose
+#                          (second C1 boundary, called once per iteration)
+#
+# MeTTa owns: window arithmetic, three explicit cycle-id matches against
+# AtomSpace, orchestration. Python owns: string ops only.
+
+def format_action_line(cycle_id, atype, desc, max_desc):
+    """Format ONE recent-action line with truncated description.
+    
+    Called by MeTTa retriever per cycle-id match. Returns a finished
+    string (no further MeTTa evaluation needed) so this py-call does
+    not nest with the outer py-str in getContext.
+    
+    Args:
+        cycle_id: int, the iteration counter when the action was asserted
+        atype: action-type symbol (responsive-send, exploration-query, etc.)
+        desc: description from the populator (often Clarity's pin reasoning)
+        max_desc: int, max chars for description before truncation
+    
+    Returns:
+        str: "  [cycle N] action-type: truncated-desc..." or "  [cycle N] action-type: short-desc"
+    """
+    desc_str = str(desc)
+    if len(desc_str) > max_desc:
+        desc_str = desc_str[:max_desc] + "..."
+    return f"  [cycle {cycle_id}] {atype}: {desc_str}"
+
+
+def assemble_action_block(line1, line2, line3):
+    """Compose the body content for the YOUR_LAST_ACTION block.
+    
+    Receives three lines (or empty strings) from MeTTa. Filters empties,
+    applies first-cycle-after-restart sentinel if all empty, otherwise
+    joins non-empty lines with newlines.
+    
+    Returns BODY ONLY -- the YOUR_LAST_ACTION: label is supplied by 
+    loop.metta as a string literal, consistent with how every other
+    getContext section is labeled (PROMPT:, SKILLS:, HISTORY:, etc.).
+    Single source of truth for section labels lives in loop.metta.
+    
+    The conditional logic is in Python ONLY because doing it in MeTTa
+    would require py-str at the assembly point, which hangs when nested
+    inside the outer py-str of getContext.
+    
+    Args:
+        line1, line2, line3: pre-formatted lines from format_action_line,
+                              or empty strings if no atom existed for that cycle
+    
+    Returns:
+        str: body content for YOUR_LAST_ACTION (newline-joined formatted lines),
+             or sentinel string if all three lines empty.
+             Caller (loop.metta) prepends the "YOUR_LAST_ACTION: " label.
+    """
+    lines = [str(l) for l in (line1, line2, line3) if l and str(l).strip()]
+    if not lines:
+        return "No prior actions (first cycle after restart)"
+    return "\n" + "\n".join(lines)
