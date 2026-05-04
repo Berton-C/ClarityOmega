@@ -141,6 +141,7 @@
                                                    (change-state! &loops 0)))
                                           ;; PROCEED/FLAG path: normal execution
                                           (progn (if $msgnew (addToHistory $msg (py-call (helper.normalize_string $response)) (py-call (helper.normalize_string $response)) $msgnew) _)
+                                                 (println! (RESULTS-CONTENT $results))
                                                  (println! (PRE-SAFE-RESULTS-STR))
                                                  (change-state! &lastresults (py-call (helper.safe_results_str $results))))))
                                 (if (> (get_time) (get-state &nextWakeAt))
