@@ -7,7 +7,11 @@
 (= (orbit-threshold 3) (stv 0.9 0.85))
 
 ;; Action log atoms -- updated each cycle
-(= (recent-action $cycle-id $action-type $description) (stv 1.0 0.9))
+;; DISABLED 2026-05-04: this `=` form globally rewrites every (recent-action ...)
+;; reference into (stv 1.0 0.9), shadowing populator writes and retriever matches.
+;; If we want a NAL truth-value annotation later, use a non-shadowing head like
+;; (stv-of recent-action (stv 1.0 0.9)).
+;; (= (recent-action $cycle-id $action-type $description) (stv 1.0 0.9))
 
 ;; State delta: did something measurably change?
 (= (state-delta $cycle-id none) (stv 0.5 0.5))
