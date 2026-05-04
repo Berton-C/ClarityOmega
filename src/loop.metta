@@ -141,6 +141,7 @@
                                                    (change-state! &loops 0)))
                                           ;; PROCEED/FLAG path: normal execution
                                           (progn (if $msgnew (addToHistory $msg (py-call (helper.normalize_string $response)) (py-call (helper.normalize_string $response)) $msgnew) _)
+                                                 (println! (RECENT-ACTION-ATOMS (collapse (match &self (recent-action $c $t $d) (recent-action $c $t $d)))))
                                                  (println! (RESULTS-CONTENT $results))
                                                  (println! (PRE-SAFE-RESULTS-STR))
                                                  (change-state! &lastresults (py-call (helper.safe_results_str $results))))))
