@@ -28,7 +28,7 @@
 ;; for normal operation; flip to True when investigating a populator/classifier
 ;; concern. Future re-enables (Sprint 3.3+ orbit detection, pruning verification)
 ;; will get the same shape automatically.
-(= (populator-diagnostic-active) False)
+(= (populator-diagnostic-active) True)
 
 ;; Main entry point: classify, describe, assert, prune.
 ;; Called from loop.metta after $results execution.
