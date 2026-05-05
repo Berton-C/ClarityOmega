@@ -144,7 +144,7 @@
                                                  (println! (RECENT-ACTION-ATOMS (collapse (match &self (recent-action $c $t $d) (recent-action $c $t $d)))))
                                                  (println! (RESULTS-CONTENT $results))
                                                  (println! (PRE-SAFE-RESULTS-STR))
-                                                 (change-state! &lastresults (py-call (helper.safe_results_str $results))))))
+                                                 (change-state! &lastresults (py-call (helper.safe_results_str (repr $results)))))))
                                 (if (> (get_time) (get-state &nextWakeAt))
                                     (change-state! &loops (+ 1 (maxWakeLoops))) _)))
                       (sleep (sleepInterval))
