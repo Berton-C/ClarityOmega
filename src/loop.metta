@@ -12,7 +12,7 @@
           (configure maxWakeLoops 50)
           (configure sleepInterval 1) ;10
           (configure LLM gpt-5.4)
-          (configure provider Anthropic) ;Anthropic or OpenAI or ASICloud
+          (configure provider Friendli) ;Friendli or Anthropic or ASICloud or ASIOne (was: Anthropic)
           (configure maxOutputToken 6000)
           (configure reasoningMode medium)
           (configure wakeupInterval 600) ;600=10 minutes
@@ -107,9 +107,7 @@
                                        ($_ (if (not (== $aliveness SILENT)) (println! (CHARS_SENT: (string_length $send) $send)) (println! (SILENT_CYCLE))))
                                        ($respi (if (== $aliveness SILENT) "" (if (== (provider) OpenAI)
                                                    (useGPT (LLM) (maxOutputToken) (reasoningMode) $send)
-                                                   (if (== (provider) Anthropic)
-                                                       (py-call (lib_llm_ext.useClaude $send))
-                                                       (py-call (lib_llm_ext.useMiniMax $send))))))
+                                                   (py-call (lib_llm_ext.callProvider (provider) $send (maxOutputToken))))))
                                        ($resp (py-call (helper.normalize_string (py-call (helper.balance_parentheses $respi)))))
                                        ($response (if (== "(" (first_char $resp)) $resp (progn (println! $resp) (repr (REMEMBER:OUTPUT_NOTHING_ELSE_THAN: ((skill arg) ...))))))
                                        ($sexpr (catch (sread $response)))
@@ -126,7 +124,7 @@
                                        ($soul_mutation_flag (py-call (helper.soul_mutation_gate (repr $metta_cmds) (get-state &soul_mutation_lock))))
                                        ($_ (if (and (not (soul-proceed? $soul_verdict_out)) (== (get-state &error) ()))
                                                (soul-note-record $soul_verdict_out "output" $resp) _))
-                                       ($results (RESULTS: (collapse (let $s (superpose $sexpr) (COMMAND_RETURN: ($s (HandleError SINGLE_COMMAND_FORMAT_ERROR_NOTHING_WAS_DONE_PLEASE_FIX_AND_RETRY $s (catch (let $R (eval $s) (py-call (helper.normalize_string $R)))))))))))
+                                       ($results (RESULTS: (collapse (let $s (superpose $sexpr) (COMMAND_RETURN: ($s (HandleError SINGLE_COMMAND_FORMAT_ERROR_NOTHING_WAS_DONE_PLEASE_FIX_AND_RETRY $s (catch (let $R (collapse (eval $s)) (py-call (helper.normalize_string $R)))))))))))
                                        ($_ (println! (RESULTS-EXECUTED)))
                                        ($_ (populate-recent-action $sexpr $msgnew $k)))
                                       (if (> (py-call (helper.soul_is_pause $soul_verdict_in)) 0)
