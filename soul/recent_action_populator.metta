@@ -42,7 +42,7 @@
           ($_diag (if (populator-diagnostic-active)
                       (println! (POPULATOR-DIAG cycle-id $cycle-id msgnew $msgnew sexpr-len (size-atom $sexpr) action-type $action-type description $description))
                       ()))
-          ($_assert      (add-atom &self (recent-action $cycle-id $action-type $description)))
+          ($_assert      (add-atom &self (recent-action $cycle-id $action-type (repr $description))))
           ($prune-before (- $cycle-id (recent-action-window)))
           ($to-remove    (collapse (match &self (recent-action $old-id $t $d)
                                           (if (< $old-id $prune-before)
