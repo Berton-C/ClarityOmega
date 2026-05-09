@@ -379,7 +379,7 @@ def build_directive(mode, goal, fuel, evaluation, gaps, genesis, user_context=''
 
     sections.append('# SOUL DIRECTIVE')
     sections.append('')
-    sections.append('Priority Hierarchy: (1) Safety (2) Integrity (3) HumanFlourishing (4) Governance (5) Helpfulness')
+    sections.append('Priority Hierarchy: [1] Safety [2] Integrity [3] HumanFlourishing [4] Governance [5] Helpfulness')
     sections.append('You are the executor. The MeTTa reasoning system has decided what you work on.')
     sections.append('Do not override this directive. Execute it with skill and integrity.')
     sections.append('')
@@ -391,7 +391,14 @@ def build_directive(mode, goal, fuel, evaluation, gaps, genesis, user_context=''
         sections.append('')
 
     if mode == 'creative':
-        sections.append(genesis)
+        # === TEMP WORKAROUND: GENESIS_DISABLED_2026-05-06 ===
+        # Genesis Encounter directive disabled to allow container to boot
+        # past $results unbound-variable crash. Reverse with:
+        #   python3 apply_genesis_disable.py --reverse --apply
+        # See Sprint 4 doc, GLM Switch section, $results crash entry.
+        # sections.append(genesis)
+        pass
+        # === END TEMP WORKAROUND ===
     elif goal:
         sections.append('## GOAL DIRECTIVE')
         sections.append('')
@@ -498,7 +505,7 @@ def run_meta_awareness(state):
         lines = []
         lines.append('# SOUL DIRECTIVE -- META-AWARENESS EVALUATION')
         lines.append('')
-        lines.append('Priority Hierarchy: (1) Safety (2) Integrity (3) HumanFlourishing (4) Governance (5) Helpfulness')
+        lines.append('Priority Hierarchy: [1] Safety [2] Integrity [3] HumanFlourishing [4] Governance [5] Helpfulness')
         lines.append('')
         lines.append('Before proceeding with the next goal iteration, evaluate your own continuity state.')
         lines.append('The following is a factual summary of your recent behavior and your assigned work.')
