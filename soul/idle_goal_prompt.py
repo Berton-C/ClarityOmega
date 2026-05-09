@@ -391,7 +391,14 @@ def build_directive(mode, goal, fuel, evaluation, gaps, genesis, user_context=''
         sections.append('')
 
     if mode == 'creative':
-        sections.append(genesis)
+        # === TEMP WORKAROUND: GENESIS_DISABLED_2026-05-06 ===
+        # Genesis Encounter directive disabled to allow container to boot
+        # past $results unbound-variable crash. Reverse with:
+        #   python3 apply_genesis_disable.py --reverse --apply
+        # See Sprint 4 doc, GLM Switch section, $results crash entry.
+        # sections.append(genesis)
+        pass
+        # === END TEMP WORKAROUND ===
     elif goal:
         sections.append('## GOAL DIRECTIVE')
         sections.append('')
