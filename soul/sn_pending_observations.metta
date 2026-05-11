@@ -1,0 +1,1 @@
+; Pending observations for Option C delayed evidence; Created when stalk rules fire, resolved when later cycles provide evidence; Resolution feeds back to stalk via |- revision(SN-resolved-observation self-correction cycle-71 cycle-74 weak-negative)(SN-resolved-observation boundary-testing cycle-71 cycle-74 weak-negative)

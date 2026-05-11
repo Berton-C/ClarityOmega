@@ -40,8 +40,10 @@ services:
       # Soul directory: Clarity's code persists to host, survives rebuilds, committable to git
       - ./soul:/PeTTa/repos/omegaclaw/soul
     environment:
-      # Anthropic API key -- primary LLM provider (Decision E)
+      # Anthropic API key -- LLM provider (kept available for switching back)
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      # Friendli/GLM-5.1 API key -- current default LLM provider
+      - FRIENDLI_API_KEY=${FRIENDLI_API_KEY}
       # Optional -- uncomment if switching LLM provider to OpenAI
       # - OPENAI_API_KEY=${OPENAI_API_KEY}
       # Mattermost: Docker DNS resolves "mattermost" to the container

@@ -177,7 +177,7 @@
 ;;
 ;; Format: (= (user-project User ProjectName) (project State NextStep Priority))
 ;; User projects take priority over self-directed goals per the
-;; soul's hierarchy: HumanFlourishing (3) > self-growth goals.
+;; soul's hierarchy: HumanFlourishing [3] > self-growth goals.
 ;; ================================================================
 
 ;; Type declarations

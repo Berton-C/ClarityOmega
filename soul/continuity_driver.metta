@@ -235,7 +235,7 @@
 ;; When a human is actively engaged, their projects take precedence
 ;; over Clarity's self-directed goals. When no human is present,
 ;; Clarity pursues her own growth.
-;; This maps to the soul hierarchy: HumanFlourishing (3) outranks
+;; This maps to the soul hierarchy: HumanFlourishing [3] outranks
 ;; all self-growth priorities.
 
 ;; ================================================================

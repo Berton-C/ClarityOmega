@@ -151,8 +151,8 @@
 ;; ================================================================
 ;; PRIORITY-AWARE FUEL APPLICATION
 ;; The soul's priority hierarchy determines which fuel fires first.
-;; Safety (1) and Integrity (2) gaps get addressed before
-;; WonderPreservation (6) gaps, even if wonder is more interesting.
+;; Safety [1] and Integrity [2] gaps get addressed before
+;; WonderPreservation [6] gaps, even if wonder is more interesting.
 ;; ================================================================
 
 ;; Priority ranking matches soul_kernel.metta hierarchy

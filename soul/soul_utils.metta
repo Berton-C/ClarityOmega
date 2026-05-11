@@ -376,6 +376,4 @@
 (= (soul-llm-call $prompt $prov)
    (if (== $prov OpenAI)
        (useGPT (LLM) 500 (reasoningMode) $prompt)
-       (if (== $prov Anthropic)
-           (py-call (lib_llm_ext.useClaude $prompt))
-           (py-call (lib_llm_ext.useMiniMax $prompt)))))
+       (py-call (lib_llm_ext.callProvider $prov $prompt 6000))))

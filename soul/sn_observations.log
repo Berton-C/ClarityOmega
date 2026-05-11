@@ -1,0 +1,2 @@
+cycle | rule | prediction | actual | evidence-type | weight | timestamp
+13:14 | safety-first | high-safety-salience-correct | over-attending-calcification | explicit-redirect | 0.20 | 2026-05-08T13:14:00
