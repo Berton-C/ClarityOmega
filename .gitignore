@@ -26,3 +26,6 @@ shared_files/
 
 # Runtime ChromaDB state (correct path)
 volumes/omegaclaw/chroma_db/
+
+# Claude thread orientation document (single-reader tool, not project artifact)
+docs/CLAUDE_ORIENTATION.md
