@@ -48,6 +48,9 @@
 !(import! &self (library omegaclaw ./soul/set_atom_impl))
 !(import! &self (library omegaclaw ./soul/latch/aliveness_state_machine))
 
+;; Task-state primitive: operational state atoms (task-phase, transitions, anchors)
+!(import! &self (library omegaclaw ./soul/task_state))
+
 ;; Behavioral guidance: substrate-callable text for surfaces previously hardcoded
 !(import! &self (library omegaclaw ./soul/behavioral_guidance))
 
