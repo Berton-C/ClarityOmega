@@ -7,7 +7,7 @@
 ;;   (task-phase-anchor $phase $value $timestamp $reason)  - value-forked transitions
 ;;   (last-activity $timestamp)                     - timestamp of last activity
 ;;   (cycles-since-input $n)                       - cycles since last human input
-;;   (pending-thread $topic)                       - tracked but unresolved topics
+;;   (pending-thread $topic $timestamp)             - tracked but unresolved topics
 ;;   (task-phase-transition $from $to $timestamp)  - transition history
 ;;
 ;; Valid phases (Section 5):
@@ -49,8 +49,9 @@
 ;;   $timestamp - when the anchor was recorded (epoch seconds)
 ;;   $reason    - why this value was engaged for this transition
 ;;
-;; (pending-thread $topic)
-;;   $topic - identifier for the tracked thread (symbol)
+;; (pending-thread $topic $timestamp)
+;;   $topic     - identifier for the tracked thread (symbol)
+;;   $timestamp - epoch seconds at insertion time (for FIFO eviction)
 ;;
 ;; (task-phase-transition $from $to $timestamp)
 ;;   $from      - previous phase
@@ -101,7 +102,21 @@
           (car-atom $result))))
 
 ;; Current pending threads. Returns all pending-thread topics,
-;; or () if none exist. Collection reader -- no if-branch needed
-;; because empty IS the correct answer, not a fallback.
+;; projecting just $topic from the ($topic $timestamp) shape.
+;; Collection reader -- no if-branch needed because empty IS
+;; the correct answer, not a fallback.
 (= (current-pending-threads)
-   (match &self (pending-thread $topic) $topic))
+   (match &self (pending-thread $topic $timestamp) $topic))
+
+;; Count helper: recursive length of a list. Private helper used by
+;; count-pending-threads. Renamed from count-list to avoid potential
+;; collision in PeTTa module scope (per Clarity's review).
+(= (count-pending-list ()) 0)
+(= (count-pending-list ($head $tail)) (+ 1 (count-pending-list $tail)))
+
+;; Current pending thread count. Returns Nat count of pending-thread
+;; atoms in &self. Public read helper; consumers can use without
+;; depending on task_state_writers.metta.
+(= (count-pending-threads)
+   (let $all (collapse (match &self (pending-thread $topic $ts) ($topic $ts)))
+      (count-pending-list $all)))
