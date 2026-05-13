@@ -21,7 +21,7 @@
 ;;   boundary-detected - boundary condition detected, system responding
 ;;
 ;; Pure definitions only. C12-safe (no match inside if).
-;; Side-effecting writers (do-*!) land in Step 2 (loop.metta).
+;; Side-effecting writers (do-*!) land in task_state_writers.metta.
 ;; Skills land in Step 3.
 ;; ================================================================
 
@@ -59,18 +59,19 @@
 
 ;; ================================================================
 ;; SECTION 2: BOOTSTRAP VALUES
-;; Loaded on file import. Establish initial state for scalar atoms.
-;; Accumulation atoms start empty (no seed values).
-;; ================================================================
-
-(task-phase attending)
-(cycles-since-input 0)
-(last-activity 0)
-
+;; Scalar atoms are bootstrapped conditionally by loop.metta initLoop
+;; via task_state_writers.metta (do-bootstrap-task-state!).
+;; That function checks &self for each scalar atom; if absent, adds
+;; the default. This avoids dual-atom ambiguity when persistence
+;; restoration (ChromaDB) writes a restored value ? the guard
+;; prevents a bare file-load default from coexisting with the
+;; restored atom.
+;;
 ;; Accumulation atoms have no bootstrap values:
 ;; (task-phase-anchor ...)       -- added by set-phase-with-anchor skill
 ;; (pending-thread ...)          -- added by add-pending-thread skill
 ;; (task-phase-transition ...)  -- added by set-phase skill
+;; ================================================================
 
 ;; ================================================================
 ;; SECTION 3: PURE READ HELPERS

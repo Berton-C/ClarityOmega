@@ -517,6 +517,46 @@ This is the soul evaluation pipeline that fires on every iteration but is only f
 
 ---
 
+### Step 2 wiring additions (task-state primitive)
+
+**initLoop bootstrap hook** (added after the &loops init line in initLoop).
+Calls `(do-bootstrap-task-state!)` defined in `soul/task_state_writers.metta`.
+Idempotent conditional add-atom for the three scalar task-state atoms
+(task-phase, cycles-since-input, last-activity) when absent from &self.
+Safe in face of future persistence restoration (guard prevents dual-atom
+ambiguity).
+
+**Phase 4.0 last-activity hook** (added after the existing `&last_human_time`
+write at line 68). Calls `(do-set-last-activity! (get_time))` when $msgnew
+is true. Mirrors the existing `&last_human_time` semantics into AtomSpace via
+the task-state primitive. Existing `&last_human_time` write remains in place
+per Sprint 4 process commitment (writers mirror, not subsume, until consumers
+migrate in Steps 5-9).
+
+**Phase 4.2 cycles-since-input hook** (added after the existing
+`&engaged_idle_count` write at line 94). Calls
+`(do-set-cycles-since-input! 0)` when $msgnew is true, otherwise
+`(do-set-cycles-since-input! (+ 1 (current-cycles-since-input)))`.
+Reset semantics differ from `&engaged_idle_count` by design (Clarity's
+decision May 13, 2026): cycles-since-input resets ONLY on $msgnew, preserving
+the pure input-staleness contract encoded in the atom name. Consumers needing
+engagement-reset semantics will compose cycles-since-input with last-activity
+rather than direct-swap when `&engaged_idle_count` retires in Step 5+.
+
+**Phase 4.4 last-activity post-send hook** (added after the CHARS_SENT/
+SILENT_CYCLE println at line 107). Calls `(do-set-last-activity! (get_time))`
+when aliveness is not SILENT. Records send-event activity into AtomSpace.
+Spec Section 4 defines last-activity as 'most recent activity (human message
+OR Clarity-emitted send)'. Both event types are captured per cycle.
+
+🔧 ELEVATION FLAG (Step 5+): When self-check-guidance migrates from reading
+`&engaged_idle_count` (line 97) to reading task-state primitives, the consumer
+composes `(current-cycles-since-input)` AND `(current-last-activity)` to express
+its actual semantic need. Per Clarity's architectural call, the composition is
+more honest than overloading a single counter with two semantic meanings.
+
+---
+
 ## Section 5: The aliveness latch state machine
 
 ### Three latch implementations exist, only one is active

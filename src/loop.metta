@@ -29,7 +29,9 @@
           ;; &latch_state seeded as (latch-state IDLE) via soul/latch/aliveness_state_machine.metta import
           (change-state! &last_human_time 0)
           (change-state! &engaged_idle_count 0)
-          (change-state! &loops (maxNewInputLoops))))
+          (change-state! &loops (maxNewInputLoops))
+          ;; Task-state primitive: conditional bootstrap of scalar atoms
+          (do-bootstrap-task-state!)))
 
 (= (getContext $k)
    (string-safe (py-str ("PROMPT: " (getPrompt) " SKILLS: " (getSkills)
@@ -66,6 +68,7 @@
                                        ($_ (change-state! &nextWakeAt (+ (get_time) (wakeupInterval))))
                                        ($_ (println! $lastmessage))
                                        ($_ (if $msgnew (change-state! &last_human_time (get_time)) _))
+                                       ($_ (if $msgnew (do-set-last-activity! (get_time)) _))
 ;; CLARITYCLAW SOUL INPUT INTERCEPT (5b)
                                        ($soul_precompute (soul-pre-compute $msg))
                                        ($person_state (if (> (string_length $msgrcv) 0)
@@ -92,6 +95,7 @@
                                        ($idle_directive (if (and (not $msgnew) (> (get_time) (+ (get-state &last_human_time) (wakeupInterval)))) (py-call (helper.soul_idle_goal_prompt_v2 (py-call (helper.extract_username $msg)) "" $atomspace_goals $atomspace_gaps $atomspace_fuel)) ""))
                                        ($_ (if (not (== $idle_directive "")) (set-atom! &self (latch-state ENGAGED) (latch-state IDLE)) _))
                                        ($_ (if $msgnew (change-state! &engaged_idle_count 0) (if (> (string_length $idle_directive) 0) (change-state! &engaged_idle_count 0) (change-state! &engaged_idle_count (+ 1 (get-state &engaged_idle_count))))))
+                                       ($_ (if $msgnew (do-set-cycles-since-input! 0) (do-set-cycles-since-input! (+ 1 (current-cycles-since-input)))))
                                        ($soul_brief (swrite (getSoulBrief)))
                                        ($enriched_prompt (string_concat $soul_brief $prompt))
                                        ($self_check (self-check-guidance (get-state &engaged_idle_count)))
@@ -105,6 +109,7 @@
                                                        (soul-extract-flag-note $soul_verdict_in)
                                                        $lastmessage $idle_directive))))
                                        ($_ (if (not (== $aliveness SILENT)) (println! (CHARS_SENT: (string_length $send) $send)) (println! (SILENT_CYCLE))))
+                                       ($_ (if (not (== $aliveness SILENT)) (do-set-last-activity! (get_time)) _))
                                        ($respi (if (== $aliveness SILENT) "" (if (== (provider) OpenAI)
                                                    (useGPT (LLM) (maxOutputToken) (reasoningMode) $send)
                                                    (py-call (lib_llm_ext.callProvider (provider) $send (maxOutputToken))))))

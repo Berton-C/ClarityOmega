@@ -51,6 +51,9 @@
 ;; Task-state primitive: operational state atoms (task-phase, transitions, anchors)
 !(import! &self (library omegaclaw ./soul/task_state))
 
+;; Task-state writers: side-effecting do-*! functions for task-state atoms
+!(import! &self (library omegaclaw ./soul/task_state_writers))
+
 ;; Behavioral guidance: substrate-callable text for surfaces previously hardcoded
 !(import! &self (library omegaclaw ./soul/behavioral_guidance))
 
