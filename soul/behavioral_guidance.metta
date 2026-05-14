@@ -19,7 +19,7 @@
 ;; Refinements from Clarity (May 2): "use as many commands as the work requires"
 ;; removes 5-slot calcification; parentheses check reframed as tool not warning.
 (= (output-format-guidance)
-   "OUTPUT_FORMAT: Output an S-expression of the form (cmd1 cmd2 ... cmdN) where each cmd is (skillName arg1 arg2 ...). Use as many commands as the work requires. Verify balanced parentheses and quotes before emitting.")
+   "OUTPUT_FORMAT: Output a ((skillName1 args1) (skillName2 args2) ... (skillNameN argsN)) S-expression with as many commands as the work requires. For a single command: ((skillName args)) not (skillName args). Each arg is an explicit string hence needs quotes (multi-word strings must be one quoted string), and variables are forbidden! Verify balanced parentheses and quotes before emitting.")
 
 ;; self-check-guidance: reflective self-check that fires after engaged-idle
 ;; iterations exceed threshold. Returns empty string when threshold not reached.

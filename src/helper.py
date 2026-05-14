@@ -150,6 +150,61 @@ def sanitize_response(s):
     return s.encode('ascii', errors='replace').decode('ascii')
 
 
+def wrap_if_bare_command(s):
+    """Safety net for F11: wrap bare single-command responses.
+
+    Clarity's output should be ((cmd1) (cmd2) ... (cmdN)) per OUTPUT_FORMAT.
+    Sometimes she emits (cmd args) instead, a bare single command without
+    the outer list wrapper. When this hits loop.metta line 127's
+    (collapse (let $s (superpose $sexpr) ...)), superpose iterates the
+    bare command's elements rather than treating it as one command,
+    triggering SINGLE_COMMAND_FORMAT_ERROR_NOTHING_WAS_DONE_PLEASE_FIX_AND_RETRY.
+
+    Strict detection: only wraps when the first token after the opening
+    paren is in the known-skills registry. Idempotent: if input already
+    starts with double-parens, returns unchanged. Returns the input
+    unchanged when not a bare single command.
+
+    This is the safety net layer; the structural fix is in
+    soul/behavioral_guidance.metta which restored the arg-quoting and
+    multi-slot visual structure per Patrick's original design intent.
+    """
+    if not s or len(s) < 3:
+        return s
+
+    stripped = s.strip()
+    if not stripped.startswith("("):
+        return s
+
+    # Already-wrapped form starts with "((" -- no action needed
+    if stripped.startswith("(("):
+        return s
+
+    # Known skills registry (13 items, from prompt SKILLS section)
+    known_skills = {
+        "remember", "query", "episodes", "pin", "shell",
+        "read-file", "write-file", "append-file", "send",
+        "search", "tavily-search", "technical-analysis", "metta",
+    }
+
+    # Extract the first token after the opening paren
+    rest = stripped[1:].lstrip()
+    if not rest:
+        return s
+
+    # First token is up to whitespace, paren, or quote
+    end = 0
+    while end < len(rest) and rest[end] not in " \t\n\r()\"":
+        end += 1
+    first_token = rest[:end]
+
+    if first_token not in known_skills:
+        return s
+
+    # It is a bare single command; wrap with outer parens
+    return "(" + stripped + ")"
+
+
 # --- Soul Evaluation Prompts --------------------------------------
 
 def soul_eval_prompt(soul_context, situation, person_state):
