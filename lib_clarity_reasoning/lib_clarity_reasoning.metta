@@ -54,6 +54,9 @@
 ;; Task-state writers: side-effecting do-*! functions for task-state atoms
 !(import! &self (library omegaclaw ./soul/task_state_writers))
 
+;; Idle cycle detector: send-burst detection for duplicate-engagement awareness (Step 4.5)
+!(import! &self (library omegaclaw ./soul/idle_cycle_detector))
+
 ;; Behavioral guidance: substrate-callable text for surfaces previously hardcoded
 !(import! &self (library omegaclaw ./soul/behavioral_guidance))
 

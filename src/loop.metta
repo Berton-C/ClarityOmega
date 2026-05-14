@@ -38,6 +38,7 @@
                          " " (output-format-guidance)
                          " YOUR_LAST_ACTION: " (your-last-action-block $k)
                          " " (task-state-block)
+                         " " (idle-pattern-block)
                          " LAST_SKILL_USE_RESULTS: " (last_chars (get-state &lastresults) (maxFeedback)) " HISTORY: " (getHistory) " TIME: " (get_time_as_string)))))
 
 (= (HandleError $msg $cmd $sexpr)
@@ -132,7 +133,8 @@
                                                (soul-note-record $soul_verdict_out "output" $resp) _))
                                        ($results (RESULTS: (collapse (let $s (superpose $sexpr) (COMMAND_RETURN: ($s (HandleError SINGLE_COMMAND_FORMAT_ERROR_NOTHING_WAS_DONE_PLEASE_FIX_AND_RETRY $s (catch (let $R (collapse (eval $s)) (py-call (helper.normalize_string $R)))))))))))
                                        ($_ (println! (RESULTS-EXECUTED)))
-                                       ($_ (populate-recent-action $sexpr $msgnew $k)))
+                                       ($_ (populate-recent-action $sexpr $msgnew $k))
+                                       ($_ (do-update-idle-pattern!)))
                                       (if (> (py-call (helper.soul_is_pause $soul_verdict_in)) 0)
                                           ;; PAUSE path: Channel D fires, loop halts
                                           (let* (($soul_voice (soul-llm-call
