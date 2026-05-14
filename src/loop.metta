@@ -37,6 +37,7 @@
    (string-safe (py-str ("PROMPT: " (getPrompt) " SKILLS: " (getSkills)
                          " " (output-format-guidance)
                          " YOUR_LAST_ACTION: " (your-last-action-block $k)
+                         " " (task-state-block)
                          " LAST_SKILL_USE_RESULTS: " (last_chars (get-state &lastresults) (maxFeedback)) " HISTORY: " (getHistory) " TIME: " (get_time_as_string)))))
 
 (= (HandleError $msg $cmd $sexpr)

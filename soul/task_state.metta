@@ -120,3 +120,52 @@
 (= (count-pending-threads)
    (let $all (collapse (match &self (pending-thread $topic $ts) ($topic $ts)))
       (count-pending-list $all)))
+
+;; ================================================================
+;; SECTION 4: PROMPT-BLOCK READ HELPERS (Step 4)
+;; Pure read helpers that compose the TASK-STATE prompt block per
+;; spec Section 9. Text assembly happens in Python helpers
+;; (helper.task_state_block_format, helper.join_threads_text) per
+;; PeTTa constraint C1: py-str hangs inside MeTTa function definitions.
+;; ================================================================
+
+;; (current-anchors-for-phase $phase)
+;;   Returns all (task-phase-anchor $phase $value $ts $reason) atoms whose
+;;   $phase matches. Returns () if no anchor atoms exist for this phase.
+;;   Pure collapse-then-branch pattern, C12-safe.
+(= (current-anchors-for-phase $phase)
+   (collapse (match &self (task-phase-anchor $phase $value $ts $reason)
+                          (task-phase-anchor $phase $value $ts $reason))))
+
+;; (format-pending-threads)
+;;   Returns comma-separated text of current pending thread topics,
+;;   or the literal string "none" if no pending threads exist.
+;;   Python helper join_threads_text handles the text composition.
+(= (format-pending-threads)
+   (let $threads (collapse (current-pending-threads))
+      (py-call (helper.join_threads_text $threads))))
+
+;; (task-state-block)
+;;   Composes the full TASK-STATE prompt block per spec Section 9.
+;;   Format (when no anchor for current phase):
+;;     TASK-STATE:
+;;     (task-phase $phase) (cycles-since-input $n) (last-activity $t)
+;;     Pending threads: $threads_text
+;;     Summary: Task phase: $phase. $n cycles since last input. Pending threads: $threads_text.
+;;
+;;   Format (when anchor present):
+;;     TASK-STATE:
+;;     (task-phase $phase) (task-phase-anchor ...) (cycles-since-input $n) (last-activity $t)
+;;     Pending threads: $threads_text
+;;     Summary: Task phase: $phase. $n cycles since last input. Pending threads: $threads_text.
+;;
+;;   Mechanical template, zero interpretation, reports state not assessment
+;;   (spec line 592, Clarity confirmed 2026-05-14).
+;;   All atom reads happen fresh at prompt assembly time, no caching.
+(= (task-state-block)
+   (let* (($phase (current-phase))
+          ($anchors (current-anchors-for-phase $phase))
+          ($cycles (current-cycles-since-input))
+          ($activity (current-last-activity))
+          ($threads-text (format-pending-threads)))
+      (py-call (helper.task_state_block_format $phase $anchors $cycles $activity $threads-text))))

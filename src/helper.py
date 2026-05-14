@@ -205,6 +205,61 @@ def wrap_if_bare_command(s):
     return "(" + stripped + ")"
 
 
+def join_threads_text(threads_list):
+    """Step 4: format pending-thread topics as comma-separated text.
+
+    Returns "none" if the list is empty, otherwise a comma-separated
+    string of topic names. Used by (format-pending-threads) in
+    soul/task_state.metta.
+
+    PeTTa lists arrive as Python list/tuple objects when passed via py-call.
+    Each element is a topic atom; we use str() to surface its symbolic form.
+    """
+    if not threads_list:
+        return "none"
+    return ", ".join(str(t) for t in threads_list)
+
+
+def task_state_block_format(phase, anchors, cycles, activity, threads_text):
+    """Step 4: compose the full TASK-STATE prompt block.
+
+    Format per task-state-primitive_design.md Section 9:
+
+        TASK-STATE:
+        (task-phase $phase) [anchor atoms if present] (cycles-since-input $n) (last-activity $t)
+        Pending threads: $threads_text
+        Summary: Task phase: $phase. $cycles cycles since last input. Pending threads: $threads_text.
+
+    Anchor atoms (when present for the current phase) appear inline on the
+    atoms line between the phase atom and cycles-since-input.
+
+    Per Clarity's design constraint (May 14 confirmed): mechanical template
+    from atom values, zero interpretation, reports state not assessment.
+    """
+    # Anchor atoms inline (empty when no anchors for current phase)
+    if anchors:
+        anchor_text = " " + " ".join(str(a) for a in anchors)
+    else:
+        anchor_text = ""
+
+    atoms_line = (
+        f"(task-phase {phase}){anchor_text} "
+        f"(cycles-since-input {cycles}) (last-activity {activity})"
+    )
+
+    summary = (
+        f"Task phase: {phase}. {cycles} cycles since last input. "
+        f"Pending threads: {threads_text}."
+    )
+
+    return (
+        f"TASK-STATE:\n"
+        f"{atoms_line}\n"
+        f"Pending threads: {threads_text}\n"
+        f"Summary: {summary}"
+    )
+
+
 # --- Soul Evaluation Prompts --------------------------------------
 
 def soul_eval_prompt(soul_context, situation, person_state):
