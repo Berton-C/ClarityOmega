@@ -424,6 +424,14 @@ This is the soul evaluation pipeline that fires on every iteration but is only f
 
 **Line 101** - Logs aliveness verdict.
 
+**getContext composition** - `(idle-pattern-block)` inserted into prompt assembly
+- Calls: (idle-pattern-block) defined in soul/idle_cycle_detector.metta
+- Reads: (idle-pattern $v $c) atom from &self
+- Writes: nothing (read-only prompt-block composition)
+- 📍 METTA-CALL POINT: Pure MeTTa function call; falls back to py-call helper.idle_pattern_block_format for string assembly per C1.
+- 🧠 NETWORK-RELEVANT: SN observer channel. The idle-pattern verdict surfaces send-class action accumulation to the FPN's prompt context, allowing the FPN (LLM) to read its own recent posture. In Artifact 4 terms, this is the typed channel `(sn-cycle-posture-observation $verdict $count)` flowing from SN to FPN. Sprint 4 awareness organ; consumer migration (Step 5/6) will gate aliveness on stuck verdicts.
+- Step 4.5 (May 15 2026 corrected): algorithm (d) verified in REPL before encoding.
+
 ### Phase 4.4: Response generation (lines 102-118)
 
 🧠 NETWORK-RELEVANT (entire phase): This is the **FPN firing**. The FPN's job in the brain is executive function - holding goals in working memory, planning actions, manipulating information toward task completion. In ClarityOmega, this happens via prompt assembly + LLM call + response parsing. The LLM is the implementation substrate for executive reasoning in the near term; the substrate atoms (task_selector, meta_awareness_engine) are loaded but not yet wired as FPN sub-functions. Per Artifact 4 Section 7.4, the target is a consolidated FPN block where task selection and inhibition become substrate-derived.
@@ -493,6 +501,15 @@ This is the soul evaluation pipeline that fires on every iteration but is only f
 - ⚠️ DANGER ZONE: This is where command execution actually happens. All security-relevant decisions about commands needed to happen BEFORE this line. The output intercept stub at line 121 is supposed to gate this - and currently doesn't.
 
 **Line 144** - Logs RESULTS-EXECUTED.
+
+**Cycle tail (after populate-recent-action)** - `($_ (do-update-idle-pattern!))`
+- Calls: do-update-idle-pattern! defined in soul/idle_cycle_detector.metta
+- Reads: (recent-action $c $tag $d) atoms via algorithm (d) counter (count-sends-in-window)
+- Writes: (idle-pattern $verdict $count) atom to &self (after do-clear-idle-pattern! freshness)
+- 📍 METTA-CALL POINT: Pure MeTTa cycle-level writer. No LLM call. Pre-filtered match per tag literal + size-atom + sum-with-+ (algorithm d, REPL-verified May 15 2026).
+- 🧠 NETWORK-RELEVANT: SN observation function. The SN observes the FPN's cycle posture (send accumulation) and writes a structured verdict to AtomSpace for next cycle's prompt context. Per Artifact 4 Section 5.1, this is one of the SN's `observe` sub-functions. Sprint 4 awareness organ; verdict consumption (gating aliveness on send-burst) is consumer-migration work scheduled for Step 5/6.
+- 🔧 ELEVATION FLAG: (none yet). Pattern is fresh and untested in production; revisit after 24-48 hours of runtime to assess whether verdict thresholds need adjustment.
+- Step 4.5 (May 15 2026 corrected): replaces the recursive-counter version (F32 fail) and the multi-definition-helper version (F38 fail) with algorithm (d) which uses only REPL-verified primitives.
 
 ### Phase 4.6: PAUSE routing and history update (lines 145-159)
 

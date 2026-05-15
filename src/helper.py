@@ -261,13 +261,15 @@ def task_state_block_format(phase, anchors, cycles, activity, threads_text):
 
 
 def idle_pattern_block_format(verdict, count):
-    """Step 4.5: format the IDLE-PATTERN prompt block from MeTTa-computed
-    verdict and count values.
+    """Step 4.5: format the IDLE-PATTERN prompt block from
+    MeTTa-computed verdict and count values.
 
     Hands-only per the project discipline: receives values that MeTTa
     already computed, returns formatted string. No reasoning, no
     thresholds, no decisions. The verdict was determined by
-    (do-update-idle-pattern!) in soul/idle_cycle_detector.metta.
+    (do-update-idle-pattern!) in soul/idle_cycle_detector.metta
+    using algorithm (d): count-sends-in-window via direct match per
+    tag literal + size-atom + sum, then threshold comparison.
 
     Format:
         IDLE-PATTERN:
@@ -275,9 +277,8 @@ def idle_pattern_block_format(verdict, count):
         Summary: Idle-pattern verdict: $verdict. $count send-class
         actions in last 10 cycles.
 
-    Per Clarity's design (May 14, 2026, design-refinement consultation):
-    mechanical template from atom values, zero interpretation, reports
-    state not assessment.
+    Per Clarity's design (May 14 2026): mechanical template from atom
+    values, zero interpretation, reports state not assessment.
     """
     atom_line = f"(idle-pattern {verdict} {count})"
     summary = (
