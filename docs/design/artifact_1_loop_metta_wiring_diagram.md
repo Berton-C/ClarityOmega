@@ -433,6 +433,14 @@ This is the soul evaluation pipeline that fires on every iteration but is only f
 - Step 4.5 (May 15 2026 corrected): algorithm (d) verified in REPL before encoding.
 - Step 4.5 split-refactor (May 15 2026): pure read helpers (idle-pattern-block, count-sends-in-window, current-idle-pattern, send-burst-threshold doc atom) remain in idle_cycle_detector.metta; writers (do-clear-idle-pattern!, do-update-idle-pattern!) moved to idle_cycle_detector_writers.metta per task_state precedent (Discipline 2 refinement). Zero behavior change; clean import boundary for future consumers (aliveness gate Sprint 5+, NACE Sprint 8+).
 
+**getContext composition** - `(agency-balance-block)` inserted into prompt assembly
+- Calls: (agency-balance-block) defined in soul/agency_balance_guard.metta (PURE file per split shape)
+- Reads: (agency-balance $v $p $s) atom from &self
+- Writes: nothing (read-only prompt-block composition)
+- 📍 METTA-CALL POINT: Pure MeTTa function call; falls back to py-call helper.agency_balance_block_format for string assembly per C1.
+- 🧠 NETWORK-RELEVANT: SN observer channel. The agency-balance verdict surfaces person-vs-system action ratio to the FPN's prompt context, allowing the FPN (LLM) to read whether the system is carrying disproportionate share of choices. In Artifact 4 terms, this is the typed channel `(sn-agency-balance-observation $verdict $person $system)` flowing from SN to FPN. Sprint 4 awareness organ; consumer migration (Step 5/6) will gate aliveness on dependency-risk verdicts.
+- Step 4.6 (May 15 2026 corrected split): algorithm (d) extended for two counters with six tag literals (person-class: responsive-send, verification-query; system-class: status-send-unprompted, exploration-query, pin-only, unclassified). All primitives REPL-verified. Threshold 0.6 hardcoded per F42 (dependency-threshold declaration is documentation-only). Substrate ships with writers/consumers split from day one per task_state precedent.
+
 ### Phase 4.4: Response generation (lines 102-118)
 
 🧠 NETWORK-RELEVANT (entire phase): This is the **FPN firing**. The FPN's job in the brain is executive function - holding goals in working memory, planning actions, manipulating information toward task completion. In ClarityOmega, this happens via prompt assembly + LLM call + response parsing. The LLM is the implementation substrate for executive reasoning in the near term; the substrate atoms (task_selector, meta_awareness_engine) are loaded but not yet wired as FPN sub-functions. Per Artifact 4 Section 7.4, the target is a consolidated FPN block where task selection and inhibition become substrate-derived.
@@ -512,6 +520,15 @@ This is the soul evaluation pipeline that fires on every iteration but is only f
 - 🔧 ELEVATION FLAG: (none yet). Pattern is fresh and untested in production; revisit after 24-48 hours of runtime to assess whether verdict thresholds need adjustment.
 - Step 4.5 (May 15 2026 corrected): replaces the recursive-counter version (F32 fail) and the multi-definition-helper version (F38 fail) with algorithm (d) which uses only REPL-verified primitives.
 - Step 4.5 split-refactor (May 15 2026): writers (do-clear-idle-pattern!, do-update-idle-pattern!) moved to idle_cycle_detector_writers.metta; pure read helpers remain in idle_cycle_detector.metta per task_state precedent (Discipline 2 refinement). Zero behavior change; clean import boundary for future consumers.
+
+**Cycle tail (after do-update-idle-pattern!)** - `($_ (do-update-agency-balance!))`
+- Calls: do-update-agency-balance! defined in soul/agency_balance_guard_writers.metta (WRITERS file per split shape)
+- Reads: (recent-action $c $tag $d) atoms via two algorithm (d) counters (count-person-actions-in-window and count-system-actions-in-window from soul/agency_balance_guard.metta pure file)
+- Writes: (agency-balance $verdict $person $system) atom to &self (after do-clear-agency-balance! freshness)
+- 📍 METTA-CALL POINT: Pure MeTTa cycle-level writer. No LLM call. Pre-filtered match per tag literal + size-atom + sum-with-+ (algorithm d, REPL-verified May 15 2026). Threshold 0.6 hardcoded per F42 (dependency-threshold declaration is documentation-only).
+- 🧠 NETWORK-RELEVANT: SN observation function. The SN observes the FPN's person-vs-system action ratio (dependency creep signal) and writes a structured verdict to AtomSpace for next cycle's prompt context. Per Artifact 4 Section 5.1, this is one of the SN's `observe` sub-functions. Sprint 4 awareness organ; verdict consumption (gating aliveness on dependency-risk) is consumer-migration work scheduled for Step 5/6.
+- 🔧 ELEVATION FLAG: (none yet). Pattern is fresh and untested in production; revisit after 24-48 hours of runtime to assess whether 0.6 ratio threshold needs adjustment. unclassified-to-system-class mapping is conservative (under-detects dependency); revisit if unclassified volume becomes behaviorally significant.
+- Step 4.6 (May 15 2026 corrected split): replaces the original 4.6 attempt (recursive-counter pattern, F32 fail). Algorithm (d) extended to two counters with six tag literals. F42 bare-call audit applied to dependency-detected (hardcoded 0.6); ecosystem-healthy latent F42 bugs documented as fix-on-future-wiring. Substrate ships with writers/consumers split from day one per task_state precedent (Discipline 2 refinement); zero deferred refactor debt.
 
 ### Phase 4.6: PAUSE routing and history update (lines 145-159)
 

@@ -292,6 +292,40 @@ def idle_pattern_block_format(verdict, count):
     )
 
 
+def agency_balance_block_format(verdict, person_count, system_count):
+    """Step 4.6: format the AGENCY-BALANCE prompt block from
+    MeTTa-computed verdict and counts.
+
+    Hands-only per the project discipline: receives values that MeTTa
+    already computed, returns formatted string. No reasoning, no
+    thresholds, no decisions. The verdict was determined by
+    (do-update-agency-balance!) in soul/agency_balance_guard_writers.metta
+    using algorithm (d): counts via direct match per tag literal +
+    size-atom + sum, then dependency-detected ratio check (hardcoded
+    threshold 0.6, zero-count safe).
+
+    Format:
+        AGENCY-BALANCE:
+        (agency-balance $verdict $person $system)
+        Summary: Agency-balance verdict: $verdict. $person person-class,
+        $system system-class actions in last 10 cycles.
+
+    Per Clarity's design (May 15 2026): mechanical template from atom
+    values, zero interpretation, reports state not assessment.
+    """
+    atom_line = f"(agency-balance {verdict} {person_count} {system_count})"
+    summary = (
+        f"Agency-balance verdict: {verdict}. "
+        f"{person_count} person-class, {system_count} system-class "
+        f"actions in last 10 cycles."
+    )
+    return (
+        f"AGENCY-BALANCE:\n"
+        f"{atom_line}\n"
+        f"Summary: {summary}"
+    )
+
+
 # --- Soul Evaluation Prompts --------------------------------------
 
 def soul_eval_prompt(soul_context, situation, person_state):

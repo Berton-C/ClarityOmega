@@ -60,6 +60,12 @@
 ;; Idle cycle detector writers: do-*! side-effecting writers for idle-pattern atoms (Step 4.5 split-refactor)
 !(import! &self (library omegaclaw ./soul/idle_cycle_detector_writers))
 
+;; Agency balance guard: dependency-creep detection awareness organ (Step 4.6 corrected split)
+!(import! &self (library omegaclaw ./soul/agency_balance_guard))
+
+;; Agency balance guard writers: do-*! side-effecting writers for agency-balance atoms (Step 4.6 corrected split)
+!(import! &self (library omegaclaw ./soul/agency_balance_guard_writers))
+
 ;; Behavioral guidance: substrate-callable text for surfaces previously hardcoded
 !(import! &self (library omegaclaw ./soul/behavioral_guidance))
 
