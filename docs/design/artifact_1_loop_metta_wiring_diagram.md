@@ -425,12 +425,13 @@ This is the soul evaluation pipeline that fires on every iteration but is only f
 **Line 101** - Logs aliveness verdict.
 
 **getContext composition** - `(idle-pattern-block)` inserted into prompt assembly
-- Calls: (idle-pattern-block) defined in soul/idle_cycle_detector.metta
+- Calls: (idle-pattern-block) defined in soul/idle_cycle_detector.metta (PURE file per split-refactor)
 - Reads: (idle-pattern $v $c) atom from &self
 - Writes: nothing (read-only prompt-block composition)
 - 📍 METTA-CALL POINT: Pure MeTTa function call; falls back to py-call helper.idle_pattern_block_format for string assembly per C1.
 - 🧠 NETWORK-RELEVANT: SN observer channel. The idle-pattern verdict surfaces send-class action accumulation to the FPN's prompt context, allowing the FPN (LLM) to read its own recent posture. In Artifact 4 terms, this is the typed channel `(sn-cycle-posture-observation $verdict $count)` flowing from SN to FPN. Sprint 4 awareness organ; consumer migration (Step 5/6) will gate aliveness on stuck verdicts.
 - Step 4.5 (May 15 2026 corrected): algorithm (d) verified in REPL before encoding.
+- Step 4.5 split-refactor (May 15 2026): pure read helpers (idle-pattern-block, count-sends-in-window, current-idle-pattern, send-burst-threshold doc atom) remain in idle_cycle_detector.metta; writers (do-clear-idle-pattern!, do-update-idle-pattern!) moved to idle_cycle_detector_writers.metta per task_state precedent (Discipline 2 refinement). Zero behavior change; clean import boundary for future consumers (aliveness gate Sprint 5+, NACE Sprint 8+).
 
 ### Phase 4.4: Response generation (lines 102-118)
 
@@ -503,13 +504,14 @@ This is the soul evaluation pipeline that fires on every iteration but is only f
 **Line 144** - Logs RESULTS-EXECUTED.
 
 **Cycle tail (after populate-recent-action)** - `($_ (do-update-idle-pattern!))`
-- Calls: do-update-idle-pattern! defined in soul/idle_cycle_detector.metta
-- Reads: (recent-action $c $tag $d) atoms via algorithm (d) counter (count-sends-in-window)
+- Calls: do-update-idle-pattern! defined in soul/idle_cycle_detector_writers.metta (WRITERS file per split-refactor)
+- Reads: (recent-action $c $tag $d) atoms via algorithm (d) counter (count-sends-in-window from soul/idle_cycle_detector.metta pure file)
 - Writes: (idle-pattern $verdict $count) atom to &self (after do-clear-idle-pattern! freshness)
 - 📍 METTA-CALL POINT: Pure MeTTa cycle-level writer. No LLM call. Pre-filtered match per tag literal + size-atom + sum-with-+ (algorithm d, REPL-verified May 15 2026).
 - 🧠 NETWORK-RELEVANT: SN observation function. The SN observes the FPN's cycle posture (send accumulation) and writes a structured verdict to AtomSpace for next cycle's prompt context. Per Artifact 4 Section 5.1, this is one of the SN's `observe` sub-functions. Sprint 4 awareness organ; verdict consumption (gating aliveness on send-burst) is consumer-migration work scheduled for Step 5/6.
 - 🔧 ELEVATION FLAG: (none yet). Pattern is fresh and untested in production; revisit after 24-48 hours of runtime to assess whether verdict thresholds need adjustment.
 - Step 4.5 (May 15 2026 corrected): replaces the recursive-counter version (F32 fail) and the multi-definition-helper version (F38 fail) with algorithm (d) which uses only REPL-verified primitives.
+- Step 4.5 split-refactor (May 15 2026): writers (do-clear-idle-pattern!, do-update-idle-pattern!) moved to idle_cycle_detector_writers.metta; pure read helpers remain in idle_cycle_detector.metta per task_state precedent (Discipline 2 refinement). Zero behavior change; clean import boundary for future consumers.
 
 ### Phase 4.6: PAUSE routing and history update (lines 145-159)
 

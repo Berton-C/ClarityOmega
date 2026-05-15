@@ -57,6 +57,9 @@
 ;; Idle cycle detector: send-burst detection for duplicate-engagement awareness (Step 4.5)
 !(import! &self (library omegaclaw ./soul/idle_cycle_detector))
 
+;; Idle cycle detector writers: do-*! side-effecting writers for idle-pattern atoms (Step 4.5 split-refactor)
+!(import! &self (library omegaclaw ./soul/idle_cycle_detector_writers))
+
 ;; Behavioral guidance: substrate-callable text for surfaces previously hardcoded
 !(import! &self (library omegaclaw ./soul/behavioral_guidance))
 
