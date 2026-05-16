@@ -101,13 +101,11 @@
                                        ($_ (if $msgnew (do-set-cycles-since-input! 0) (do-set-cycles-since-input! (+ 1 (current-cycles-since-input)))))
                                        ($soul_brief (swrite (getSoulBrief)))
                                        ($enriched_prompt (string_concat $soul_brief $prompt))
-                                       ($self_check (self-check-guidance (get-state &engaged_idle_count)))
-                                       ($final_prompt (string_concat $self_check $enriched_prompt))
                                        ($_ (println! (IDLE_DIRECTIVE_RAW: $idle_directive)))
                                        ($aliveness (aliveness-gate $msgnew $idle_directive))
                                        ($_ (println! (ALIVENESS_VERDICT: $aliveness)))
                                        ($send (if (== $aliveness SILENT) "" (py-call (helper.soul_send_assemble
-                                                       $final_prompt $soul_context_in $soul_verdict_in
+                                                       $enriched_prompt $soul_context_in $soul_verdict_in
                                                        $person_state
                                                        (soul-extract-flag-note $soul_verdict_in)
                                                        $lastmessage $idle_directive))))

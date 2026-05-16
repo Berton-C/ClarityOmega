@@ -27,6 +27,16 @@
 ;; binary work-or-idle framing; "or change direction" addition catches the
 ;; orbit pattern (where engagement feels active but is circling without advancing).
 ;; Threshold of 5 (raised from 3) gives multi-step work room to breathe.
+;;
+;; STEP 5 (May 15 2026): caller in loop.metta retired. The SELF-CHECK
+;; prompt surface is no longer assembled into the LLM prompt; TASK-STATE
+;; block (Step 4), IDLE-PATTERN block (Step 4.5), and AGENCY-BALANCE block
+;; (Step 4.6) now carry the orientation work via observable cycle-level
+;; primitives rather than via a counter threshold + reflective questions.
+;; The function definition stays intact for queryability and for potential
+;; future task-phase-driven gating; the &engaged_idle_count counter is
+;; still written by loop.metta but has no readers in v1 (α scope decision,
+;; deferred removal to Step 8/9).
 (= (self-check-guidance $count)
    (if (< $count 5)
        ""

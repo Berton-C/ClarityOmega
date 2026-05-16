@@ -404,15 +404,19 @@ This is the soul evaluation pipeline that fires on every iteration but is only f
 
 **Line 96** - `($enriched_prompt (string_concat $soul_brief $prompt))` - Combines soul brief with base prompt.
 
-**Line 97** - `($self_check (py-call (helper.soul_self_check_prompt (get-state &engaged_idle_count))))`
-- Reads: &engaged_idle_count
-- Writes: $self_check (the prompt addition)
-- Calls: helper.soul_self_check_prompt (returns empty if count < 3, else the binary work-or-idle prompt)
-- 🧠 NETWORK-RELEVANT: FPN inhibition function. Self-check is the FPN's reflective halt - asking "should I keep going or should I stop?" In the brain, the FPN's anterior cingulate component does exactly this kind of effort-vs-stop monitoring. Currently the threshold and message are Python; the brain-side function predicts this should be MeTTa with substrate-derived effort-trap and orbit detection.
-- 🔧 ELEVATION FLAG (high impact for premature completion): The threshold of 3 fires too early and pushes binary completion choice. Two options: (a) raise threshold to 5-7 with softer message, (b) move the entire self-check into a MeTTa atom in soul/. Option (a) is 10 minutes for immediate operational improvement. Option (b) is 1 hour for architectural cleanliness. Recommendation: (a) now, (b) later.
-- 💡 INSERTION POINT: The self-check could include additional context (e.g., last action summary, recent verdict trend) by passing more arguments to the helper. But cleaner still: make this a MeTTa function that queries needed state directly.
+**SELF-CHECK retirement history (lines retired through Sprint 1.5 + Step 5)**
 
-**Line 98** - `($final_prompt (string_concat $self_check $enriched_prompt))` - Final assembled prompt for LLM.
+The SELF-CHECK prompt surface evolved through two phases and was retired in Step 5.
+
+- **Phase 1 (original wiring, pre-Sprint-1.5):** Line 97 called `(py-call (helper.soul_self_check_prompt (get-state &engaged_idle_count)))`. Threshold and message both lived in Python; threshold was 3; message was a binary work-or-idle prompt.
+
+- **Phase 2 (Sprint 1.5 elevation, commit b079df6, May 3 2026):** Caller migrated from Python to MeTTa-native `(self-check-guidance (get-state &engaged_idle_count))` defined in `soul/behavioral_guidance.metta`. Threshold raised to 5 per Clarity's May 2 refinement; message reshaped to three reflective questions instead of binary framing. Caller still lived in loop.metta, reading `&engaged_idle_count`, concatenated into `$final_prompt` consumed by `soul_send_assemble`.
+
+- **Phase 3 (Step 5 retirement, May 15 2026):** The SELF-CHECK prompt surface removed entirely from prompt assembly per task-state-primitive_design.md Section 10. The `$self_check` and `$final_prompt` bindings deleted; `soul_send_assemble` now consumes `$enriched_prompt` directly. The `self-check-guidance` function stays defined in `soul/behavioral_guidance.metta` as a queryable atom but has no production caller. TASK-STATE block (Step 4), IDLE-PATTERN block (Step 4.5), and AGENCY-BALANCE block (Step 4.6) now carry the orientation work via observable cycle-level primitives rather than via a counter threshold + reflective questions.
+
+- 🧠 NETWORK-RELEVANT: FPN inhibition function retired in favor of substrate-derived observation organs. Per the task-state-primitive_design.md spec, the awareness organs accumulate observable signals each cycle; aliveness gate consumption of those signals is scheduled for Step 6 (the duplicate-engagement bug fix moment).
+
+- 🔧 ELEVATION FLAG (resolved): both options from the prior flag are now superseded. Option (a) threshold raise landed in Sprint 1.5 (b079df6). Option (b) the architectural cleanliness move landed across Sprint 4 (Steps 4-4.6) and Step 5. The SELF-CHECK surface itself is gone; the substrate question of "should I keep going" is now answered by task-phase + idle-pattern + agency-balance composition, observable each cycle, available for any consumer (Step 6 will be the first such consumer in the aliveness gate).
 
 **Line 99** - Logs raw idle directive.
 
