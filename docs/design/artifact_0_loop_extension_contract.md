@@ -156,6 +156,32 @@ The retirement is scheduled, the consumers are migrated first, the retirement ha
 
 ---
 
+### Discipline 6: Pure-vs-writer file split + writer/consumer enumeration before design
+
+**Rule.** Two parts, both required.
+
+Part A (file organization, for new primitives with side effects). When introducing a new substrate primitive that has BOTH read helpers AND mutation (do-*! writers), split into two files. The pure file (e.g., `task_state.metta`) contains atom shape documentation, valid value enumerations, and read helpers (current-*, format-*, count-*, etc.). The writers file (e.g., `task_state_writers.metta`) contains do-*! functions that mutate AtomSpace atoms. Both files register in `lib_clarity_reasoning/lib_clarity_reasoning.metta` with explicit comments naming their role. The pure file's header explicitly states "Side-effecting writers (do-*!) land in <writers_file>".
+
+Part B (investigation, for any change to existing surfaces). Before designing changes to a substrate surface that already exists, enumerate four things: writers (what code paths add or mutate the relevant atoms), consumers (what code paths read them), intermediate transformations (helpers and skills between writer and consumer that transform without reading the atom directly), and configuration constants (initLoop values like wakeupInterval, thresholds in soul/ files, and similar cadence/sensitivity levers). The default assumption "we know who writes this" is the failure mode. Verify against actual code before claiming.
+
+**Failure mode prevented.** Two failure modes, paired with the two parts.
+
+Part A failure (file organization): pure read helpers and side-effecting writers mixed in one file. Read sites import a "pure" file and get unwanted writer surface area. Refactoring requires invasive file splits later (already happened in Steps 4.5 corrected + 4.6 corrected). Documentation cannot cleanly say "this file is queryable in REPL without side effects" when writers are interleaved.
+
+Part B failure (investigation): designing for one side of a surface (commonly the consumer) without seeing the writer side or configuration constants. Step 6 (May 16 2026) designed the substrate-composition gate (consumer) thoroughly with three-organ priority hierarchy. The gate is structurally correct. But the writer side of `idle_directive` (helper.soul_idle_goal_prompt_v2, plus wakeupInterval=1 config constant making the writer fire every cycle) was discovered only at first behavioral test. The substrate-composition path the gate built carefully is behaviorally inert in production because the writer-side surface short-circuits every cycle. Discipline 6 Part B would have surfaced this in design phase, not as runtime surprise.
+
+**Operational trigger.** Part A: when proposing any new substrate file containing both atom shape definitions AND do-*! functions. Part B: when designing a change to any existing substrate surface that has writers, consumers, or both. When working with a primitive that touches `idle_directive`, `latch-state`, `task-phase`, `idle-pattern`, `agency-balance`, `recent-action`, or any similar surface with established writers/consumers.
+
+**Done right (Part A, task_state, Step 4).** `soul/task_state.metta` contains atom shape documentation for six atom families, valid phase enumeration, and pure read helpers (current-phase, current-cycles-since-input, current-anchors-for-phase, format-pending-threads, task-state-block). The file header explicitly says "Side-effecting writers (do-*!) land in task_state_writers.metta." `soul/task_state_writers.metta` contains do-bootstrap-task-state!, do-set-cycles-since-input!, do-set-last-activity!, do-set-phase!, do-resolve-pending-thread!. Both register in lib_clarity_reasoning.metta. The pattern was cited as precedent by idle_cycle_detector (Step 4.5 corrected split) and agency_balance_guard (Step 4.6 corrected split) under the header note "Pure-vs-writer split per task_state precedent." Discipline 6 formalizes this already-practiced pattern.
+
+**Done right (Part B, Step 6 idle_directive survey, May 16 2026).** Before proposing supervisor-side changes to idle_directive, surveyed the surface via read-only grep: function definition (helper.soul_idle_goal_prompt_v2, lines 1217-1395), call sites (loop.metta line 98), downstream consumers (loop.metta lines 99, 100, 107, 110), goal-completion writer (helper.soul_mark_goal_complete + state['completed_goals'] mutation sites), intermediate transformations (supervisor_select_goal, generate_goal_from_gaps, supervisor_format_genesis_directive), configuration constants (wakeupInterval). Discovery: the "supervisor bug" framing was wrong. The helper is correctly designed (always returns directive, switches to genesis on no-goal). The cadence is wrong (wakeupInterval=1 vs intended 600). Survey changed the design conclusion entirely.
+
+**Done wrong (Part A).** A new awareness organ ships as one file mixing `(verdict-threshold 0.6)` documentation atoms, pure `(current-verdict)` readers, AND `do-update-verdict!` writers. Some consumer file imports the pure file expecting no side effects, gets the writer namespace too. Subsequent commits add more writers to the same file because the precedent is "writers go here." Refactoring later requires touching every consumer.
+
+**Done wrong (Part B).** "We know the supervisor returns text; let's design a gate that handles the cases." Design proceeds. Gate ships. First behavioral test reveals the supervisor returns text every cycle (writer-side surprise) due to a configuration value the design phase never inspected (wakeupInterval=1 vs intended 600). The structural work is correct; the behavioral fix is somewhere else entirely. Survey-first would have surfaced this in design.
+
+---
+
 ## 3. The hook insertion checklist
 
 Before any commit that adds a hook to loop.metta or modifies loop.metta in any way, Claude (or whoever is proposing the edit) runs through this checklist. Each item must answer YES or be explicitly justified.
@@ -201,6 +227,58 @@ Verification
 ```
 
 Any NO answer halts the commit. Either fix the issue or document why this case is an exception (and add the exception pattern to this artifact for next time).
+
+---
+
+## 3.5 Surface investigation template
+
+Per Discipline 6 Part B. Before designing any change to an existing substrate surface, fill in the structured form below. If a field reads "unknown -- need to investigate," that field is the next read-only investigation pass, NOT a design assumption.
+
+```
+SURFACE INVESTIGATION TEMPLATE
+
+Surface name (atom family or function): ____________________
+Investigation date: ____________________
+Sprint / step this investigation supports: ____________________
+
+A. Writers (atoms going INTO the surface)
+[ ] File(s) that write the relevant atoms: ____________________
+[ ] Function name(s) doing the write: ____________________
+[ ] Atom shape(s) written: (foo $a $b)
+[ ] Trigger conditions in caller (loop.metta line + condition): ____________________
+
+B. Consumers (atoms going OUT of the surface)
+[ ] File(s) that read the relevant atoms: ____________________
+[ ] Read pattern (match, py-call to helper, get-state, etc.): ____________________
+[ ] Downstream effects (what the consumer does with the read value): ____________________
+
+C. Intermediate transformations
+[ ] Helpers/skills that transform without reading the atom directly: ____________________
+[ ] Side-effect functions in the chain: ____________________
+[ ] Recursive call sites (helper calls another helper that calls back): ____________________
+
+D. Configuration levers
+[ ] Constants in initLoop affecting surface behavior: ____________________
+[ ] Their current values vs design intent: ____________________
+[ ] Thresholds in soul/ files affecting surface sensitivity: ____________________
+
+E. Other consumers downstream
+[ ] What ELSE reads atoms touched in this surface: ____________________
+[ ] Risk surface for downstream-only changes: ____________________
+[ ] Migration paths if writer side changes: ____________________
+
+F. Design questions deferred to Clarity (the agent has first-order
+observation rights on her own behavior):
+[ ] Behavioral preferences only the agent can answer: ____________________
+[ ] Phase or atom value choices: ____________________
+[ ] Cadence preferences: ____________________
+
+If sections A-E have unknowns, complete read-only investigation first.
+If section F has items, draft a Clarity survey before design.
+ONLY THEN propose design alternatives.
+```
+
+The template is not bureaucratic overhead. It exists because Step 6 (May 16 2026) shipped a structurally correct substrate-composition gate that was behaviorally inert in production due to a configuration constant the design phase never inspected. Surveys take 10-20 minutes; discovering the gap at first behavioral test costs a rebuild cycle and erodes confidence in the work. The trade is heavily in favor of survey-first.
 
 ---
 
@@ -381,6 +459,8 @@ This ordering ensures the contract is internalized before any extension work beg
 ## 8. Version history
 
 **v1 (May 12, 2026).** Initial draft. Five disciplines, hook insertion checklist, maintenance contract, eight self-enforcement habits, reading triggers, cross-reference table. Drafted following the task-state primitive Step 1 thread, which surfaced the durability concern that motivated this document. Citations to lines 68, 88, 93, 94 of loop.metta as wrong-example inline logic; line 95 as right-example hook pattern.
+
+**v2 (May 16, 2026).** Added Discipline 6 (Pure-vs-writer file split + writer/consumer enumeration before design) following the Step 6 aliveness gate work. Part A formalizes the already-practiced pattern from task_state (Step 4), idle_cycle_detector (Step 4.5 corrected split), and agency_balance_guard (Step 4.6 corrected split). Part B adds the survey-first discipline for changes to existing surfaces, motivated by the Step 6 idle_directive surprise where wakeupInterval=1 configuration was missed in design phase. Section 3.5 (Surface investigation template) added as the operational form. Cross-referenced from CLAUDE_ORIENTATION.md P11 working principle.
 
 ---
 
