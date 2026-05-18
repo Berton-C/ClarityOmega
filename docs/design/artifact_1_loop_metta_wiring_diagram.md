@@ -422,37 +422,9 @@ The SELF-CHECK prompt surface evolved through two phases and was retired in Step
 
 **Line 100** - `($aliveness (aliveness-gate $msgnew $idle_directive))`
 - Calls: aliveness-gate from soul/aliveness_gate.metta
-- Reads (post-Step-6 v9): idle_directive (string), msgnew (boolean),
-  (current-idle-pattern) atom, (current-agency-balance) atom,
-  (current-phase) atom, (latch-state $s) atom (legacy fallback during
-  Steps 6-8 transition window)
-- 📍 METTA-CALL POINT: Pure MeTTa decision logic with substrate
-  composition. Zero new LLM surface (spec verification item 14).
-- 🧠 NETWORK-RELEVANT: SWITCH-HUB core function with three-organ
-  substrate composition. The aliveness gate IS the switch hub in the
-  current architecture, deciding between ENGAGE and SILENT. Per
-  Artifact 4 Section 3.4, this is the seed of the four-state switch
-  hub (external-task-dominant, self-direction-dominant, reflective,
-  idle). The v9 gate represents the first substantive consolidation
-  of the FPN inhibition function with SN observation organs.
-- STEP 6 v9 (May 16 2026) -- THE DUPLICATE-ENGAGEMENT BUG FIX MOMENT.
-  Migrated from binary latch-state-only dispatch to three-organ
-  substrate composition. Priority hierarchy:
-    1. idle_directive present OR msgnew -> ENGAGE (preserve responsiveness)
-    2. (current-idle-pattern) send-burst -> SILENT (idle-pattern says
-       too many recent sends; the structural fix for the bug where
-       Clarity would send 3+ pings without human input)
-    3. (current-agency-balance) dependency-risk + no msgnew -> SILENT
-       (agency-balance says system-driven; only fires when no human input)
-    4. (current-phase) in {attending, idle, waiting, reflecting} -> SILENT
-       (substrate says nothing worth surfacing)
-    5. (current-phase) in {engaged, research, response-drafting,
-       boundary-detected} -> fall through to legacy latch-state dispatch
-       (transitional safety net; Step 8 removes the fall-through)
-    6. unhandled phase -> latch-dispatch (defaults SILENT for unknown)
-- This is the architecturally clean reasoning sovereignty pattern:
-  a Python-style decision (should I respond or be silent?) implemented
-  entirely in MeTTa atoms with substrate-derived observation organs.
+- 📍 METTA-CALL POINT: Pure MeTTa decision logic.
+- 🧠 NETWORK-RELEVANT: SWITCH-HUB core function. The aliveness gate IS the switch hub in the current architecture, deciding between ENGAGE (network coupling active, LLM fires, FPN works) and SILENT (idle state, no FPN firing). Per Artifact 4 Section 3.4, this should evolve from binary into the four-state switch (external-task-dominant, self-direction-dominant, reflective, idle) but the binary version is the working seed of the switch hub.
+- This is the architecturally clean reasoning sovereignty pattern: a Python-style decision (should I respond or be silent?) implemented entirely in MeTTa atoms with predicate dispatch.
 
 **Line 101** - Logs aliveness verdict.
 
