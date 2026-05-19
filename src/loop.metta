@@ -155,4 +155,6 @@
                                 (if (> (get_time) (get-state &nextWakeAt))
                                     (change-state! &loops (+ 1 (maxWakeLoops))) _)))
                       (sleep (sleepInterval))
+                      (cut)
+                      (gc)
                       (omegaclaw (+ 1 $k))))))

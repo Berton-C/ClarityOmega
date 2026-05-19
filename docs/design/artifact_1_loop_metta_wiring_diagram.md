@@ -565,7 +565,14 @@ The SELF-CHECK prompt surface evolved through two phases and was retired in Step
 
 **Line 160** - `(sleep (sleepInterval))` - 1-second pause between iterations.
 
-**Line 161** - `(omegaclaw (+ 1 $k))` - Recursive call for next iteration.
+**Lines 161-162** - Prolog substrate housekeeping (Tier B1 upstream merge, 2026-05-19)
+- `(cut)` - Discards Prolog choicepoint state from the current iteration. Prevents choicepoint accumulation across iterations under load.
+- `(gc)` - Garbage collects Prolog atoms and trims stacks. Per skills.pl this is 3 ops: garbage_collect, garbage_collect_atoms, trim_stacks.
+- Rationale: per `fork_additions_runtime_audit_2026-05-18.md` Tier B. Patrick added these for general substrate health. Adopted as preparation for Test 1 (error-recovery loop stress test) so the test measures recovery behavior, not state leakage from prior cycles.
+- 🧠 NETWORK-RELEVANT: substrate hygiene. Reduces non-determinism surface where match queries on accumulated state could produce inconsistent results.
+- Companion to A1 (commit 0872ec1) and A2 (commit f46e44e).
+
+**Line 163** - `(omegaclaw (+ 1 $k))` - Recursive call for next iteration.
 
 ---
 
