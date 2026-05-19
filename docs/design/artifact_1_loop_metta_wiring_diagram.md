@@ -559,6 +559,9 @@ The SELF-CHECK prompt surface evolved through two phases and was retired in Step
 
 **Lines 158-159** - Wake check
 - If outside the message-driven window AND past nextWakeAt, extends loops by maxWakeLoops + 1
+- maxWakeLoops aligned to upstream value of 1 via Tier A2 merge (2026-05-19): wake-refill produces 2-iteration bursts instead of 51-iteration bursts
+- Rationale: per `fork_additions_runtime_audit_2026-05-18.md` Tier A2, reducing wake-iteration volume reduces the surface area where echo pathology has historically manifested. Companion to A1 spamShield (content-level fix); A2 is frequency-level fix.
+- Operational effect: idle periods between human messages produce shorter bursts of cycles. Clarity has more time between bursts to observe quietly. No change to message-driven behavior.
 
 **Line 160** - `(sleep (sleepInterval))` - 1-second pause between iterations.
 

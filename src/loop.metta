@@ -10,7 +10,7 @@
 
 (= (initLoop)
    (progn (configure maxNewInputLoops 50) ;20
-          (configure maxWakeLoops 50)
+          (configure maxWakeLoops 1)
           (configure sleepInterval 1) ;10
           (configure spamShield True)
           (configure LLM gpt-5.4)
