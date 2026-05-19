@@ -280,7 +280,16 @@ The `omegaclaw` function is called recursively. On first call (k=1), startup ini
 - 🧠 NETWORK-RELEVANT: SWITCH-HUB iteration-budget reset (currently hardcoded). Per spec_v3.0 Section 0 (Iteration dilation as cognitive-need-based resource), this should read `(switch-iteration-budget $count $rationale)` from substrate instead of using `maxNewInputLoops` constant. The reset behavior on new-message stays the same; only the budget value comes from the SWITCH-HUB's cognitive-need read instead of a constant.
 - 🔧 ELEVATION FLAG: Replace hardcoded constant with substrate-derived budget. This is the implementation of iteration dilation per spec_v3.0. Effort: 1-2 hours once the SWITCH-HUB has matured beyond binary aliveness gate (Sprint 4 prerequisite per Artifact 4 Section 7.8). Value: HIGH - converts iteration count from arbitrary constant to cognitive-need-responsive resource.
 
-**Lines 64-65** - `$lastmessage` formatted with HUMAN-LAST-MSG: prefix for downstream prompt assembly.
+**Lines 64-65** - `$lastmessage` conditional construction (Patrick-evolution adopted via Tier A1 merge, 2026-05-18):
+- When `$msgnew` is True: emits `(HUMAN-MSG: $msg)` for downstream prompt assembly
+- When `$msgnew` is False AND `(spamShield)` is True (default): emits `" DO NOT RE-SEND OR SPAM!"` directive
+- When `$msgnew` is False AND `(spamShield)` is False: emits empty string `""`
+- Reads: `$msgnew`, `$msg`, `(spamShield)` config atom
+- Writes: `$lastmessage` (local binding)
+- Downstream consumers: line 72 println, line 113 soul_send_assemble (as 6th argument)
+- 🧠 NETWORK-RELEVANT: SN signal modulation. Patrick's mechanism prevents the SN from re-presenting stale human-message content to downstream networks (FPN reading the prompt) when no new input has arrived. Removes the structural temptation for FPN to re-engage with already-handled content.
+- Rationale: per `fork_additions_runtime_audit_2026-05-18.md` Tier A1, adopted to address echo-when-msgnew-is-false pathology. Our prior MESSAGE-IS-NEW flag approach was not honored by the LLM under prompt-surface pressure; Patrick's content-replacement approach is structurally stronger.
+- spamShield config declared at line 9 (top-level), configured to True in initLoop (line 14 post-A1).
 
 **Line 66** - `(change-state! &nextWakeAt (+ (get_time) (wakeupInterval)))` - Updates next idle wake timestamp every iteration.
 

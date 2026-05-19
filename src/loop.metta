@@ -6,11 +6,13 @@
 (= (maxOutputToken) (empty))
 (= (reasoningMode) (empty))
 (= (wakeupInterval) (empty))
+(= (spamShield) (empty))
 
 (= (initLoop)
    (progn (configure maxNewInputLoops 50) ;20
           (configure maxWakeLoops 50)
           (configure sleepInterval 1) ;10
+          (configure spamShield True)
           (configure LLM gpt-5.4)
           (configure provider Friendli) ;Friendli or Anthropic or ASICloud or ASIOne (was: Anthropic)
           (configure maxOutputToken 6000)
@@ -66,8 +68,7 @@
                              ($_ (if (and (> $k 1) $msgnew)
                                      (change-state! &loops (maxNewInputLoops)) _)))
                             (if (> (get-state &loops) 0)
-                                (let* (($lastmessage (HUMAN-LAST-MSG: $msg
-                                                      MESSAGE-IS-NEW: $msgnew))
+                                (let* (($lastmessage (if $msgnew (HUMAN-MSG: $msg) (if (spamShield) " DO NOT RE-SEND OR SPAM!" "")))
                                        ($_ (change-state! &nextWakeAt (+ (get_time) (wakeupInterval))))
                                        ($_ (println! $lastmessage))
                                        ($_ (if $msgnew (change-state! &last_human_time (get_time)) _))
