@@ -16,12 +16,20 @@
 ;; SECTION 1: FRESHNESS CLEARER
 ;; ================================================================
 
-;; Removes prior idle-pattern atom (C12-safe).
+;; Removes ALL prior idle-pattern atoms (C12-safe).
+;; Bug-2 fix (May 20 2026): car-atom + remove-atom pattern was removing zero
+;; atoms in this runtime, causing 50+ stale (idle-pattern productive 0) atoms
+;; to accumulate from cycle 1 onward. current-idle-pattern reads via car-atom
+;; which returns the OLDEST atom (bootstrap), explaining stale prompt data.
+;; Fix mirrors recent_action_populator's verified-working pruning shape.
 (= (do-clear-idle-pattern!)
    (let $existing (collapse (match &self (idle-pattern $v $c) (idle-pattern $v $c)))
       (if (== $existing ())
           _
-          (remove-atom &self (car-atom $existing)))))
+          (let $old (superpose $existing)
+                    (if (== $old ())
+                        ()
+                        (remove-atom &self $old))))))
 
 ;; ================================================================
 ;; SECTION 2: CYCLE-LEVEL WRITER
@@ -34,9 +42,12 @@
 ;; documentation only).
 (= (do-update-idle-pattern!)
    (let* (($count (count-sends-in-window))
+          ($_diag_count (println! (DIAG-WRITER-COUNT $count)))
           ($verdict (if (> $count 3)
                         send-burst
-                        productive)))
+                        productive))
+          ($_diag_verdict (println! (DIAG-WRITER-VERDICT $verdict))))
       (progn
          (do-clear-idle-pattern!)
+         (println! (DIAG-WRITER-POST-CLEAR (collapse (match &self (idle-pattern $v $c) ($v $c)))))
          (add-atom &self (idle-pattern $verdict $count)))))

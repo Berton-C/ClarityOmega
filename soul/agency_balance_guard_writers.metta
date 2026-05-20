@@ -18,12 +18,19 @@
 ;; SECTION 1: FRESHNESS CLEARER
 ;; ================================================================
 
-;; Removes prior agency-balance atom (C12-safe).
+;; Removes ALL prior agency-balance atoms (C12-safe).
+;; Bug-2b fix (May 20 2026): same car-atom + remove-atom pathology as
+;; do-clear-idle-pattern!. current-agency-balance reads via car-atom
+;; returning the OLDEST atom (bootstrap), explaining stale (dependency-risk 0 1)
+;; in prompt context. Fix mirrors populator's verified-working pruning shape.
 (= (do-clear-agency-balance!)
    (let $existing (collapse (match &self (agency-balance $v $p $s) (agency-balance $v $p $s)))
       (if (== $existing ())
           _
-          (remove-atom &self (car-atom $existing)))))
+          (let $old (superpose $existing)
+                    (if (== $old ())
+                        ()
+                        (remove-atom &self $old))))))
 
 ;; ================================================================
 ;; SECTION 2: CYCLE-LEVEL WRITER
@@ -42,5 +49,9 @@
                         dependency-risk
                         healthy)))
       (progn
+         (println! (DIAG-WRITER-AB-PERSON $person))
+         (println! (DIAG-WRITER-AB-SYSTEM $system))
+         (println! (DIAG-WRITER-AB-VERDICT $verdict))
          (do-clear-agency-balance!)
+         (println! (DIAG-WRITER-AB-POST-CLEAR (collapse (match &self (agency-balance $v $p $s) ($v $p $s)))))
          (add-atom &self (agency-balance $verdict $person $system)))))
