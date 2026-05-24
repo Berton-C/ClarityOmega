@@ -9,3 +9,8 @@ shell(Cmd, Out) :- format(string(SafeCmd), "timeout -k 1s 10s sh -c '~w'", [Cmd]
                                          ; Out = Text ).
 
 first_char(Str, C) :- sub_string(Str, 0, 1, _, C).
+
+gc(true) :-
+    garbage_collect,
+    garbage_collect_atoms,
+    trim_stacks.
