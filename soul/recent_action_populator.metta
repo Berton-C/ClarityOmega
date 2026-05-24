@@ -49,6 +49,7 @@
                                           (if (< $old-id $prune-before)
                                               (recent-action $old-id $t $d)
                                               ()))))
+          ($_diag_prune  (println! (DIAG-POPULATOR-PRUNE cycle-id $cycle-id prune-before $prune-before to-remove $to-remove)))
           ($_prune       (let $old (superpose $to-remove)
                                    (if (== $old ())
                                        ()

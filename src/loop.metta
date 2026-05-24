@@ -135,7 +135,16 @@
                                        ($_ (println! (RESULTS-EXECUTED)))
                                        ($_ (populate-recent-action $sexpr $msgnew $k))
                                        ($_ (do-update-idle-pattern!))
-                                       ($_ (do-update-agency-balance!)))
+                                       ($_ (do-update-agency-balance!))
+                                       ($_d1 (println! (DIAG-CYCLE-START $k)))
+                                       ($_d2 (println! (DIAG-COUNT-FN (count-sends-in-window))))
+                                       ($_d3 (println! (DIAG-LITERAL-RESPONSIVE (collapse (match &self (recent-action $c responsive-send $d) $c)))))
+                                       ($_d4 (println! (DIAG-LITERAL-STATUS (collapse (match &self (recent-action $c status-send-unprompted $d) $c)))))
+                                       ($_d5 (println! (DIAG-VARIABLE-TAG (collapse (match &self (recent-action $c $t $d) ($c $t))))))
+                                       ($_d6 (println! (DIAG-RECENT-ACTION-COUNT (size-atom (collapse (match &self (recent-action $c $t $d) $c))))))
+                                       ($_d7 (println! (DIAG-IDLE-PATTERN-ATOMS (collapse (match &self (idle-pattern $v $c) ($v $c))))))
+                                       ($_d8 (println! (DIAG-IDLE-PATTERN-COUNT (size-atom (collapse (match &self (idle-pattern $v $c) (idle-pattern $v $c)))))))
+                                       ($_d9 (println! (DIAG-CYCLE-END $k))))
                                       (if (> (py-call (helper.soul_is_pause $soul_verdict_in)) 0)
                                           ;; PAUSE path: Channel D fires, loop halts
                                           (let* (($soul_voice (soul-llm-call
