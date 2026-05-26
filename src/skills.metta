@@ -51,7 +51,8 @@
    (py-call (agentverse.technical_analysis $ticker)))
 
 !(import_prolog_functions_from_file (library omegaclaw ./src/skills.pl) (shell first_char gc))
+!(import_prolog_function call_with_inference_limit)
 
 (= (metta $str)
    (let $code (sread $str)
-        (eval $code)))
+        (repr (progn (call_with_inference_limit (Predicate (quote (eval $code $x))) 100000000) $x))))

@@ -156,7 +156,9 @@
                                                    (change-state! &soul_verdict_in "VERDICT: PROCEED")
                                                    (change-state! &loops 0)))
                                           ;; PROCEED/FLAG path: normal execution
-                                          (progn (if $msgnew (addToHistory $msg (py-call (helper.normalize_string $response)) (py-call (helper.normalize_string $response)) $msgnew) _)
+                                          ;; T-4 (memory-layer merge): record history when LLM produces output even without new human message.
+                                          ;; Per upstream patham9/mettaclaw loop.metta: (or $msgnew (not (== $sexpr ()))). Autonomous reasoning IS substrate-record-worthy world knowledge.
+                                          (progn (if (or $msgnew (not (== $sexpr ()))) (addToHistory $msg (py-call (helper.normalize_string $response)) (py-call (helper.normalize_string $response)) $msgnew) _)
                                                  (println! (RECENT-ACTION-ATOMS (collapse (match &self (recent-action $c $t $d) (recent-action $c $t $d)))))
                                                  (println! (RESULTS-CONTENT $results))
                                                  (println! (PRE-SAFE-RESULTS-STR))
