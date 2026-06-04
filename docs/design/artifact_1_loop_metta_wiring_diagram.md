@@ -79,19 +79,19 @@ All initialized in `initLoop` (lines 17-32) at function call time. The function 
 
 | Variable | Initial value | Purpose | Read at | Written at |
 |----------|---------------|---------|---------|------------|
-| `&prevmsg` | `""` | Last message received from human channel | Line 59 | Line 59 |
-| `&lastresults` | `""` | Last command execution results, fed back into next iteration's prompt | Line 36 (via getContext → LAST_SKILL_USE_RESULTS) | Line 157 |
-| `&error` | `()` | Error state for parse failures | Line 42, line 116 | Line 42 (sets new error), line 116 (clears) |
-| `&soul_verdict_in` | `"VERDICT: PROCEED"` | Soul evaluation verdict on incoming message | Line 80, line 145, line 152 | Line 80, line 153 |
-| `&soul_verdict_out` | `"VERDICT: PROCEED"` | Soul evaluation verdict on outgoing commands (currently STUB - hardcoded) | Line 121 | Line 121 (assigned but not from substantive evaluation) |
-| `&person_state` | `"PERSON-STATE: neutral ACTIVE-NEED: none SOUL-TONE: grounded"` | Detected human emotional/intent state | Line 73, line 102 | Line 74 |
+| `&prevmsg` | `""` | Last message received from human channel | Line 65, line 67 | Line 66 |
+| `&lastresults` | `""` | Last command execution results, fed back into next iteration's prompt | Line 45 (via getContext → LAST_SKILL_USE_RESULTS) | Line 165 |
+| `&error` | `()` | Error state for parse failures | Line 49, line 121 | Line 49 (sets new error), line 121 (clears) |
+| `&soul_verdict_in` | `"VERDICT: PROCEED"` | Soul evaluation verdict on incoming message | Line 87, line 148, line 151 | Line 87, line 156 |
+| `&soul_verdict_out` | `"VERDICT: PROCEED"` | Soul evaluation verdict on outgoing commands (currently STUB - hardcoded) | Line 126 | Line 126 (assigned but not from substantive evaluation) |
+| `&person_state` | `"PERSON-STATE: neutral ACTIVE-NEED: none SOUL-TONE: grounded"` | Detected human emotional/intent state | Line 80, line 108 | Line 81 |
 | `&task_context` | `"TASK-STATUS: none TASK-ID: none CUMULATIVE-IRREVERSIBILITY: 0"` | Current task tracking | [gap flag: searched but no match - may be unused?] | [gap flag: same] |
-| `&soul_mutation_lock` | `""` | Two-phase commit lock for soul-namespace mutations | Line 126 (read by gate) | Line 137 commented out (would write on commit) |
+| `&soul_mutation_lock` | `""` | Two-phase commit lock for soul-namespace mutations | Line 131 (read by gate) | Lock managed by Python helper; former line 137 commented-out MeTTa write removed |
 | `&pending_soul_mutation` | `""` | Pending mutation awaiting confirmation | [gap flag: not seen written elsewhere] | [gap flag: same] |
-| `&last_human_time` | `0` | Timestamp of last human message, used for idle threshold | Line 92 (computes idle) | Line 68 |
-| `&engaged_idle_count` | `0` | Counter for engaged-idle iterations, drives self-check | Line 94, line 97 | Line 94 |
-| `&loops` | `(maxNewInputLoops)` | Iteration counter for run cycle. **Currently hardcoded; target architecture per spec_v3.0 Section 0 reads `(switch-iteration-budget ...)` from SWITCH-HUB substrate.** | Line 54, line 62 | Line 54, line 62, line 154 |
-| `&nextWakeAt` | (set on first iteration) | Next idle wake timestamp | [gap flag: read elsewhere?] | Line 66 |
+| `&last_human_time` | `0` | Timestamp of last human message, used for idle threshold | Line 99 (computes idle) | Line 74 |
+| `&engaged_idle_count` | `0` | Counter for engaged-idle iterations, drives self-check | Line 101 (self-check consumer retired) | Line 101 |
+| `&loops` | `(maxNewInputLoops)` | Iteration counter for run cycle. **Currently hardcoded; target architecture per spec_v3.0 Section 0 reads `(switch-iteration-budget ...)` from SWITCH-HUB substrate.** | Line 55, line 61 | Line 55, line 61, line 157 |
+| `&nextWakeAt` | (set on first iteration) | Next idle wake timestamp | Line 166 | Line 72 |
 
 ### State variables NOT in loop.metta but referenced
 
@@ -99,20 +99,20 @@ These are state variables read by helpers or soul atoms but not directly initial
 
 | Atom shape | Initialization | Used by |
 |------------|----------------|---------|
-| `(latch-state IDLE)` | `soul/latch/aliveness_state_machine.metta` line 16 (`!(add-atom &self (latch-state IDLE))`) | Loop.metta line 88 (raw transition), line 93, aliveness_gate match |
-| `(active-goal $n)` | `soul/active_goals.metta` (defines goals 1-15, all currently status=complete) | Loop.metta line 89, get_soul_brief brief-active-goals |
-| `(self-map-gap $name)` | `soul/self_map.metta` (defines ~9 gaps, mostly resolved) | Loop.metta line 90, brief-high-gaps |
-| `(creative-fuel $type)` | `soul/creative_fuel.metta` (9 flourishings) | Loop.metta line 91, brief-creative-direction |
+| `(latch-state IDLE)` | `soul/latch/aliveness_state_machine.metta` line 16 (`!(add-atom &self (latch-state IDLE))`) | Loop.metta line 95 (raw transition), line 100, aliveness_gate match |
+| `(active-goal $n)` | `soul/active_goals.metta` (defines goals 1-15, all currently status=complete) | Loop.metta line 96, get_soul_brief brief-active-goals |
+| `(self-map-gap $name)` | `soul/self_map.metta` (defines ~9 gaps, mostly resolved) | Loop.metta line 97, brief-high-gaps |
+| `(creative-fuel $type)` | `soul/creative_fuel.metta` (9 flourishings) | Loop.metta line 98, brief-creative-direction |
 
 **Note on the "all goals complete" state:** Active-goals 1-15 are historical record of completed work, intentionally parked for potential future use. This is not a degradation. When 2h thread state comes online, Clarity's own goal generation will populate active goals dynamically.
 
 ### Hooks and piggybacks: state variables
 
-**Line 86 piggyback (helper.soul_service_learning):** Fires on every new message, writes to ChromaDB. This is a per-message side effect that is invisible from the loop.metta surface - the line just looks like a logging hook but it's actually a learning-and-persistence operation.
+**Line 93 piggyback (helper.soul_service_learning):** Fires on every new message, writes to ChromaDB. This is a per-message side effect that is invisible from the loop.metta surface - the line just looks like a logging hook but it's actually a learning-and-persistence operation.
 
-**Line 87 piggyback (helper.soul_user_context_save):** Same shape, also fires on every new message, also writes to ChromaDB. Two ChromaDB writes per human message, sequential.
+**Line 94 piggyback (helper.soul_user_context_save):** Same shape, also fires on every new message, also writes to ChromaDB. Two ChromaDB writes per human message, sequential.
 
-**Line 88 piggyback (latch transition):** A single line `(set-atom! &self (latch-state IDLE) (latch-state ENGAGED))` does the transition. Note that this is the RAW transition - bypassing the guarded `engage-from-idle` function defined in `soul/latch/aliveness_state_machine.metta`. Loop.metta uses raw transitions, Clarity (in her response batches) uses guarded transitions. This is a structural inconsistency worth flagging.
+**Line 95 piggyback (latch transition):** A single line `(set-atom! &self (latch-state IDLE) (latch-state ENGAGED))` does the transition. Note that this is the RAW transition - bypassing the guarded `engage-from-idle` function defined in `soul/latch/aliveness_state_machine.metta`. Loop.metta uses raw transitions, Clarity (in her response batches) uses guarded transitions. This is a structural inconsistency worth flagging.
 
 ---
 
@@ -215,8 +215,8 @@ Imports in execution order:
 - soul/goal_completion_checker [gap flag - wiring status TBD]
 - soul/orbit_detector [gap flag - wiring status TBD]
 - soul/task_selector [gap flag - wiring status TBD]
-- soul/get_soul_brief (HOT - called at loop.metta line 95)
-- soul/aliveness_gate (HOT - called at loop.metta line 100)
+- soul/get_soul_brief (HOT - called at loop.metta line 103)
+- soul/aliveness_gate (HOT - called at loop.metta line 106)
 - soul/set_atom_impl [gap flag - utility, used by latch?]
 - soul/latch/aliveness_state_machine (HOT - provides latch atom and semantic transitions)
 
@@ -226,7 +226,7 @@ The "Reasoning sovereignty" section deserves emphasis: this is your earlier elev
 
 Some imported files execute `!(add-atom ...)` directives at import time. These initialize AtomSpace state before the main loop ever fires:
 
-- soul/identity_kernel: priority-rank atoms (1-5), tension-vector atoms (5), paraconsistency-pair atoms (4), irreversible-weight atoms (4). 🧠 **CONSTITUTIONAL LAYER (Layer 1+2 per spec_v3.0 Section 0):** these atoms are part of ClarityOmega's immutable constitutional layer. Per the spec's architectural commitment, they should live in a runtime-read-only AtomSpace partition. The mechanism for runtime read-only enforcement (separate AtomSpace mounted read-only via import system, or per-atom marker-based protection) is an open question per Artifact 4 Section 10. Until that mechanism exists, the mutation gate at line 126 is the only protection, which is necessary but not sufficient for the architectural commitment.
+- soul/identity_kernel: priority-rank atoms (1-5), tension-vector atoms (5), paraconsistency-pair atoms (4), irreversible-weight atoms (4). 🧠 **CONSTITUTIONAL LAYER (Layer 1+2 per spec_v3.0 Section 0):** these atoms are part of ClarityOmega's immutable constitutional layer. Per the spec's architectural commitment, they should live in a runtime-read-only AtomSpace partition. The mechanism for runtime read-only enforcement (separate AtomSpace mounted read-only via import system, or per-atom marker-based protection) is an open question per Artifact 4 Section 10. Until that mechanism exists, the mutation gate at line 131 is the only protection, which is necessary but not sufficient for the architectural commitment.
 - soul/latch/aliveness_state_machine: `(latch-state IDLE)` - the initial latch state. Note: this atom IS mutable (it changes every state transition). It is Layer 4 (autopoietic state), not Layer 1+2 constitutional.
 - [gap flag: other files in the import chain may also have add-atom directives at top level]
 
@@ -241,65 +241,65 @@ This section walks every line of the per-iteration `let*` block in execution ord
 Through the triple-network lens (Artifact 4), the per-iteration sequence maps onto network firing:
 
 - **Phase 4.0** (message reception) is loop infrastructure - not network-owned, but provides the channel for input that the SN will tag.
-- **Phase 4.1** (soul input intercept, lines 70-87) is the **Salience Network (SN)** firing. Person state assessment, soul evaluation, calibration recording, service learning - all are SN sub-functions.
-- **Phase 4.2** (lines 88-94) is partly **SWITCH-HUB** (latch transitions) and partly **DMN** (lines 89-92, where the substrate is queried for goals/gaps/fuel and the idle directive is computed). The DMN here is mostly COLD per network analysis - its substrate is loaded but the orchestration is in Python.
-- **Phase 4.3** (prompt assembly and aliveness gate, lines 95-101) is the **SWITCH-HUB** firing. The aliveness gate at line 100 is the canonical switch decision.
-- **Phase 4.4** (response generation, lines 102-118) is the **FPN** firing. Working memory assembly, executive processing via LLM, response parsing - all FPN sub-functions.
-- **Phase 4.5** (output verdict and execution, lines 120-144) is **SN-FPN coupling**. The SN should re-evaluate FPN action proposals before execution. Currently stubbed at line 121.
-- **Phase 4.6** (PAUSE routing and history, lines 145-159) is **DMN write** (history) and **SWITCH-HUB exit** (PAUSE halts the cycle).
+- **Phase 4.1** (soul input intercept, lines 77-94) is the **Salience Network (SN)** firing. Person state assessment, soul evaluation, calibration recording, service learning - all are SN sub-functions.
+- **Phase 4.2** (lines 95-102) is partly **SWITCH-HUB** (latch transitions) and partly **DMN** (lines 96-99, where the substrate is queried for goals/gaps/fuel and the idle directive is computed). The DMN here is mostly COLD per network analysis - its substrate is loaded but the orchestration is in Python.
+- **Phase 4.3** (prompt assembly and aliveness gate, lines 103-107) is the **SWITCH-HUB** firing. The aliveness gate at line 106 is the canonical switch decision.
+- **Phase 4.4** (response generation, lines 108-123) is the **FPN** firing. Working memory assembly, executive processing via LLM, response parsing - all FPN sub-functions.
+- **Phase 4.5** (output verdict and execution, lines 125-147) is **SN-FPN coupling**. The SN should re-evaluate FPN action proposals before execution. Currently stubbed at line 126.
+- **Phase 4.6** (PAUSE routing and history, lines 148-167) is **DMN write** (history) and **SWITCH-HUB exit** (PAUSE halts the cycle).
 
 This overview makes the architectural shape visible at a glance. The detail below carries 🧠 NETWORK-RELEVANT flags on lines where the network identification adds clarity.
 
-### Phase 4.0: Iteration entry and message reception (lines 47-68)
+### Phase 4.0: Iteration entry and message reception (lines 52-75)
 
 The `omegaclaw` function is called recursively. On first call (k=1), startup initialization fires (`initLoop`, `initMemory`, `initSoulSeeds`, `soul-rationality-startup-check`, `initChannels`). On subsequent calls, only the loop counter decrements.
 
-**Line 55** - `(let $prompt (getContext))` - Assembles the LLM prompt
-- Reads: `&lastresults` (via getContext line 38), getPrompt, getSkills, getHistory, current time
+**Line 62** - `(let $prompt (getContext $k))` - Assembles the LLM prompt
+- Reads: `&lastresults` (via getContext line 45), getPrompt, getSkills, getHistory, current time
 - Writes: nothing (binds local $prompt)
-- Calls: getContext (defined line 34-38), which builds the full prompt string
+- Calls: getContext (defined line 38-45), which builds the full prompt string
 - 📍 METTA-CALL POINT: This is a pure MeTTa string assembly - no Python in the path.
 - ⚠️ DANGER ZONE: The OUTPUT_FORMAT string in getContext is what drives the 5-slot calcification in Clarity's batches. Single line, but its content shapes every response shape.
 - 🔧 ELEVATION FLAG: The 5-slot framing could be reworded to make minimum-viable-batch explicit ("1-5 commands as work requires") without restructuring anything else. Effort: 5 minutes. Value: high - addresses an observed operational degradation pattern.
-- 💡 INSERTION POINT: A `YOUR_LAST_ACTION` field could be added here showing what the previous iteration's response did, breaking announcement loops at the substrate level. Requires a new state variable plus a summarization helper. Effort: 1 hour. Value: high.
+- ✅ SHIPPED: The `YOUR_LAST_ACTION` field is wired in getContext at line 41 via `(your-last-action-block $k)`. It surfaces what the previous iteration's response did, breaking announcement loops at the substrate level. No longer a future hook.
 
-**Line 56** - `(println! (---------iteration $k))` - Logs iteration number to console.
+**Line 63** - `(println! (---------iteration $k))` - Logs iteration number to console.
 
-**Lines 57-59** - `($msgrcv ...)` and `($msgnew ...)` - Receive new message
+**Lines 64-66** - `($msgrcv ...)` and `($msgnew ...)` - Receive new message
 - Reads: receive() (Python channel polling), &prevmsg
 - Writes: &prevmsg (to current message if non-empty)
 - Calls: receive (channel layer), string_safe, repr
 - $msgnew is True when message is non-empty AND different from the previous message
 - 💡 INSERTION POINT: $msgnew detection is a clean place to add additional message metadata if needed (e.g., user identification, channel routing).
 
-**Line 60** - `($msg (get-state &prevmsg))` - Binds $msg to current message text.
+**Line 67** - `($msg (get-state &prevmsg))` - Binds $msg to current message text.
 
-**Line 61-62** - Reset loop counter on new message
+**Line 68-69** - Reset loop counter on new message
 - If iteration > 1 AND new message arrived, resets &loops to maxNewInputLoops
 - Means a new human message extends the available work cycles
 - 🧠 NETWORK-RELEVANT: SWITCH-HUB iteration-budget reset (currently hardcoded). Per spec_v3.0 Section 0 (Iteration dilation as cognitive-need-based resource), this should read `(switch-iteration-budget $count $rationale)` from substrate instead of using `maxNewInputLoops` constant. The reset behavior on new-message stays the same; only the budget value comes from the SWITCH-HUB's cognitive-need read instead of a constant.
 - 🔧 ELEVATION FLAG: Replace hardcoded constant with substrate-derived budget. This is the implementation of iteration dilation per spec_v3.0. Effort: 1-2 hours once the SWITCH-HUB has matured beyond binary aliveness gate (Sprint 4 prerequisite per Artifact 4 Section 7.8). Value: HIGH - converts iteration count from arbitrary constant to cognitive-need-responsive resource.
 
-**Lines 64-65** - `$lastmessage` conditional construction (Patrick-evolution adopted via Tier A1 merge, 2026-05-18):
+**Line 71** - `$lastmessage` conditional construction (Patrick-evolution adopted via Tier A1 merge, 2026-05-18):
 - When `$msgnew` is True: emits `(HUMAN-MSG: $msg)` for downstream prompt assembly
 - When `$msgnew` is False AND `(spamShield)` is True (default): emits `" DO NOT RE-SEND OR SPAM!"` directive
 - When `$msgnew` is False AND `(spamShield)` is False: emits empty string `""`
 - Reads: `$msgnew`, `$msg`, `(spamShield)` config atom
 - Writes: `$lastmessage` (local binding)
-- Downstream consumers: line 72 println, line 113 soul_send_assemble (as 6th argument)
+- Downstream consumers: line 73 println, line 108 soul_send_assemble (as 6th argument)
 - 🧠 NETWORK-RELEVANT: SN signal modulation. Patrick's mechanism prevents the SN from re-presenting stale human-message content to downstream networks (FPN reading the prompt) when no new input has arrived. Removes the structural temptation for FPN to re-engage with already-handled content.
 - Rationale: per `fork_additions_runtime_audit_2026-05-18.md` Tier A1, adopted to address echo-when-msgnew-is-false pathology. Our prior MESSAGE-IS-NEW flag approach was not honored by the LLM under prompt-surface pressure; Patrick's content-replacement approach is structurally stronger.
-- spamShield config declared at line 9 (top-level), configured to True in initLoop (line 14 post-A1).
+- spamShield config declared at line 9 (top-level), configured to True in initLoop (line 15 post-A1).
 
-**Line 66** - `(change-state! &nextWakeAt (+ (get_time) (wakeupInterval)))` - Updates next idle wake timestamp every iteration.
+**Line 72** - `(change-state! &nextWakeAt (+ (get_time) (wakeupInterval)))` - Updates next idle wake timestamp every iteration.
 
-**Line 68** - `(if $msgnew (change-state! &last_human_time (get_time)) _)` - Records timestamp of last human contact, used for idle threshold detection.
+**Line 74** - `(if $msgnew (change-state! &last_human_time (get_time)) _)` - Records timestamp of last human contact, used for idle threshold detection.
 
-### Phase 4.1: Soul input intercept (lines 69-87)
+### Phase 4.1: Soul input intercept (lines 76-94)
 
 This is the soul evaluation pipeline that fires on every iteration but is only fully active on new messages.
 
-**Line 70** - `($soul_precompute (soul-pre-compute $msg))` - Pre-evaluation context priming
+**Line 77** - `($soul_precompute (soul-pre-compute $msg))` - Pre-evaluation context priming
 - Reads: $msg
 - Writes: $soul_precompute
 - Calls: soul-pre-compute (defined in soul_utils, calls helper.soul_pre_compute internally which queries ChromaDB)
@@ -307,7 +307,7 @@ This is the soul evaluation pipeline that fires on every iteration but is only f
 - 🧠 NETWORK-RELEVANT: SN affective baseline input. This is where the SN reads recent affective state from ChromaDB to prime its salience assessment. In the network-coupled architecture, this becomes the SN's read-side state load before tagging the incoming signal.
 - 🔧 ELEVATION FLAG: This is per-iteration ChromaDB query overhead. The MeTTa wrapper is thin; the Python does most of the work. If profiling shows this as hot, consider whether the ChromaDB query needs to fire every iteration or could be cached.
 
-**Lines 71-74** - Person state assessment
+**Lines 78-81** - Person state assessment
 - Reads: $msgrcv (length check), &person_state (fallback)
 - Writes: &person_state
 - Calls (when new message): `soul-llm-call` (defined in soul_utils) which calls the LLM via the routing layer, with prompt assembled by `helper.soul_flourishing_prompt`
@@ -315,73 +315,73 @@ This is the soul evaluation pipeline that fires on every iteration but is only f
 - 🔧 ELEVATION FLAG (HIGH IMPACT FOR PERSON STATE): One LLM call per human message just for person state assessment. The reasoning is essentially lexical pattern matching ("stand by" → firm tone, "I'm stuck" → distressed). NAL atoms could encode these mappings and the substrate could derive person state via inference. Estimated effort: 2-3 hours to add NAL atom set, validate against logged sessions, swap. Estimated value: HIGH - eliminates one of two LLM calls per message, moves classification reasoning into queryable substrate.
 - ⚠️ DANGER ZONE: Currently the only place person state gets set. Any elevation needs to preserve the format other downstream code expects ("PERSON-STATE: X ACTIVE-NEED: Y SOUL-TONE: Z").
 
-**Line 75** - Logs person state.
+**Line 82** - Logs person state.
 
-**Line 76** - `($soul_context_in (py-call (helper.soul_brief_tier_a_static)))` - Static tier-A soul context (priorities, tension vectors, irreversibility assessment vocabulary)
+**Line 83** - `($soul_context_in (py-call (helper.soul_brief_tier_a_static)))` - Static tier-A soul context (priorities, tension vectors, irreversibility assessment vocabulary)
 - Calls: helper.soul_brief_tier_a_static (returns static string, no LLM, no ChromaDB)
 - 💡 INSERTION POINT: The static brief content lives in helper.py. It could be moved into a soul/ atom and queried via MeTTa, putting the brief content under the "all soul logic in soul/" rule. Effort: 30 minutes. Value: incremental improvement to architectural cleanliness.
 
-**Lines 77-80** - Soul evaluation (Channel A/B+C)
+**Lines 84-87** - Soul evaluation (Channel A/B+C)
 - Reads: $msgrcv (length check), $soul_context_in, $person_state, &soul_verdict_in (fallback)
 - Writes: &soul_verdict_in
 - Calls (when new message): soul-llm-call with helper.soul_eval_prompt, then helper.soul_verdict_sanitize on the result
 - 🧠 NETWORK-RELEVANT: SN salience-tagging sub-function (Channels B+C). This is the SN's significance assessment - applying priority hierarchy, tension vectors, and irreversibility weights to produce a structured verdict. Combined with lines 71-74, these are the SN's two main salience-tagging operations per new message. In the network-coupled target, the verdict becomes a `(sn-coupling-decision ...)` atom and the substantive findings become `(sn-salience-tag ...)` atoms readable by FPN and DMN.
 - 🔧 ELEVATION FLAG (HIGH IMPACT): This is the second LLM call per human message. The reasoning includes pattern detection (genuinely needs the LLM) PLUS hierarchy application and irreversibility assessment (mechanical, MeTTa-doable). Partial elevation: keep LLM for novel pattern detection, move hierarchy and irreversibility into MeTTa rules. Effort: 3-5 hours. Value: HIGH - reduces LLM dependence, makes hierarchy decisions inspectable.
-- ⚠️ DANGER ZONE: The verdict format is consumed by many downstream lines (84, 121 reference, 145 for PAUSE detection). Any change to verdict structure requires updating all consumers.
+- ⚠️ DANGER ZONE: The verdict format is consumed by many downstream lines (91, 126 reference, 148 for PAUSE detection). Any change to verdict structure requires updating all consumers.
 
-**Line 81** - Logs soul verdict.
+**Line 88** - Logs soul verdict.
 
-**Lines 82-83** - Soul calibration recording
+**Lines 89-90** - Soul calibration recording
 - Conditional on new message
 - Calls: soul-calibration-record (in soul_utils, writes to ChromaDB)
 - 📍 METTA-CALL POINT: MeTTa wrapper around ChromaDB write
 - 🔧 ELEVATION FLAG: Per-message ChromaDB write. Consistency with elevation Tier 1 work - if person state and verdict become MeTTa-derived, this calibration recording could also be MeTTa-derived rather than Python parsing.
 
-**Lines 84-85** - Soul note recording (when verdict is not PROCEED)
+**Lines 91-92** - Soul note recording (when verdict is not PROCEED)
 - Conditional on verdict not being PROCEED
 - Records the verdict context for later review
 - 💡 INSERTION POINT: Add additional record types here (e.g., trace IDs, session correlations) without affecting other logic.
 
-**Line 86** - Service learning
+**Line 93** - Service learning
 - Conditional on new message
 - Calls: helper.soul_service_learning (75 lines of Python parsing, writes to ChromaDB)
 - 🔧 ELEVATION FLAG: The Python here does pure pattern extraction over strings. The substrate vocabulary already exists as atoms (verdict types, person states, tension vectors). MeTTa version would be cleaner. Effort: 1 hour. Value: MEDIUM - consistency with upstream elevations, removes per-iteration Python text-scanning.
 
-**Line 87** - User context save
+**Line 94** - User context save
 - Conditional on new message
 - Calls: helper.soul_user_context_save (ChromaDB write)
-- ⚠️ DANGER ZONE: This is the second ChromaDB write triggered by a single new human message (first was line 86). Sequential writes are slow. If profiling shows latency issues, batching these into a single call would help.
+- ⚠️ DANGER ZONE: This is the second ChromaDB write triggered by a single new human message (first was line 93). Sequential writes are slow. If profiling shows latency issues, batching these into a single call would help.
 
-### Phase 4.2: Aliveness state and AtomSpace queries (lines 88-94)
+### Phase 4.2: Aliveness state and AtomSpace queries (lines 95-102)
 
-**Line 88** - `(if $msgnew (set-atom! &self (latch-state IDLE) (latch-state ENGAGED)) _)`
+**Line 95** - `(if $msgnew (set-atom! &self (latch-state IDLE) (latch-state ENGAGED)) _)`
 - Reads: $msgnew
 - Writes: AtomSpace (replaces latch-state IDLE atom with latch-state ENGAGED)
 - 📍 METTA-CALL POINT: Pure substrate operation, no Python.
 - 🧠 NETWORK-RELEVANT: SWITCH-HUB transition. The latch-state atom is the canonical switch-state for the architecture. This line is the SN signaling to the switch hub that an external signal has arrived. In Artifact 4 terms, this is part of the SN's `(sn-coupling-decision ...)` sub-function.
 - 🔧 ELEVATION FLAG (small): Use the guarded transition `(engage-from-idle)` instead of raw set-atom!. Effort: 1 minute. Value: LOW (consistency with Clarity's calling convention).
 
-**Line 89** - `($atomspace_goals (collapse (match &self (= (active-goal $n) $g) ($n $g))))`
+**Line 96** - `($atomspace_goals (collapse (match &self (= (active-goal $n) $g) ($n $g))))`
 - Reads: AtomSpace pattern (active-goal $n)
 - Writes: $atomspace_goals (local binding)
 - 📍 METTA-CALL POINT: Pure MeTTa match-and-collapse over substrate atoms.
-- 🧠 NETWORK-RELEVANT: DMN substrate read. Active goals are part of the DMN's self-model - what the agent is currently committed to working on. Reading them here is the DMN preparing its inputs for the idle directive computation at line 92. In the network-coupled target, this match becomes part of the consolidated DMN block (Artifact 4 Section 7.3).
-- Note: Currently returns 15 goals all marked complete. The downstream consumer (line 92) is responsible for filtering by status.
+- 🧠 NETWORK-RELEVANT: DMN substrate read. Active goals are part of the DMN's self-model - what the agent is currently committed to working on. Reading them here is the DMN preparing its inputs for the idle directive computation at line 99. In the network-coupled target, this match becomes part of the consolidated DMN block (Artifact 4 Section 7.3).
+- Note: Currently returns 15 goals all marked complete. The downstream consumer (line 99) is responsible for filtering by status.
 
-**Line 90** - `($atomspace_gaps (collapse (match &self (= (self-map-gap $name) $g) ($name $g))))`
+**Line 97** - `($atomspace_gaps (collapse (match &self (= (self-map-gap $name) $g) ($name $g))))`
 - Reads: AtomSpace pattern (self-map-gap $name)
 - Writes: $atomspace_gaps
 - 📍 METTA-CALL POINT: Pure substrate query.
-- 🧠 NETWORK-RELEVANT: DMN substrate read. Self-map gaps are part of the DMN's self-model - what the agent recognizes as missing or incomplete in its own structure. Combined with lines 89 and 91, these three reads constitute the DMN's input gathering for goal generation.
+- 🧠 NETWORK-RELEVANT: DMN substrate read. Self-map gaps are part of the DMN's self-model - what the agent recognizes as missing or incomplete in its own structure. Combined with lines 96 and 98, these three reads constitute the DMN's input gathering for goal generation.
 - Note: Currently returns 9 gaps mostly marked resolved. Same filtering responsibility downstream.
 
-**Line 91** - `($atomspace_fuel (collapse (match &self (= (creative-fuel $type) $f) ($type $f))))`
+**Line 98** - `($atomspace_fuel (collapse (match &self (= (creative-fuel $type) $f) ($type $f))))`
 - Reads: AtomSpace pattern (creative-fuel $type)
 - Writes: $atomspace_fuel
 - 📍 METTA-CALL POINT: Pure substrate query, returns the 9 flourishings with their creative fuel descriptions.
 - 🧠 NETWORK-RELEVANT: DMN substrate read. Creative fuel is the DMN's generative direction source - the values-driven questions that guide goal generation toward growth rather than just gap-filling. Final piece of the DMN's input set before idle directive computation.
 
-**Line 92** - Idle directive generation
+**Line 99** - Idle directive generation
 - Reads: $msgnew, &last_human_time, $atomspace_goals/gaps/fuel
 - Writes: $idle_directive
 - Calls: helper.soul_idle_goal_prompt_v2 (~175 lines of Python doing supervisor_select_goal, supervisor_select_fuel, flip_mode, generate_goal_from_gaps, auto_detect_completion, run_meta_awareness, build_directive)
@@ -390,34 +390,34 @@ This is the soul evaluation pipeline that fires on every iteration but is only f
 - ⚠️ DANGER ZONE: One line invokes a 175-line Python function with many edge cases (mode transitions, completion detection, completed_goals tracking). Elevation requires preserving all edge cases.
 - 💡 INSERTION POINT: After elevation, this single line becomes a MeTTa function call like `(generate-idle-directive $atomspace_goals $atomspace_gaps $atomspace_fuel)` defined in soul/ - clean one-line hook respecting the design rule.
 
-**Line 93** - `(if (not (== $idle_directive "")) (set-atom! &self (latch-state ENGAGED) (latch-state IDLE)) _)`
+**Line 100** - `(if (not (== $idle_directive "")) (set-atom! &self (latch-state ENGAGED) (latch-state IDLE)) _)`
 - Reads: $idle_directive
 - Writes: AtomSpace (latch transition)
 - 📍 METTA-CALL POINT: Pure substrate operation.
 - Note: This is the path where idle work completes back to IDLE without going through COMPLETING. Distinct from Clarity's response-driven complete-from-engaged path.
 
-**Line 94** - Engaged-idle counter management
+**Line 101** - Engaged-idle counter management
 - Reads: $msgnew, $idle_directive length, &engaged_idle_count
 - Writes: &engaged_idle_count
 - 📍 METTA-CALL POINT: Pure state management.
 - ⚠️ DANGER ZONE: Three nested if conditions on one line. The logic is: reset to 0 on new message OR on idle directive present, otherwise increment. Hard to read, easy to break.
 - 🔧 ELEVATION FLAG (small): Refactor the nested conditional into a helper function `(update-engaged-idle-count $msgnew $idle_directive $current)`. Effort: 15 minutes. Value: LOW (readability).
 
-### Phase 4.3: Prompt assembly and aliveness gate (lines 95-101)
+### Phase 4.3: Prompt assembly and aliveness gate (lines 103-107)
 
-**Line 95** - `($soul_brief (swrite (getSoulBrief)))`
+**Line 103** - `($soul_brief (swrite (getSoulBrief)))`
 - Calls: getSoulBrief (defined in soul/get_soul_brief.metta)
 - 📍 METTA-CALL POINT: Pure MeTTa function call returning structured SoulBrief atom.
 - 🧠 NETWORK-RELEVANT: DMN→FPN handoff. getSoulBrief assembles the DMN's self-model summary (identity, priorities, active goals, gaps, creative direction) into a structured atom that becomes part of the FPN's working memory for the LLM call. In Artifact 4 terms, this is the typed channel `(dmn-self-model-summary ...)` flowing from DMN to FPN, currently flattened into a single string but functionally serving the coupling role.
 - This is one of the cleanest already-wired reasoning sovereignty atoms.
 
-**Line 96** - `($enriched_prompt (string_concat $soul_brief $prompt))` - Combines soul brief with base prompt.
+**Line 104** - `($enriched_prompt (string_concat $soul_brief $prompt))` - Combines soul brief with base prompt.
 
 **SELF-CHECK retirement history (lines retired through Sprint 1.5 + Step 5)**
 
 The SELF-CHECK prompt surface evolved through two phases and was retired in Step 5.
 
-- **Phase 1 (original wiring, pre-Sprint-1.5):** Line 97 called `(py-call (helper.soul_self_check_prompt (get-state &engaged_idle_count)))`. Threshold and message both lived in Python; threshold was 3; message was a binary work-or-idle prompt.
+- **Phase 1 (original wiring, pre-Sprint-1.5):** The pre-Sprint-1.5 self-check (former line 97) called `(py-call (helper.soul_self_check_prompt (get-state &engaged_idle_count)))`. Threshold and message both lived in Python; threshold was 3; message was a binary work-or-idle prompt.
 
 - **Phase 2 (Sprint 1.5 elevation, commit b079df6, May 3 2026):** Caller migrated from Python to MeTTa-native `(self-check-guidance (get-state &engaged_idle_count))` defined in `soul/behavioral_guidance.metta`. Threshold raised to 5 per Clarity's May 2 refinement; message reshaped to three reflective questions instead of binary framing. Caller still lived in loop.metta, reading `&engaged_idle_count`, concatenated into `$final_prompt` consumed by `soul_send_assemble`.
 
@@ -427,15 +427,15 @@ The SELF-CHECK prompt surface evolved through two phases and was retired in Step
 
 - 🔧 ELEVATION FLAG (resolved): both options from the prior flag are now superseded. Option (a) threshold raise landed in Sprint 1.5 (b079df6). Option (b) the architectural cleanliness move landed across Sprint 4 (Steps 4-4.6) and Step 5. The SELF-CHECK surface itself is gone; the substrate question of "should I keep going" is now answered by task-phase + idle-pattern + agency-balance composition, observable each cycle, available for any consumer (Step 6 will be the first such consumer in the aliveness gate).
 
-**Line 99** - Logs raw idle directive.
+**Line 105** - Logs raw idle directive.
 
-**Line 100** - `($aliveness (aliveness-gate $msgnew $idle_directive))`
+**Line 106** - `($aliveness (aliveness-gate $msgnew $idle_directive))`
 - Calls: aliveness-gate from soul/aliveness_gate.metta
 - 📍 METTA-CALL POINT: Pure MeTTa decision logic.
 - 🧠 NETWORK-RELEVANT: SWITCH-HUB core function. The aliveness gate IS the switch hub in the current architecture, deciding between ENGAGE (network coupling active, LLM fires, FPN works) and SILENT (idle state, no FPN firing). Per Artifact 4 Section 3.4, this should evolve from binary into the four-state switch (external-task-dominant, self-direction-dominant, reflective, idle) but the binary version is the working seed of the switch hub.
 - This is the architecturally clean reasoning sovereignty pattern: a Python-style decision (should I respond or be silent?) implemented entirely in MeTTa atoms with predicate dispatch.
 
-**Line 101** - Logs aliveness verdict.
+**Line 107** - Logs aliveness verdict.
 
 **getContext composition** - `(idle-pattern-block)` inserted into prompt assembly
 - Calls: (idle-pattern-block) defined in soul/idle_cycle_detector.metta (PURE file per split-refactor)
@@ -454,77 +454,77 @@ The SELF-CHECK prompt surface evolved through two phases and was retired in Step
 - 🧠 NETWORK-RELEVANT: SN observer channel. The agency-balance verdict surfaces person-vs-system action ratio to the FPN's prompt context, allowing the FPN (LLM) to read whether the system is carrying disproportionate share of choices. In Artifact 4 terms, this is the typed channel `(sn-agency-balance-observation $verdict $person $system)` flowing from SN to FPN. Sprint 4 awareness organ; consumer migration (Step 5/6) will gate aliveness on dependency-risk verdicts.
 - Step 4.6 (May 15 2026 corrected split): algorithm (d) extended for two counters with six tag literals (person-class: responsive-send, verification-query; system-class: status-send-unprompted, exploration-query, pin-only, unclassified). All primitives REPL-verified. Threshold 0.6 hardcoded per F42 (dependency-threshold declaration is documentation-only). Substrate ships with writers/consumers split from day one per task_state precedent.
 
-### Phase 4.4: Response generation (lines 102-118)
+### Phase 4.4: Response generation (lines 108-123)
 
 🧠 NETWORK-RELEVANT (entire phase): This is the **FPN firing**. The FPN's job in the brain is executive function - holding goals in working memory, planning actions, manipulating information toward task completion. In ClarityOmega, this happens via prompt assembly + LLM call + response parsing. The LLM is the implementation substrate for executive reasoning in the near term; the substrate atoms (task_selector, meta_awareness_engine) are loaded but not yet wired as FPN sub-functions. Per Artifact 4 Section 7.4, the target is a consolidated FPN block where task selection and inhibition become substrate-derived.
 
-**Lines 102-106** - Send assembly
+**Lines 108-112** - Send assembly
 - Conditional on aliveness != SILENT
 - Calls: helper.soul_send_assemble (combines prompt, soul context, verdict, person state, soul note, last message, idle directive into final string)
 - 🔧 ELEVATION FLAG: This is string assembly logic in Python that could be MeTTa string operations. Lower priority than the other elevations because string assembly is genuinely repetitive Python territory. Could be deferred indefinitely.
 
-**Line 107** - Logs sent characters or SILENT_CYCLE.
+**Line 113** - Logs sent characters or SILENT_CYCLE.
 
-**Lines 108-112** - LLM call routing
+**Lines 115-117** - LLM call routing
 - Conditional on aliveness != SILENT
 - Routes to GPT, Claude, or MiniMax depending on (provider) configuration
 - 📍 METTA-CALL POINT: The routing condition is MeTTa, the LLM calls themselves are Python.
 
-**Line 113** - `($resp (py-call (helper.normalize_string (py-call (helper.balance_parentheses $respi)))))`
+**Line 118** - `($resp (py-call (helper.normalize_string (py-call (helper.balance_parentheses $respi)))))`
 - Calls: helper.balance_parentheses (Python parser fixer), then helper.normalize_string
 - 🔧 ELEVATION FLAG: Parentheses balancing is a real bug-fix layer. The LLM occasionally produces malformed s-expressions and this Python repairs them. Could be MeTTa with effort but Python is appropriate territory for this kind of low-level text manipulation.
 - ⚠️ DANGER ZONE: If balance_parentheses ever breaks, all responses fail to parse. Worth having tests around this helper specifically.
 
-**Line 114** - Validates response starts with "(", else logs reminder
+**Line 119** - Validates response starts with "(", else logs reminder
 - ⚠️ DANGER ZONE: The reminder text is a string literal that's exactly the OUTPUT_NOTHING_ELSE_THAN: pattern Clarity is supposed to follow. If this text changes, the LLM's training to follow the format may also need updating in the prompt.
 
-**Line 115** - `($sexpr (catch (sread $response)))` - Parse response into S-expression
+**Line 120** - `($sexpr (catch (sread $response)))` - Parse response into S-expression
 - 📍 METTA-CALL POINT: sread is MeTTa parser, catch is MeTTa error handler.
 
-**Lines 116-117** - Error tracking and HandleError invocation
+**Lines 121-122** - Error tracking and HandleError invocation
 - Clears &error then calls HandleError which appends if parse failed
 - 💡 INSERTION POINT: Adding additional error types here (semantic errors, security errors) would slot in cleanly.
 
-**Line 118** - Logs RESPONSE.
-- 💡 INSERTION POINT: This is where the "YOUR_LAST_ACTION" mentioned in line 55 would need to update state - right after RESPONSE is printed, summarize $sexpr and write to a new state variable.
+**Line 123** - Logs RESPONSE.
+- ✅ SHIPPED: The "YOUR_LAST_ACTION" field is now built and read in getContext at line 41 via `(your-last-action-block $k)`. The previous-iteration summary surfaces in the prompt without a separate write here.
 
-### Phase 4.5: Soul output intercept and command execution (lines 120-144)
+### Phase 4.5: Soul output intercept and command execution (lines 125-147)
 
-**Line 121** - `($soul_verdict_out "VERDICT: PROCEED SOUL-NOTE: output-intercept-pending-runtime-fix")`
+**Line 126** - `($soul_verdict_out "VERDICT: PROCEED SOUL-NOTE: output-intercept-pending-runtime-fix")`
 - Hardcoded string assignment
 - 🧠 NETWORK-RELEVANT: SN-FPN coupling channel (currently STUBBED). This should be the SN re-evaluating the FPN's proposed actions before they execute. Per Artifact 4 Section 5.1 and Section 6, the channel is `(fpn-action-proposal $action $irreversibility-estimate)` flowing FPN→SN, with SN producing a re-evaluation verdict. Currently the channel is a one-line stub that always says PROCEED. This is the architecturally most important missing channel in the entire system - the SN cannot catch dangerous FPN actions until this is built.
 - 🔧 ELEVATION FLAG (architecturally significant): This is the explicit output-side soul evaluation stub. The note "output-intercept-pending-runtime-fix" acknowledges this is incomplete. Needs to: (a) parse $sexpr to find proposed actions, (b) assess each action against the irreversibility-action-assessment vocabulary already in the soul brief, (c) check against soul mutation gate output, (d) produce verdict. Effort: 2-3 hours. Value: HIGH - closes a known safety stub, gives Clarity output-side governance not just input-side.
 - 💡 INSERTION POINT: All the substrate vocabulary exists. Just need to write the MeTTa function and replace this line with a call to it.
 
-**Line 122** - Logs output verdict.
+**Line 127** - Logs output verdict.
 
-**Lines 123-125** - Extract MeTTa commands from response
+**Lines 128-130** - Extract MeTTa commands from response
 - If response starts with "(" AND no errors, collapses superposed sexpr
 - Used by mutation gate to detect MeTTa command attempts
 
-**Line 126** - Soul mutation gate (Python)
+**Line 131** - Soul mutation gate (Python)
 - Calls: helper.soul_mutation_gate
 - Two-phase commit: PENDING flag on first detection, COMMIT on second
-- 🧠 NETWORK-RELEVANT: FPN inhibition function. The mutation gate is the FPN catching itself before modifying soul-namespace atoms - exactly the kind of self-monitoring that the brain's FPN does for high-risk actions. Per Artifact 4 Section 5.2, this is one of the FPN's `inhibit` sub-functions. Activating the dormant MeTTa version (lines 127-140) is the cleanest example of how the FPN's substrate-derived inhibition should look.
-- 🔧 ELEVATION FLAG (READY TO SHIP): Lines 127-140 are the COMMENTED-OUT MeTTa version of this gate. The work is already drafted. Validation: compare commented MeTTa logic to Python helper logic, confirm equivalence, uncomment, test. Effort: 30 minutes. Value: HIGH per architectural-cleanliness, MEDIUM per operational impact (mutations are infrequent).
+- 🧠 NETWORK-RELEVANT: FPN inhibition function. The mutation gate is the FPN catching itself before modifying soul-namespace atoms - exactly the kind of self-monitoring that the brain's FPN does for high-risk actions. Per Artifact 4 Section 5.2, this is one of the FPN's `inhibit` sub-functions. Activating a MeTTa version of this gate (the former lines 127-140 draft, now removed from the loop and recoverable from git history) would be the cleanest example of how the FPN's substrate-derived inhibition should look.
+- 🔧 ELEVATION FLAG: The commented-out MeTTa version of this gate (former lines 127-140) has been REMOVED from the loop.metta surface. If pursuing this elevation, recover the draft from git history rather than from the live file. Effort: 30 minutes once recovered. Value: HIGH per architectural-cleanliness, MEDIUM per operational impact (mutations are infrequent). [CONFIRM: where the MeTTa draft now lives, git history or a soul file.]
 - 💡 INSERTION POINT: This is the cleanest demonstration of the elevation pattern. Once shipped, sets the template for all other elevations.
 
-**Lines 127-140** - Commented-out MeTTa mutation gate (DORMANT, ready for activation per above flag)
+**(removed)** - The commented-out MeTTa mutation gate that formerly occupied lines 127-140 has been removed from loop.metta. Live lines 132-147 are now the soul-note-out, execution, cycle-tail writers, and DIAG block (see below). The MeTTa-gate draft, if still wanted, lives in git history.
 
-**Lines 141-142** - Soul note recording on output
+**Lines 132-133** - Soul note recording on output
 - Conditional on output verdict not PROCEED AND no errors
 - Records output verdict context
 
-**Line 143** - Command execution
+**Line 134** - Command execution
 - Iterates through $sexpr, evaluates each command, captures results
 - Each command runs through HandleError for individual failure isolation
 - 📍 METTA-CALL POINT: superpose, eval, normalize_string call chain.
-- 🧠 NETWORK-RELEVANT: FPN action execution. This is where the FPN's selected actions actually fire into the world - file writes, ChromaDB writes, sends to humans, latch transitions, MeTTa atom mutations. In the network-coupled architecture, this should be gated by SN re-evaluation (line 121, currently stubbed). Once the SN-FPN coupling channel is built, this line becomes the FPN's commit point AFTER the SN approves the action proposals.
-- ⚠️ DANGER ZONE: This is where command execution actually happens. All security-relevant decisions about commands needed to happen BEFORE this line. The output intercept stub at line 121 is supposed to gate this - and currently doesn't.
+- 🧠 NETWORK-RELEVANT: FPN action execution. This is where the FPN's selected actions actually fire into the world - file writes, ChromaDB writes, sends to humans, latch transitions, MeTTa atom mutations. In the network-coupled architecture, this should be gated by SN re-evaluation (line 126, currently stubbed). Once the SN-FPN coupling channel is built, this line becomes the FPN's commit point AFTER the SN approves the action proposals.
+- ⚠️ DANGER ZONE: This is where command execution actually happens. All security-relevant decisions about commands needed to happen BEFORE this line. The output intercept stub at line 126 is supposed to gate this - and currently doesn't. This is the gate insertion site: the corner-gap force-silence gate binds `$sexpr_gated` between live lines 133 and 134, consumed only by this execution.
 
-**Line 144** - Logs RESULTS-EXECUTED.
+**Line 135** - Logs RESULTS-EXECUTED.
 
-**Cycle tail (after populate-recent-action)** - `($_ (do-update-idle-pattern!))`
+**Cycle tail line 136** - `($_ (populate-recent-action $sexpr $msgnew $k))` writes the per-cycle 3-field recent-action atom. **Line 137** - `($_ (do-update-idle-pattern!))`
 - Calls: do-update-idle-pattern! defined in soul/idle_cycle_detector_writers.metta (WRITERS file per split-refactor)
 - Reads: (recent-action $c $tag $d) atoms via algorithm (d) counter (count-sends-in-window from soul/idle_cycle_detector.metta pure file)
 - Writes: (idle-pattern $verdict $count) atom to &self (after do-clear-idle-pattern! freshness)
@@ -535,7 +535,7 @@ The SELF-CHECK prompt surface evolved through two phases and was retired in Step
 - Step 4.5 split-refactor (May 15 2026): writers (do-clear-idle-pattern!, do-update-idle-pattern!) moved to idle_cycle_detector_writers.metta; pure read helpers remain in idle_cycle_detector.metta per task_state precedent (Discipline 2 refinement). Zero behavior change; clean import boundary for future consumers.
 - Bug 2 fix (May 20 2026): do-clear-idle-pattern! rewritten to use superpose iteration matching recent_action_populator's verified-working pruning shape. The prior car-atom + remove-atom pattern was removing zero atoms in this runtime since cycle 1, causing 50+ stale (idle-pattern productive 0) atoms to accumulate. current-idle-pattern reads car-atom of accumulated stack = OLDEST atom = cycle-1 bootstrap, explaining the permanently-stuck prompt display. Fix verified end-to-end across cycles 1-9 (steady state) and cycles 34-35 (heterogeneous-content transition). See ADR-005 and docs/investigations/2026-05-20-bug2-clear-fn-investigation.md.
 
-**Cycle tail (after do-update-idle-pattern!)** - `($_ (do-update-agency-balance!))`
+**Cycle tail line 138** - `($_ (do-update-agency-balance!))`
 - Calls: do-update-agency-balance! defined in soul/agency_balance_guard_writers.metta (WRITERS file per split shape)
 - Reads: (recent-action $c $tag $d) atoms via two algorithm (d) counters (count-person-actions-in-window and count-system-actions-in-window from soul/agency_balance_guard.metta pure file)
 - Writes: (agency-balance $verdict $person $system) atom to &self (after do-clear-agency-balance! freshness)
@@ -545,36 +545,41 @@ The SELF-CHECK prompt surface evolved through two phases and was retired in Step
 - 🔧 ELEVATION FLAG: (none yet). Pattern is fresh and untested in production; revisit after 24-48 hours of runtime to assess whether 0.6 ratio threshold needs adjustment. unclassified-to-system-class mapping is conservative (under-detects dependency); revisit if unclassified volume becomes behaviorally significant.
 - Step 4.6 (May 15 2026 corrected split): replaces the original 4.6 attempt (recursive-counter pattern, F32 fail). Algorithm (d) extended to two counters with six tag literals. F42 bare-call audit applied to dependency-detected (hardcoded 0.6); ecosystem-healthy latent F42 bugs documented as fix-on-future-wiring. Substrate ships with writers/consumers split from day one per task_state precedent (Discipline 2 refinement); zero deferred refactor debt.
 
-### Phase 4.6: PAUSE routing and history update (lines 145-159)
+**DIAG block (lines 139-147)** - Nine `($_dN (println! (DIAG-...)))` probes
+- Emits per-cycle diagnostics: DIAG-CYCLE-START/END, DIAG-COUNT-FN, DIAG-LITERAL-RESPONSIVE, DIAG-LITERAL-STATUS, DIAG-VARIABLE-TAG, DIAG-RECENT-ACTION-COUNT, DIAG-IDLE-PATTERN-ATOMS, DIAG-IDLE-PATTERN-COUNT.
+- 📍 METTA-CALL POINT: Pure substrate reads (match/size-atom/collapse), no LLM. Observability only; no state writes.
+- These post-date the v1.2 diagram and sit between the cycle-tail writers (136-138) and the PAUSE/PROCEED branch (148+).
 
-**Lines 145-154** - PAUSE path (Channel D)
+### Phase 4.6: PAUSE routing and history update (lines 148-167)
+
+**Lines 148-157** - PAUSE path (Channel D)
 - If soul verdict was PAUSE (detected via helper.soul_is_pause)
 - Calls Channel D voice prompt to compose a pause message
 - Resets verdict to PROCEED and zeros loops (halts the cycle)
 - 📍 METTA-CALL POINT: Most logic is MeTTa (catch, eval, sread, change-state!), helper just composes the prompt.
 
-**Lines 156-157** - PROCEED/FLAG path (normal)
+**Lines 158-165** - PROCEED/FLAG path (normal)
 - Adds to history (when new message)
 - Updates &lastresults with safe_results_str of $results
 - 🧠 NETWORK-RELEVANT: DMN write (history) + FPN write (lastresults). History is autobiographical memory - the DMN writing what just happened into the structure that will become available to next iteration's reasoning. lastresults is the FPN's working-memory carryover for the next cycle's prompt assembly. Both are short-term consolidations, distinct from ChromaDB long-term storage.
 - 💡 INSERTION POINT: Additional per-cycle state updates would slot in cleanly here.
 
-**Lines 158-159** - Wake check
+**Lines 166-167** - Wake check
 - If outside the message-driven window AND past nextWakeAt, extends loops by maxWakeLoops + 1
 - maxWakeLoops aligned to upstream value of 1 via Tier A2 merge (2026-05-19): wake-refill produces 2-iteration bursts instead of 51-iteration bursts
 - Rationale: per `fork_additions_runtime_audit_2026-05-18.md` Tier A2, reducing wake-iteration volume reduces the surface area where echo pathology has historically manifested. Companion to A1 spamShield (content-level fix); A2 is frequency-level fix.
 - Operational effect: idle periods between human messages produce shorter bursts of cycles. Clarity has more time between bursts to observe quietly. No change to message-driven behavior.
 
-**Line 160** - `(sleep (sleepInterval))` - 1-second pause between iterations.
+**Line 168** - `(sleep (sleepInterval))` - 1-second pause between iterations.
 
-**Lines 161-162** - Prolog substrate housekeeping (Tier B1 upstream merge, 2026-05-19)
+**Lines 169-170** - Prolog substrate housekeeping (Tier B1 upstream merge, 2026-05-19)
 - `(cut)` - Discards Prolog choicepoint state from the current iteration. Prevents choicepoint accumulation across iterations under load.
 - `(gc)` - Garbage collects Prolog atoms and trims stacks. Per skills.pl this is 3 ops: garbage_collect, garbage_collect_atoms, trim_stacks.
 - Rationale: per `fork_additions_runtime_audit_2026-05-18.md` Tier B. Patrick added these for general substrate health. Adopted as preparation for Test 1 (error-recovery loop stress test) so the test measures recovery behavior, not state leakage from prior cycles.
 - 🧠 NETWORK-RELEVANT: substrate hygiene. Reduces non-determinism surface where match queries on accumulated state could produce inconsistent results.
 - Companion to A1 (commit 0872ec1) and A2 (commit f46e44e).
 
-**Line 163** - `(omegaclaw (+ 1 $k))` - Recursive call for next iteration.
+**Line 171** - `(omegaclaw (+ 1 $k))` - Recursive call for next iteration.
 
 ---
 
@@ -587,15 +592,15 @@ Idempotent conditional add-atom for the three scalar task-state atoms
 Safe in face of future persistence restoration (guard prevents dual-atom
 ambiguity).
 
-**Phase 4.0 last-activity hook** (added after the existing `&last_human_time`
-write at line 68). Calls `(do-set-last-activity! (get_time))` when $msgnew
+**Phase 4.0 last-activity hook** (live line 75, after the existing `&last_human_time`
+write at line 74). Calls `(do-set-last-activity! (get_time))` when $msgnew
 is true. Mirrors the existing `&last_human_time` semantics into AtomSpace via
 the task-state primitive. Existing `&last_human_time` write remains in place
 per Sprint 4 process commitment (writers mirror, not subsume, until consumers
 migrate in Steps 5-9).
 
-**Phase 4.2 cycles-since-input hook** (added after the existing
-`&engaged_idle_count` write at line 94). Calls
+**Phase 4.2 cycles-since-input hook** (live line 102, after the existing
+`&engaged_idle_count` write at line 101). Calls
 `(do-set-cycles-since-input! 0)` when $msgnew is true, otherwise
 `(do-set-cycles-since-input! (+ 1 (current-cycles-since-input)))`.
 Reset semantics differ from `&engaged_idle_count` by design (Clarity's
@@ -604,14 +609,14 @@ the pure input-staleness contract encoded in the atom name. Consumers needing
 engagement-reset semantics will compose cycles-since-input with last-activity
 rather than direct-swap when `&engaged_idle_count` retires in Step 5+.
 
-**Phase 4.4 last-activity post-send hook** (added after the CHARS_SENT/
-SILENT_CYCLE println at line 107). Calls `(do-set-last-activity! (get_time))`
+**Phase 4.4 last-activity post-send hook** (live line 114, after the CHARS_SENT/
+SILENT_CYCLE println at line 113). Calls `(do-set-last-activity! (get_time))`
 when aliveness is not SILENT. Records send-event activity into AtomSpace.
 Spec Section 4 defines last-activity as 'most recent activity (human message
 OR Clarity-emitted send)'. Both event types are captured per cycle.
 
 🔧 ELEVATION FLAG (Step 5+): When self-check-guidance migrates from reading
-`&engaged_idle_count` (line 97) to reading task-state primitives, the consumer
+`&engaged_idle_count` (former line 97, self-check retired) to reading task-state primitives, the consumer
 composes `(current-cycles-since-input)` AND `(current-last-activity)` to express
 its actual semantic need. Per Clarity's architectural call, the composition is
 more honest than overloading a single counter with two semantic meanings.
@@ -629,7 +634,7 @@ This is one of the most important findings of the wiring audit. The codebase con
 - States: IDLE, ENGAGED, COMPLETING
 - Initialized via `!(add-atom &self (latch-state IDLE))` at import time
 - Imported via lib_clarity_reasoning.metta line "Reasoning sovereignty" section
-- Used by loop.metta line 88, line 93 (raw transitions) and aliveness_gate.metta (match query)
+- Used by loop.metta line 95, line 100 (raw transitions) and aliveness_gate.metta (match query)
 - Provides semantic transitions: `engage-from-idle`, `complete-from-engaged`, `idle-from-completing`
 - Provides predicates: `is-idle?`, `is-engaged?`, `is-completing?`
 
@@ -656,13 +661,13 @@ The latch sits in three states. Here is what triggers each transition and what e
 - Default initial state at import
 - Means: no conversation active, no work in flight
 - aliveness-gate returns SILENT when in IDLE and no idle directive present
-- The SILENT verdict causes loop.metta to skip the LLM call entirely (line 102, 108)
+- The SILENT verdict causes loop.metta to skip the LLM call entirely (line 108, 115)
 
 **Transition IDLE → ENGAGED**
 - Triggered by: new human message arrives
-- Where: loop.metta line 88, `(set-atom! &self (latch-state IDLE) (latch-state ENGAGED))`
+- Where: loop.metta line 95, `(set-atom! &self (latch-state IDLE) (latch-state ENGAGED))`
 - This is a RAW transition - does not check current state
-- Side effect: clears engaged_idle_count to 0 (line 94)
+- Side effect: clears engaged_idle_count to 0 (line 101)
 
 **ENGAGED state**
 - Means: conversation active, agent is working
@@ -689,7 +694,7 @@ The latch sits in three states. Here is what triggers each transition and what e
 
 **Transition ENGAGED → IDLE (via idle directive path)**
 - Triggered by: idle directive produces non-empty result
-- Where: loop.metta line 93, `(set-atom! &self (latch-state ENGAGED) (latch-state IDLE))`
+- Where: loop.metta line 100, `(set-atom! &self (latch-state ENGAGED) (latch-state IDLE))`
 - This is a RAW transition
 - Note: this is the OPPOSITE direction of what the line literally reads. The line says "transition from ENGAGED to IDLE" which fires when Clarity has completed an idle-directed task. This appears to be a path for autonomous idle work to clear back to IDLE without going through COMPLETING.
 
@@ -697,13 +702,13 @@ The latch sits in three states. Here is what triggers each transition and what e
 
 Loop.metta uses raw transitions (set-atom! directly). Clarity, in her response batches, uses guarded transitions (the semantic functions like `complete-from-engaged`).
 
-The implication: Clarity's transitions check the current state and refuse to fire if state is wrong. Loop.metta's transitions just execute. If for any reason the latch were in an unexpected state (say COMPLETING), the line 88 transition (IDLE → ENGAGED) would still fire from set-atom! perspective but the from-pattern (latch-state IDLE) wouldn't match anything to remove, so the result might be two latch-state atoms (IDLE and ENGAGED both present) or just an added ENGAGED atom.
+The implication: Clarity's transitions check the current state and refuse to fire if state is wrong. Loop.metta's transitions just execute. If for any reason the latch were in an unexpected state (say COMPLETING), the line 95 transition (IDLE → ENGAGED) would still fire from set-atom! perspective but the from-pattern (latch-state IDLE) wouldn't match anything to remove, so the result might be two latch-state atoms (IDLE and ENGAGED both present) or just an added ENGAGED atom.
 
 This has not been observed as a bug. But it is a potential inconsistency to be aware of when modifying the latch flow.
 
 ### The aliveness-gate decision
 
-The gate function (`soul/aliveness_gate.metta`) is what produces the ENGAGE-vs-SILENT verdict that loop.metta line 100-101 acts on:
+The gate function (`soul/aliveness_gate.metta`) is what produces the ENGAGE-vs-SILENT verdict that loop.metta line 106-107 acts on:
 
 ```metta
 (= (aliveness-gate $msgnew $idle)
@@ -735,17 +740,17 @@ This means SILENT cycles happen when: no new message, no idle directive, latch i
 
 ### Hook and piggyback callout: aliveness latch
 
-**📍 METTA-CALL POINT (line 88):** `(set-atom! &self (latch-state IDLE) (latch-state ENGAGED))` - direct MeTTa space mutation, no Python involved. Clean substrate operation.
+**📍 METTA-CALL POINT (line 95):** `(set-atom! &self (latch-state IDLE) (latch-state ENGAGED))` - direct MeTTa space mutation, no Python involved. Clean substrate operation.
 
-**📍 METTA-CALL POINT (line 93):** Same shape as line 88, opposite direction. Clean.
+**📍 METTA-CALL POINT (line 100):** Same shape as line 95, opposite direction. Clean.
 
-**📍 METTA-CALL POINT (line 100):** `(aliveness-gate $msgnew $idle_directive)` - calls the soul/aliveness_gate.metta function. All decision logic happens in MeTTa. This is one of the cleanest reasoning-sovereignty wins already in the codebase.
+**📍 METTA-CALL POINT (line 106):** `(aliveness-gate $msgnew $idle_directive)` - calls the soul/aliveness_gate.metta function. All decision logic happens in MeTTa. This is one of the cleanest reasoning-sovereignty wins already in the codebase.
 
-**⚠️ DANGER ZONE (lines 102, 107, 108):** Three separate lines all conditional on `(== $aliveness SILENT)`. These determine whether the LLM gets called, what gets printed, and the cycle's whole shape. Critical infrastructure - changes here propagate to the entire output behavior. If extending the aliveness verdict vocabulary (e.g., adding DEFER or RESEARCH states), all three lines need consistent updates.
+**⚠️ DANGER ZONE (lines 108, 113, 115):** Three separate lines all conditional on `(== $aliveness SILENT)`. These determine whether the LLM gets called, what gets printed, and the cycle's whole shape. Critical infrastructure - changes here propagate to the entire output behavior. If extending the aliveness verdict vocabulary (e.g., adding DEFER or RESEARCH states), all three lines need consistent updates.
 
-**🔧 ELEVATION FLAG (architectural inconsistency):** Loop.metta uses raw `set-atom!` transitions. Clarity uses guarded transitions like `complete-from-engaged`. Replacing loop.metta's lines 88 and 93 with calls to `engage-from-idle` and the appropriate guarded transition would unify the calling convention and add safety against malformed state. Effort: ~15 minutes. Value: small but reduces future surprise.
+**🔧 ELEVATION FLAG (architectural inconsistency):** Loop.metta uses raw `set-atom!` transitions. Clarity uses guarded transitions like `complete-from-engaged`. Replacing loop.metta's lines 95 and 100 with calls to `engage-from-idle` and the appropriate guarded transition would unify the calling convention and add safety against malformed state. Effort: ~15 minutes. Value: small but reduces future surprise.
 
-**💡 INSERTION POINT:** New verdict states could be added to soul/aliveness_gate.metta cleanly without touching loop.metta's structure. Add a new `latch-dispatch` rule for the new state, add the new state to the latch state machine, and extend lines 102/107/108 conditionals. Substantive but contained.
+**💡 INSERTION POINT:** New verdict states could be added to soul/aliveness_gate.metta cleanly without touching loop.metta's structure. Add a new `latch-dispatch` rule for the new state, add the new state to the latch state machine, and extend lines 108/113/115 conditionals. Substantive but contained.
 
 **🔧 ELEVATION FLAG (dormant cleanup):** Two latch implementations are dormant (`soul/aliveness_state_machine.metta` at top level, `soul/LATCHImplementation.metta`). Either remove them or document them as historical record. Currently they create cognitive load when reading the codebase because their existence implies they might be active. Effort: 5 minutes for removal, 10 minutes for documentation. Value: reduces "which latch is the real latch" confusion for anyone (including future you) reading the soul/ tree.
 
@@ -759,11 +764,11 @@ The soul pipeline is the input-side reasoning that fires on every iteration but 
 
 The original spec describes the soul pipeline as having four channels:
 
-**Channel A (Person State Detection):** Lines 71-74. LLM-driven assessment of human emotional/intent state. One LLM call per human message.
+**Channel A (Person State Detection):** Lines 78-81. LLM-driven assessment of human emotional/intent state. One LLM call per human message.
 
-**Channels B+C (Soul Evaluation):** Lines 77-80. LLM-driven flourishing pattern detection, tension vector check, hierarchy application, irreversibility assessment. One LLM call per human message. Returns structured verdict (PROCEED/FLAG/PAUSE with reasoning).
+**Channels B+C (Soul Evaluation):** Lines 84-87. LLM-driven flourishing pattern detection, tension vector check, hierarchy application, irreversibility assessment. One LLM call per human message. Returns structured verdict (PROCEED/FLAG/PAUSE with reasoning).
 
-**Channel D (Voice/PAUSE response):** Lines 145-153. Conditional on verdict being PAUSE. Composes a soul-voiced response explaining the pause, then halts the cycle.
+**Channel D (Voice/PAUSE response):** Lines 150-157. Conditional on verdict being PAUSE. Composes a soul-voiced response explaining the pause, then halts the cycle.
 
 ### What's loaded but not active in this pipeline
 
@@ -777,7 +782,7 @@ The reasoning sovereignty atoms (goal_completion_checker, orbit_detector, task_s
 
 ### Current implementation
 
-Line 126 of loop.metta: `($soul_mutation_flag (py-call (helper.soul_mutation_gate (repr $metta_cmds) (get-state &soul_mutation_lock))))`
+Line 131 of loop.metta: `($soul_mutation_flag (py-call (helper.soul_mutation_gate (repr $metta_cmds) (get-state &soul_mutation_lock))))`
 
 The Python helper `soul_mutation_gate` implements a two-phase commit pattern:
 1. First detection of a soul-namespace mutation: returns "SOUL-NAMESPACE-MUTATION-PENDING", sets the lock
@@ -787,12 +792,12 @@ This is the safety mechanism that prevents Clarity from accidentally rewriting h
 
 ### The dormant MeTTa version
 
-Lines 127-140 of loop.metta contain the commented-out MeTTa version of this gate. It uses substrate operations (`soul-any-metta?`, `soul-extract-metta-arg`, `soul-metta-targets-soul-namespace?`, `soul-mutation-pending?`) that would need to exist in soul/ atoms.
+The commented-out MeTTa version of this gate (formerly lines 127-140 of loop.metta) has been REMOVED from the live file. It used substrate operations (`soul-any-metta?`, `soul-extract-metta-arg`, `soul-metta-targets-soul-namespace?`, `soul-mutation-pending?`) that would need to exist in soul/ atoms. The draft, if still wanted, lives in git history. [CONFIRM where the draft now lives.]
 
 🔧 ELEVATION FLAG (READY TO SHIP - HIGHEST PRIORITY ELEVATION): The MeTTa version is drafted. Validation needed:
 1. Read the Python helper logic (helper.py lines ~470-494)
 2. Confirm the MeTTa version produces equivalent behavior
-3. If equivalent, uncomment lines 127-140 and remove the Python call on line 126
+3. If equivalent, restore the MeTTa draft from git history and remove the Python call on line 131
 4. If not equivalent, surgically align them
 5. Test with a triggered mutation, confirm pending then commit
 - Effort: 30-60 minutes
@@ -804,7 +809,7 @@ This is the cleanest first elevation move because the work is already done. It j
 
 ## Section 8: The output verdict stub
 
-Line 121 of loop.metta: hardcoded `"VERDICT: PROCEED SOUL-NOTE: output-intercept-pending-runtime-fix"`
+Line 126 of loop.metta: hardcoded `"VERDICT: PROCEED SOUL-NOTE: output-intercept-pending-runtime-fix"`
 
 This is the explicit known stub. Output verdict should be the parallel of input verdict (Channels B+C) but applied to what Clarity is about to do, not what the human just said.
 
@@ -812,9 +817,9 @@ This is the explicit known stub. Output verdict should be the parallel of input 
 
 1. Parse $metta_cmds and $sexpr to identify proposed action types (read-only / write / execute / delete-network)
 2. Apply irreversible-action-assessment from soul context (vocabulary already exists in identity_kernel and the static brief)
-3. Check against soul mutation gate output (already computed at line 126)
+3. Check against soul mutation gate output (already computed at line 131)
 4. Produce structured verdict (PROCEED / FLAG / PAUSE)
-5. Replace line 121 with the call
+5. Replace line 126 with the call
 
 - Effort: 2-3 hours
 - Value: HIGH (closes known safety stub, gives Clarity output-side governance)
@@ -856,11 +861,11 @@ This section consolidates all external dependencies that loop.metta has into one
 | Pattern matched | File | HOT/WARM/COLD/DORMANT | 🧠 Network |
 |-----------------|------|----------------------|------------|
 | (latch-state $s) | soul/latch/aliveness_state_machine.metta | HOT (every iteration via aliveness-gate) | SWITCH-HUB |
-| (active-goal $n) | soul/active_goals.metta | HOT (line 89, every iteration) | DMN |
-| (self-map-gap $name) | soul/self_map.metta | HOT (line 90, every iteration) | DMN |
-| (creative-fuel $type) | soul/creative_fuel.metta | HOT (line 91, every iteration) | DMN |
-| getSoulBrief | soul/get_soul_brief.metta | HOT (line 95, every iteration) | DMN→FPN |
-| aliveness-gate | soul/aliveness_gate.metta | HOT (line 100, every iteration) | SWITCH-HUB |
+| (active-goal $n) | soul/active_goals.metta | HOT (line 96, every iteration) | DMN |
+| (self-map-gap $name) | soul/self_map.metta | HOT (line 97, every iteration) | DMN |
+| (creative-fuel $type) | soul/creative_fuel.metta | HOT (line 98, every iteration) | DMN |
+| getSoulBrief | soul/get_soul_brief.metta | HOT (line 103, every iteration) | DMN→FPN |
+| aliveness-gate | soul/aliveness_gate.metta | HOT (line 106, every iteration) | SWITCH-HUB |
 | soul-pre-compute | soul/(via soul_utils → helper) | WARM (per iteration but cached possible) | SN |
 | soul-llm-call | soul/(via soul_utils) | WARM (only on new message) | SN (Channels A, B+C) |
 | soul-extract-flag-note | soul/(via soul_utils) | WARM (per iteration in send assembly) | SN |
@@ -973,9 +978,9 @@ Most helper.py functions called from loop.metta have signature documented but in
 
 ### Other unverified claims
 
-- Line 26 (&task_context): Initialized but searched references show no read or write elsewhere in loop.metta. May be unused legacy or read by helpers we haven't traced.
-- Line 28 (&pending_soul_mutation): Same situation. May be unused or referenced through the mutation gate Python helper.
-- Line 66 (&nextWakeAt): Read at line 158 within loop.metta, fully traced.
+- Line 28 (&task_context): Initialized but searched references show no read or write elsewhere in loop.metta. May be unused legacy or read by helpers we haven't traced.
+- Line 30 (&pending_soul_mutation): Same situation. May be unused or referenced through the mutation gate Python helper.
+- Line 72 (&nextWakeAt): Read at line 166 within loop.metta, fully traced.
 - Whether run.metta in the active runtime points at `Berton-C/ClarityOmega` or still at `asi-alliance/OmegaClaw-Core`, and whether the Dockerfile-time clone supersedes the runtime `git-import!` call. Either way, the migration design says local commits to Berton-C/ClarityOmega are the source of truth at next build, not at every startup.
 - Whether lib_omegaclaw line 21 (re-import of src/channels) is a duplicate or has separate purpose.
 
@@ -993,18 +998,20 @@ If pursuing Phase 2:
 
 ## Document end
 
-This document represents the wiring of loop.metta as of April 30, 2026. Future architectural changes should update the relevant sections rather than letting this document drift. The "Active vs Dormant" classifications in particular need refresh whenever something is wired or unwired.
+This document (v1.3) represents the wiring of loop.metta as of June 4, 2026, re-anchored against the live 171-line loop. Future architectural changes should update the relevant sections rather than letting this document drift. The "Active vs Dormant" classifications in particular need refresh whenever something is wired or unwired.
+
+v1.3 changelog (June 4, 2026): re-anchored all per-cycle line numbers to the live 171-line loop (non-uniform drift, +7 upper phases, downward swing where the old commented MeTTa mutation gate at lines 127-140 was removed, partial recovery from the new DIAG block at 139-147). Marked YOUR_LAST_ACTION as shipped (wired in getContext at line 41). Removed the dormant MeTTa-mutation-gate references and pointed them at git history. Added DIAG block documentation. Retired self-check from the elevation list. Recorded the corner-gap gate insertion site at the execution binding (between lines 133 and 134).
 
 For Phase 2 of the documentation effort, prioritize reading the gap-flagged files in the priority order at the end of Section 10.
 
 For elevation work, the recommended sequence based on this document:
 
-1. **Soul mutation gate** (Section 7) - drafted, just needs activation. 30-60 minutes.
+1. **Soul mutation gate** (Section 7) - MeTTa draft removed from loop surface; recover from git history before activation. 30-60 minutes once recovered.
 2. **Output verdict** (Section 8) - vocabulary exists, just needs MeTTa function. 2-3 hours.
-3. **Self-check threshold + softer message** (Section 4 line 97) - operational fix, 10 minutes.
+3. **(retired)** Self-check was removed from prompt assembly (Step 5); the orientation work is now carried by task-phase, idle-pattern, and agency-balance observation organs.
 4. **5-slot prompt rewording** (Section 4 line 55) - operational fix, 5 minutes.
-5. **YOUR_LAST_ACTION field** (Section 4 line 55 + 118) - breaks announcement loops. 1 hour.
+5. **(shipped)** YOUR_LAST_ACTION field is wired in getContext at line 41; it breaks announcement loops at the substrate level.
 6. **Person state elevation** (Section 4 lines 71-74) - moves classification to NAL atoms. 2-3 hours.
-7. **Idle directive elevation** (Section 4 line 92) - the biggest move, but has the most existing substrate vocabulary to work with. Multi-session.
+7. **Idle directive elevation** (Section 4 line 99) - the biggest move, but has the most existing substrate vocabulary to work with. Multi-session.
 
 Each elevation should be validated before the next begins.
