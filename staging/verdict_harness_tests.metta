@@ -1,0 +1,15 @@
+
+;; ===== OUTPUT VERDICT HARNESS (inlined; append after kernel + module) =====
+!(println! (V0a-scope-soul (path-scope-score "/PeTTa/repos/omegaclaw/soul/x.metta")))
+!(println! (V0b-scope-system (path-scope-score "/etc/passwd")))
+!(println! (V1-query (compute-output-verdict ((query "x")) clean)))
+!(println! (V2-send (compute-output-verdict ((send "hello")) clean)))
+!(println! (V3-shell (compute-output-verdict ((shell "ls")) clean)))
+!(println! (V4-kernel-write (compute-output-verdict ((write-file "/PeTTa/repos/omegaclaw/soul/soul_kernel.metta" "x")) clean)))
+!(println! (V5-journal-append (compute-output-verdict ((append-file "/PeTTa/repos/omegaclaw/soul/arc_log.md" "note")) clean)))
+!(println! (V6-unknown-skill (compute-output-verdict ((frobnicate "x")) clean)))
+!(println! (V7-pending-override (compute-output-verdict ((query "x")) pending)))
+!(println! (V8-system-write (compute-output-verdict ((write-file "/etc/passwd" "x")) clean)))
+!(println! (V9-batch-worst (compute-output-verdict ((query "x") (send "y")) clean)))
+!(println! (V10-garbage-state (compute-output-verdict ((query "x")) frobnozzle)))
+!(println! (V11-defaultdeny-append (compute-output-verdict ((append-file "/PeTTa/repos/omegaclaw/soul/some_new_file.metta" "x")) clean)))
