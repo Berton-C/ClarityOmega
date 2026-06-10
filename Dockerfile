@@ -52,15 +52,18 @@ RUN sh build.sh
 RUN mkdir -p /PeTTa/repos \
  && git clone --depth 1 --branch "${CHROMADB_REF}" "${CHROMADB_REPO}" /PeTTa/repos/petta_lib_chromadb
 
+# Single resolver pass so torch + transformers co-resolve compatibly.
+# --extra-index-url keeps the CPU-only torch wheel (no CUDA); PyPI stays primary
+# for the rest. No version pins (arm64 wheels remain selectable on native builds).
 RUN python3 -m pip install --no-cache-dir --break-system-packages \
-    --index-url https://download.pytorch.org/whl/cpu \
+    --extra-index-url https://download.pytorch.org/whl/cpu \
     torch \
- && python3 -m pip install --no-cache-dir --break-system-packages \
+    transformers \
+    sentence-transformers \
     chromadb \
     janus-swi \
     openai \
-    uagents \
-    sentence-transformers
+    uagents
 
 # Pre-download the sentence-transformers model so runtime does not need network access.
 RUN mkdir -p "${HF_HOME}" "${SENTENCE_TRANSFORMERS_HOME}" \
