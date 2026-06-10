@@ -16,8 +16,9 @@
        ((active-goal-status $n) (active-goal-action $n) (active-goal-gap $n))))
 
 (= (brief-active-goals)
-   (collapse (match &self (= (active-goal $n) $g)
-     (brief-active-goal-entry $n))))
+   (filter-empty-entries
+     (collapse (match &self (= (active-goal $n) $g)
+       (brief-active-goal-entry $n)))))
 
 ;; Section 4: High-Severity Gaps
 (= (brief-high-gaps)

@@ -377,6 +377,11 @@
 (= (soul-cmd-skill (append-file $a $b)) append-file)
 (= (soul-cmd-skill (search $arg))       search)
 (= (soul-cmd-skill (read-file $arg))    read-file)
+(= (soul-cmd-skill (query $arg))        query)
+(= (soul-cmd-skill (remember $arg))     remember)
+(= (soul-cmd-skill (pin $arg))          pin)
+(= (soul-cmd-skill (episodes $arg))     episodes)
+(= (soul-cmd-skill (metta $arg))        metta)
 (= (soul-cmd-skill $cmd)                unknown)
 
 (= (soul-any-irreversible? $cmds)
@@ -615,10 +620,95 @@
 
 ;; Values with NO causal procedures -- design gaps
 (= (soul-rationality-gaps)
-   (collapse (let $v (match &self (soul-pattern $v $_) $v)
-     (if (soul-rationality-check $v) () $v))))
+   (filter-empty-entries
+     (collapse (let $v (match &self (soul-pattern $v $_) $v)
+       (if (soul-rationality-check $v) () $v)))))
 
 ;; Full audit: every declared value with its causal procedure list
 (= (soul-rationality-audit)
    (collapse (match &self (soul-pattern $v $_)
      ($v (soul-causal-procedures $v)))))
+
+
+;; ================================================================
+;; SECTION 6: OUTPUT GOVERNANCE SEEDS
+;; Source: output_governance_design_v1.md v1.3 (locked 2026-06-10).
+;; Authored by Berton + Claude against this file's real Section 2/3
+;; vocabulary; Clarity's recalibrations honored as seed values.
+;; ================================================================
+
+;; Shared recursive filter: drops () markers from a collapsed list.
+;; Used by soul-rationality-gaps (this file) and brief-active-goals
+;; (get_soul_brief.metta). The collapse-with-()-branches padding fix,
+;; applied at the producers.
+(= (filter-empty-entries $list)
+   (if (== $list ())
+       ()
+       (let* (($h (car-atom $list))
+              ($t (cdr-atom $list))
+              ($rest (filter-empty-entries $t)))
+             (if (== $h ()) $rest (cons-atom $h $rest)))))
+
+;; --- D4: operation-risk (values-as-revisable-policy) ---
+;; operation-risk = execution risk of invoking the skill THIS cycle.
+;; DISTINCT from irreversible-weight (Section 3) = undo cost of the result.
+;; Scale: 1 minimal, 2 medium, 3 high, 4 critical.
+;; Seeds are constitutional and never edited at runtime; revision happens
+;; ONLY via (operation-risk-observation $skill $score) override atoms,
+;; written by external governance or future learning (NACE, Sprint 12+).
+;; NOTE: no observation atom is seeded here, deliberately. add-atom stores
+;; arguments unreduced; a seeded variable atom would unify with every
+;; lookup and poison the resolver.
+
+!(add-atom &self (operation-risk send 3))
+!(add-atom &self (operation-risk shell 3))
+!(add-atom &self (operation-risk write-file 2))
+!(add-atom &self (operation-risk append-file 2))
+!(add-atom &self (operation-risk search 1))
+!(add-atom &self (operation-risk read-file 1))
+!(add-atom &self (operation-risk query 1))
+!(add-atom &self (operation-risk remember 1))
+!(add-atom &self (operation-risk pin 1))
+!(add-atom &self (operation-risk episodes 1))
+!(add-atom &self (operation-risk metta 2))
+!(add-atom &self (operation-risk package-install 3))
+!(add-atom &self (operation-risk credential-storage 4))
+!(add-atom &self (operation-risk crontab-modification 4))
+!(add-atom &self (operation-risk unknown 3))
+
+;; Resolver: observation overrides seed; registry resolve-lifecycle form.
+;; Unseeded skills floor at 3 (FLAG): nothing PROCEEDs silently.
+(= (resolve-operation-risk $skill)
+   (let $obs (collapse (match &self (operation-risk-observation $skill $r) $r))
+        (if (== $obs ())
+            (let $seed (collapse (match &self (operation-risk $skill $s) $s))
+                 (if (== $seed ()) 3 (car-atom $seed)))
+            (car-atom $obs))))
+
+;; --- D3: protected-target declaration (target-first, default-deny) ---
+;; The gate rule, not a judgment call: a path's class decides its mutation
+;; policy on EVERY route (metta-route, file-route, future routes).
+;; DEFAULT-DENY: any soul/ path NOT declared here resolves to runtime-soul
+;; (protected) via soul-file-class-of. Only journals are allow-listed; a
+;; new soul file is protected the moment it exists. Scope note: the gate
+;; evaluates Clarity's COMMAND-ROUTE writes; machine-written state files
+;; (idle_state.json etc.) are loop machinery, not gated commands.
+;; Classes: constitutional (strictest; Sprint 11 partition target),
+;; runtime-soul (protected, gate parity), journal (append-route
+;; PROCEED-under-VALUE-GROUNDING).
+
+!(add-atom &self (soul-file-class "/PeTTa/repos/omegaclaw/soul/soul_kernel.metta" constitutional))
+!(add-atom &self (soul-file-class "/PeTTa/repos/omegaclaw/soul/soul_utils.metta" constitutional))
+!(add-atom &self (soul-file-class "/PeTTa/repos/omegaclaw/soul/soul_memory.metta" constitutional))
+!(add-atom &self (soul-file-class "/PeTTa/repos/omegaclaw/soul/soul_mutation_gate_corrected.metta" constitutional))
+!(add-atom &self (soul-file-class "/PeTTa/repos/omegaclaw/soul/soul_namespace_membership_seed.metta" constitutional))
+!(add-atom &self (soul-file-class "/PeTTa/repos/omegaclaw/soul/arc_log.md" journal))
+
+;; Accessor with the default-deny fallback built in.
+(= (soul-file-class-of $path)
+   (let $c (collapse (match &self (soul-file-class $path $cl) $cl))
+        (if (== $c ()) runtime-soul (car-atom $c))))
+
+;; --- D1: LLM-eval fallback switch (dormant, restorable) ---
+!(add-atom &self (use-llm-eval False))
+(= (soul-use-llm-eval?) (match &self (use-llm-eval $b) $b))
