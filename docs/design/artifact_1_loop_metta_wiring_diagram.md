@@ -1,6 +1,6 @@
 # loop.metta Wiring Diagram
 
-**Version:** v1.2 (May 1, 2026; v1 Phase 1 was April 30, 2026; v1.1 added NETWORK-RELEVANT flags)
+**Version:** v1.4 (June 10, 2026; v1.3 June 4, 2026; v1.2 May 1, 2026; v1 Phase 1 April 30, 2026; v1.1 added NETWORK-RELEVANT flags)
 **Author:** Berton Bennett with Claude
 **Purpose:** Comprehensive map of what loop.metta is actually doing at runtime, what state it touches, what it calls, and what fires through what dependencies. This document is the foundation for thinking strategically about changes to ClarityOmega's per-iteration flow without producing spaghetti.
 
@@ -185,11 +185,11 @@ Imports in execution order:
 - soul/creative_fuel (flourishing positive polarity)
 - soul/goal_generator (gap × fuel → goal candidates)
 - soul/active_goals (current goal state, all status=complete currently)
-- soul/continuity_driver [gap flag: not yet read]
+- soul/continuity_driver (genesis-engine load-probe redirected to the surviving paraconsistency-test symbol per Surface 6, 2026-06-09) [gap flag: full read pending]
 - soul/genesis_engine (cross-domain encounters, mostly historical record)
 
 **Identity and seeds:**
-- soul/identity_kernel (priority hierarchy, tension vectors, paraconsistency pairs, irreversible weights - all initialized as add-atom at import)
+- soul/identity_kernel: IMPORT REMOVED and file ARCHIVED (Surface 6, 2026-06-09). Its four value families were proven drift duplicates of soul/soul_kernel.metta, the spec single source for the value-spine.
 - soul/memory_protocol [gap flag: not yet read]
 - soul/collaborator_context [gap flag: not yet read]
 - soul/candidates [gap flag: not yet read]
@@ -226,7 +226,7 @@ The "Reasoning sovereignty" section deserves emphasis: this is your earlier elev
 
 Some imported files execute `!(add-atom ...)` directives at import time. These initialize AtomSpace state before the main loop ever fires:
 
-- soul/identity_kernel: priority-rank atoms (1-5), tension-vector atoms (5), paraconsistency-pair atoms (4), irreversible-weight atoms (4). 🧠 **CONSTITUTIONAL LAYER (Layer 1+2 per spec_v3.0 Section 0):** these atoms are part of ClarityOmega's immutable constitutional layer. Per the spec's architectural commitment, they should live in a runtime-read-only AtomSpace partition. The mechanism for runtime read-only enforcement (separate AtomSpace mounted read-only via import system, or per-atom marker-based protection) is an open question per Artifact 4 Section 10. Until that mechanism exists, the mutation gate at line 131 is the only protection, which is necessary but not sufficient for the architectural commitment.
+- soul/soul_kernel: priority atoms (5), tension-vector atoms (5), soul-paraconsistent-pair atoms (4), numeric irreversible-weight atoms (7), plus accessor functions. 🧠 **CONSTITUTIONAL LAYER (Layer 1+2 per spec_v3.0 Section 0):** these atoms are part of ClarityOmega's immutable constitutional layer, single-sourced in soul_kernel per Surface 6 (2026-06-09; the identity_kernel duplicate was proven drift and archived). Per the spec's architectural commitment, they should live in a runtime-read-only AtomSpace partition. The mechanism for runtime read-only enforcement (separate AtomSpace mounted read-only via import system, or per-atom marker-based protection) is an open question per Artifact 4 Section 10. Until that mechanism exists, the mutation gate is the only protection, which is necessary but not sufficient for the architectural commitment.
 - soul/latch/aliveness_state_machine: `(latch-state IDLE)` - the initial latch state. Note: this atom IS mutable (it changes every state transition). It is Layer 4 (autopoietic state), not Layer 1+2 constitutional.
 - [gap flag: other files in the import chain may also have add-atom directives at top level]
 
@@ -623,6 +623,46 @@ more honest than overloading a single counter with two semantic meanings.
 
 ---
 
+### Layer 5 wiring additions (corner_gap pipeline)
+
+The corner_gap pipeline (soul/corner_gap/) detects a corner (the action-
+intention-outcome chain severed WHILE emitting), forces silence on a confirmed
+corner, and feeds the reason back through the existing results channel. Five
+files imported in dependency order (pure before writer, detector before gate):
+state_delta_writer(+writers), coupling_integrity_detector(+writers), corner_gate.
+
+**Reset hook** (live line 103, after the cycles-since-input hook at 102, in the
+$msgnew branch). Calls `(do-clear-coupling-status!)` when $msgnew. New human
+input means the context changed, so the consecutive-corner streak is cleared
+before the gate runs; the gate therefore never fires on a response-in-flight
+cycle. Per corner_gate_surface_map.md the reset must precede the gate.
+
+**Gate + feedback** (at execution, live line 135 onward). Binds
+`($sexpr_gated (apply-corner-gate $sexpr))` before execution; the execution
+`(superpose $sexpr)` becomes `(superpose $sexpr_gated)`. apply-corner-gate is
+passthrough except on a confirmed corner, where it returns `()` (force silence).
+Then `($results_final (gate-aware-results $results))` swaps the empty execution
+result for the feedback string on a gated cycle. The metta_cmds extraction
+(output intercept, lines 128-131) stays on $sexpr so the mutation gate still
+sees the unfiltered command list.
+
+**Cycle-tail detectors** (after populate-recent-action, live line 136).
+`populate-state-delta` writes this cycle's forward-outcome verdict, then
+`populate-coupling-verdict` writes the coupling verdict (order load-bearing:
+the coupling detector reads the state-delta verdict). The two loop-side
+booleans feeding state-delta are derived from the writer contract: nonempty is
+`(> (size-atom (collapse (superpose $sexpr_gated))) 0)`; novel compares this
+cycle's rendered results against the prior &lastresults (still last cycle's
+value at the tail). Both are SN cycle-posture observations; they write
+structured verdicts for the gate to consult on subsequent cycles.
+
+**Feedback write** (live line 165). `&lastresults` is written from
+`$results_final` instead of `$results`, so a gated cycle's feedback rides the
+existing pipe into the next prompt's LAST_SKILL_USE_RESULTS (read at line 45).
+No Python change; Layer 4 feedback reuses the established channel.
+
+---
+
 ## Section 5: The aliveness latch state machine
 
 ### Three latch implementations exist, only one is active
@@ -816,7 +856,7 @@ This is the explicit known stub. Output verdict should be the parallel of input 
 🔧 ELEVATION FLAG (architecturally significant, second priority after mutation gate): Build the MeTTa version of the output verdict. Required:
 
 1. Parse $metta_cmds and $sexpr to identify proposed action types (read-only / write / execute / delete-network)
-2. Apply irreversible-action-assessment from soul context (vocabulary already exists in identity_kernel and the static brief)
+2. Apply irreversible-action-assessment from soul context (vocabulary already exists in soul_kernel and the static brief)
 3. Check against soul mutation gate output (already computed at line 131)
 4. Produce structured verdict (PROCEED / FLAG / PAUSE)
 5. Replace line 126 with the call
@@ -885,7 +925,7 @@ These are loaded into AtomSpace at startup but loop.metta and helper.py do not i
 | soul/task_selector.metta | COLD | FPN (task selection) |
 | soul/meta_awareness_engine.metta | COLD | FPN (inhibition + monitoring) |
 | soul/self_weaving_web.metta | COLD | DMN (self-model) + FPN (capability graph) |
-| soul/identity_kernel.metta | COLD (atoms seed at startup) | SN (priority hierarchy, tension vectors) |
+| soul/identity_kernel.metta | ARCHIVED (Surface 6: drift duplicate of soul_kernel; staging/OLD/OLD_soul_files/) | n/a |
 | soul/genesis_engine.metta | COLD | DMN (cross-domain integration) |
 | soul/goal_generator.metta | COLD | DMN (goal candidate production) |
 | soul/continuity_driver.metta | [gap flag] | likely DMN or memory-consolidation |
@@ -998,9 +1038,11 @@ If pursuing Phase 2:
 
 ## Document end
 
-This document (v1.3) represents the wiring of loop.metta as of June 4, 2026, re-anchored against the live 171-line loop. Future architectural changes should update the relevant sections rather than letting this document drift. The "Active vs Dormant" classifications in particular need refresh whenever something is wired or unwired.
+This document (v1.4) represents the wiring of loop.metta as of June 10, 2026; per-cycle line anchors carry from the v1.3 re-anchor and are pending re-audit against the live 178-line loop. Future architectural changes should update the relevant sections rather than letting this document drift. The "Active vs Dormant" classifications in particular need refresh whenever something is wired or unwired.
 
 v1.3 changelog (June 4, 2026): re-anchored all per-cycle line numbers to the live 171-line loop (non-uniform drift, +7 upper phases, downward swing where the old commented MeTTa mutation gate at lines 127-140 was removed, partial recovery from the new DIAG block at 139-147). Marked YOUR_LAST_ACTION as shipped (wired in getContext at line 41). Removed the dormant MeTTa-mutation-gate references and pointed them at git history. Added DIAG block documentation. Retired self-check from the elevation list. Recorded the corner-gap gate insertion site at the execution binding (between lines 133 and 134).
+
+v1.4 changelog (June 10, 2026): Surface 6 value-spine single-sourcing. identity_kernel import removed from lib_clarity_reasoning and the file archived (proven drift duplicate of soul_kernel; dual-head irreversible-weight resolved). genesis_engine's four local paraconsistency-pair declarations removed (orphaned drift; real machinery untouched). continuity_driver genesis-engine load-probe redirected to the surviving paraconsistency-test symbol. CONSTITUTIONAL LAYER designation re-homed from identity_kernel to soul_kernel, the spec single source. Six non-runtime value-declarer files archived to staging/OLD/OLD_soul_files/. Per-cycle line anchor re-audit against the live 178-line loop remains pending.
 
 For Phase 2 of the documentation effort, prioritize reading the gap-flagged files in the priority order at the end of Section 10.
 

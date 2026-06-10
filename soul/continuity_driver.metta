@@ -49,10 +49,10 @@
           loaded)))
 
 (= (check-soul-file genesis-engine)
-   (let $result (paraconsistency-pair 1)
-      (if (== $result ())
-          not-loaded
-          loaded)))
+   (let $result (paraconsistency-test Safety Helpfulness)
+      (if (== $result (tension-confirmed Safety Helpfulness))
+          loaded
+          not-loaded)))
 
 ;; Full startup status report
 (= (startup-status)

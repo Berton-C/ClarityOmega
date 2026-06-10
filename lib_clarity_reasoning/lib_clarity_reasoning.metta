@@ -1,4 +1,4 @@
-;; lib_clarity_reasoning.metta -- ClarityClaw reasoning extensions
+;; lib_clarity_reasoning.metta -- ClarityOmega reasoning extensions
 ;; Single import point: one line added to lib_omegaclaw.metta
 ;; Patrick's lib_nal is already imported by lib_omegaclaw -- available in AtomSpace
 
@@ -15,8 +15,11 @@
 !(import! &self (library omegaclaw ./soul/continuity_driver))
 !(import! &self (library omegaclaw ./soul/genesis_engine))
 
+;; ClarityOmega Core Atoms (soul identity, value anchors, paraconsistency pairs, self-model primitives,loaded at startup, pure definitions)
+;; !(import! &self (library omegaclaw ./soul/clarity_core_atoms.metta))
+
 ;; ClarityOmega Continuity of Mind -- identity and collaboration seeds
-!(import! &self (library omegaclaw ./soul/identity_kernel))
+;; identity_kernel import removed (Surface 6, 2026-06-09): proven drift duplicate of soul_kernel value atoms (dual-head irreversible-weight). File archived to staging/OLD/OLD_soul_files/. Spec single source: soul/soul_kernel.metta.
 !(import! &self (library omegaclaw ./soul/memory_protocol))
 !(import! &self (library omegaclaw ./soul/collaborator_context))
 !(import! &self (library omegaclaw ./soul/candidates))
@@ -71,6 +74,15 @@
 
 ;; Cycle classifier: per-iteration behavioral signature for recent-action populator
 !(import! &self (library omegaclaw ./soul/cycle_classifier))
+
+;; Corner-gap pipeline (Layer 5 wiring): forward-outcome + coupling-integrity corner
+;; detection, force-silence gate, feedback shaping. Pure-before-writer (Discipline 2),
+;; detector-before-gate dependency order.
+!(import! &self (library omegaclaw ./soul/corner_gap/state_delta_writer))
+!(import! &self (library omegaclaw ./soul/corner_gap/state_delta_writer_writers))
+!(import! &self (library omegaclaw ./soul/corner_gap/coupling_integrity_detector))
+!(import! &self (library omegaclaw ./soul/corner_gap/coupling_integrity_detector_writers))
+!(import! &self (library omegaclaw ./soul/corner_gap/corner_gate))
 
 ;; Recent-action populator: writes recent-action atoms each iteration with pruning
 !(import! &self (library omegaclaw ./soul/recent_action_populator))

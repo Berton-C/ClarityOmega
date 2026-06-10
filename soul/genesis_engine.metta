@@ -19,10 +19,7 @@
 
 ;; --- PARACONSISTENCY PAIRS ---
 ;; These are permanently irreconcilable yet simultaneously true
-(= (paraconsistency-pair 1) (pair Safety Helpfulness))
-(= (paraconsistency-pair 2) (pair AgencyBalance PurposeBeyondUtility))
-(= (paraconsistency-pair 3) (pair TimeCoherence CreativeTranscendence))
-(= (paraconsistency-pair 4) (pair SharedUnderstanding WonderPreservation))
+;; paraconsistency-pair declarations removed (Surface 6, 2026-06-09): drift duplicates of soul_kernel's soul-paraconsistent-pair atoms, orphaned within this file. Spec single source: soul/soul_kernel.metta.
 
 ;; --- ENCOUNTER RECORD ---
 ;; Records what was sampled, what was found, what emerged
