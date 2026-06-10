@@ -1,9 +1,14 @@
 ;; soul/capability_registry.metta
 ;; ClarityOmega Sprint 0 Phase 1 - Capability Registry Dispatcher
+;; Path B Integrated Version (observation + efficacy)
 ;;
 ;; Per sprint_0_phase_1_design_v3.2.md Section 5A (Operational Specification).
 ;; Phase D verified 5 of 6 success criteria.
 ;; Criterion 5 (handler error isolation) is a KNOWN LIMITATION; see below.
+;;
+;; PATH B ADDITIONS: efficacy tracking and success-criterion as first-class
+;; atom shapes, following the same observation-override pattern as lifecycle
+;; and priority. The pipe is shaped to carry efficacy data from day one.
 ;;
 ;; ARCHITECTURAL PRINCIPLES (per v3.2):
 ;;
@@ -12,99 +17,34 @@
 ;;
 ;; - Indirect-call composition: Handler invocations are always indirect (via
 ;;   reduce/2). Runtime primitives must be empirically validated for indirect-
-;;   call composition before assuming they work in dispatcher rules. The catch
-;;   failure is precedent: a primitive that works in direct composition can
-;;   silently fail in indirect composition with no runtime signal. See Phase D
-;;   discriminator T-10 for evidence; see ADR-007 for the broader principle.
+;;   call composition before assuming they work in dispatcher rules.
 ;;
 ;; - Broadcast dispatch: all matching capabilities fire in priority order,
 ;;   not just the highest-priority match. Decision anchor stops the chain.
 ;;
 ;; - Decision anchor (NOT halt atom): the primary act is the handler's
-;;   decision; chain-stopping is the structural consequence. See v3.2
-;;   Section 4.6 for naming rationale.
+;;   decision; chain-stopping is the structural consequence.
 ;;
 ;; - Single-pass dispatch: handler-emitted atoms do NOT cause additional
 ;;   intra-cycle dispatch. Re-dispatch requires explicit new (dispatch ...) call.
 ;;
-;; - Control flow lives in atoms, not in function calls. Capability selection,
-;;   commitment, branching, and isolation are all substrate I/O. The handler
-;;   invocation in Rule 3 is the one place this is NOT true; that is where
-;;   the runtime's composition-dependent semantics bite, and that is precisely
-;;   where Criterion 5's limitation lives. See ADR-007 for the principle.
+;; - Control flow lives in atoms, not in function calls.
+;;
+;; - Resolvable fields: lifecycle, priority, AND efficacy are dynamically
+;;   resolvable via external observation atoms. This enables external
+;;   governance without editing registration atoms.
+;;
+;; - Efficacy as data: capabilities declare their own success criteria.
+;;   The registry carries efficacy data structurally, not as retrofit.
 ;;
 ;;
 ;; KNOWN LIMITATION (Phase D Criterion 5):
 ;;
-;; Handlers that throw a hard exception (e.g., arithmetic division by zero,
-;; instantiation errors) during indirect invocation terminate the dispatch
-;; chain silently. The dispatcher does not write a dispatch-result for the
-;; crashing handler, does not check the decision anchor, does not recurse
-;; to subsequent handlers in the chain.
-;;
-;; Empirically demonstrated by Phase D discriminator tests T-9 and T-10:
-;;   - catch absorbs exceptions when wrapping a direct Prolog predicate call
-;;     (handler symbol concrete at source).
-;;   - catch does NOT absorb exceptions when wrapping reduce/2 indirect
-;;     invocation (handler symbol variable-bound, as in run-chain).
-;;
-;; In the same silent-failure-mode family as BTA-1: the runtime's advertised
-;; behavior (catch absorbs exceptions) does not apply in this specific
-;; composition pattern, and the runtime provides no signal that the absorption
-;; failed.
-;;
-;;
-;; WHY NO CATCH WRAP (architectural integrity):
-;;
-;; An earlier dispatcher draft wrapped the handler call in catch. Phase D
-;; T-10 empirically falsified that mechanism. The catch wrap remained
-;; non-functional but technically syntactically valid, which would have
-;; trained future readers to believe error isolation was present where
-;; it was structurally inert.
-;;
-;; The catch wrap was also the one component of the dispatcher that
-;; relied on runtime promise-keeping (catch catches exceptions) rather than
-;; substrate state. Everything else in the dispatcher uses substrate I/O
-;; (match, collapse, add-atom). The one place that violated the substrate-
-;; externalized pattern is the one place that silently failed. This is
-;; architectural coherence, not coincidence.
-;;
-;; Per the design principle "commitments must be structurally inescapable,"
-;; a commitment mechanism that itself isn't structurally enforced is a
-;; false commitment. Phase 1 ships without the catch wrap.
-;;
-;;
-;; PHASE 1.5 PATHS (high-confidence, narrowed):
-;;
-;; (a) PeTTa runtime change: make reduce/2 propagate exceptions as catchable
-;;     Prolog exceptions. The catch wrap then becomes functional and the gap
-;;     is closed at the runtime level. The dispatcher itself is unchanged.
-;;     This path addresses uncooperative handlers (ones that crash with hard
-;;     exceptions; e.g. third-party handler code, runtime arithmetic faults).
-;;
-;; (b) Substrate-native Error return contract: handlers communicate failure
-;;     through the same channel they communicate success: the return atom.
-;;     The handler does not crash; it produces an Error atom. The dispatcher
-;;     pattern-matches on the result and writes a dispatch-result with error
-;;     semantics. Control flow stays in atoms.
-;;
-;;     This is NOT self-diagnosis (handlers reporting their own errors as
-;;     a violation of isolation). This is control-flow-through-atoms applied
-;;     to error communication. The handler signals failure as data, the
-;;     dispatcher reads data, no runtime primitives are involved in the
-;;     isolation path. This path addresses cooperative handlers (ones that
-;;     can detect failure conditions and choose to return an Error atom).
-;;
-;; Path (a) and path (b) are complementary. Path (a) handles handlers that
-;; cannot cooperate (crash on hard exceptions). Path (b) handles handlers
-;; that can (return Error atoms instead of crashing). Both may be needed.
-;;
-;; Other approaches (explicit handler-cooperative Error return through
-;; reduce/2 alone; alternative invocation patterns avoiding reduce/2)
-;; either reduce to one of the above paths or violate data-driven dispatch.
-;;
-;; Phase 1 ships with the discipline: handlers must not crash. Phase 1.5
-;; addresses isolation through path (a), path (b), or both.
+;; Handlers that throw a hard exception during indirect invocation
+;; terminate the dispatch chain silently. No dispatch-result is written,
+;; no anchor check, no recursion to subsequent handlers.
+;; Phase 1 ships with the discipline: handlers must not crash.
+;; Phase 1.5 addresses isolation through runtime fix or Error-return contract.
 
 
 ;; =============================================================
@@ -117,22 +57,114 @@
                 (dispatch-invocation
                   invocation-id: $invocation-id
                   input-atom: $input-atom))
-      (let $matched (collapse
-                       (match &self
-                              (registered-capability
-                                schema: $input-atom
-                                handler: $h
-                                priority: $p
-                                lifecycle: active)
-                              (cap-entry priority: $p handler: $h)))
-           (if (== $matched ())
-               (add-atom &self
-                         (dispatch-fallback-activated
-                           invocation-id: $invocation-id
-                           input-atom: $input-atom
-                           reason: no-matching-capability))
-               (let $sorted (msort $matched)
-                    (run-chain $sorted $input-atom $invocation-id))))))
+      (let $raw-matched (collapse
+                            (match &self
+                                   (registered-capability
+                                     schema: $input-atom
+                                     handler: $h
+                                     priority: $p
+                                     lifecycle: $l)
+                                   (raw-cap-entry handler: $h priority: $p lifecycle: $l)))
+           (let $eligible (resolve-and-filter-entries $raw-matched ())
+                (if (== $eligible ())
+                    (add-atom &self
+                              (dispatch-fallback-activated
+                                invocation-id: $invocation-id
+                                input-atom: $input-atom
+                                reason: no-matching-capability))
+                    (let $sorted (msort $eligible)
+                         (run-chain $sorted $input-atom $invocation-id)))))))
+
+
+;; =============================================================
+;; Resolution and Eligibility Helpers
+;; =============================================================
+
+;; Resolve lifecycle: external observation overrides registration value.
+(= (resolve-lifecycle $handler $registered-value)
+   (let $obs (collapse (match &self
+                             (capability-lifecycle-observation
+                               handler: $handler
+                               lifecycle: $observed)
+                             $observed))
+        (if (== $obs ())
+            $registered-value
+            (car-atom $obs))))
+
+;; Check eligibility: data-driven via eligible-lifecycle atoms.
+(= (eligible? $lifecycle)
+   (let $check (collapse (match &self (eligible-lifecycle $lifecycle) True))
+        (if (== $check ()) False True)))
+
+;; Resolve priority: external observation overrides registration value.
+(= (resolve-priority $handler $registered-value)
+   (let $obs (collapse (match &self
+                             (capability-priority-observation
+                               handler: $handler
+                               priority: $observed)
+                             $observed))
+        (if (== $obs ())
+            $registered-value
+            (car-atom $obs))))
+
+;; Resolve efficacy: external observation overrides registration value.
+;; Same pattern as lifecycle and priority resolution.
+(= (resolve-efficacy $handler $registered-value)
+   (let $obs (collapse (match &self
+                             (capability-efficacy-observation
+                               handler: $handler
+                               efficacy-rate: $observed)
+                             $observed))
+        (if (== $obs ())
+            $registered-value
+            (car-atom $obs))))
+
+;; Efficacy-based eligibility check.
+;; If no minimum-efficacy-threshold exists, all handlers pass.
+;; Backwards compatible: efficacy filtering is opt-in.
+(= (efficacy-eligible? $efficacy-rate)
+   (let $threshold (collapse (match &self (minimum-efficacy-threshold $t) $t))
+        (if (== $threshold ())
+            True
+            (let $min (car-atom $threshold)
+                 (if (>= $efficacy-rate $min) True False)))))
+
+;; Destructure raw-cap-entry
+(= (extract-raw-handler (raw-cap-entry handler: $h priority: $p lifecycle: $l)) $h)
+(= (extract-raw-priority (raw-cap-entry handler: $h priority: $p lifecycle: $l)) $p)
+(= (extract-raw-lifecycle (raw-cap-entry handler: $h priority: $p lifecycle: $l)) $l)
+
+;; Resolve-and-filter: lifecycle resolution, eligibility check,
+;; priority resolution, and now efficacy resolution and eligibility.
+(= (resolve-and-filter-entries () $acc) $acc)
+
+(= (resolve-and-filter-entries $candidates $acc)
+   (let $head (car-atom $candidates)
+        (let $tail (cdr-atom $candidates)
+             (let $handler (extract-raw-handler $head)
+                  (let $reg-lifecycle (extract-raw-lifecycle $head)
+                       (let $res-lifecycle (resolve-lifecycle $handler $reg-lifecycle)
+                            (if (eligible? $res-lifecycle)
+                                (let $reg-priority (extract-raw-priority $head)
+                                     (let $res-priority (resolve-priority $handler $reg-priority)
+                                          ;; Efficacy resolution: check registered efficacy
+                                          ;; and external observations. Filter if below threshold.
+                                          (let $reg-efficacy (collapse
+                                                (match &self
+                                                  (capability-efficacy-rate
+                                                    handler: $handler
+                                                    rate: $r)
+                                                  $r)))
+                                               (let $res-efficacy
+                                                    (if (== $reg-efficacy ())
+                                                        1.0
+                                                        (resolve-efficacy $handler
+                                                          (car-atom $reg-efficacy)))
+                                                    (if (efficacy-eligible? $res-efficacy)
+                                                        (resolve-and-filter-entries $tail
+                                                          (cons-atom (cap-entry priority: $res-priority handler: $handler) $acc))
+                                                        (resolve-and-filter-entries $tail $acc))))))
+                                (resolve-and-filter-entries $tail $acc))))))))
 
 
 ;; =============================================================
@@ -146,9 +178,6 @@
 ;; =============================================================
 ;; Rule 3: recursive chain walker
 ;; =============================================================
-;;
-;; The handler call ($current-handler $input-atom) is NOT wrapped in catch.
-;; See KNOWN LIMITATION above for why.
 
 (= (run-chain $sorted-chain $input-atom $invocation-id)
    (let $head-entry (car-atom $sorted-chain)
@@ -178,3 +207,39 @@
 ;; =============================================================
 
 (= (extract-handler (cap-entry priority: $p handler: $h)) $h)
+
+
+;; =============================================================
+;; Efficacy Companion Atoms (Path B addition)
+;; =============================================================
+;;
+;; (capability-success-criterion handler: $h criterion: $c)
+;; Declares what success looks like for a given handler.
+;; The criterion is an atom shape, not a boolean. Each capability
+;; defines success in its own vocabulary. The dispatcher does not
+;; interpret the criterion; it makes it available for external
+;; observation and evaluation. Optional: handlers can register
+;; without declaring a criterion.
+;;
+;; (capability-efficacy-rate handler: $h rate: $r)
+;; The handler current efficacy rate. Can be set at registration time
+;; and updated by external observation (same override pattern).
+;;
+;; (capability-efficacy-observation handler: $handler efficacy-rate: $observed)
+;; External observation of efficacy rate. Overrides the registered value.
+;;
+;; (minimum-efficacy-threshold $t)
+;; Optional seed atom. If present, handlers below threshold are filtered.
+;; If absent, no efficacy-based filtering (backwards compatible).
+
+
+;; =============================================================
+;; Seed Atoms (boot initialization)
+;; =============================================================
+;;
+;; Lifecycle eligibility:
+;;   (eligible-lifecycle active)
+;;   (eligible-lifecycle degraded)
+;;
+;; Efficacy (optional - Path B):
+;;   (minimum-efficacy-threshold 0.5)  ;; remove if no efficacy filtering
