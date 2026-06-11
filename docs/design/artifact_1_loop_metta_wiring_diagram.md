@@ -847,23 +847,6 @@ This is the cleanest first elevation move because the work is already done. It j
 
 ---
 
-## Repairs 1-3 status note (2026-06, soul_fully_wired sprint)
-
-Sections 7 and 8 below describe the PRE-REPAIR state and are retained as
-history. Current wiring: the 5c output intercept computes a native
-gate-state (derive-gate-state), a real verdict (compute-output-verdict),
-and a routing decision (output-decision); PAUSE empties execution,
-journals (soul/governance_journal.log), writes the pause-record
-(&last_pause_note, surfaced in the next cycle's prompt via
-soul_governance.pause_context and cleared by the next successful batch),
-and halts with a Channel D voice composed from $person_state and
-$soul_verdict_out (SOUL_VOICE_OUT / OUTPUT-PAUSE-ROUTING prints). The
-input PAUSE router is the substrate primitive (soul-pause?
-$soul_verdict_in) per spec v9 line 310; helper.soul_is_pause is dead code
-pending housecleaning. New state: &last_pause_note (initLoop). Evidence:
-docs/sprints/soul_fully_wired/ ledgers; commits e451811 (Repair 1),
-48ce4d6 (Repair 2), and the Repair 3 commit carrying this entry.
-
 ## Section 8: The output verdict stub
 
 Line 126 of loop.metta: hardcoded `"VERDICT: PROCEED SOUL-NOTE: output-intercept-pending-runtime-fix"`
