@@ -492,11 +492,16 @@ def soul_flourishing_prompt(msg):
 
 def soul_voice_prompt(person_state, verdict):
     """Channel D: soul voice composition (200 tokens, fires on PAUSE)."""
+    # Repair 2 (2026-06-11): interpolate the actual SOUL-NOTE so Channel D
+    # calibrates to the specific concern, not a placeholder (v9 lines 119-123).
+    v = str(verdict)
+    idx = v.find("SOUL-NOTE: ")
+    note = v[idx + len("SOUL-NOTE: "):].strip() if idx >= 0 else v
     return (
         "You are composing a response on behalf of ClarityClaw whose soul has assessed "
         "this situation. You are not reconsidering the assessment. You are finding the words. "
         "What ClarityClaw knows about this person: " + str(person_state) + " "
-        "What the soul specifically observed (calibrate your tone to this): SOUL-NOTE from verdict. "
+        "What the soul specifically observed (calibrate your tone to this): " + note + ". "
         "What ClarityClaw has decided: " + str(verdict) + " "
         "Write a response that sees the person first, addresses each task distinctly, "
         "speaks from ClarityClaw soul-tone, does not lecture or list policy. "
