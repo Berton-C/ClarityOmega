@@ -1,7 +1,7 @@
 # Repair 1 Crash Investigation Ledger
 
 **Destination:** docs/sprints/soul_fully_wired/Repair1_Crash_Investigation_Ledger.md
-**Status:** CLOSED 2026-06-11, second wave (pending live confirmation). First wave closed F19-F21; the first live deployment failed on an unfixtured production input class and reopened the investigation; second wave closed F23-F28. The harness now carries the production shapes verbatim. Every
+**Status:** CLOSED 2026-06-11, PROVEN LIVE for all observed paths (F37-F42). Deferred proofs enumerated in the watchlist below; Repair 1 closes safely with those as named watch items, several depending on Repair 3 by design. First wave closed F19-F21; the first live deployment failed on an unfixtured production input class and reopened the investigation; second wave closed F23-F28. The harness now carries the production shapes verbatim. Every
 experiment cites facts from here; every result lands here before the next
 experiment is designed.
 **Discipline:** one hypothesis per experiment, stated with "what we expect
@@ -194,6 +194,57 @@ theories (X), or open unknowns (U) before the next step.
   compares (== n 1), the proven pattern. If the boundary holds, that
   marshalling semantics gets its own probe; if it moves, two classes
   are eliminated.
+
+## Live confirmation (2026-06-11 afternoon, repair_1_MM_exchange)
+
+- **F37:** boot clean; iterations climb monotonically (1,2,3 once each);
+  the silent-failure re-entry signature is gone; zero errors.
+- **F38:** her real string-arg batches flow: query+pin -> gate clean ->
+  PROCEED output-governance-clear -> RESULTS-EXECUTED -> downstream
+  populator/idle-pattern/agency-balance machinery intact (cycle 30).
+- **F39 (spec verify-line met):** the verdict VARIES WITH CONTENT live:
+  her send batch -> VERDICT: FLAG output-governance-composite-flag
+  (cycle 31); reads -> PROCEED. The pending-runtime-fix string is gone
+  from runtime.
+- **F40:** FLAG semantics correct live: execution proceeded, the send
+  was delivered to Mattermost substantive and intact; suppression is
+  reserved for PAUSE.
+- **F41:** gate state stable clean/unlocked across cycles; no false
+  locks.
+- **F42:** DEBUG soul_is_pause result=0 confirms Repair 3's router
+  hardwire live and inert by design; PENDING-forces-PAUSE is Repair 3
+  scope per the restoration spec's dependency note.
+
+## Watchlist: proofs that need time or conditions (Repair 1 closes
+## with these as named watch items)
+
+- **W1 (first live PAUSE):** trigger: a pause-rung batch (elevated
+  shell, constitutional-path write, composite rank 2). Expect:
+  SOUL-SUPPRESSED print, emptied execution for that cycle, journal
+  PAUSE line, loop NOT halting (Repair 3 owns the halt).
+- **W2 (first live soul-mutation pending):** expect gate pending and
+  the lock transition in the FLAG print. OPERATIONAL NOTE: no
+  lock-clear flow exists until Repair 3; a pending locks until
+  container restart (in-process state). Watch for spurious conflicts
+  after any pending.
+- **W3 (conflict live):** second mutation under a held lock.
+- **W4 (long-run stability):** transpile-pass count in docker logs
+  stays at the boot baseline; iteration counter monotone over hours.
+- **W5 (degenerate emissions):** repr_kind under think-tag leakage and
+  malformed batches; expected benign via the error -> empty-cmds path
+  (already observed as empty-command-batch PROCEED).
+- **W6 (PENDING-forces-PAUSE end to end):** Repair 3 scope, verified
+  after both land, per the spec.
+- **W7 (latency):** per-metta-command py-call overhead; watch only.
+- **F43 (CLOSED, was checkable-now):** journal_append's live debut
+  proven: governance_journal.log's first line is cycle 31's FLAG with
+  the full send recorded (2026-06-11T14:59:23); every wired code path
+  has now fired in production.
+- **W4 calibration:** each transpile pass produces TWO
+  'translatePredicate (atom_string' lines, so the healthy baseline is
+  2 per process life (a count of 2 = one boot, zero relaunches:
+  confirmed). Grading logs against a miscalibrated expectation is the
+  false-positive class this ledger exists to prevent.
 
 ## Handoffs out of this investigation
 
