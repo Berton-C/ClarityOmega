@@ -69,8 +69,17 @@
 (= (output-cmd-is-write $cmd)  (== (output-cmd-head $cmd) write-file))
 (= (output-cmd-is-append $cmd) (== (output-cmd-head $cmd) append-file))
 
-(= (output-cmd-skill $cmd)
-   (car-atom (collapse (soul-cmd-skill $cmd))))
+;; STRUCTURAL DISPATCH (2026-06-10 root-cause fix): collapse inside a
+;; clause body invokes runtime reduce, which eagerly reduces arguments;
+;; a metta-headed command then EXECUTES (the metta skill is live in the
+;; full universe) and dies in string machinery on unbound variables --
+;; the production crash. Directive-level calls are statically compiled
+;; and immune, which is why isolation and direct probes passed. The
+;; kernel's skill mapping is identity (head symbol = skill name), so
+;; car-atom alone yields the skill and resolve-operation-risk's default
+;; floor (unseeded -> 3) covers unknown heads. Probe4-validated
+;; (T3/T5/T6). No collapse over commands anywhere in this module.
+(= (output-cmd-skill $cmd) (car-atom $cmd))
 
 (= (output-cmd-operation $cmd)
    (resolve-operation-risk (output-cmd-skill $cmd)))

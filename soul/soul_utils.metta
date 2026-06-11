@@ -132,31 +132,16 @@
    (py-call (helper.concat_strings (soul-brief-tier-a) (soul-brief-tier-b))))
 
 ;; ============================================================
-;; Block 1: metta() Gate Detection Functions
+;; Block 1: RETIRED 2026-06-10 (namespace census, Repair 1 root cause).
+;; The legacy string-based gate stubs that lived here collided with the
+;; committed native gate (soul_mutation_gate_corrected.metta): both
+;; clause sets loaded, making every gate predicate nondeterministic in
+;; production (P3 probe fork), and the string-based clause bodies died
+;; on unbound variables (split_string) -- the 2026-06-10 crash. The
+;; native gate file is now the single definition site for:
+;;   soul-is-metta-cmd?  soul-any-metta?  soul-extract-metta-arg
+;;   soul-metta-targets-soul-namespace?  soul-mutation-pending?
 ;; ============================================================
-
-;; soul-is-metta-cmd?: True if command is a metta() invocation
-(= (soul-is-metta-cmd? $cmd) False)
-
-;; soul-any-metta?: True if any command in list is a metta() call
-(= (soul-any-metta? $cmds)
-   (any (collapse (let $c (superpose $cmds) (progn (println! (SOUL-ANY-METTA-ITEM: $c)) (soul-is-metta-cmd? $c))))))
-
-;; soul-extract-metta-arg: extracts the argument from a metta() command
-(= (soul-extract-metta-arg (metta $arg)) $arg)
-
-;; soul-metta-targets-soul-namespace?: True if metta() string targets soul atoms
-(= (soul-metta-targets-soul-namespace? $cmd_str)
-   (any (collapse (superpose (
-     (string-contains $cmd_str "add-atom &self (soul-")
-     (string-contains $cmd_str "add-atom &self (priority")
-     (string-contains $cmd_str "add-atom &self (irreversible")
-     (string-contains $cmd_str "add-atom &self (tension"))))))
-
-;; soul-mutation-pending?: True if mutation lock is held
-;; Uses string-contains on the lock state -- returns bare True/False
-(= (soul-mutation-pending?)
-   (string-contains (get-state &soul_mutation_lock) "LOCKED:"))
 
 ;; ============================================================
 ;; Block 2: Remaining Layer 1 Pre-Computation Functions
