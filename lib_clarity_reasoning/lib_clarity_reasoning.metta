@@ -21,6 +21,9 @@
 ;; ClarityOmega Continuity of Mind -- identity and collaboration seeds
 ;; identity_kernel import removed (Surface 6, 2026-06-09): proven drift duplicate of soul_kernel value atoms (dual-head irreversible-weight). File archived to staging/OLD/OLD_soul_files/. Spec single source: soul/soul_kernel.metta.
 !(import! &self (library omegaclaw ./soul/memory_protocol))
+!(import! &self (library omegaclaw ./soul/soul_namespace_membership_seed))
+!(import! &self (library omegaclaw ./soul/soul_mutation_gate_corrected))
+!(import! &self (library omegaclaw ./soul/output_verdict))
 !(import! &self (library omegaclaw ./soul/collaborator_context))
 !(import! &self (library omegaclaw ./soul/candidates))
 

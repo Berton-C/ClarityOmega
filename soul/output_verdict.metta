@@ -156,3 +156,80 @@
                             (if (== $r 1) "VERDICT: FLAG SOUL-NOTE: output-governance-composite-flag"
                                 "VERDICT: PROCEED SOUL-NOTE: output-governance-clear"))))
                "VERDICT: FLAG SOUL-NOTE: unclassified-gate-state"))))
+
+
+;; ================================================================
+;; SECTION 2: WIRING GLUE (Repair 1, rev 2, 2026-06-11)
+;; STRUCTURAL THROUGHOUT (investigation ledger F20): pattern-headed
+;; clauses die at atom_string on unbound-variable-carrying metta
+;; commands under reduce; var-headed builtins-only forms are immune.
+;; The gate's pattern-headed soul-extract-metta-arg and quote-bodied
+;; soul-target-head are BYPASSED here (gate-file hardening flagged to
+;; Clarity); soul-head-is-member? and soul-mutation-pending? (both
+;; var-headed) are consumed directly. Probe7-validated 13/13,
+;; deterministic (solution counts 1), full universe, production shapes
+;; including the killer input.
+;; ================================================================
+
+(= (extract-metta-arg-structural $cmd) (car-atom (cdr-atom $cmd)))
+
+;; Production metta args are STRINGS (F11 single-command format).
+;; Strings are opaque to structural checks: unparsed, the gate both
+;; crashes (F25: car-atom on string = silent goal failure) and, if
+;; naively skipped, waves soul mutations through (probe8 S7). sread
+;; on a bound string is a direct builtin goal (no reduce hazard);
+;; string detection rides the S1-proven py-call channel ON THE REPR
+;; (repr is total over unbound vars; raw marshalling is not, F30).
+(= (norm-metta-arg $a)
+   (if (== (py-call (soul_governance.repr_kind (repr $a))) 1) (sread $a) $a))
+
+(= (metta-target-head-structural $arg)
+   (car-atom (car-atom (cdr-atom (cdr-atom $arg)))))
+
+(= (metta-targets-soul-structural $arg)
+   (soul-head-is-member? (metta-target-head-structural $arg)))
+
+(= (metta-arg-mutates? $arg)
+   (let $h (car-atom $arg)
+        (if (== $h add-atom) True
+            (if (== $h remove-atom) True
+                (if (== $h set-atom!) True False)))))
+
+(= (batch-targets-soul? $cmds)
+   (if (== $cmds ())
+       False
+       (let* (($h (car-atom $cmds))
+              ($t (cdr-atom $cmds)))
+             (if (== (car-atom $h) metta)
+                 (let $arg (norm-metta-arg (extract-metta-arg-structural $h))
+                      (if (metta-arg-mutates? $arg)
+                          (if (metta-targets-soul-structural $arg)
+                              True
+                              (batch-targets-soul? $t))
+                          (batch-targets-soul? $t)))
+                 (batch-targets-soul? $t)))))
+
+;; Lock semantics v1: held on detection (the lock-write the Python port
+;; dropped); clear happens in the Repair 3 confirmation flow. Normal
+;; non-soul work proceeds while a mutation awaits confirmation; a SECOND
+;; soul mutation while held is a conflict.
+(= (derive-gate-state $cmds)
+   (if (batch-targets-soul? $cmds)
+       (if (soul-mutation-pending?)
+           conflict
+           (let $_ (change-state! &soul_mutation_lock (locked soul-mutation-proposed))
+                pending))
+       clean))
+
+;; The loop's branching symbol: mirrors compute-output-verdict's ladder.
+(= (output-decision $cmds $gate)
+   (if (== $gate pending)
+       pause
+       (if (== $gate conflict)
+           pause
+           (if (== $gate clean)
+               (if (== $cmds ())
+                   proceed
+                   (let $r (batch-rank $cmds)
+                        (if (== $r 2) pause (if (== $r 1) flag proceed))))
+               flag))))

@@ -1,7 +1,7 @@
 # Repair 1 Crash Investigation Ledger
 
 **Destination:** docs/sprints/soul_fully_wired/Repair1_Crash_Investigation_Ledger.md
-**Status:** CLOSED 2026-06-11 (pending live confirmation). Mechanism, artifact, and fix all named and validated; see F19-F21. Every
+**Status:** CLOSED 2026-06-11, second wave (pending live confirmation). First wave closed F19-F21; the first live deployment failed on an unfixtured production input class and reopened the investigation; second wave closed F23-F28. The harness now carries the production shapes verbatim. Every
 experiment cites facts from here; every result lands here before the next
 experiment is designed.
 **Discipline:** one hypothesis per experiment, stated with "what we expect
@@ -123,6 +123,77 @@ theories (X), or open unknowns (U) before the next step.
   Evidence: env_probe7 084825. Cut into apply_repair1_wiring.py MA_BLOCK
   rev 2; wiring harness upgraded to full-universe (C4) with count
   expectations (C5) and the previously-missing production-shape fixture.
+
+## Second wave: live deployment failure (2026-06-11)
+
+- **F23 (echo discipline, learned twice now):** docker-log greps count
+  transpile ECHOES alongside runtime events; three transpile passes in
+  one container life also revealed the in-container supervisor relaunches
+  the swipl process without touching docker's RestartCount. All live
+  greps must exclude echoes by shape. C5 extended accordingly.
+- **F24 (live symptom localized):** iterations carrying real command
+  batches died SILENTLY inside 5c before the first wired print; iterations
+  with empty metta_cmds (error-state set) completed as empty-command-batch
+  PROCEED. Only two real verdicts ever ran; zero live pauses occurred.
+- **F25 (the live killer, probe8 S5 direct proof):** production metta
+  args are STRINGS (F11 single-command format): (metta "(match ...)").
+  car-atom on the extracted string is a silent goal failure (not an
+  exception: no catch fires, no ERROR prints), failing the let* chain and
+  the iteration. Every harness fixture had used expression-form args;
+  the string form was never fixtured.
+- **F26 (probe8 S1):** soul_governance resolves via py-call in
+  fresh-process full universe (U8 closed). helper does NOT resolve in
+  probe context (probe8 rev1 death); unproven imports are death-prone
+  items and order last.
+- **F27 (probe8 S6):** the Section-1 verdict module survives string-arg
+  batches with correct values and count 1: the crash fix is glue-only.
+- **F28 (probe8 S7, the governance hole):** a string-form SOUL MUTATION
+  batch computed PROCEED output-governance-clear: strings are OPAQUE to
+  every structural check, so an unparsed (or naively skipped) string lets
+  soul mutations through the gate as clean. The crash and the hole share
+  the root; the fix must parse, not just survive.
+- **Fix (rev 3, staged-validated):** norm-metta-arg in the glue: string
+  detection via py-call soul_governance.is_string (the F26-proven
+  channel; py-call never reduces its arguments), then sread (builtin on
+  a bound string value, direct goal, C1-clean), then the probe7-proven
+  expression path sees add-atom and soul membership normally. Harness
+  gains her swrite/cons-built string shapes verbatim: string-read clean,
+  string-mutation caught (conflict under held lock), lock state asserted.
+
+- **F29 (harness validity condition):** the pre-apply harness tested
+  rev-3 MeTTa against rev-2 Python: py-call resolves modules FROM DISK,
+  not from simulations, so cross-language revision skew invalidates any
+  pre-apply harness. Enforced structurally: apply (backups) -> harness
+  against real disk -> keep on pass / byte-identical restore on fail;
+  dry mode always restores (zero net writes).
+- **F30 (raw log 141531, verbatim):** janus py_call cannot marshal
+  unbound variables ('Arguments are not sufficiently instantiated'):
+  direct py-call on her match-expression args dies. Fix: detect on the
+  REPR (repr is total over unbound vars, marshals as a plain string;
+  string args repr with a leading quote). norm-metta-arg rev 3.2.
+- **F31 (positive yield of the same log):** bound-arg mutation path
+  fully green against real disk: pending, lock-write, conflict,
+  work-while-pending: the apply-test-restore ordering works.
+
+- **F32 (raw 142757):** the two string-fixture failures were
+  zero-solution silent chain failures (directive echo + compiled goal
+  present, no runtime line, run continues): per-directive findall
+  absorbs goal failure invisibly. Absence of output is a first-class
+  observation.
+- **F33 (probe9 P1/P1b, durable):** repr of a STRING value carries a
+  leading quote; repr of an expression does not. The repr-based
+  discriminator premise was VALID.
+- **F34 (probe9 P3/P4, durable):** sread(swrite(string)) returns the
+  string unchanged (reader round-trip preserves stringness), killing
+  any discrimination-free normalizer; sread DOES round-trip swrite's
+  variable rendering for expressions (count 1, fresh vars).
+- **F35 (elimination logic):** with every other link proven, rev 3.2's
+  then-branch-only failures isolate the suspect to python-bool
+  marshalling into MeTTa if (True/False capitalization across janus,
+  unverified). rev 3.3 eliminates the class: python returns INT, MeTTa
+  compares (== n 1), the proven pattern. If the boundary holds, that
+  marshalling semantics gets its own probe; if it moves, two classes
+  are eliminated.
 
 ## Handoffs out of this investigation
 
