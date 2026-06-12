@@ -37,3 +37,33 @@ def repr_kind(r):
     int-equality pattern proven throughout rank logic, avoiding the
     unverified python-bool-into-if marshalling class (ledger F35)."""
     return 1 if (isinstance(r, str) and r.lstrip().startswith('"')) else 0
+
+def pause_note_compose(verdict_repr):
+    """Repair 3: extract the SOUL-NOTE tail from an output verdict repr.
+    Returns the note text (her own words) or the verdict head as fallback."""
+    v = str(verdict_repr).strip()
+    if v.startswith('"') and v.endswith('"'):
+        v = v[1:-1]
+    idx = v.find("SOUL-NOTE: ")
+    note = v[idx + len("SOUL-NOTE: "):].strip() if idx >= 0 else v[:200]
+    return note[:600]
+
+
+def contains_token(haystack, needle):
+    """Repair 3 (F-R3-7): truthful substring scan for string-contains.
+    Bridge pattern proven by repr_kind: string in, INT out, consumed
+    as (== n 1). Pure plumbing; routing policy stays in MeTTa."""
+    return 1 if str(needle) in str(haystack) else 0
+
+
+def pause_context(note_repr):
+    """Repair 3: prompt prefix surfacing the pause-record. Empty when clear."""
+    n = str(note_repr).strip()
+    if n.startswith('"') and n.endswith('"'):
+        n = n[1:-1]
+    n = n.strip()
+    if not n:
+        return ""
+    return ("PREVIOUS-BATCH-PAUSED: your soul paused your previous command batch "
+            "and it did not execute. The concern, in your own words: " + n +
+            " Address or re-emit knowingly. ")

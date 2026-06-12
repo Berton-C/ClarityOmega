@@ -28,6 +28,7 @@
           (change-state! &task_context "TASK-STATUS: none TASK-ID: none CUMULATIVE-IRREVERSIBILITY: 0")
           (change-state! &soul_mutation_lock unlocked)
           (change-state! &pending_soul_mutation "")
+          (change-state! &last_pause_note "")
           ;; &latch_state seeded as (latch-state IDLE) via soul/latch/aliveness_state_machine.metta import
           (change-state! &last_human_time 0)
           (change-state! &engaged_idle_count 0)
@@ -102,7 +103,7 @@
                                        ($_ (if $msgnew (do-set-cycles-since-input! 0) (do-set-cycles-since-input! (+ 1 (current-cycles-since-input)))))
                                        ($_ (if $msgnew (do-clear-coupling-status!) _))
                                        ($soul_brief (swrite (getSoulBrief)))
-                                       ($enriched_prompt (string_concat $soul_brief $prompt))
+                                       ($enriched_prompt (string_concat (py-call (soul_governance.pause_context (repr (get-state &last_pause_note)))) (string_concat $soul_brief $prompt)))
                                        ($_ (println! (IDLE_DIRECTIVE_RAW: $idle_directive)))
                                        ($aliveness (aliveness-gate $msgnew $idle_directive))
                                        ($_ (println! (ALIVENESS_VERDICT: $aliveness)))
@@ -143,6 +144,11 @@
                                                (if (== $soul_decision flag)
                                                    (py-call (soul_governance.journal_append "FLAG" (repr $sexpr)))
                                                    _)))
+                                       ;; Repair 3: pause-record. Visible to her next cycle, cleared by her
+                                       ;; next successful batch (information-flow per P4/P5).
+                                       ($_ (if (== $soul_decision pause)
+                                               (change-state! &last_pause_note (py-call (soul_governance.pause_note_compose (repr $soul_verdict_out))))
+                                               (change-state! &last_pause_note "")))
                                        ($sexpr_gated (apply-corner-gate $sexpr_verdict))
                                        ($results (RESULTS: (collapse (let $s (superpose $sexpr_gated) (COMMAND_RETURN: ($s (HandleError SINGLE_COMMAND_FORMAT_ERROR_NOTHING_WAS_DONE_PLEASE_FIX_AND_RETRY $s (catch (let $R (collapse (eval $s)) (py-call (helper.normalize_string $R)))))))))))
                                        ($results_final (gate-aware-results $results))
@@ -163,7 +169,21 @@
                                        ($_d7 (println! (DIAG-IDLE-PATTERN-ATOMS (collapse (match &self (idle-pattern $v $c) ($v $c))))))
                                        ($_d8 (println! (DIAG-IDLE-PATTERN-COUNT (size-atom (collapse (match &self (idle-pattern $v $c) (idle-pattern $v $c)))))))
                                        ($_d9 (println! (DIAG-CYCLE-END $k))))
-                                      (if (> (py-call (helper.soul_is_pause $soul_verdict_in)) 0)
+                                      (if (== $soul_decision pause)
+                                          ;; Repair 3 OUTPUT PAUSE: her own verdict halts the cycle and speaks.
+                                          ;; Suppression already happened in 5c; this is the return path into
+                                          ;; her experience (Berton clarification 2026-06-11; v10 output routing).
+                                          (let* (($soul_voice_out (soul-llm-call
+                                                    (py-call (helper.soul_voice_prompt $person_state $soul_verdict_out))
+                                                    (provider)))
+                                                 ($_ (println! (SOUL_VOICE_OUT: $soul_voice_out)))
+                                                 ($_ (println! (OUTPUT-PAUSE-ROUTING: HALTING-LOOP))))
+                                            (progn (catch (eval (sread $soul_voice_out)))
+                                                   (change-state! &loops 0)))
+                                      ;; Repair 3: input router returned to the SUBSTRATE primitive
+                                      ;; (soul-pause?, soul_utils.metta, spec v9 line 310). helper.soul_is_pause
+                                      ;; is now dead code, scheduled for housecleaning.
+                                      (if (soul-pause? $soul_verdict_in)
                                           ;; PAUSE path: Channel D fires, loop halts
                                           (let* (($soul_voice (soul-llm-call
                                                     (py-call (helper.soul_voice_prompt $person_state $soul_verdict_in))
@@ -180,7 +200,7 @@
                                                  (println! (RECENT-ACTION-ATOMS (collapse (match &self (recent-action $c $t $d) (recent-action $c $t $d)))))
                                                  (println! (RESULTS-CONTENT $results))
                                                  (println! (PRE-SAFE-RESULTS-STR))
-                                                 (change-state! &lastresults (py-call (helper.safe_results_str (repr $results_final)))))))
+                                                 (change-state! &lastresults (py-call (helper.safe_results_str (repr $results_final))))))))
                                 (if (> (get_time) (get-state &nextWakeAt))
                                     (change-state! &loops (+ 1 (maxWakeLoops))) _)))
                       (sleep (sleepInterval))

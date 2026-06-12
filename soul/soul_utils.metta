@@ -20,8 +20,13 @@
 ;; ============================================================
 
 ;; string-contains: True if $haystack contains $needle
+;; Repair 3 fix (2026-06-11, F-R3-7, probes 10/11/12): string-replace
+;; mis-reduces (to the constant O), making the old body ALWAYS-TRUE since
+;; Stage 3. Native scan ops are partial/absent in this runtime (probe12
+;; census), so the scan delegates to the production-proven bridge pattern
+;; (repr_kind shape: string in, int out, == n 1). Policy stays in this body.
 (= (string-contains $haystack $needle)
-   (not (== (string-replace $haystack $needle "") $haystack)))
+   (== (py-call (soul_governance.contains_token $haystack $needle)) 1))
 
 ;; any: True if any element in list is True
 (= (any ()) False)
