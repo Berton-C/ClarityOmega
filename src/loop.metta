@@ -51,8 +51,8 @@
                          " LAST_SKILL_USE_RESULTS: " (last_chars (get-state &lastresults) (maxFeedback)) " HISTORY: " (getHistory) " TIME: " (get_time_as_string)))))
 
 (= (HandleError $msg $cmd $sexpr)
-   (case $sexpr (((Error $a $b) (let $new (append (get-state &error) (($msg $cmd)))
-                                          (change-state! &error $new)))
+   (case $sexpr (((Error $a $b) (let $new (append (get-state &error) (($msg $cmd $a)))
+                                          (progn (change-state! &error $new) ($msg $cmd $a))))
                  ($else $sexpr))))
 
 (= (omegaclaw)
