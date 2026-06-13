@@ -67,3 +67,119 @@ def pause_context(note_repr):
     return ("PREVIOUS-BATCH-PAUSED: your soul paused your previous command batch "
             "and it did not execute. The concern, in your own words: " + n +
             " Address or re-emit knowingly. ")
+
+# ============================================================================
+# Surface C SEAM 1: gate_decision_record
+# Destination: APPEND to /PeTTa/repos/omegaclaw/soul_governance.py (the live
+#   module reachable through the omegaclaw boot chain).
+# Contract (matches soul_mutation_lock.metta call sites, 6 positional args):
+#   gate_decision_record(gate, phase, op_repr, head_repr, fp, sender) -> 1
+# Recorded line carries 7 fields: timestamp gate phase op head fp sender.
+#   - timestamp generated here (mechanical, hands-only).
+#   - sender recorded for AUDIT only; Surface D learning MUST EXCLUDE it
+#     (sender-agnostic; sender-aware would train authority-theater).
+# Append-only journal; consumed by nothing yet, written from day one.
+# Mechanical journaling (no judgment) -> squarely within the Python
+#   hands-only boundary; compliant.
+# ============================================================================
+
+def gate_decision_record(gate, phase, op_repr, head_repr, fp, sender):
+    import datetime
+    line = "%s %s %s op=%s head=%s fp=%s sender=%s\n" % (
+        datetime.datetime.now().isoformat(),
+        str(gate), str(phase),
+        str(op_repr), str(head_repr), str(fp), str(sender))
+    try:
+        with open("/PeTTa/repos/omegaclaw/soul/governance_journal.log", "a") as f:
+            f.write(line)
+    except Exception:
+        pass
+    return 1
+
+# ============================================================================
+# Surface C: complete soul_governance.py additions (append all three).
+# Destination: APPEND to /PeTTa/repos/omegaclaw/soul_governance.py
+#
+# These close the ENTIRE soul_governance dependency surface that Surface C
+# and its inlined output_verdict extraction chain invoke. Verified against
+# the live container via env_probe13/14: contains_token was already live;
+# these three were absent (gate_decision_record and is_string proven absent
+# by AttributeError; approval_scan in the same un-applied Repair-3/output_verdict
+# Python half, added here so the transition path has no missing dependency).
+#
+# All three are mechanical (journaling, a type predicate, a token parse with a
+# fixed precedence rule). No model judgment. Hands-only, compliant.
+# approval_scan carries one small precedence rule (DENY wins) -- the single
+# soft spot flagged for review; reproduced verbatim from Clarity's SEAM-3
+# design so Surface E can reuse it unchanged.
+# ============================================================================
+
+def is_string(x):
+    # output_verdict norm-metta-arg dependency: distinguishes a string arg
+    # (needs sread) from an already-structured arg (passes through).
+    # Consumed as a MeTTa truthy: (if (py-call (soul_governance.is_string $a)) ...).
+    return isinstance(x, str)
+
+
+def gate_decision_record(gate, phase, op_repr, head_repr, fp, sender):
+    # SEAM 1: append-only learning record (Surface D training data).
+    # 7 fields: timestamp gate phase op head fp sender. timestamp generated
+    # here. sender recorded for AUDIT only -- D's learning MUST EXCLUDE it
+    # (sender-agnostic; sender-aware would train authority-theater).
+    import datetime
+    line = "%s %s %s op=%s head=%s fp=%s sender=%s\n" % (
+        datetime.datetime.now().isoformat(),
+        str(gate), str(phase),
+        str(op_repr), str(head_repr), str(fp), str(sender))
+    try:
+        with open("/PeTTa/repos/omegaclaw/soul/governance_journal.log", "a") as f:
+            f.write(line)
+    except Exception:
+        pass
+    return 1
+
+
+def approval_scan(msg, sender, lock_fp, authorized):
+    # SEAM 3: sender-bound approval/denial parse. Returns INT 2/1/0
+    # (APPROVE/DENY/NONE; consumed via == n k, the repr_kind convention,
+    # never a Python bool into a MeTTa if). DENY wins if both tokens present.
+    # APPROVE needs an authorized sender AND the matching fingerprint. DENY
+    # also needs an authorized sender (denial is a governance act). Generic:
+    # Surface E reuses this verbatim, changing only the token strings.
+    m = str(msg)
+    s = str(sender).strip().rstrip(":")
+    auth = s in [a.strip().rstrip(":") for a in str(authorized).split(",") if a.strip()]
+    if not auth:
+        return 0
+    if "SOUL-MUTATION-DENIED" in m:
+        return 1
+    if "SOUL-MUTATION-APPROVED" in m and str(lock_fp).strip() in m:
+        return 2
+    return 0
+
+# Surface C PENDING-entry: the mutation_fingerprint helper (SEAM 3 plumbing).
+# APPEND to /PeTTa/repos/omegaclaw/soul_governance.py.
+#
+# Spec basis:
+#   Integration Map sec 2: unlocked --[soul mutation detected]--> (locked op head fp)  PENDING
+#   Integration Map SEAM 3: "approval_scan + &authorized_approvers + mutation_fingerprint".
+#   The fingerprint is the token the human must echo to approve; approval_scan
+#   matches the echoed token against &last_gate_fingerprint. It must therefore be
+#   DETERMINISTIC over (op, head): the same pending mutation always yields the same fp.
+#
+# Faculty split (ADR-008): this is HANDS (mechanical string->digest), not judgment.
+# MeTTa never touches strings; Python computes the digest; MeTTa decides policy.
+
+import hashlib
+
+
+def mutation_fingerprint(op_repr, head_repr):
+    """SEAM 3: deterministic 8-hex-char fingerprint of a soul mutation's op+head.
+
+    Args are repr-rendered MeTTa atoms (e.g. "add-atom", "soul-value"), the same
+    op/head the lock stores and approval echoes. Deterministic so the fp the human
+    echoes in 'SOUL-MUTATION-APPROVED <fp>' matches &last_gate_fingerprint.
+    sha256[:8] over a delimited join; the delimiter prevents ("ab","c") and
+    ("a","bc") from colliding."""
+    payload = str(op_repr) + "\x1f" + str(head_repr)
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:8]

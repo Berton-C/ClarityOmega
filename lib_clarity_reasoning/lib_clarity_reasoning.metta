@@ -60,6 +60,9 @@
 ;; Task-state writers: side-effecting do-*! functions for task-state atoms
 !(import! &self (library omegaclaw ./soul/task_state_writers))
 
+;; Surface C: soul-mutation lock state machine (the metta() self-mutation gate)
+!(import! &self (library omegaclaw ./soul/soul_mutation_lock))
+
 ;; Idle cycle detector: send-burst detection for duplicate-engagement awareness (Step 4.5)
 !(import! &self (library omegaclaw ./soul/idle_cycle_detector))
 

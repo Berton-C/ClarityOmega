@@ -29,6 +29,11 @@
           (change-state! &soul_mutation_lock unlocked)
           (change-state! &pending_soul_mutation "")
           (change-state! &last_pause_note "")
+          ;; Surface C: seed the gate-read vars so unseeded get-state cannot crash the
+          ;; container (last_gate_fingerprint read in OUTPUT-PAUSE; authorized_approvers
+          ;; read in gate-transition!). Already-designed values; hash auth untouched.
+          (change-state! &last_gate_fingerprint "")
+          (change-state! &authorized_approvers "berton_c")
           ;; &latch_state seeded as (latch-state IDLE) via soul/latch/aliveness_state_machine.metta import
           (change-state! &last_human_time 0)
           (change-state! &engaged_idle_count 0)
@@ -74,6 +79,8 @@
                                        ($_ (println! $lastmessage))
                                        ($_ (if $msgnew (change-state! &last_human_time (get_time)) _))
                                        ($_ (if $msgnew (do-set-last-activity! (get_time)) _))
+                                       ;; Surface C: approval/denial transition while a soul-mutation lock is held
+                                       ($_ (if $msgnew (clarity-soul-mutation-gate-transition! $msg $k) _))
 ;; CLARITYCLAW SOUL INPUT INTERCEPT (5b)
                                        ($soul_precompute (soul-pre-compute $msg))
                                        ($person_state (if (> (string_length $msgrcv) 0)
@@ -132,6 +139,10 @@
                                                        ()))
                                        ($soul_gate_state (derive-gate-state $metta_cmds))
                                        ($_ (println! (SOUL-GATE-FLAG $soul_gate_state (get-state &soul_mutation_lock))))
+                                       ;; Surface C: PENDING entry -- sole arity-4 lock writer, on fresh detection
+                                       ($_ (if (== $soul_gate_state pending) (clarity-soul-mutation-pending-set! $metta_cmds $k) _))
+                                       ;; Surface C: STALE check -- runs BEFORE commit-clear (STALE precedence)
+                                       ($_ (clarity-soul-mutation-stale-check! $k))
                                        ($soul_verdict_out (compute-output-verdict $metta_cmds $soul_gate_state))
                                        ($_ (println! (SOUL_VERDICT_OUT: $soul_verdict_out)))
                                        ($soul_decision (output-decision $metta_cmds $soul_gate_state))
@@ -153,6 +164,8 @@
                                        ($results (RESULTS: (collapse (let $s (superpose $sexpr_gated) (COMMAND_RETURN: ($s (HandleError SINGLE_COMMAND_FORMAT_ERROR_NOTHING_WAS_DONE_PLEASE_FIX_AND_RETRY $s (catch (let $R (collapse (eval $s)) (py-call (helper.normalize_string $R)))))))))))
                                        ($results_final (gate-aware-results $results))
                                        ($_ (println! (RESULTS-EXECUTED)))
+                                       ;; Surface C: COMMIT/ERROR clearance -- approved lock cleared post-execution
+                                       ($_ (clarity-soul-mutation-commit-clear! $soul_gate_state $soul_decision (not (== (get-state &error) ()))))
                                        ($_ (populate-recent-action $sexpr $msgnew $k))
                                        ($results_nonempty (> (size-atom (collapse (superpose $sexpr_gated))) 0))
                                        ($results_novel (if (== (py-call (helper.safe_results_str (repr $results))) (get-state &lastresults)) False True))
@@ -173,9 +186,11 @@
                                           ;; Repair 3 OUTPUT PAUSE: her own verdict halts the cycle and speaks.
                                           ;; Suppression already happened in 5c; this is the return path into
                                           ;; her experience (Berton clarification 2026-06-11; v10 output routing).
-                                          (let* (($soul_voice_out (soul-llm-call
+                                          (let* (($soul_voice_raw (soul-llm-call
                                                     (py-call (helper.soul_voice_prompt $person_state $soul_verdict_out))
                                                     (provider)))
+                                                 ;; Surface C H11: prefix the pause voice with [SOUL-PAUSE <fp>]
+                                                 ($soul_voice_out (pause-voice-label (get-state &last_gate_fingerprint) $soul_voice_raw))
                                                  ($_ (println! (SOUL_VOICE_OUT: $soul_voice_out)))
                                                  ($_ (println! (OUTPUT-PAUSE-ROUTING: HALTING-LOOP))))
                                             (progn (catch (eval (sread $soul_voice_out)))

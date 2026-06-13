@@ -214,11 +214,14 @@
 ;; non-soul work proceeds while a mutation awaits confirmation; a SECOND
 ;; soul mutation while held is a conflict.
 (= (derive-gate-state $cmds)
+   ;; Surface C: PURE CLASSIFIER. The lock-write (was: (locked soul-mutation-
+   ;; proposed)) is removed -- clarity-soul-mutation-pending-set! is the sole
+   ;; PENDING writer, writing the arity-4 SEAM-2 shape (locked op head fp).
+   ;; soul-mutation-pending? is symbol-based (lock == unlocked), shape-agnostic.
    (if (batch-targets-soul? $cmds)
        (if (soul-mutation-pending?)
            conflict
-           (let $_ (change-state! &soul_mutation_lock (locked soul-mutation-proposed))
-                pending))
+           pending)
        clean))
 
 ;; The loop's branching symbol: mirrors compute-output-verdict's ladder.
