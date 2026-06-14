@@ -132,3 +132,14 @@
 !(add-atom &self (soul-ns-member soul-will-threshold))
 !(add-atom &self (soul-ns-member soul-will-threshold-for))
 !(add-atom &self (soul-ns-member soul-x))
+
+;; Surface C detection-coverage Fix 1: tag bare-headed constitutional atoms
+!(add-atom &self (soul-ns-member priority))
+!(add-atom &self (soul-ns-member irreversible-skill))
+!(add-atom &self (soul-ns-member tension-vector))
+!(add-atom &self (soul-ns-member threatens))
+!(add-atom &self (soul-ns-member person-state-type))
+!(add-atom &self (soul-ns-member irreversible-weight))
+!(add-atom &self (soul-ns-member task-context-field))
+!(add-atom &self (soul-ns-member operation-risk))
+;; end Surface C detection-coverage Fix 1
