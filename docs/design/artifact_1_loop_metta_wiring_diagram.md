@@ -1053,6 +1053,41 @@ If pursuing Phase 2:
 
 ---
 
+## Sprint 0-Coda Phase C: capability-registry dispatch insertion (getContext)
+
+Added by Sprint 0-Coda Phase C (see docs/design/sprint_0_coda_phase_a_v6.md).
+
+Phase 4.3 (prompt assembly), getContext. getContext binds its skills slot to
+a single named accessor that consults the capability registry each cycle:
+
+- CALLS: (dispatch-skills $k) in soul/capabilities/skill_discovery.metta,
+  which fires (dispatch (skill-request cycle: $k) $k); invocation-id is the
+  loop iteration $k (monotonic, distinct per cycle; no counter atom).
+- READS (inside dispatch-skills): (dispatch-result invocation-id: $k
+  result: (skill-set skills: $s) handler: $_), this cycle's skill-set, and
+  falls back to (getSkills) via first-skill-or-default when the read is empty,
+  so a dispatch miss can never fail getContext as a goal.
+- WRITES (via dispatch -> run-chain): dispatch-invocation, capability-invoked,
+  dispatch-result, and dispatch-chain-exhausted / -anchored / fallback per
+  the chain outcome.
+- EMITS: (DIAG-CYCLE-DISPATCH invocation-id: $k skills-len: <int>) every cycle,
+  where skills-len is (size-atom $skills-str), the skill-set element count.
+  The skills value is a compound list, so a scalar string op (string_length)
+  throws on it per the Atom Operations Map read-instrument rule; size-atom is
+  compound-aware and returns a bare scalar that renders clean.
+  Phase D in-loop verification: P-2 distinct id, P-3 count > 0, P-4 stable.
+- SUBSTITUTES (dispatch-skills $k) for (getSkills) in the SKILLS slot. The
+  getSkills DEFINITION remains callable in src/skills.metta (it is the
+  fallback) until Phase D P-4 confirms parity; its removal is a later commit.
+- SEEDS (in skill_discovery.metta): (eligible-lifecycle active), required for
+  skill-discovery to pass lifecycle-filter-step and reach its handler.
+- NETWORK: SN (capability selection / skills surfacing).
+
+NOTE (follow-up, not done in this commit): the broader line-number drift fix
+across this document is deferred to a dedicated housekeeping pass.
+
+---
+
 ## Document end
 
 This document (v1.4) represents the wiring of loop.metta as of June 10, 2026; per-cycle line anchors carry from the v1.3 re-anchor and are pending re-audit against the live 178-line loop. Future architectural changes should update the relevant sections rather than letting this document drift. The "Active vs Dormant" classifications in particular need refresh whenever something is wired or unwired.

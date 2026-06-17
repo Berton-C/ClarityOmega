@@ -42,13 +42,16 @@
           (do-bootstrap-task-state!)))
 
 (= (getContext $k)
-   (string-safe (py-str ("PROMPT: " (getPrompt) " SKILLS: " (getSkills)
+   (let* (($skills-str (dispatch-skills $k))
+          ($skills-len (size-atom $skills-str))
+          ($_marker (println! (DIAG-CYCLE-DISPATCH invocation-id: $k skills-len: $skills-len))))
+     (string-safe (py-str ("PROMPT: " (getPrompt) " SKILLS: " $skills-str
                          " " (output-format-guidance)
                          " YOUR_LAST_ACTION: " (your-last-action-block $k)
                          " " (task-state-block)
                          " " (idle-pattern-block)
                          " " (agency-balance-block)
-                         " LAST_SKILL_USE_RESULTS: " (last_chars (get-state &lastresults) (maxFeedback)) " HISTORY: " (getHistory) " TIME: " (get_time_as_string)))))
+                         " LAST_SKILL_USE_RESULTS: " (last_chars (get-state &lastresults) (maxFeedback)) " HISTORY: " (getHistory) " TIME: " (get_time_as_string))))))
 
 (= (HandleError $msg $cmd $sexpr)
    (case $sexpr (((Error $a $b) (let $new (append (get-state &error) (($msg $cmd $a)))
