@@ -95,3 +95,14 @@
 
 ;; Recent-action retriever: reads recent-action atoms for YOUR_LAST_ACTION prompt context
 !(import! &self (library omegaclaw ./soul/recent_action_retriever))
+
+;; NACE capability-efficacy beliefs (N0 load path): substrate definitions then the
+;; belief store. cap-efficacy seeds become queryable in &self. nace_writers is NOT
+;; imported here -- it is built in N1. nace_pending is NEVER imported (deliberate
+;; ghost-state: the writer reads pending from the file, not the atomspace).
+!(import! &self (library omegaclaw ./soul/nace_substrate))
+!(import! &self (library omegaclaw ./soul/nace_beliefs))
+
+;; Capability registry dispatch (Sprint 0-Coda Phase C)
+!(import! &self (library omegaclaw ./soul/capability_registry))
+!(import! &self (library omegaclaw ./soul/capabilities/skill_discovery))
