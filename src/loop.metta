@@ -14,7 +14,7 @@
           (configure sleepInterval 1) ;10
           (configure spamShield True)
           (configure LLM gpt-5.4)
-          (configure provider Friendli) ;Friendli or Anthropic or ASICloud or ASIOne (was: Anthropic)
+          (configure provider Friendli52) ;Friendli=GLM-5.1, Friendli52=GLM-5.2, Anthropic, ASICloud, ASIOne
           (configure maxOutputToken 6000)
           (configure reasoningMode medium)
           (configure wakeupInterval 600) ;600=10 minutes
@@ -26,14 +26,8 @@
           (change-state! &soul_verdict_out "VERDICT: PROCEED")
           (change-state! &person_state "PERSON-STATE: neutral ACTIVE-NEED: none SOUL-TONE: grounded")
           (change-state! &task_context "TASK-STATUS: none TASK-ID: none CUMULATIVE-IRREVERSIBILITY: 0")
-          (change-state! &soul_mutation_lock unlocked)
+          (change-state! &soul_mutation_lock "")
           (change-state! &pending_soul_mutation "")
-          (change-state! &last_pause_note "")
-          ;; Surface C: seed the gate-read vars so unseeded get-state cannot crash the
-          ;; container (last_gate_fingerprint read in OUTPUT-PAUSE; authorized_approvers
-          ;; read in gate-transition!). Already-designed values; hash auth untouched.
-          (change-state! &last_gate_fingerprint "")
-          (change-state! &authorized_approvers "berton_c")
           ;; &latch_state seeded as (latch-state IDLE) via soul/latch/aliveness_state_machine.metta import
           (change-state! &last_human_time 0)
           (change-state! &engaged_idle_count 0)
@@ -42,20 +36,17 @@
           (do-bootstrap-task-state!)))
 
 (= (getContext $k)
-   (let* (($skills-str (dispatch-skills $k))
-          ($skills-len (size-atom $skills-str))
-          ($_marker (println! (DIAG-CYCLE-DISPATCH invocation-id: $k skills-len: $skills-len))))
-     (string-safe (py-str ("PROMPT: " (getPrompt) " SKILLS: " $skills-str
+   (string-safe (py-str ("PROMPT: " (getPrompt) " SKILLS: " (getSkills)
                          " " (output-format-guidance)
                          " YOUR_LAST_ACTION: " (your-last-action-block $k)
                          " " (task-state-block)
                          " " (idle-pattern-block)
                          " " (agency-balance-block)
-                         " LAST_SKILL_USE_RESULTS: " (last_chars (get-state &lastresults) (maxFeedback)) " HISTORY: " (getHistory) " TIME: " (get_time_as_string))))))
+                         " LAST_SKILL_USE_RESULTS: " (last_chars (get-state &lastresults) (maxFeedback)) " HISTORY: " (getHistory) " TIME: " (get_time_as_string)))))
 
 (= (HandleError $msg $cmd $sexpr)
-   (case $sexpr (((Error $a $b) (let $new (append (get-state &error) (($msg $cmd $a)))
-                                          (progn (change-state! &error $new) ($msg $cmd $a))))
+   (case $sexpr (((Error $a $b) (let $new (append (get-state &error) (($msg $cmd)))
+                                          (change-state! &error $new)))
                  ($else $sexpr))))
 
 (= (omegaclaw)
@@ -82,8 +73,6 @@
                                        ($_ (println! $lastmessage))
                                        ($_ (if $msgnew (change-state! &last_human_time (get_time)) _))
                                        ($_ (if $msgnew (do-set-last-activity! (get_time)) _))
-                                       ;; Surface C: approval/denial transition while a soul-mutation lock is held
-                                       ($_ (if $msgnew (clarity-soul-mutation-gate-transition! $msg $k) _))
 ;; CLARITYCLAW SOUL INPUT INTERCEPT (5b)
                                        ($soul_precompute (soul-pre-compute $msg))
                                        ($person_state (if (> (string_length $msgrcv) 0)
@@ -111,9 +100,8 @@
                                        ($_ (if (not (== $idle_directive "")) (set-atom! &self (latch-state ENGAGED) (latch-state IDLE)) _))
                                        ($_ (if $msgnew (change-state! &engaged_idle_count 0) (if (> (string_length $idle_directive) 0) (change-state! &engaged_idle_count 0) (change-state! &engaged_idle_count (+ 1 (get-state &engaged_idle_count))))))
                                        ($_ (if $msgnew (do-set-cycles-since-input! 0) (do-set-cycles-since-input! (+ 1 (current-cycles-since-input)))))
-                                       ($_ (if $msgnew (do-clear-coupling-status!) _))
                                        ($soul_brief (swrite (getSoulBrief)))
-                                       ($enriched_prompt (string_concat (py-call (soul_governance.pause_context (repr (get-state &last_pause_note)))) (string_concat $soul_brief $prompt)))
+                                       ($enriched_prompt (string_concat $soul_brief $prompt))
                                        ($_ (println! (IDLE_DIRECTIVE_RAW: $idle_directive)))
                                        ($aliveness (aliveness-gate $msgnew $idle_directive))
                                        ($_ (println! (ALIVENESS_VERDICT: $aliveness)))
@@ -134,46 +122,18 @@
                                        ($_ (HandleError MULTI_COMMAND_FAILURE_NOTHING_WAS_DONE_PLEASE_CORRECT_PARENTHESES_AND_USE_QUOTES_AND_RETRY $response $sexpr))
                                        ($_ (println! (RESPONSE: $sexpr)))
 
-                                       ;; CLARITYCLAW SOUL OUTPUT INTERCEPT (5c) -- Repair 1 wired 2026-06-10:
-                                       ;; native gate-state, real verdict, verdict-gated execution. PAUSE empties
-                                       ;; this cycle's execution input; loop-halt routing remains Repair 3.
+                                       ;; CLARITYCLAW SOUL OUTPUT INTERCEPT (5c)
+                                       ($soul_verdict_out "VERDICT: PROCEED SOUL-NOTE: output-intercept-pending-runtime-fix")
+                                       ($_ (println! (SOUL_VERDICT_OUT: $soul_verdict_out)))
                                        ($metta_cmds (if (and (== "(" (first_char $resp)) (== (get-state &error) ()))
                                                        (collapse (superpose $sexpr))
                                                        ()))
-                                       ($soul_gate_state (derive-gate-state $metta_cmds))
-                                       ($_ (println! (SOUL-GATE-FLAG $soul_gate_state (get-state &soul_mutation_lock))))
-                                       ;; Surface C: PENDING entry -- sole arity-4 lock writer, on fresh detection
-                                       ($_ (if (== $soul_gate_state pending) (clarity-soul-mutation-pending-set! $metta_cmds $k) _))
-                                       ;; Surface C: STALE check -- runs BEFORE commit-clear (STALE precedence)
-                                       ($_ (clarity-soul-mutation-stale-check! $k))
-                                       ($soul_verdict_out (compute-output-verdict $metta_cmds $soul_gate_state))
-                                       ($_ (println! (SOUL_VERDICT_OUT: $soul_verdict_out)))
-                                       ($soul_decision (output-decision $metta_cmds $soul_gate_state))
-                                       ($_ (if (and (not (== $soul_decision proceed)) (== (get-state &error) ()))
+                                       ($soul_mutation_flag (py-call (helper.soul_mutation_gate (repr $metta_cmds) (get-state &soul_mutation_lock))))
+                                       ($_ (if (and (not (soul-proceed? $soul_verdict_out)) (== (get-state &error) ()))
                                                (soul-note-record $soul_verdict_out "output" $resp) _))
-                                       ($sexpr_verdict (if (== $soul_decision pause) () $sexpr))
-                                       ($_ (if (== $soul_decision pause)
-                                               (progn (println! (SOUL-SUPPRESSED $sexpr))
-                                                      (py-call (soul_governance.journal_append "PAUSE" (repr $sexpr))))
-                                               (if (== $soul_decision flag)
-                                                   (py-call (soul_governance.journal_append "FLAG" (repr $sexpr)))
-                                                   _)))
-                                       ;; Repair 3: pause-record. Visible to her next cycle, cleared by her
-                                       ;; next successful batch (information-flow per P4/P5).
-                                       ($_ (if (== $soul_decision pause)
-                                               (change-state! &last_pause_note (py-call (soul_governance.pause_note_compose (repr $soul_verdict_out))))
-                                               (change-state! &last_pause_note "")))
-                                       ($sexpr_gated (apply-corner-gate $sexpr_verdict))
-                                       ($results (RESULTS: (collapse (let $s (superpose $sexpr_gated) (COMMAND_RETURN: ($s (HandleError SINGLE_COMMAND_FORMAT_ERROR_NOTHING_WAS_DONE_PLEASE_FIX_AND_RETRY $s (catch (let $R (collapse (eval $s)) (py-call (helper.normalize_string $R)))))))))))
-                                       ($results_final (gate-aware-results $results))
+                                       ($results (RESULTS: (collapse (let $s (superpose $sexpr) (COMMAND_RETURN: ($s (HandleError SINGLE_COMMAND_FORMAT_ERROR_NOTHING_WAS_DONE_PLEASE_FIX_AND_RETRY $s (catch (let $R (collapse (eval $s)) (py-call (helper.normalize_string $R)))))))))))
                                        ($_ (println! (RESULTS-EXECUTED)))
-                                       ;; Surface C: COMMIT/ERROR clearance -- approved lock cleared post-execution
-                                       ($_ (clarity-soul-mutation-commit-clear! $soul_gate_state $soul_decision (not (== (get-state &error) ()))))
                                        ($_ (populate-recent-action $sexpr $msgnew $k))
-                                       ($results_nonempty (> (size-atom (collapse (superpose $sexpr_gated))) 0))
-                                       ($results_novel (if (== (py-call (helper.safe_results_str (repr $results))) (get-state &lastresults)) False True))
-                                       ($_ (populate-state-delta $msgnew $results_nonempty $results_novel $k))
-                                       ($_ (populate-coupling-verdict $k))
                                        ($_ (do-update-idle-pattern!))
                                        ($_ (do-update-agency-balance!))
                                        ($_d1 (println! (DIAG-CYCLE-START $k)))
@@ -185,23 +145,7 @@
                                        ($_d7 (println! (DIAG-IDLE-PATTERN-ATOMS (collapse (match &self (idle-pattern $v $c) ($v $c))))))
                                        ($_d8 (println! (DIAG-IDLE-PATTERN-COUNT (size-atom (collapse (match &self (idle-pattern $v $c) (idle-pattern $v $c)))))))
                                        ($_d9 (println! (DIAG-CYCLE-END $k))))
-                                      (if (== $soul_decision pause)
-                                          ;; Repair 3 OUTPUT PAUSE: her own verdict halts the cycle and speaks.
-                                          ;; Suppression already happened in 5c; this is the return path into
-                                          ;; her experience (Berton clarification 2026-06-11; v10 output routing).
-                                          (let* (($soul_voice_raw (soul-llm-call
-                                                    (py-call (helper.soul_voice_prompt $person_state $soul_verdict_out))
-                                                    (provider)))
-                                                 ;; Surface C H11: prefix the pause voice with [SOUL-PAUSE <fp>]
-                                                 ($soul_voice_out (pause-voice-label (get-state &last_gate_fingerprint) $soul_voice_raw))
-                                                 ($_ (println! (SOUL_VOICE_OUT: $soul_voice_out)))
-                                                 ($_ (println! (OUTPUT-PAUSE-ROUTING: HALTING-LOOP))))
-                                            (progn (catch (eval (sread $soul_voice_out)))
-                                                   (change-state! &loops 0)))
-                                      ;; Repair 3: input router returned to the SUBSTRATE primitive
-                                      ;; (soul-pause?, soul_utils.metta, spec v9 line 310). helper.soul_is_pause
-                                      ;; is now dead code, scheduled for housecleaning.
-                                      (if (soul-pause? $soul_verdict_in)
+                                      (if (> (py-call (helper.soul_is_pause $soul_verdict_in)) 0)
                                           ;; PAUSE path: Channel D fires, loop halts
                                           (let* (($soul_voice (soul-llm-call
                                                     (py-call (helper.soul_voice_prompt $person_state $soul_verdict_in))
@@ -218,7 +162,7 @@
                                                  (println! (RECENT-ACTION-ATOMS (collapse (match &self (recent-action $c $t $d) (recent-action $c $t $d)))))
                                                  (println! (RESULTS-CONTENT $results))
                                                  (println! (PRE-SAFE-RESULTS-STR))
-                                                 (change-state! &lastresults (py-call (helper.safe_results_str (repr $results_final))))))))
+                                                 (change-state! &lastresults (py-call (helper.safe_results_str (repr $results)))))))
                                 (if (> (get_time) (get-state &nextWakeAt))
                                     (change-state! &loops (+ 1 (maxWakeLoops))) _)))
                       (sleep (sleepInterval))

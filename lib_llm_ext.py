@@ -166,6 +166,7 @@ _register_provider(name="ASICloud", var_name="ASI_API_KEY", model_name="minimax/
 _register_provider(name="Anthropic", var_name="ANTHROPIC_API_KEY", model_name="claude-opus-4-6", base_url="https://api.anthropic.com/v1/")
 _register_provider_instance(AsiOneProvider(name="ASIOne", var_name="ASIONE_API_KEY", model_name="asi1-ultra", base_url="https://api.asi1.ai/v1"))
 _register_provider_instance(GlmProvider(name="Friendli", var_name="FRIENDLI_API_KEY", model_name="zai-org/GLM-5.1", base_url="https://api.friendli.ai/serverless/v1"))
+_register_provider_instance(GlmProvider(name="Friendli52", var_name="FRIENDLI_API_KEY", model_name="zai-org/GLM-5.2", base_url="https://api.friendli.ai/serverless/v1"))
 # At the moment the OpenAI model call is in PeTTa, just init a default config here
 _register_provider(name="OpenAI", var_name="OPENAI_API_KEY", model_name="gpt-5.4", base_url="https://api.openai.com/v1")
 
