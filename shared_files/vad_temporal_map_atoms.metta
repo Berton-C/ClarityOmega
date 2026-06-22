@@ -1,7 +1,0 @@
-;; VAD Temporal Map Atoms - Use Case (b)
-(= (optimizing-for (delta pos neg any)) seeking-relief)
-(= (optimizing-for (delta neutral neg neg)) withdrawing)
-(= (optimizing-for (delta pos pos pos)) building-agency)
-(= (optimizing-for (delta neg pos any)) escalating-distress)
-(= (optimizing-for (delta neutral neutral neutral)) holding-steady)
-(= (landscape-insight optimizing-pattern) (hold-not-act observe-not-direct))

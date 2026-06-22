@@ -1,6 +1,0 @@
-[
-  {"name": "too-long-for-distress", "condition": "valence < 0.2 and len_draft > 80", "action": "truncate"},
-  {"name": "forceful-with-calcified", "condition": "calcified in flags and exclaim in draft", "action": "soften"},
-  {"name": "advice-in-still-holding", "condition": "mode == still-holding and should in draft", "action": "remove-should"},
-  {"name": "question-flood", "condition": "question_count > 2", "action": "reduce-questions"}
-]

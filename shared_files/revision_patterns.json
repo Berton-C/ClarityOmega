@@ -1,8 +1,0 @@
-{
-  "gate_triggers": {
-    "too-long-for-distress": 1
-  },
-  "technique_issues": {},
-  "total_revisions": 1,
-  "total_passes": 2
-}

@@ -1,5 +1,0 @@
-(: (semantic-relation perceive integrate (role subsumes) (stv 0.85 0.8)) MeTTa)
-(: (semantic-relation integrate synthesize (role composes-into) (stv 0.8 0.8)) MeTTa)
-(: (semantic-relation synthesize emergence (role produces) (stv 0.75 0.8)) MeTTa)(: (semantic-relation perceive substrate-comprehension (role 4-hop-derived) (stv pending)) MeTTa)
-(: (semantic-relation decompose reify (role analyzes-into) (stv 0.8 0.8)) MeTTa)
-(: (semantic-relation modulate calibrate (role refines-via) (stv 0.8 0.75)) MeTTa)
