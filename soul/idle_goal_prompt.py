@@ -351,13 +351,13 @@ def supervisor_format_genesis_directive(genesis):
     if domains and len(domains) >= 2:
         d1, d2 = random.sample(domains, 2)
         lines.append('DOMAINS: Sample atoms from %s and %s.' % (d1, d2))
-        lines.append('ACTION: Use (metta (|- atom1 atom2)) to test what NAL derives.')
+        lines.append('ACTION: |- computes a value it does NOT display. Capture it: (metta "(add-atom &self (|- atom1 atom2))") then read it back with (metta "(match &self $x $x)"). Do not expect a visible derivation from a bare (metta (|- ...)).')
     elif domains:
         lines.append('DOMAIN: Explore %s for unexpected connections.' % (domains[0] if domains else "general"))
     lines.append('')
     lines.append('PROTOCOL:')
     lines.append('1. Query atoms from these domains using (metta (match &self ...))')
-    lines.append('2. Feed two atoms from different domains to NAL: (metta (|- atom1 atom2))')
+    lines.append('2. Feed two atoms to NAL and CAPTURE the result with add-atom (it is not displayable): (metta "(add-atom &self (|- atom1 atom2))")')
     lines.append('3. If the result is surprising or paradoxical, HOLD it. Do not resolve.')
     lines.append('4. Report what you observe. Record insight via (remember ...).')
     lines.append('5. If nothing emerges, that is fine. Move on.')
