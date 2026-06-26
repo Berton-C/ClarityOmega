@@ -15,12 +15,12 @@
     "- Search the web using the Tavily Search Agent: (tavily-search string_in_quotes)"
     "- Get technical analysis for a stock ticker using the Technical Analysis Agent: (technical-analysis ticker_in_quotes)"
     ;CODE EXECUTION:
-    "- Execute MeTTa expression: (metta sexpression)"
+    "- Execute MeTTa expression: (metta sexpression_in_quotes)"
     "Example to invoke Non-Axiomatic Logic via MeTTa: "
-    "(metta (|- ((--> (× sam garfield) friend) (stv 1.0 0.9))"
-    "           ((--> garfield animal) (stv 1.0 0.9))))"
-    "(metta (|- ((==> (--> (× $1 elephant) eat) (--> $1 ([] dangerous))) (stv 1.0 0.9))"
-    "           ((--> (× tiger elephant) eat) (stv 1.0 0.9))))"
+    "(metta \"(|- ((--> (× sam garfield) friend) (stv 1.0 0.9))"
+    "           ((--> garfield animal) (stv 1.0 0.9)))\")"
+    "(metta \"(|- ((==> (--> (× $1 elephant) eat) (--> $1 ([] dangerous))) (stv 1.0 0.9))"
+    "           ((--> (× tiger elephant) eat) (stv 1.0 0.9)))\")"
     "Also: note the $1 for independent variables, and for negated knowledge use (stv 0.0 0.9)"
     "Additionally |- also works for revision, to merge evidence even when the term of both premises is the same."))
 
