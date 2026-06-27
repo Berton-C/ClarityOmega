@@ -24,6 +24,7 @@
 
 from collections import deque
 import re
+import json
 from datetime import datetime
 import chromadb
 
@@ -67,20 +68,130 @@ def around_time(needle_time_str, k):
         ret += f"{lineno}:{line}"
     return ret
 
+# ---- Canon command-batch assembler (adopted from patham9/mettaclaw upstream) ----
+# Replaces the prior salvage-and-wrap balance_parentheses, which manufactured
+# (((( over-nesting from blob input (session diagnosis, 16 tests). Patrick's
+# design: split the response into command-headed lines, JSON-quote each
+# argument, join once into the superpose-ready ((cmd)(cmd)) batch. Requires the
+# one-command-per-line OUTPUT_FORMAT contract (behavioral_guidance.metta).
+# LLM_COMMANDS reconciled to OUR live skill set (15): getSkills 13 + promote
+# + demote (promote/demote live in memory.metta, used when prompted).
+LLM_COMMANDS = {
+    "pin",
+    "remember",
+    "query",
+    "episodes",
+    "search",
+    "send",
+    "promote",
+    "demote",
+    "metta",
+    "shell",
+    "read-file",
+    "write-file",
+    "append-file",
+    "tavily-search",
+    "technical-analysis",
+}
+
+
+def quote_arg(x):
+    return json.dumps(x, ensure_ascii=False)
+
+
+def starts_command_line(line):
+    s = line.lstrip()
+    if not s:
+        return False
+    if s.startswith("("):
+        s = s[1:].lstrip()
+    if not s:
+        return False
+    first = s.split(maxsplit=1)[0].rstrip(")")
+    return first in LLM_COMMANDS
+
+
+def split_command_blocks(s):
+    blocks = []
+    cur = []
+    for raw in s.splitlines():
+        if not raw.strip():
+            if cur:
+                cur.append(raw)
+            continue
+        if starts_command_line(raw) and cur:
+            blocks.append("\n".join(cur).strip())
+            cur = [raw]
+        else:
+            cur.append(raw)
+    if cur:
+        blocks.append("\n".join(cur).strip())
+    return blocks
+
+
 def balance_parentheses(s):
-    s = s.replace("_quote_", '"').strip()
-    first_paren = s.find('(')
-    if first_paren > 0:
-        garbage = s[:first_paren].strip()
-        s = s[first_paren:]
-        if garbage:
-            garbage = garbage.replace('"', '\\"')
-            s = s[:1] + f'(pin "{garbage}") ' + s[1:]
-    if s.startswith("((") and s.endswith("))"):
-        return s
-    if s.startswith("(") and s.endswith(")"):
-        return f"({s})"
-    return f"(({s}))"
+    s = s.replace("_quote_", '"').replace("_newline_", "\n")
+    sexprs = []
+    special_two_arg_cmds = {"write-file", "append-file"}
+    for line in split_command_blocks(s):
+        line = line.strip()
+        if not line:
+            continue
+        if line.startswith("(-"):
+            line = "(pin -" + line[2:]
+        elif line.startswith("-"):
+            line = "pin " + line
+        if line.startswith("(") and line.endswith(")"):
+            line = line[1:-1].strip()
+        elif line.startswith("("):
+            line = line[1:].strip()
+        parts = line.split(maxsplit=1)
+        if not parts:
+            continue
+        cmd = parts[0]
+        rest = parts[1].strip() if len(parts) > 1 else ""
+        if cmd in special_two_arg_cmds:
+            if not rest:
+                sexprs.append(f"({cmd})")
+                continue
+            if rest.startswith('"'):
+                end = 1
+                escaped = False
+                while end < len(rest):
+                    ch = rest[end]
+                    if ch == '"' and not escaped:
+                        break
+                    escaped = (ch == '\\' and not escaped)
+                    if ch != '\\':
+                        escaped = False
+                    end += 1
+                if end < len(rest) and rest[end] == '"':
+                    filename = rest[:end+1]
+                    content = rest[end+1:].strip()
+                else:
+                    filename = quote_arg(rest[1:])
+                    content = ""
+            else:
+                split_rest = rest.split(maxsplit=1)
+                filename = quote_arg(split_rest[0])
+                content = split_rest[1].strip() if len(split_rest) > 1 else ""
+            if content:
+                if content.startswith('"') and content.endswith('"') and "\n" not in content:
+                    sexprs.append(f"({cmd} {filename} {content})")
+                else:
+                    sexprs.append(f"({cmd} {filename} {quote_arg(content)})")
+            else:
+                sexprs.append(f"({cmd} {filename})")
+            continue
+        if rest:
+            if rest.startswith('"') and rest.endswith('"') and "\n" not in rest:
+                sexprs.append(f"({cmd} {rest})")
+            else:
+                sexprs.append(f"({cmd} {quote_arg(rest)})")
+        else:
+            sexprs.append(f"({cmd})")
+    ret = " ".join(sexprs)
+    return "(" + ret + ")"
 
 def normalize_string(x):
     try:
