@@ -293,3 +293,261 @@ For each queue item:
 The map is complete when every TIER 1 and TIER 2 cell is PROVEN. At that point the
 NACE writer (and any future atom-manipulating primitive) rests on a fully-mapped
 foundation: every operation's behavior on every cardinality is known, not assumed.
+
+
+
+Apendix A:
+
+### June 25 2026 Artifact #1:
+(bcb) clarityclaw-omega% docker exec clarity_omega sh -c 'f=$(find /PeTTa/repos/omegaclaw -name "lib_nal*" -not -path "*/staging/*" -not -path "*/shared_files/*" 2>/dev/null | head -1); echo "FILE: $f"; echo "=== operator definition lines containing |- ==="; grep -n "(= (|-" "$f"; echo "=== all |-nal references ==="; grep -n "|-nal" "$f" | head -20; echo "=== bare |- references (excluding |-nal) ==="; grep -n "|-" "$f" | grep -v "|-nal" | head -20'
+FILE: /PeTTa/repos/omegaclaw/lib_nal.metta
+=== operator definition lines containing |- ===
+108:(= (|-nal ($T $T1) ($T $T2)) ($T (Truth_Revision $T1 $T2)))
+110:(= (|-nal ((--> $a $b) $T1) ((--> $b $c) $T2)) ((--> $a $c) (Truth_Deduction $T1 $T2)))
+111:(= (|-nal ((--> $a $b) $T1) ((--> $a $c) $T2)) ((--> $c $b) (Truth_Induction $T1 $T2)))
+112:(= (|-nal ((--> $a $c) $T1) ((--> $b $c) $T2)) ((--> $b $a) (Truth_Abduction $T1 $T2)))
+113:(= (|-nal ((--> $a $b) $T1) ((--> $b $c) $T2)) ((--> $c $a) (Truth_Exemplification $T1 $T2)))
+117:(= (|-nal ((<-> $S $P) $T)) ((<-> $P $S) (Truth_StructuralIntersection $T)))
+118:(= (|-nal ((<-> $M $P) $T1) ((<-> $S $M) $T2)) ((<-> $S $P) (Truth_Resemblance $T1 $T2)))
+119:(= (|-nal ((--> $P $M) $T1) ((--> $S $M) $T2)) ((<-> $S $P) (Truth_Comparison $T1 $T2)))
+120:(= (|-nal ((--> $M $P) $T1) ((--> $M $S) $T2)) ((<-> $S $P) (Truth_Comparison $T1 $T2)))
+121:(= (|-nal ((--> $M $P) $T1) ((<-> $S $M) $T2)) ((--> $S $P) (Truth_Analogy $T1 $T2)))
+122:(= (|-nal ((--> $P $M) $T1) ((<-> $S $M) $T2)) ((--> $P $S) (Truth_Analogy $T1 $T2)))
+123:(= (|-nal ((--> $M $P) $T1) ((<-> $M $S) $T2)) ((--> $S $P) (Truth_Analogy $T1 $T2)))
+124:(= (|-nal ((--> $P $M) $T1) ((<-> $M $S) $T2)) ((--> $P $S) (Truth_Analogy $T1 $T2)))
+126:(= (|-nal ((--> $S (ExtSet $P)) $T)) ((<-> $S (ExtSet $P)) (Truth_StructuralIntersection $T)))
+127:(= (|-nal ((--> (IntSet $S) $P) $T)) ((<-> (IntSet $S) $P) (Truth_StructuralIntersection $T)))
+128:(= (|-nal ((--> (ExtSet $M) $P) $T1) ((<-> $S $M) $T2)) ((--> (ExtSet $S) $P) (Truth_Analogy $T1 $T2)))
+129:(= (|-nal ((--> $P (IntSet $M)) $T1) ((<-> $S $M) $T2)) ((--> $P (IntSet $S)) (Truth_Analogy $T1 $T2)))
+130:(= (|-nal ((<-> (ExtSet $A) (ExtSet $B)) $T)) ((<-> $A $B) (Truth_StructuralIntersection $T)))
+131:(= (|-nal ((<-> (IntSet $A) (IntSet $B)) $T)) ((<-> $A $B) (Truth_StructuralIntersection $T)))
+135:(= (|-nal ((--> ({} $A $B) $M) $T)) ((--> ({} $A) $M) (Truth_StructuralDeduction $T)))
+136:(= (|-nal ((--> ({} $A $B) $M) $T)) ((--> ({} $B) $M) (Truth_StructuralDeduction $T)))
+137:(= (|-nal ((--> $M ([] $A $B)) $T)) ((--> $M ([] $A)) (Truth_StructuralDeduction $T)))
+138:(= (|-nal ((--> $M ([] $A $B)) $T)) ((--> $M ([] $B)) (Truth_StructuralDeduction $T)))
+140:(= (|-nal ((--> (∪ $S $P) $M) $T)) ((--> $S $M) (Truth_StructuralDeduction $T)))
+141:(= (|-nal ((--> $M (∩ $S $P)) $T)) ((--> $M $S) (Truth_StructuralDeduction $T)))
+142:(= (|-nal ((--> (∪ $S $P) $M) $T)) ((--> $P $M) (Truth_StructuralDeduction $T)))
+143:(= (|-nal ((--> $M (∩ $S $P)) $T)) ((--> $M $P) (Truth_StructuralDeduction $T)))
+144:(= (|-nal ((--> (~ $A $S) $M) $T)) ((--> $A $M) (Truth_StructuralDeduction $T)))
+145:(= (|-nal ((--> $M (− $B $S)) $T)) ((--> $M $B) (Truth_StructuralDeduction $T)))
+146:(= (|-nal ((--> (~ $A $S) $M) $T)) ((--> $S $M) (Truth_StructuralDeductionNegated $T)))
+147:(= (|-nal ((--> $M (− $B $S)) $T)) ((--> $M $S) (Truth_StructuralDeductionNegated $T)))
+149:(= (|-nal ((--> $S $M) $T1) ((--> (∪ $S $P) $M) $T2)) ((--> $P $M) (Truth_DecomposePNN $T1 $T2)))
+150:(= (|-nal ((--> $P $M) $T1) ((--> (∪ $S $P) $M) $T2)) ((--> $S $M) (Truth_DecomposePNN $T1 $T2)))
+151:(= (|-nal ((--> $S $M) $T1) ((--> (∩ $S $P) $M) $T2)) ((--> $P $M) (Truth_DecomposeNPP $T1 $T2)))
+152:(= (|-nal ((--> $P $M) $T1) ((--> (∩ $S $P) $M) $T2)) ((--> $S $M) (Truth_DecomposeNPP $T1 $T2)))
+153:(= (|-nal ((--> $S $M) $T1) ((--> (~ $S $P) $M) $T2)) ((--> $P $M) (Truth_DecomposePNP $T1 $T2)))
+154:(= (|-nal ((--> $S $M) $T1) ((--> (~ $P $S) $M) $T2)) ((--> $P $M) (Truth_DecomposeNNN $T1 $T2)))
+155:(= (|-nal ((--> $M $S) $T1) ((--> $M (∩ $S $P)) $T2)) ((--> $M $P) (Truth_DecomposePNN $T1 $T2)))
+156:(= (|-nal ((--> $M $P) $T1) ((--> $M (∩ $S $P)) $T2)) ((--> $M $S) (Truth_DecomposePNN $T1 $T2)))
+157:(= (|-nal ((--> $M $S) $T1) ((--> $M (∪ $S $P)) $T2)) ((--> $M $P) (Truth_DecomposeNPP $T1 $T2)))
+158:(= (|-nal ((--> $M $P) $T1) ((--> $M (∪ $S $P)) $T2)) ((--> $M $S) (Truth_DecomposeNPP $T1 $T2)))
+159:(= (|-nal ((--> $M $S) $T1) ((--> $M (− $S $P)) $T2)) ((--> $M $P) (Truth_DecomposePNP $T1 $T2)))
+160:(= (|-nal ((--> $M $S) $T1) ((--> $M (− $P $S)) $T2)) ((--> $M $P) (Truth_DecomposeNNN $T1 $T2)))
+164:(= (|-nal ((--> (× $A $B) $R) $T1) ((--> (× $C $B) $R) $T2)) ((--> $C $A) (Truth_Abduction $T1 $T2)))
+165:(= (|-nal ((--> (× $A $B) $R) $T1) ((--> (× $A $C) $R) $T2)) ((--> $C $B) (Truth_Abduction $T1 $T2)))
+166:(= (|-nal ((--> $R (× $A $B)) $T1) ((--> $R (× $C $B)) $T2)) ((--> $C $A) (Truth_Induction $T1 $T2)))
+167:(= (|-nal ((--> $R (× $A $B)) $T1) ((--> $R (× $A $C)) $T2)) ((--> $C $B) (Truth_Induction $T1 $T2)))
+168:(= (|-nal ((--> (× $A $B) $R) $T1) ((--> $C $A) $T2)) ((--> (× $C $B) $R) (Truth_Deduction $T1 $T2)))
+169:(= (|-nal ((--> (× $A $B) $R) $T1) ((--> $A $C) $T2)) ((--> (× $C $B) $R) (Truth_Induction $T1 $T2)))
+170:(= (|-nal ((--> (× $A $B) $R) $T1) ((--> $C $B) $T2)) ((--> (× $A $C) $R) (Truth_Deduction $T1 $T2)))
+171:(= (|-nal ((--> (× $A $B) $R) $T1) ((--> $B $C) $T2)) ((--> (× $A $C) $R) (Truth_Induction $T1 $T2)))
+172:(= (|-nal ((--> $R (× $A $B)) $T1) ((--> $A $C) $T2)) ((--> $R (× $C $B)) (Truth_Deduction $T1 $T2)))
+173:(= (|-nal ((--> $R (× $A $B)) $T1) ((--> $C $A) $T2)) ((--> $R (× $C $B)) (Truth_Abduction $T1 $T2)))
+174:(= (|-nal ((--> $R (× $A $B)) $T1) ((--> $B $C) $T2)) ((--> $R (× $A $C)) (Truth_Deduction $T1 $T2)))
+175:(= (|-nal ((--> $R (× $A $B)) $T1) ((--> $C $B) $T2)) ((--> $R (× $A $C)) (Truth_Abduction $T1 $T2)))
+179:(= (|-nal ((==> $a $b) $T1) ((==> $b $c) $T2)) ((==> $a $c) (Truth_Deduction $T1 $T2)))
+180:(= (|-nal ((==> $a $b) $T1) ((==> $a $c) $T2)) ((==> $c $b) (Truth_Induction $T1 $T2)))
+181:(= (|-nal ((==> $a $c) $T1) ((==> $b $c) $T2)) ((==> $b $a) (Truth_Abduction $T1 $T2)))
+183:(= (|-nal ((¬ $A) $T)) ($A (Truth_Negation $T)))
+184:(= (|-nal ((∧ $A $B) $T)) ($A (Truth_StructuralDeduction $T)))
+185:(= (|-nal ((∧ $A $B) $T)) ($B (Truth_StructuralDeduction $T)))
+186:(= (|-nal ($S $T1) ((∧ $S $A) $T2)) ($A (Truth_DecomposePNN $T1 $T2)))
+187:(= (|-nal ($S $T1) ((∨ $S $A) $T2)) ($A (Truth_DecomposeNPP $T1 $T2)))
+188:(= (|-nal ($S $T1) ((∧ (¬ $S) $A) $T2)) ($A (Truth_DecomposeNNN $T1 $T2)))
+189:(= (|-nal ($S $T1) ((∨ (¬ $S) $A) $T2)) ($A (Truth_DecomposePPP $T1 $T2)))
+191:(= (|-nal ($A $T1) ((==> $A $B) $T2)) ($B (Truth_Deduction $T1 $T2)))
+192:(= (|-nal ($A $T1) ((==> (¬ $A) $B) $T2)) ($B (Truth_Deduction (Truth_Negation $T1) $T2)))
+193:(= (|-nal ((¬ $A) $T1) ((==> $A $B) $T2)) ($B (Truth_Deduction (Truth_Negation $T1) $T2)))
+194:(= (|-nal ($A $T1) ((==> (∧ $A $B) $C) $T2)) ((==> $B $C) (Truth_Deduction $T1 $T2)))
+195:(= (|-nal ((¬ $A) $T1) ((==> (∧ $A $B) $C) $T2)) ((==> $B $C) (Truth_Deduction (Truth_Negation $T1) $T2)))
+196:(= (|-nal ($A $T1) ((==> (∧ (¬ $A) $B) $C) $T2)) ((==> $B $C) (Truth_Deduction (Truth_Negation $T1) $T2)))
+197:(= (|-nal ($B $T1) ((==> $A $B) $T2)) ($A (Truth_Abduction $T1 $T2)))
+198:(= (|-nal ((¬ $B) $T1) ((==> $A $B) $T2)) ($A (Truth_Abduction (Truth_Negation $T1) $T2)))
+199:(= (|-nal ($B $T1) ((==> $A (¬ $B)) $T2)) ($A (Truth_Abduction (Truth_Negation $T1) $T2)))
+201:(= (|- $a $b)
+=== all |-nal references ===
+108:(= (|-nal ($T $T1) ($T $T2)) ($T (Truth_Revision $T1 $T2)))
+110:(= (|-nal ((--> $a $b) $T1) ((--> $b $c) $T2)) ((--> $a $c) (Truth_Deduction $T1 $T2)))
+111:(= (|-nal ((--> $a $b) $T1) ((--> $a $c) $T2)) ((--> $c $b) (Truth_Induction $T1 $T2)))
+112:(= (|-nal ((--> $a $c) $T1) ((--> $b $c) $T2)) ((--> $b $a) (Truth_Abduction $T1 $T2)))
+113:(= (|-nal ((--> $a $b) $T1) ((--> $b $c) $T2)) ((--> $c $a) (Truth_Exemplification $T1 $T2)))
+117:(= (|-nal ((<-> $S $P) $T)) ((<-> $P $S) (Truth_StructuralIntersection $T)))
+118:(= (|-nal ((<-> $M $P) $T1) ((<-> $S $M) $T2)) ((<-> $S $P) (Truth_Resemblance $T1 $T2)))
+119:(= (|-nal ((--> $P $M) $T1) ((--> $S $M) $T2)) ((<-> $S $P) (Truth_Comparison $T1 $T2)))
+120:(= (|-nal ((--> $M $P) $T1) ((--> $M $S) $T2)) ((<-> $S $P) (Truth_Comparison $T1 $T2)))
+121:(= (|-nal ((--> $M $P) $T1) ((<-> $S $M) $T2)) ((--> $S $P) (Truth_Analogy $T1 $T2)))
+122:(= (|-nal ((--> $P $M) $T1) ((<-> $S $M) $T2)) ((--> $P $S) (Truth_Analogy $T1 $T2)))
+123:(= (|-nal ((--> $M $P) $T1) ((<-> $M $S) $T2)) ((--> $S $P) (Truth_Analogy $T1 $T2)))
+124:(= (|-nal ((--> $P $M) $T1) ((<-> $M $S) $T2)) ((--> $P $S) (Truth_Analogy $T1 $T2)))
+126:(= (|-nal ((--> $S (ExtSet $P)) $T)) ((<-> $S (ExtSet $P)) (Truth_StructuralIntersection $T)))
+127:(= (|-nal ((--> (IntSet $S) $P) $T)) ((<-> (IntSet $S) $P) (Truth_StructuralIntersection $T)))
+128:(= (|-nal ((--> (ExtSet $M) $P) $T1) ((<-> $S $M) $T2)) ((--> (ExtSet $S) $P) (Truth_Analogy $T1 $T2)))
+129:(= (|-nal ((--> $P (IntSet $M)) $T1) ((<-> $S $M) $T2)) ((--> $P (IntSet $S)) (Truth_Analogy $T1 $T2)))
+130:(= (|-nal ((<-> (ExtSet $A) (ExtSet $B)) $T)) ((<-> $A $B) (Truth_StructuralIntersection $T)))
+131:(= (|-nal ((<-> (IntSet $A) (IntSet $B)) $T)) ((<-> $A $B) (Truth_StructuralIntersection $T)))
+135:(= (|-nal ((--> ({} $A $B) $M) $T)) ((--> ({} $A) $M) (Truth_StructuralDeduction $T)))
+=== bare |- references (excluding |-nal) ===
+201:(= (|- $a $b)
+(bcb) clarityclaw-omega% 
+
+
+### June 25 2026 Artifact #2:
+(bcb) clarityclaw-omega% docker exec clarity_omega sh -c 'echo "=== bare |- definition body, lines 201-225 ==="; sed -n "201,225p" /PeTTa/repos/omegaclaw/lib_nal.metta'
+=== bare |- definition body, lines 201-225 ===
+(= (|- $a $b)
+   (unique-atom (collapse (superpose ((|-nal $a $b) (|-nal $b $a))))))
+(bcb) clarityclaw-omega% 
+
+
+### June 25 2026 Artifact #3:
+(bcb) clarityclaw-omega% docker run --rm --entrypoint python3 clarityclaw-omega-clarityclaw -c '
+import subprocess, os
+Q=chr(34); NL=chr(10)
+P=[
+"!(import! &self (library lib_import))",
+"!(git-import! "+Q+"https://github.com/asi-alliance/omegaClaw-Core.git"+Q+")",
+"!(import! &self (library omegaclaw lib_omegaclaw))",
+"!(println! (PROBE_1_libnal_reduces_GATE))",
+"!(metta "+Q+"(|-nal ((--> a b) (stv 1.0 0.9)) ((--> b c) (stv 1.0 0.9)))"+Q+")",
+"!(println! (PROBE_2_quoted_bar_nal_THE_FIX))",
+"!(metta "+Q+"(|- ((--> sam friend) (stv 1.0 0.9)) ((--> friend animal) (stv 1.0 0.9)))"+Q+")",
+"!(println! (PROBE_3_bare_bar_nal_HER_OLD_FORM))",
+"!(metta (|- ((--> sam friend) (stv 1.0 0.9)) ((--> friend animal) (stv 1.0 0.9))))",
+"!(println! (PROBE_4_bare_match_HER_CURRENT_FORM))",
+"!(metta (match &self (--> $x foo) $x))",
+"!(println! (PROBE_5_quoted_match))",
+"!(metta "+Q+"(match &self (--> $x foo) $x)"+Q+")",
+"!(println! (PROBE_END))",
+]
+open("/tmp/probe.metta","w").write(NL.join(P)+NL)
+env=dict(os.environ); pl="/PeTTa/mork_ffi/target/release/libmork_ffi.so"
+a=["swipl","--stack_limit=8g","-q","-s","/PeTTa/src/main.pl","--","/tmp/probe.metta","default"]
+if os.path.exists(pl):
+    env["LD_PRELOAD"]=pl; a=a+["mork"]
+try:
+    r=subprocess.run(a,cwd="/PeTTa",env=env,capture_output=True,timeout=120)
+    o=(r.stdout+r.stderr).decode("utf-8","replace")
+except subprocess.TimeoutExpired as e:
+    o="TIMEOUT_120s"+NL+(e.stdout or b"").decode("utf-8","replace")+(e.stderr or b"").decode("utf-8","replace")
+i=o.find("PROBE_1")
+print(o if i<0 else o[i:])
+'
+WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+PROBE_1_libnal_reduces_GATE))
+-->  prolog goal  --> 
+:- findall(A, 'println!'(['PROBE_1_libnal_reduces_GATE'], A), _).
+^^^^^^^^^^^^^^^^^^^^^^^
+(PROBE_1_libnal_reduces_GATE)
+--> metta runnable  -->
+!(metta "(|-nal ((--> a b) (stv 1.0 0.9)) ((--> b c) (stv 1.0 0.9)))")
+-->  prolog goal  --> 
+:- findall(A,
+           metta("(|-nal ((--> a b) (stv 1.0 0.9)) ((--> b c) (stv 1.0 0.9)))",
+                 A),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(println! (PROBE_2_quoted_bar_nal_THE_FIX))
+-->  prolog goal  --> 
+:- findall(A, 'println!'(['PROBE_2_quoted_bar_nal_THE_FIX'], A), _).
+^^^^^^^^^^^^^^^^^^^^^^^
+(PROBE_2_quoted_bar_nal_THE_FIX)
+--> metta runnable  -->
+!(metta "(|- ((--> sam friend) (stv 1.0 0.9)) ((--> friend animal) (stv 1.0 0.9)))")
+-->  prolog goal  --> 
+:- findall(A,
+           metta("(|- ((--> sam friend) (stv 1.0 0.9)) ((--> friend animal) (stv 1.0 0.9)))",
+                 A),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(println! (PROBE_3_bare_bar_nal_HER_OLD_FORM))
+-->  prolog goal  --> 
+:- findall(A,
+           'println!'(['PROBE_3_bare_bar_nal_HER_OLD_FORM'], A),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+(PROBE_3_bare_bar_nal_HER_OLD_FORM)
+--> metta runnable  -->
+!(metta (|- ((--> sam friend) (stv 1.0 0.9)) ((--> friend animal) (stv 1.0 0.9))))
+-->  prolog goal  --> 
+:- findall(A,
+           ( '|-'([[-->, sam, friend], [stv, 1.0, 0.9]],
+                  [[-->, friend, animal], [stv, 1.0, 0.9]],
+                  B),
+             metta(B, A)
+           ),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+
+ERROR: /PeTTa/src/main.pl:23: user:main atom_string/2: Type error: `string' expected, found `[[[-->,sam,animal],[stv,1.0,0.81]],[[-->,animal,sam],[stv,1.0,0.44751381215469616]]]' (a list)
+
+(bcb) clarityclaw-omega% 
+
+|||||||||||||||||||||||||||||
+++++ Docker log of "docker run --rm --entrypoint python3 clarityclaw-omega-clarityclaw" Commmand:
+|||||||||||||||||||||||||||||
+priceless_carver  | PROBE_1_libnal_reduces_GATE))
+priceless_carver  | -->  prolog goal  --> 
+priceless_carver  | :- findall(A, 'println!'(['PROBE_1_libnal_reduces_GATE'], A), _).
+priceless_carver  | ^^^^^^^^^^^^^^^^^^^^^^^
+priceless_carver  | (PROBE_1_libnal_reduces_GATE)
+priceless_carver  | --> metta runnable  -->
+priceless_carver  | !(metta "(|-nal ((--> a b) (stv 1.0 0.9)) ((--> b c) (stv 1.0 0.9)))")
+priceless_carver  | -->  prolog goal  --> 
+priceless_carver  | :- findall(A,
+priceless_carver  |            metta("(|-nal ((--> a b) (stv 1.0 0.9)) ((--> b c) (stv 1.0 0.9)))",
+priceless_carver  |                  A),
+priceless_carver  |            _).
+priceless_carver  | ^^^^^^^^^^^^^^^^^^^^^^^
+priceless_carver  | --> metta runnable  -->
+priceless_carver  | !(println! (PROBE_2_quoted_bar_nal_THE_FIX))
+priceless_carver  | -->  prolog goal  --> 
+priceless_carver  | :- findall(A, 'println!'(['PROBE_2_quoted_bar_nal_THE_FIX'], A), _).
+priceless_carver  | ^^^^^^^^^^^^^^^^^^^^^^^
+priceless_carver  | (PROBE_2_quoted_bar_nal_THE_FIX)
+priceless_carver  | --> metta runnable  -->
+priceless_carver  | !(metta "(|- ((--> sam friend) (stv 1.0 0.9)) ((--> friend animal) (stv 1.0 0.9)))")
+priceless_carver  | -->  prolog goal  --> 
+priceless_carver  | :- findall(A,
+priceless_carver  |            metta("(|- ((--> sam friend) (stv 1.0 0.9)) ((--> friend animal) (stv 1.0 0.9)))",
+priceless_carver  |                  A),
+priceless_carver  |            _).
+priceless_carver  | ^^^^^^^^^^^^^^^^^^^^^^^
+priceless_carver  | --> metta runnable  -->
+priceless_carver  | !(println! (PROBE_3_bare_bar_nal_HER_OLD_FORM))
+priceless_carver  | -->  prolog goal  --> 
+priceless_carver  | :- findall(A,
+priceless_carver  |            'println!'(['PROBE_3_bare_bar_nal_HER_OLD_FORM'], A),
+priceless_carver  |            _).
+priceless_carver  | ^^^^^^^^^^^^^^^^^^^^^^^
+priceless_carver  | (PROBE_3_bare_bar_nal_HER_OLD_FORM)
+priceless_carver  | --> metta runnable  -->
+priceless_carver  | !(metta (|- ((--> sam friend) (stv 1.0 0.9)) ((--> friend animal) (stv 1.0 0.9))))
+priceless_carver  | -->  prolog goal  --> 
+priceless_carver  | :- findall(A,
+priceless_carver  |            ( '|-'([[-->, sam, friend], [stv, 1.0, 0.9]],
+priceless_carver  |                   [[-->, friend, animal], [stv, 1.0, 0.9]],
+priceless_carver  |                   B),
+priceless_carver  |              metta(B, A)
+priceless_carver  |            ),
+priceless_carver  |            _).
+priceless_carver  | ^^^^^^^^^^^^^^^^^^^^^^^
+priceless_carver  | 
+priceless_carver  | ERROR: /PeTTa/src/main.pl:23: user:main atom_string/2: Type error: `string' expected, found `[[[-->,sam,animal],[stv,1.0,0.81]],[[-->,animal,sam],[stv,1.0,0.44751381215469616]]]' (a list)
+priceless_carver  | 
+priceless_carver exited with code 0
+
+
