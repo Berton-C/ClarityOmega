@@ -1,0 +1,250 @@
+(bcb) clarityclaw-omega% python3 staging/capability_registry_diagnostic.py --keep-temp
+======================================================================
+Capability Registry Caller-Interface Diagnostic
+======================================================================
+
+PREFLIGHT
+  [OK] container 'clarity_omega' running
+  [OK] registry: /PeTTa/repos/omegaclaw/soul/capability_registry_path_c_draft.metta
+  [OK] harness: /PeTTa/repos/omegaclaw/soul/capability_registry_harness.metta
+  [OK] evaluator: run-sh (/PeTTa/run.sh)
+
+BUILDING COMBINED INPUT (registry + harness)
+  [OK] combined input: 20134 chars
+
+EVALUATING
+  evaluator returncode: 0
+  combined temp file: /tmp/cap_registry_combined_20260531_092301.metta (container; maps to host shared_files/)
+  full log: /tmp/cap_registry_diagnostic_20260531_092302.log (container; maps to host shared_files/)
+
+PARSING TESTS
+  parsed 6 test sections: TEST 1, TEST 1a, TEST 2, TEST 3, TEST 4, TEST 4a
+
+======================================================================
+PER-TEST OUTPUT
+======================================================================
+
+--- TEST 1 ---
+-->  prolog goal  --> 
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(dispatch (test-request data: payload-1) test-inv-001)
+-->  prolog goal  --> 
+           dispatch(['test-request', 'data:', 'payload-1'], 'test-inv-001', A),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+
+--- TEST 1a ---
+-->  prolog goal  --> 
+                      A),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(collapse (match &self
+      (capability-invoked invocation-id: test-inv-001 handler: $h input-atom: $a)
+      $h))
+-->  prolog goal  --> 
+           findall(B,
+                   match('&self',
+                         [ 'capability-invoked',
+                           'invocation-id:',
+                           'test-inv-001',
+                           'handler:',
+                           B,
+                           'input-atom:',
+                           _
+                         ],
+                         B,
+                         B),
+                   A),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+
+--- TEST 2 ---
+-->  prolog goal  --> 
+                      A),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(let $raw (collapse
+         (match &self
+                (registered-capability schema: (test-request data: $d)
+                                       handler: $h priority: $p lifecycle: $l)
+                (raw-cap-entry handler: $h priority: $p lifecycle: $l)))
+      (resolve-and-filter-entries $raw ()))
+-->  prolog goal  --> 
+           ( B=C,
+             findall([ 'raw-cap-entry',
+                       'handler:',
+                       D,
+                       'priority:',
+                       E,
+                       'lifecycle:',
+                       F
+                     ],
+                     match('&self',
+                           [ 'registered-capability',
+                             'schema:',
+                             ['test-request', 'data:', _],
+                             'handler:',
+                             D,
+                             'priority:',
+                             E,
+                             'lifecycle:',
+                             F
+                           ],
+                           [ 'raw-cap-entry',
+                             'handler:',
+                             D,
+                             'priority:',
+                             E,
+                             'lifecycle:',
+                             F
+                           ],
+                           [ 'raw-cap-entry',
+                             'handler:',
+                             D,
+                             'priority:',
+                             E,
+                             'lifecycle:',
+                             F
+                           ]),
+                     C),
+             'resolve-and-filter-entries'(B, [], A)
+           ),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta sexpr -->
+(capability-efficacy-observation handler: test-cap-low efficacy: 0.8)
+^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+
+--- TEST 3 ---
+-->  prolog goal  --> 
+                      A),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(let $raw (collapse
+         (match &self
+                (registered-capability schema: (test-request data: $d)
+                                       handler: $h priority: $p lifecycle: $l)
+                (raw-cap-entry handler: $h priority: $p lifecycle: $l)))
+      (resolve-and-filter-entries $raw ()))
+-->  prolog goal  --> 
+           ( B=C,
+             findall([ 'raw-cap-entry',
+                       'handler:',
+                       D,
+                       'priority:',
+                       E,
+                       'lifecycle:',
+                       F
+                     ],
+                     match('&self',
+                           [ 'registered-capability',
+                             'schema:',
+                             ['test-request', 'data:', _],
+                             'handler:',
+                             D,
+                             'priority:',
+                             E,
+                             'lifecycle:',
+                             F
+                           ],
+                           [ 'raw-cap-entry',
+                             'handler:',
+                             D,
+                             'priority:',
+                             E,
+                             'lifecycle:',
+                             F
+                           ],
+                           [ 'raw-cap-entry',
+                             'handler:',
+                             D,
+                             'priority:',
+                             E,
+                             'lifecycle:',
+                             F
+                           ]),
+                     C),
+             'resolve-and-filter-entries'(B, [], A)
+           ),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+
+--- TEST 4 ---
+-->  prolog goal  --> 
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(dispatch (unmatched-request foo: bar) test-inv-002)
+-->  prolog goal  --> 
+           dispatch(['unmatched-request', 'foo:', bar], 'test-inv-002', A),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+
+--- TEST 4a ---
+-->  prolog goal  --> 
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(collapse (match &self
+      (dispatch-fallback-activated invocation-id: test-inv-002 input-atom: $a reason: $r)
+      ($a $r)))
+-->  prolog goal  --> 
+           findall(B,
+                   (match('&self', ['dispatch-fallback-activated', 'invocation-id:', 'test-inv-002', 'input-atom:', C, 'reason:', D], B, B), reduce([C, D], B)),
+                   A),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+true
+true
+true
+true
+(test-cap-default test-cap-high)
+true
+((cap-entry priority: 80 handler: test-cap-default) (cap-entry priority: 100 handler: test-cap-high))
+true
+((cap-entry priority: 80 handler: test-cap-default) (cap-entry priority: 90 handler: test-cap-low) (cap-entry priority: 100 handler: test-cap-high))
+true
+true
+true
+(((unmatched-request foo: bar) no-matching-capability))
+
+======================================================================
+VERDICT
+======================================================================
+  TEST 1a    INSPECT  expected high+default present, low absent; got: -->  prolog goal  --> 
+                      A),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(collapse (match &self
+      (capability-invoked invocation-id
+  TEST 2     FAIL     test-cap-low in eligible set; efficacy filter not gating at 0.3
+  TEST 3     FAIL     test-cap-low still filtered after 0.8 override; override path not consulted
+  TEST 4a    PASS     fallback fires on unmatched input; caller treats fallback cycle as nothing-to-log
+
+  1 of 4 criteria PASS
+
+======================================================================
+THE GAP (read regardless of pass/fail)
+======================================================================
+  The efficacy-filter-step reads capability-efficacy-rate (baseline)
+  and capability-efficacy-observation (override). It does NOT read a
+  learned counts atom. The NACE caller writes learned efficacy as
+  counts. For the filter to consume what the caller learns, extend
+  efficacy-filter-step to read the learned atom in resolution order:
+  observation > learned > declared-baseline > default. This is the
+  one registry edit the caller build depends on. TEST 3 confirms the
+  override path works today; the learned-atom path is the edit needed.
+
+  Full output preserved at /tmp/cap_registry_diagnostic_20260531_092302.log inside the container.
+  (host: shared_files/cap_registry_diagnostic_20260531_092302.log)
+(bcb) clarityclaw-omega% 

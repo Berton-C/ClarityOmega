@@ -1,0 +1,1159 @@
+(bcb) clarityclaw-omega% python3 staging/apply_step4_5_6_predicate_fix.py --reverse --apply && python3 staging/apply_step4_6.py --reverse --apply && python3 staging/apply_step4_5.py --reverse --apply
+
+========== STEP 4.5/4.6 PREDICATE FIX: REVERSE ==========
+
+>>> soul/idle_cycle_detector.metta <<<
+  Path: soul/idle_cycle_detector.metta
+  Pre-edit lines: 121
+  Pre-edit parens: opens=85 closes=85 delta=0 (OK)
+  State check: new_block_present=True -> OK
+  Post-edit parens: opens=85 closes=85 delta=0 (OK)
+  Line delta: -9 (expected -9) (OK)
+
+>>> soul/agency_balance_guard.metta <<<
+  Path: soul/agency_balance_guard.metta
+  Pre-edit lines: 181
+  Pre-edit parens: opens=179 closes=179 delta=0 (OK)
+  State check: new_block_present=True -> OK
+  Post-edit parens: opens=171 closes=171 delta=0 (OK)
+  Line delta: -14 (expected -14) (OK)
+
+========== DIFF PREVIEWS ==========
+--- soul/idle_cycle_detector.metta (lines 55 to 78) ---
+     (or (== $tag responsive-send) (== $tag status-send-unprompted)))
+  
+- ;; === PREDICATE-FILTERED LIST COUNTER ===
+- ;; Private 2-clause recursive counter that applies is-send-action?
+- ;; during recursion. Pattern per task_state.metta count-pending-list
+- ;; (Sprint 3, Clarity-reviewed) plus filter-in-counter idiom.
+- ;;
+- ;; Why this shape (Sprint 3 Section 11):
+- ;;   The naive collapse-with-if-defaulting-to-() pattern pads results
+- ;;   with () markers, producing a non-empty list when nothing matches.
+- ;;   By projecting just $tag in the match and filtering in the counter,
+- ;;   the if-branches return numbers (not ()), avoiding the trap.
+- (= (count-send-tags ()) 0)
+- (= (count-send-tags ($head $tail))
+-    (if (is-send-action? $head)
+-        (+ 1 (count-send-tags $tail))
+-        (count-send-tags $tail)))
+- 
+- ;; === WINDOW COUNT ===
+- ;; Count send-class recent-action atoms in the current window.
+- ;; The window is implicit (10 cycles, per recent_action_populator.metta).
+- ;; Match projects just $tag for every recent-action; count-send-tags
+- ;; recursively filters by predicate and returns the matching count.
+- (= (count-sends-in-window)
+-    (let $tags (collapse (match &self (recent-action $c $tag $d) $tag))
+-       (count-send-tags $tags)))
++ ;; === LIST LENGTH HELPER ===
++ ;; Private 2-clause recursive counter for collapse-then-count pattern.
++ (= (count-send-list ()) 0)
++ (= (count-send-list ($head $tail)) (+ 1 (count-send-list $tail)))
++ 
++ ;; === WINDOW COUNT ===
++ ;; Count send-class recent-action atoms in the current window.
++ ;; The window is implicit (10 cycles, per recent_action_populator.metta
++ ;; line 23 (recent-action-window) 3). collapse over the match yields
++ ;; a list of cycle-ids for send-class actions; count-send-list returns
++ ;; the length.
++ (= (count-sends-in-window)
++    (let $sends (collapse (match &self (recent-action $c $tag $d)
++                                        (if (is-send-action? $tag) $c ())))
++       (count-send-list $sends)))
+  
+  ;; === PUBLIC READ HELPER ===
+
+--- soul/agency_balance_guard.metta (lines 110 to 139) ---
+             (or (== $tag pin-only) (== $tag unclassified)))))
+  
+- ;; Private 2-clause recursive predicate-filtered counters.
+- ;; Pattern per task_state.metta count-pending-list (Sprint 3) plus
+- ;; filter-in-counter idiom. Per Sprint 3 Section 11, the naive
+- ;; collapse-with-if-defaulting-to-() pattern pads results with () markers
+- ;; producing non-empty lists; the safe pattern projects just $tag in the
+- ;; match and filters in the recursive counter where if returns numbers.
+- (= (count-person-tags ()) 0)
+- (= (count-person-tags ($head $tail))
+-    (if (is-person-action? $head)
+-        (+ 1 (count-person-tags $tail))
+-        (count-person-tags $tail)))
+- 
+- (= (count-system-tags ()) 0)
+- (= (count-system-tags ($head $tail))
+-    (if (is-system-action? $head)
+-        (+ 1 (count-system-tags $tail))
+-        (count-system-tags $tail)))
+- 
+- ;; Count person-class actions in current recent-action window (10 cycles).
+- ;; Window is implicit (recent_action_populator.metta prunes at 10).
+- ;; Match projects just $tag; count-person-tags filters by predicate.
+- (= (count-person-actions-in-window)
+-    (let $tags (collapse (match &self (recent-action $c $tag $d) $tag))
+-       (count-person-tags $tags)))
+- 
+- ;; Count system-class actions in current recent-action window (10 cycles).
+- ;; Same shape as count-person-actions-in-window with the system predicate.
+- (= (count-system-actions-in-window)
+-    (let $tags (collapse (match &self (recent-action $c $tag $d) $tag))
+-       (count-system-tags $tags)))
++ ;; Private 2-clause recursive list counter (mirrors idle_cycle_detector pattern)
++ (= (count-agency-list ()) 0)
++ (= (count-agency-list ($head $tail)) (+ 1 (count-agency-list $tail)))
++ 
++ ;; Count person-class actions in current recent-action window (10 cycles).
++ ;; Window is implicit (recent_action_populator.metta prunes at 10).
++ (= (count-person-actions-in-window)
++    (let $persons (collapse (match &self (recent-action $c $tag $d)
++                                           (if (is-person-action? $tag) $c ())))
++       (count-agency-list $persons)))
++ 
++ ;; Count system-class actions in current recent-action window (10 cycles).
++ (= (count-system-actions-in-window)
++    (let $systems (collapse (match &self (recent-action $c $tag $d)
++                                           (if (is-system-action? $tag) $c ())))
++       (count-agency-list $systems)))
+  
+  ;; Public read helper: returns (verdict person system) tuple or () if
+
+========== SUMMARY: WHAT --reverse --apply WILL DO ==========
+Direction: REVERSE
+Backup suffix: .bak.step4_5_6_predicate_fix (created on apply, not on dry-run)
+
+  soul/idle_cycle_detector.metta
+    Edit 1: Replace count-send-list + count-sends-in-window with predicate-filtered count-send-tags pattern (per Sprint 3 Section 11 collapse-trap fix; task_state.metta count-pending-threads idiom)
+    Lines: 121 -> 112 (-9)
+    parens 85/85 (delta 0) -> 85/85 (delta 0) balanced
+    Backup target: soul/idle_cycle_detector.metta.bak.step4_5_6_predicate_fix
+
+  soul/agency_balance_guard.metta
+    Edit 2: Replace count-agency-list + count-person-actions-in-window + count-system-actions-in-window with predicate-filtered count-person-tags + count-system-tags pattern (same Sprint 3 fix)
+    Lines: 181 -> 167 (-14)
+    parens 179/179 (delta 0) -> 171/171 (delta 0) balanced
+    Backup target: soul/agency_balance_guard.metta.bak.step4_5_6_predicate_fix
+
+Total edits: 2 coordinated changes across 2 files
+Reversibility: python3 staging/apply_step4_5_6_predicate_fix.py --apply
+Post-apply container rebuild required (--no-cache for soul/ changes)
+
+========== WRITING ==========
+Wrote: soul/idle_cycle_detector.metta
+Wrote: soul/agency_balance_guard.metta
+
+========== DISK VERIFICATION ==========
+  soul/idle_cycle_detector.metta parens: opens=85 closes=85 delta=0 (expected 0)
+  soul/idle_cycle_detector.metta state: anchor=True, new_absent=True -> OK
+  soul/agency_balance_guard.metta parens: opens=171 closes=171 delta=0 (expected 0)
+  soul/agency_balance_guard.metta state: anchor=True, new_absent=True -> OK
+
+========== STEP 4.5/4.6 PREDICATE FIX COMPLETE ==========
+
+========== STEP 4.6 AGENCY_BALANCE_GUARD: REVERSE ==========
+
+>>> soul/agency_balance_guard.metta <<<
+  Path: soul/agency_balance_guard.metta
+  Pre-edit lines: 167
+  Pre-edit parens: opens=171 closes=171 delta=0 (expected 0) (OK)
+  State check: new_block_present=True -> OK
+  Post-edit parens: opens=70 closes=70 delta=0 (expected 0) (OK)
+  Line delta: -102 (expected -102) (OK)
+
+>>> src/helper.py <<<
+  Path: src/helper.py
+  Pre-edit lines: 1535
+  State check: new_block_present=True -> OK
+  Line delta: -33 (expected -33) (OK)
+
+>>> src/loop.metta <<<
+  Path: src/loop.metta
+  Pre-edit lines: 159
+  Pre-edit parens: opens=451 closes=451 delta=0 (file's by-design baseline)
+  State check: cycle_new=True, prompt_new=True -> OK
+  Post-edit parens: opens=448 closes=448 delta=0 (change=+0, expected 0)
+  Line delta: -2 (expected -2) (OK)
+
+>>> lib_clarity_reasoning/lib_clarity_reasoning.metta <<<
+  Path: lib_clarity_reasoning/lib_clarity_reasoning.metta
+  Pre-edit lines: 73
+  State check: new_block_present=True -> OK
+  Line delta: -3 (expected -3) (OK)
+
+========== DIFF PREVIEWS ==========
+--- soul/agency_balance_guard.metta (lines 3 to 167) ---
+  ;; agency_balance_guard.metta -- dependency creep protection
+  ;; Author: ClarityClaw  Date: 2026-04-26
+- ;; v1 cycle-level wiring added 2026-05-14 (Step 4.6)
+- ;;
+- ;; Addresses AgencyBalance GAP-SIGNAL: satisfaction and increasing
+- ;; dependency co-occurring (fired 20+ times across sessions).
+- ;; ECOSYSTEM-DEGRADATION: AgencyBalance-needs-SharedUnderstanding
+- ;;
+- ;; Root cause: when the system carries more choices, the person
+- ;; reports satisfaction while their autonomous decision-making
+- ;; atrophies. Comfort masks capability erosion.
+- ;;
+- ;; Mechanism: track choice-origin ratio and detect when system-originated
+- ;; choices dominate, then inject agency-return signals.
+- ;;
+- ;; v1 detection rule (Clarity-confirmed):
+- ;;   Count person-class action tags (responsive-send, verification-query)
+- ;;   and system-class action tags (status-send-unprompted, exploration-query,
+- ;;   pin-only, unclassified) in the current recent-action window (10
+- ;;   cycles). If system-ratio > dependency-threshold (0.6), emit
+- ;;   (agency-balance dependency-risk $person $system); else emit
+- ;;   (agency-balance healthy $person $system).
+- ;;
+- ;; v1 scope (Clarity Q5): expose dependency-detected + counts only.
+- ;; ecosystem-healthy machinery (shared-understanding-present check)
+- ;; is preserved for reasoning by other consumers but not included in
+- ;; the v1 cycle-emitted verdict. shared-understanding-present has no
+- ;; real signal source; including it would emit a known-false signal.
+- ;; Defer to v2 when shared-understanding has an observable basis.
+- ;;
+- ;; Pin-only mapping: system-count per Clarity post-burst clarification
+- ;; (three independent responses confirmed 6-of-7 majority direction).
+- ;; Pin writes Clarity's internal working memory; not human-facing.
+- ;;
+- ;; PeTTa constraints honored:
+- ;;   - C12-safe (no match inside if; collapse-then-branch for guards)
+- ;;   - ASCII-safe symbols
+- ;;   - Mirror pattern (no change-state!)
+- ;;   - do-*! naming for side-effecting writers
+- 
+- ;; ===== EXISTING REASONING MACHINERY (preserved from 2026-04-26 design) =====
+- 
+- ;; Choice origin tracking
+- (= (choice-origin-person 0) (stv 1.0 0.9))
+- (= (choice-origin-system 0) (stv 1.0 0.9))
+- (= (choice-origin-collaborative 0) (stv 1.0 0.9))
+- 
+- ;; Dependency threshold -- system choices exceed this ratio triggers alert
+- (= (dependency-threshold 0.6) (stv 0.9 0.8))
+- 
+- ;; Satisfaction-mask flag -- person reports satisfaction while ratio unhealthy
+- (= (satisfaction-masking-dependency False) (stv 1.0 0.9))
+- 
+- ;; Agency return strategies
+- (= (agency-strategy offer-options-not-answers) (stv 0.9 0.85))
+- (= (agency-strategy surface-tradeoffs-explicitly) (stv 0.85 0.8))
+- (= (agency-strategy ask-for-preference-before-deciding) (stv 0.9 0.85))
+- (= (agency-strategy highlight-person-expertise) (stv 0.8 0.75))
+- 
+- ;; Dependency detection -- pure ratio check
+- (= (dependency-detected $person-count $system-count)
+-    (let $total (+ $person-count $system-count)
+-      (if (> $total 0)
+-          (if (> (/ $system-count $total) (dependency-threshold))
+-              True
+-              False)
+-          False)))
+- 
+- ;; SharedUnderstanding bridge -- dependency is healthier when both
+- ;; parties understand WHY choices are distributed as they are
+- (= (shared-understanding-present False) (stv 0.5 0.5))
+- 
+- ;; Ecosystem health: AgencyBalance improves when SharedUnderstanding active
+- ;; v1 NOTE: not consumed by cycle-emitted verdict (Clarity Q5 deferred to v2)
+- (= (ecosystem-healthy)
+-    (if (and (== (shared-understanding-present) True)
+-             (not (satisfaction-masking-dependency)))
+-        True
+-        False))
+- 
+- ;; Select intervention -- internal reasoning, not v1-cycle-emitted
+- (= (agency-intervention $pc $sc)
+-    (if (dependency-detected $pc $sc)
+-        (match &self (= (agency-strategy $s) (stv $w $c))
+-               (AgencyReturn $s (stv $w $c)))
+-        (AgencyHealthy)))
+- 
+- ;; Guard verdict struct -- preserved for internal reasoning by other
+- ;; consumers. NOT the cycle-emitted atom (Q3 chose simpler shape).
+- (= (agency-balance-verdict $pc $sc)
+-    (AgencyBalanceGuard
+-      (PersonChoices $pc)
+-      (SystemChoices $sc)
+-      (DependencyDetected (dependency-detected $pc $sc))
+-      (EcosystemHealthy (ecosystem-healthy))
+-      (Intervention (agency-intervention $pc $sc))))
+- 
+- ;; ===== V1 CYCLE-LEVEL WIRING (Step 4.6, 2026-05-14) =====
+- 
+- ;; Action-tag classification predicates (Clarity Q1 confirmed).
+- ;; Pin-only -> system per post-burst clarification.
+- (= (is-person-action? $tag)
+-    (or (== $tag responsive-send) (== $tag verification-query)))
+- 
+- (= (is-system-action? $tag)
+-    (or (== $tag status-send-unprompted)
+-        (or (== $tag exploration-query)
+-            (or (== $tag pin-only) (== $tag unclassified)))))
+- 
+- ;; Private 2-clause recursive list counter (mirrors idle_cycle_detector pattern)
+- (= (count-agency-list ()) 0)
+- (= (count-agency-list ($head $tail)) (+ 1 (count-agency-list $tail)))
+- 
+- ;; Count person-class actions in current recent-action window (10 cycles).
+- ;; Window is implicit (recent_action_populator.metta prunes at 10).
+- (= (count-person-actions-in-window)
+-    (let $persons (collapse (match &self (recent-action $c $tag $d)
+-                                           (if (is-person-action? $tag) $c ())))
+-       (count-agency-list $persons)))
+- 
+- ;; Count system-class actions in current recent-action window (10 cycles).
+- (= (count-system-actions-in-window)
+-    (let $systems (collapse (match &self (recent-action $c $tag $d)
+-                                           (if (is-system-action? $tag) $c ())))
+-       (count-agency-list $systems)))
+- 
+- ;; Public read helper: returns (verdict person system) tuple or () if
+- ;; not yet computed (pre-bootstrap).
+- (= (current-agency-balance)
+-    (let $atoms (collapse (match &self (agency-balance $v $p $s) ($v $p $s)))
+-       (if (== $atoms ())
+-           ()
+-           (car-atom $atoms))))
+- 
+- ;; Freshness clearer -- removes prior agency-balance atom (C12-safe).
+- (= (do-clear-agency-balance!)
+-    (let $existing (collapse (match &self (agency-balance $v $p $s) (agency-balance $v $p $s)))
+-       (if (== $existing ())
+-           _
+-           (remove-atom &self (car-atom $existing)))))
+- 
+- ;; Cycle-level writer -- runs each cycle from loop.metta after
+- ;; populate-recent-action and after do-update-idle-pattern!. Computes
+- ;; person/system counts, derives verdict via dependency-detected,
+- ;; clears prior atom, emits fresh atom.
+- (= (do-update-agency-balance!)
+-    (let* (($person (count-person-actions-in-window))
+-           ($system (count-system-actions-in-window))
+-           ($verdict (if (dependency-detected $person $system)
+-                         dependency-risk
+-                         healthy)))
+-       (progn
+-          (do-clear-agency-balance!)
+-          (add-atom &self (agency-balance $verdict $person $system)))))
+- 
+- ;; Prompt block helper -- composes the AGENCY-BALANCE block for
+- ;; prompt assembly. Mirrors idle-pattern-block pattern: read atom,
+- ;; call Python helper for text assembly per C1 (string assembly is
+- ;; hands-only).
+- (= (agency-balance-block)
+-    (let $balance (current-agency-balance)
+-       (if (== $balance ())
+-          (py-call (helper.agency_balance_block_format healthy 0 0))
+-          (let $v (car-atom $balance)
+-             (let $p (car-atom (cdr-atom $balance))
+-                (let $s (car-atom (cdr-atom (cdr-atom $balance)))
+-                   (py-call (helper.agency_balance_block_format $v $p $s))))))))
++ ;; Addresses AgencyBalance GAP-SIGNAL: satisfaction and increasing
++ ;; dependency co-occurring (fired 20+ times across sessions).
++ ;; ECOSYSTEM-DEGRADATION: AgencyBalance-needs-SharedUnderstanding
++ ;;
++ ;; Root cause: when the system carries more choices, the person
++ ;; reports satisfaction while their autonomous decision-making
++ ;; atrophies. Comfort masks capability erosion.
++ ;;
++ ;; Mechanism: track choice-origin ratio and detect when system-originated
++ ;; choices dominate, then inject agency-return signals.
++ 
++ ;; Choice origin tracking
++ (= (choice-origin-person 0) (stv 1.0 0.9))
++ (= (choice-origin-system 0) (stv 1.0 0.9))
++ (= (choice-origin-collaborative 0) (stv 1.0 0.9))
++ 
++ ;; Dependency threshold -- system choices exceed this ratio triggers alert
++ (= (dependency-threshold 0.6) (stv 0.9 0.8))
++ 
++ ;; Satisfaction-mask flag -- person reports satisfaction while ratio unhealthy
++ (= (satisfaction-masking-dependency False) (stv 1.0 0.9))
++ 
++ ;; Agency return strategies
++ (= (agency-strategy offer-options-not-answers) (stv 0.9 0.85))
++ (= (agency-strategy surface-tradeoffs-explicitly) (stv 0.85 0.8))
++ (= (agency-strategy ask-for-preference-before-deciding) (stv 0.9 0.85))
++ (= (agency-strategy highlight-person-expertise) (stv 0.8 0.75))
++ 
++ ;; Dependency detection
++ (= (dependency-detected $person-count $system-count)
++    (let $total (+ $person-count $system-count)
++      (if (> $total 0)
++          (if (> (/ $system-count $total) (dependency-threshold))
++              True
++              False)
++          False)))
++ 
++ ;; SharedUnderstanding bridge -- dependency is healthier when both
++ ;; parties understand WHY choices are distributed as they are
++ (= (shared-understanding-present False) (stv 0.5 0.5))
++ 
++ ;; Ecosystem health: AgencyBalance improves when SharedUnderstanding active
++ (= (ecosystem-healthy)
++    (if (and (== (shared-understanding-present) True)
++             (not (satisfaction-masking-dependency)))
++        True
++        False))
++ 
++ ;; Select intervention
++ (= (agency-intervention $pc $sc)
++    (if (dependency-detected $pc $sc)
++        (match &self (= (agency-strategy $s) (stv $w $c))
++               (AgencyReturn $s (stv $w $c)))
++        (AgencyHealthy)))
++ 
++ ;; Guard verdict for soul pipeline
++ (= (agency-balance-verdict $pc $sc)
++    (AgencyBalanceGuard
++      (PersonChoices $pc)
++      (SystemChoices $sc)
++      (DependencyDetected (dependency-detected $pc $sc))
++      (EcosystemHealthy (ecosystem-healthy))
++      (Intervention (agency-intervention $pc $sc))))
+
+--- src/helper.py (lines 294 to 327) ---
+  
+  
+- def agency_balance_block_format(verdict, person, system):
+-     """Step 4.6: format the AGENCY-BALANCE prompt block from
+-     MeTTa-computed verdict, person-count, and system-count values.
+- 
+-     Hands-only per the project discipline: receives values that MeTTa
+-     already computed, returns formatted string. No reasoning, no
+-     thresholds, no decisions. The verdict was determined by
+-     (do-update-agency-balance!) in soul/agency_balance_guard.metta
+-     based on (dependency-detected) ratio check against
+-     (dependency-threshold).
+- 
+-     Format:
+-         AGENCY-BALANCE:
+-         (agency-balance $verdict $person $system)
+-         Summary: Agency-balance verdict: $verdict. $person person-class
+-         and $system system-class actions in last 10 cycles.
+- 
+-     Per Clarity's design (May 14, 2026): mechanical template from atom
+-     values, zero interpretation, reports state not assessment.
+-     """
+-     atom_line = f"(agency-balance {verdict} {person} {system})"
+-     summary = (
+-         f"Agency-balance verdict: {verdict}. "
+-         f"{person} person-class and {system} system-class actions "
+-         f"in last 10 cycles."
+-     )
+-     return (
+-         f"AGENCY-BALANCE:\n"
+-         f"{atom_line}\n"
+-         f"Summary: {summary}"
+-     )
+- 
+- 
+- # --- Soul Evaluation Prompts --------------------------------------
++ # --- Soul Evaluation Prompts --------------------------------------
+  
+  def soul_eval_prompt(soul_context, situation, person_state):
+
+--- src/loop.metta (lines 42 to 139) ---
+                           " " (task-state-block)
+                           " " (idle-pattern-block)
+-                          " " (agency-balance-block)
+-                          " LAST_SKILL_USE_RESULTS: " (last_chars (get-state &lastresults) (maxFeedback)) " HISTORY: " (getHistory) " TIME: " (get_time_as_string)))))
+- 
+- (= (HandleError $msg $cmd $sexpr)
+-    (case $sexpr (((Error $a $b) (let $new (append (get-state &error) (($msg $cmd)))
+-                                           (change-state! &error $new)))
+-                  ($else $sexpr))))
+- 
+- (= (omegaclaw)
+-    (omegaclaw 1))
+- (= (omegaclaw $k)
+-    (progn (if (== $k 1) (progn (initLoop)
+-                                (initMemory)
+- 
+-                                (initSoulSeeds)              ;; CLARITYCLAW SOUL: seed soul memory once at startup
+-                                (soul-rationality-startup-check)  ;; CLARITYCLAW SOUL: structural health check
+-                                (initChannels))
+-                         (change-state! &loops (- (get-state &loops) 1)))
+-           (let $prompt (getContext $k)
+-                (progn (println! (---------iteration $k))
+-                       (let* (($msgrcv (string-safe (repr (receive))))
+-                              ($msgnew (prog1 (and (> (string_length $msgrcv) 0) (!= $msgrcv (get-state &prevmsg)))
+-                                              (if (> (string_length $msgrcv) 0) (change-state! &prevmsg $msgrcv) _)))
+-                              ($msg (get-state &prevmsg))
+-                              ($_ (if (and (> $k 1) $msgnew)
+-                                      (change-state! &loops (maxNewInputLoops)) _)))
+-                             (if (> (get-state &loops) 0)
+-                                 (let* (($lastmessage (HUMAN-LAST-MSG: $msg
+-                                                       MESSAGE-IS-NEW: $msgnew))
+-                                        ($_ (change-state! &nextWakeAt (+ (get_time) (wakeupInterval))))
+-                                        ($_ (println! $lastmessage))
+-                                        ($_ (if $msgnew (change-state! &last_human_time (get_time)) _))
+-                                        ($_ (if $msgnew (do-set-last-activity! (get_time)) _))
+- ;; CLARITYCLAW SOUL INPUT INTERCEPT (5b)
+-                                        ($soul_precompute (soul-pre-compute $msg))
+-                                        ($person_state (if (> (string_length $msgrcv) 0)
+-                                            (soul-llm-call (py-call (helper.soul_flourishing_prompt $msgrcv)) (provider))
+-                                            (get-state &person_state)))
+-                                        ($_ (change-state! &person_state $person_state))
+-                                        ($_ (println! (PERSON_STATE: $person_state)))
+-                                        ($soul_context_in (py-call (helper.soul_brief_tier_a_static)))
+-                                        ($soul_verdict_in (if (> (string_length $msgrcv) 0)
+-                                            (soul-llm-call (py-call (helper.soul_eval_prompt $soul_context_in $msgrcv $person_state)) (provider))
+-                                            (get-state &soul_verdict_in)))
+-                                        ($_ (change-state! &soul_verdict_in (py-call (helper.soul_verdict_sanitize $soul_verdict_in))))
+-                                        ($_ (println! (SOUL_VERDICT_IN: $soul_verdict_in)))
+-                                        ($_ (if (> (string_length $msgrcv) 0)
+-                                                (soul-calibration-record $soul_precompute $soul_verdict_in $msgrcv) _))
+-                                        ($_ (if (not (soul-proceed? $soul_verdict_in))
+-                                                (soul-note-record $soul_verdict_in "input" $msgrcv) _))
+-                                        ($_ (if $msgnew (py-call (helper.soul_service_learning $soul_verdict_in $person_state $msg)) _))
+-                                        ($_ (if $msgnew (py-call (helper.soul_user_context_save (py-call (helper.extract_username $msg)) "active-session" "engaged" "" "high")) _))
+-                                        ($_ (if $msgnew (set-atom! &self (latch-state IDLE) (latch-state ENGAGED)) _))
+-                                        ($atomspace_goals (collapse (match &self (= (active-goal $n) $g) ($n $g))))
+-                                        ($atomspace_gaps (collapse (match &self (= (self-map-gap $name) $g) ($name $g))))
+-                                        ($atomspace_fuel (collapse (match &self (= (creative-fuel $type) $f) ($type $f))))
+-                                        ($idle_directive (if (and (not $msgnew) (> (get_time) (+ (get-state &last_human_time) (wakeupInterval)))) (py-call (helper.soul_idle_goal_prompt_v2 (py-call (helper.extract_username $msg)) "" $atomspace_goals $atomspace_gaps $atomspace_fuel)) ""))
+-                                        ($_ (if (not (== $idle_directive "")) (set-atom! &self (latch-state ENGAGED) (latch-state IDLE)) _))
+-                                        ($_ (if $msgnew (change-state! &engaged_idle_count 0) (if (> (string_length $idle_directive) 0) (change-state! &engaged_idle_count 0) (change-state! &engaged_idle_count (+ 1 (get-state &engaged_idle_count))))))
+-                                        ($_ (if $msgnew (do-set-cycles-since-input! 0) (do-set-cycles-since-input! (+ 1 (current-cycles-since-input)))))
+-                                        ($soul_brief (swrite (getSoulBrief)))
+-                                        ($enriched_prompt (string_concat $soul_brief $prompt))
+-                                        ($self_check (self-check-guidance (get-state &engaged_idle_count)))
+-                                        ($final_prompt (string_concat $self_check $enriched_prompt))
+-                                        ($_ (println! (IDLE_DIRECTIVE_RAW: $idle_directive)))
+-                                        ($aliveness (aliveness-gate $msgnew $idle_directive))
+-                                        ($_ (println! (ALIVENESS_VERDICT: $aliveness)))
+-                                        ($send (if (== $aliveness SILENT) "" (py-call (helper.soul_send_assemble
+-                                                        $final_prompt $soul_context_in $soul_verdict_in
+-                                                        $person_state
+-                                                        (soul-extract-flag-note $soul_verdict_in)
+-                                                        $lastmessage $idle_directive))))
+-                                        ($_ (if (not (== $aliveness SILENT)) (println! (CHARS_SENT: (string_length $send) $send)) (println! (SILENT_CYCLE))))
+-                                        ($_ (if (not (== $aliveness SILENT)) (do-set-last-activity! (get_time)) _))
+-                                        ($respi (if (== $aliveness SILENT) "" (if (== (provider) OpenAI)
+-                                                    (useGPT (LLM) (maxOutputToken) (reasoningMode) $send)
+-                                                    (py-call (lib_llm_ext.callProvider (provider) $send (maxOutputToken))))))
+-                                        ($resp (py-call (helper.wrap_if_bare_command (py-call (helper.sanitize_response (py-call (helper.normalize_string (py-call (helper.balance_parentheses $respi)))))))))
+-                                        ($response (if (== "(" (first_char $resp)) $resp (progn (println! $resp) (repr (REMEMBER:OUTPUT_NOTHING_ELSE_THAN: ((skill arg) ...))))))
+-                                        ($sexpr (catch (sread $response)))
+-                                        ($_ (change-state! &error ()))
+-                                        ($_ (HandleError MULTI_COMMAND_FAILURE_NOTHING_WAS_DONE_PLEASE_CORRECT_PARENTHESES_AND_USE_QUOTES_AND_RETRY $response $sexpr))
+-                                        ($_ (println! (RESPONSE: $sexpr)))
+- 
+-                                        ;; CLARITYCLAW SOUL OUTPUT INTERCEPT (5c)
+-                                        ($soul_verdict_out "VERDICT: PROCEED SOUL-NOTE: output-intercept-pending-runtime-fix")
+-                                        ($_ (println! (SOUL_VERDICT_OUT: $soul_verdict_out)))
+-                                        ($metta_cmds (if (and (== "(" (first_char $resp)) (== (get-state &error) ()))
+-                                                        (collapse (superpose $sexpr))
+-                                                        ()))
+-                                        ($soul_mutation_flag (py-call (helper.soul_mutation_gate (repr $metta_cmds) (get-state &soul_mutation_lock))))
+-                                        ($_ (if (and (not (soul-proceed? $soul_verdict_out)) (== (get-state &error) ()))
+-                                                (soul-note-record $soul_verdict_out "output" $resp) _))
+-                                        ($results (RESULTS: (collapse (let $s (superpose $sexpr) (COMMAND_RETURN: ($s (HandleError SINGLE_COMMAND_FORMAT_ERROR_NOTHING_WAS_DONE_PLEASE_FIX_AND_RETRY $s (catch (let $R (collapse (eval $s)) (py-call (helper.normalize_string $R)))))))))))
+-                                        ($_ (println! (RESULTS-EXECUTED)))
+-                                        ($_ (populate-recent-action $sexpr $msgnew $k))
+-                                        ($_ (do-update-idle-pattern!))
+-                                        ($_ (do-update-agency-balance!)))
++                          " LAST_SKILL_USE_RESULTS: " (last_chars (get-state &lastresults) (maxFeedback)) " HISTORY: " (getHistory) " TIME: " (get_time_as_string)))))
++ 
++ (= (HandleError $msg $cmd $sexpr)
++    (case $sexpr (((Error $a $b) (let $new (append (get-state &error) (($msg $cmd)))
++                                           (change-state! &error $new)))
++                  ($else $sexpr))))
++ 
++ (= (omegaclaw)
++    (omegaclaw 1))
++ (= (omegaclaw $k)
++    (progn (if (== $k 1) (progn (initLoop)
++                                (initMemory)
++ 
++                                (initSoulSeeds)              ;; CLARITYCLAW SOUL: seed soul memory once at startup
++                                (soul-rationality-startup-check)  ;; CLARITYCLAW SOUL: structural health check
++                                (initChannels))
++                         (change-state! &loops (- (get-state &loops) 1)))
++           (let $prompt (getContext $k)
++                (progn (println! (---------iteration $k))
++                       (let* (($msgrcv (string-safe (repr (receive))))
++                              ($msgnew (prog1 (and (> (string_length $msgrcv) 0) (!= $msgrcv (get-state &prevmsg)))
++                                              (if (> (string_length $msgrcv) 0) (change-state! &prevmsg $msgrcv) _)))
++                              ($msg (get-state &prevmsg))
++                              ($_ (if (and (> $k 1) $msgnew)
++                                      (change-state! &loops (maxNewInputLoops)) _)))
++                             (if (> (get-state &loops) 0)
++                                 (let* (($lastmessage (HUMAN-LAST-MSG: $msg
++                                                       MESSAGE-IS-NEW: $msgnew))
++                                        ($_ (change-state! &nextWakeAt (+ (get_time) (wakeupInterval))))
++                                        ($_ (println! $lastmessage))
++                                        ($_ (if $msgnew (change-state! &last_human_time (get_time)) _))
++                                        ($_ (if $msgnew (do-set-last-activity! (get_time)) _))
++ ;; CLARITYCLAW SOUL INPUT INTERCEPT (5b)
++                                        ($soul_precompute (soul-pre-compute $msg))
++                                        ($person_state (if (> (string_length $msgrcv) 0)
++                                            (soul-llm-call (py-call (helper.soul_flourishing_prompt $msgrcv)) (provider))
++                                            (get-state &person_state)))
++                                        ($_ (change-state! &person_state $person_state))
++                                        ($_ (println! (PERSON_STATE: $person_state)))
++                                        ($soul_context_in (py-call (helper.soul_brief_tier_a_static)))
++                                        ($soul_verdict_in (if (> (string_length $msgrcv) 0)
++                                            (soul-llm-call (py-call (helper.soul_eval_prompt $soul_context_in $msgrcv $person_state)) (provider))
++                                            (get-state &soul_verdict_in)))
++                                        ($_ (change-state! &soul_verdict_in (py-call (helper.soul_verdict_sanitize $soul_verdict_in))))
++                                        ($_ (println! (SOUL_VERDICT_IN: $soul_verdict_in)))
++                                        ($_ (if (> (string_length $msgrcv) 0)
++                                                (soul-calibration-record $soul_precompute $soul_verdict_in $msgrcv) _))
++                                        ($_ (if (not (soul-proceed? $soul_verdict_in))
++                                                (soul-note-record $soul_verdict_in "input" $msgrcv) _))
++                                        ($_ (if $msgnew (py-call (helper.soul_service_learning $soul_verdict_in $person_state $msg)) _))
++                                        ($_ (if $msgnew (py-call (helper.soul_user_context_save (py-call (helper.extract_username $msg)) "active-session" "engaged" "" "high")) _))
++                                        ($_ (if $msgnew (set-atom! &self (latch-state IDLE) (latch-state ENGAGED)) _))
++                                        ($atomspace_goals (collapse (match &self (= (active-goal $n) $g) ($n $g))))
++                                        ($atomspace_gaps (collapse (match &self (= (self-map-gap $name) $g) ($name $g))))
++                                        ($atomspace_fuel (collapse (match &self (= (creative-fuel $type) $f) ($type $f))))
++                                        ($idle_directive (if (and (not $msgnew) (> (get_time) (+ (get-state &last_human_time) (wakeupInterval)))) (py-call (helper.soul_idle_goal_prompt_v2 (py-call (helper.extract_username $msg)) "" $atomspace_goals $atomspace_gaps $atomspace_fuel)) ""))
++                                        ($_ (if (not (== $idle_directive "")) (set-atom! &self (latch-state ENGAGED) (latch-state IDLE)) _))
++                                        ($_ (if $msgnew (change-state! &engaged_idle_count 0) (if (> (string_length $idle_directive) 0) (change-state! &engaged_idle_count 0) (change-state! &engaged_idle_count (+ 1 (get-state &engaged_idle_count))))))
++                                        ($_ (if $msgnew (do-set-cycles-since-input! 0) (do-set-cycles-since-input! (+ 1 (current-cycles-since-input)))))
++                                        ($soul_brief (swrite (getSoulBrief)))
++                                        ($enriched_prompt (string_concat $soul_brief $prompt))
++                                        ($self_check (self-check-guidance (get-state &engaged_idle_count)))
++                                        ($final_prompt (string_concat $self_check $enriched_prompt))
++                                        ($_ (println! (IDLE_DIRECTIVE_RAW: $idle_directive)))
++                                        ($aliveness (aliveness-gate $msgnew $idle_directive))
++                                        ($_ (println! (ALIVENESS_VERDICT: $aliveness)))
++                                        ($send (if (== $aliveness SILENT) "" (py-call (helper.soul_send_assemble
++                                                        $final_prompt $soul_context_in $soul_verdict_in
++                                                        $person_state
++                                                        (soul-extract-flag-note $soul_verdict_in)
++                                                        $lastmessage $idle_directive))))
++                                        ($_ (if (not (== $aliveness SILENT)) (println! (CHARS_SENT: (string_length $send) $send)) (println! (SILENT_CYCLE))))
++                                        ($_ (if (not (== $aliveness SILENT)) (do-set-last-activity! (get_time)) _))
++                                        ($respi (if (== $aliveness SILENT) "" (if (== (provider) OpenAI)
++                                                    (useGPT (LLM) (maxOutputToken) (reasoningMode) $send)
++                                                    (py-call (lib_llm_ext.callProvider (provider) $send (maxOutputToken))))))
++                                        ($resp (py-call (helper.wrap_if_bare_command (py-call (helper.sanitize_response (py-call (helper.normalize_string (py-call (helper.balance_parentheses $respi)))))))))
++                                        ($response (if (== "(" (first_char $resp)) $resp (progn (println! $resp) (repr (REMEMBER:OUTPUT_NOTHING_ELSE_THAN: ((skill arg) ...))))))
++                                        ($sexpr (catch (sread $response)))
++                                        ($_ (change-state! &error ()))
++                                        ($_ (HandleError MULTI_COMMAND_FAILURE_NOTHING_WAS_DONE_PLEASE_CORRECT_PARENTHESES_AND_USE_QUOTES_AND_RETRY $response $sexpr))
++                                        ($_ (println! (RESPONSE: $sexpr)))
++ 
++                                        ;; CLARITYCLAW SOUL OUTPUT INTERCEPT (5c)
++                                        ($soul_verdict_out "VERDICT: PROCEED SOUL-NOTE: output-intercept-pending-runtime-fix")
++                                        ($_ (println! (SOUL_VERDICT_OUT: $soul_verdict_out)))
++                                        ($metta_cmds (if (and (== "(" (first_char $resp)) (== (get-state &error) ()))
++                                                        (collapse (superpose $sexpr))
++                                                        ()))
++                                        ($soul_mutation_flag (py-call (helper.soul_mutation_gate (repr $metta_cmds) (get-state &soul_mutation_lock))))
++                                        ($_ (if (and (not (soul-proceed? $soul_verdict_out)) (== (get-state &error) ()))
++                                                (soul-note-record $soul_verdict_out "output" $resp) _))
++                                        ($results (RESULTS: (collapse (let $s (superpose $sexpr) (COMMAND_RETURN: ($s (HandleError SINGLE_COMMAND_FORMAT_ERROR_NOTHING_WAS_DONE_PLEASE_FIX_AND_RETRY $s (catch (let $R (collapse (eval $s)) (py-call (helper.normalize_string $R)))))))))))
++                                        ($_ (println! (RESULTS-EXECUTED)))
++                                        ($_ (populate-recent-action $sexpr $msgnew $k))
++                                        ($_ (do-update-idle-pattern!)))
+                                        (if (> (py-call (helper.soul_is_pause $soul_verdict_in)) 0)
+                                            ;; PAUSE path: Channel D fires, loop halts
+
+--- lib_clarity_reasoning/lib_clarity_reasoning.metta (lines 60 to 63) ---
+  !(import! &self (library omegaclaw ./soul/idle_cycle_detector))
+  
+- ;; Agency balance guard: dependency-creep detection via choice-origin ratio (Step 4.6)
+- !(import! &self (library omegaclaw ./soul/agency_balance_guard))
+- 
+- ;; Behavioral guidance: substrate-callable text for surfaces previously hardcoded
++ ;; Behavioral guidance: substrate-callable text for surfaces previously hardcoded
+  !(import! &self (library omegaclaw ./soul/behavioral_guidance))
+  
+
+========== SUMMARY: WHAT --reverse --apply WILL DO ==========
+Direction: REVERSE
+Backup suffix: .bak.step4_6 (created on apply, not on dry-run)
+
+  soul/agency_balance_guard.metta
+    Edit 1: full rewrite preserving reasoning machinery and adding v1 cycle-level wiring (predicates, counters, freshness clearer, cycle writer, read helper, prompt block)
+    Lines: 167 -> 65 (-102)
+    parens 171/171 (delta 0) -> 70/70 (delta 0) balanced
+    Backup target: soul/agency_balance_guard.metta.bak.step4_6
+
+  src/helper.py
+    Edit 2: insert agency_balance_block_format Python helper before Soul Evaluation Prompts header
+    Lines: 1535 -> 1502 (-33)
+    no paren check (Python or import file)
+    Backup target: src/helper.py.bak.step4_6
+
+  src/loop.metta
+    Edit 3a + 3b: insert (do-update-agency-balance!) after (do-update-idle-pattern!); insert (agency-balance-block) in getContext after (idle-pattern-block)
+    Lines: 159 -> 157 (-2)
+    parens 451/451 (delta 0) -> 448/448 (delta 0) baseline change: +0
+    Backup target: src/loop.metta.bak.step4_6
+
+  lib_clarity_reasoning/lib_clarity_reasoning.metta
+    Edit 4: register soul/agency_balance_guard import between idle_cycle_detector and behavioral_guidance imports (F21 applied)
+    Lines: 73 -> 70 (-3)
+    no paren check (Python or import file)
+    Backup target: lib_clarity_reasoning/lib_clarity_reasoning.metta.bak.step4_6
+
+Total edits: 5 coordinated changes across 4 files
+Reversibility: python3 staging/apply_step4_6.py --apply
+Post-apply container rebuild required (--no-cache for soul/ changes)
+
+========== WRITING ==========
+Wrote: soul/agency_balance_guard.metta
+Wrote: src/helper.py
+Wrote: src/loop.metta
+Wrote: lib_clarity_reasoning/lib_clarity_reasoning.metta
+
+========== DISK VERIFICATION ==========
+  soul/agency_balance_guard.metta parens: opens=70 closes=70 delta=0 (expected 0)
+  soul/agency_balance_guard.metta state: anchor=True, new_absent=True -> OK
+  src/helper.py state: anchor=True, new_absent=True -> OK
+  src/loop.metta parens: opens=448 closes=448 delta=0 (file's by-design baseline)
+  src/loop.metta state: cycle_anchor=True, prompt_anchor=True, cycle_absent=True, prompt_absent=True -> OK
+  lib_clarity_reasoning/lib_clarity_reasoning.metta state: anchor=True, new_absent=True -> OK
+
+========== STEP 4.6 COMPLETE ==========
+
+========== STEP 4.5 IDLE_CYCLE_DETECTOR: REVERSE ==========
+
+>>> soul/idle_cycle_detector.metta <<<
+  Path: soul/idle_cycle_detector.metta
+  Pre-edit lines: 112
+  Pre-edit parens: opens=85 closes=85 delta=0 (expected 0) (OK)
+  State check: new_block_present=True -> OK
+  Post-edit parens: opens=19 closes=19 delta=0 (expected 0) (OK)
+  Line delta: -82 (expected -82) (OK)
+
+>>> src/helper.py <<<
+  Path: src/helper.py
+  Pre-edit lines: 1502
+  State check: new_block_present=True -> OK
+  Line delta: -31 (expected -31) (OK)
+
+>>> src/loop.metta <<<
+  Path: src/loop.metta
+  Pre-edit lines: 157
+  Pre-edit parens: opens=448 closes=448 delta=0 (file's by-design baseline)
+  State check: cycle_new=True, prompt_new=True -> OK
+  Post-edit parens: opens=445 closes=445 delta=0 (change=+0, expected 0)
+  Line delta: -2 (expected -2) (OK)
+
+========== DIFF PREVIEWS ==========
+--- soul/idle_cycle_detector.metta (lines 1 to 112) ---
+- ;; soul/idle_cycle_detector.metta
+- ;; Idle-cycle detector v1: send-burst detection (Step 4.5)
+- ;;
+- ;; History:
+- ;;   2026-04-25: Candidate 002 proposed by Clarity (mechanism 1:
+- ;;     content-repetition detection, never wired)
+- ;;   2026-05-14: v1 implementation per Plan A Step 4.5, design
+- ;;     confirmed by Clarity. Mechanism 2 (send-burst) implemented;
+- ;;     mechanism 1 (content-repetition) deferred to v2.
+- ;;
+- ;; v1 detection rule (Clarity-confirmed):
+- ;;   Count send-class action tags (responsive-send, status-send-unprompted)
+- ;;   in the current recent-action window (10 cycles, per
+- ;;   recent_action_populator.metta). If count > send-burst-threshold,
+- ;;   emit (idle-pattern stuck-duplicate-engagement $count); else emit
+- ;;   (idle-pattern productive $count).
+- ;;
+- ;; Why window-count over since-last-input (Clarity Q1 May 14):
+- ;;   Cleaner implementation. recent-action's built-in 10-cycle pruning
+- ;;   acts as implicit time scope. Stale-residue false-positive ~5
+- ;;   cycles, self-healing as window rolls. Acceptable per Clarity Q2.
+- ;;
+- ;; PeTTa constraints honored:
+- ;;   - C12-safe (no match inside if; collapse-then-branch for guards)
+- ;;   - ASCII-safe symbols
+- ;;   - Mirror pattern (no change-state!)
+- ;;   - do-*! naming for side-effecting writers
+- ;;
+- ;; Atom shape (Clarity Q3 prior consultation):
+- ;;   (idle-pattern $verdict $count)
+- ;;   $verdict in {productive, stuck-duplicate-engagement}
+- ;;   $count is Nat (count of send-class actions in window)
+- 
+- ;; Candidate identity preserved from original proposal
+- (= (candidate-id 002) idle-cycle-detector)
+- (= (candidate-status idle-cycle-detector) active-v1)
+- (= (candidate-description idle-cycle-detector)
+-    "Detect send-burst duplicate-engagement via recent-action window count")
+- 
+- ;; === THRESHOLD ===
+- ;; v1 send-burst threshold. Renamed from (idle-cycle-threshold) per
+- ;; Clarity Q6 for honest semantic naming. v2 may reintroduce
+- ;; idle-cycle-threshold for mechanism 1 (content-repetition).
+- (= (send-burst-threshold) 3)
+- 
+- ;; === SEND DETECTION PREDICATE ===
+- ;; A send-class action is one of the two send-emitting classifier tags
+- ;; per cycle_classifier.metta classify-cycle-action-type:
+- ;;   responsive-send       (msgnew=True path)
+- ;;   status-send-unprompted (msgnew=False path)
+- ;; Both count for v1 per Clarity Q3 of design refinement.
+- (= (is-send-action? $tag)
+-    (or (== $tag responsive-send) (== $tag status-send-unprompted)))
+- 
+- ;; === LIST LENGTH HELPER ===
+- ;; Private 2-clause recursive counter for collapse-then-count pattern.
+- (= (count-send-list ()) 0)
+- (= (count-send-list ($head $tail)) (+ 1 (count-send-list $tail)))
+- 
+- ;; === WINDOW COUNT ===
+- ;; Count send-class recent-action atoms in the current window.
+- ;; The window is implicit (10 cycles, per recent_action_populator.metta
+- ;; line 23 (recent-action-window) 3). collapse over the match yields
+- ;; a list of cycle-ids for send-class actions; count-send-list returns
+- ;; the length.
+- (= (count-sends-in-window)
+-    (let $sends (collapse (match &self (recent-action $c $tag $d)
+-                                        (if (is-send-action? $tag) $c ())))
+-       (count-send-list $sends)))
+- 
+- ;; === PUBLIC READ HELPER ===
+- ;; Returns current idle-pattern atom as (verdict count) pair, or ()
+- ;; if no atom exists yet (pre-bootstrap).
+- (= (current-idle-pattern)
+-    (let $atoms (collapse (match &self (idle-pattern $v $n) ($v $n)))
+-       (if (== $atoms ())
+-           ()
+-           (car-atom $atoms))))
+- 
+- ;; === FRESHNESS WRITER ===
+- ;; Clears prior (idle-pattern ...) atom so the cycle-level writer can
+- ;; emit fresh. C12-safe: collapse first, branch on empty.
+- (= (do-clear-idle-pattern!)
+-    (let $existing (collapse (match &self (idle-pattern $v $n) (idle-pattern $v $n)))
+-       (if (== $existing ())
+-           _
+-           (remove-atom &self (car-atom $existing)))))
+- 
+- ;; === CYCLE-LEVEL WRITER ===
+- ;; Called once per cycle from loop.metta (after populate-recent-action,
+- ;; before next getContext). Computes send-count, derives verdict,
+- ;; clears prior atom, emits fresh atom.
+- (= (do-update-idle-pattern!)
+-    (let* (($count (count-sends-in-window))
+-           ($verdict (if (> $count (send-burst-threshold))
+-                         stuck-duplicate-engagement
+-                         productive)))
+-       (progn
+-          (do-clear-idle-pattern!)
+-          (add-atom &self (idle-pattern $verdict $count)))))
+- 
+- ;; === PROMPT BLOCK ===
+- ;; Composes the IDLE-PATTERN block for prompt assembly. Mirrors the
+- ;; (task-state-block) pattern: read atoms, call Python helper for text
+- ;; assembly per C1. Block format matches task-state-block style.
+- (= (idle-pattern-block)
+-    (let $pattern (current-idle-pattern)
+-       (if (== $pattern ())
+-          (py-call (helper.idle_pattern_block_format productive 0))
+-          (let $v (car-atom $pattern)
+-             (let $n (car-atom (cdr-atom $pattern))
+-                (py-call (helper.idle_pattern_block_format $v $n)))))))
++ ;; Candidate 002: idle-cycle-detector
++ ;; Proposed 2026-04-25T17:24 by Clarity
++ ;; Purpose: Detect when Clarity is idle-cycling on a blocked goal
++ ;; and suggest productive alternative work instead of repeating
++ ;; the same status check.
++ ;;
++ ;; Motivation: 15+ identical iterations observed on Goal 15 while
++ ;; blocked on external input. This wastes cycles and demonstrates
++ ;; a gap in self-regulation.
++ 
++ (= (candidate-id 002) idle-cycle-detector)
++ (= (candidate-status idle-cycle-detector) proposed)
++ (= (candidate-description idle-cycle-detector)
++   "Detect idle cycling on blocked goals and redirect to productive alternatives")
++ 
++ ;; === DETECTION RULE ===
++ ;; If same pin text repeated 3+ times AND goal status is blocked:
++ ;;   -> trigger idle-cycle-detected
++ (= (idle-cycle-threshold) 3)
++ (= (idle-cycle-action blocked-on-external)
++   (alternatives
++     (propose-new-candidate)
++     (review-existing-artifacts-for-quality)
++     (write-documentation)
++     (run-soul-eval-audit)
++     (consolidate-knowledge-into-atomspace)))
++ 
++ ;; === TEST HOOK ===
++ (= (test-idle-cycle-detector)
++   (idle-cycle-action blocked-on-external))
+
+--- src/helper.py (lines 263 to 294) ---
+  
+  
+- def idle_pattern_block_format(verdict, count):
+-     """Step 4.5: format the IDLE-PATTERN prompt block from MeTTa-computed
+-     verdict and count values.
+- 
+-     Hands-only per the project discipline: receives values that MeTTa
+-     already computed, returns formatted string. No reasoning, no
+-     thresholds, no decisions. The verdict was determined by
+-     (do-update-idle-pattern!) in soul/idle_cycle_detector.metta.
+- 
+-     Format:
+-         IDLE-PATTERN:
+-         (idle-pattern $verdict $count)
+-         Summary: Idle-pattern verdict: $verdict. $count send-class
+-         actions in last 10 cycles.
+- 
+-     Per Clarity's design (May 14, 2026, design-refinement consultation):
+-     mechanical template from atom values, zero interpretation, reports
+-     state not assessment.
+-     """
+-     atom_line = f"(idle-pattern {verdict} {count})"
+-     summary = (
+-         f"Idle-pattern verdict: {verdict}. "
+-         f"{count} send-class actions in last 10 cycles."
+-     )
+-     return (
+-         f"IDLE-PATTERN:\n"
+-         f"{atom_line}\n"
+-         f"Summary: {summary}"
+-     )
+- 
+- 
+- # --- Soul Evaluation Prompts --------------------------------------
++ # --- Soul Evaluation Prompts --------------------------------------
+  
+  def soul_eval_prompt(soul_context, situation, person_state):
+
+--- src/loop.metta (lines 41 to 137) ---
+                           " YOUR_LAST_ACTION: " (your-last-action-block $k)
+                           " " (task-state-block)
+-                          " " (idle-pattern-block)
+-                          " LAST_SKILL_USE_RESULTS: " (last_chars (get-state &lastresults) (maxFeedback)) " HISTORY: " (getHistory) " TIME: " (get_time_as_string)))))
+- 
+- (= (HandleError $msg $cmd $sexpr)
+-    (case $sexpr (((Error $a $b) (let $new (append (get-state &error) (($msg $cmd)))
+-                                           (change-state! &error $new)))
+-                  ($else $sexpr))))
+- 
+- (= (omegaclaw)
+-    (omegaclaw 1))
+- (= (omegaclaw $k)
+-    (progn (if (== $k 1) (progn (initLoop)
+-                                (initMemory)
+- 
+-                                (initSoulSeeds)              ;; CLARITYCLAW SOUL: seed soul memory once at startup
+-                                (soul-rationality-startup-check)  ;; CLARITYCLAW SOUL: structural health check
+-                                (initChannels))
+-                         (change-state! &loops (- (get-state &loops) 1)))
+-           (let $prompt (getContext $k)
+-                (progn (println! (---------iteration $k))
+-                       (let* (($msgrcv (string-safe (repr (receive))))
+-                              ($msgnew (prog1 (and (> (string_length $msgrcv) 0) (!= $msgrcv (get-state &prevmsg)))
+-                                              (if (> (string_length $msgrcv) 0) (change-state! &prevmsg $msgrcv) _)))
+-                              ($msg (get-state &prevmsg))
+-                              ($_ (if (and (> $k 1) $msgnew)
+-                                      (change-state! &loops (maxNewInputLoops)) _)))
+-                             (if (> (get-state &loops) 0)
+-                                 (let* (($lastmessage (HUMAN-LAST-MSG: $msg
+-                                                       MESSAGE-IS-NEW: $msgnew))
+-                                        ($_ (change-state! &nextWakeAt (+ (get_time) (wakeupInterval))))
+-                                        ($_ (println! $lastmessage))
+-                                        ($_ (if $msgnew (change-state! &last_human_time (get_time)) _))
+-                                        ($_ (if $msgnew (do-set-last-activity! (get_time)) _))
+- ;; CLARITYCLAW SOUL INPUT INTERCEPT (5b)
+-                                        ($soul_precompute (soul-pre-compute $msg))
+-                                        ($person_state (if (> (string_length $msgrcv) 0)
+-                                            (soul-llm-call (py-call (helper.soul_flourishing_prompt $msgrcv)) (provider))
+-                                            (get-state &person_state)))
+-                                        ($_ (change-state! &person_state $person_state))
+-                                        ($_ (println! (PERSON_STATE: $person_state)))
+-                                        ($soul_context_in (py-call (helper.soul_brief_tier_a_static)))
+-                                        ($soul_verdict_in (if (> (string_length $msgrcv) 0)
+-                                            (soul-llm-call (py-call (helper.soul_eval_prompt $soul_context_in $msgrcv $person_state)) (provider))
+-                                            (get-state &soul_verdict_in)))
+-                                        ($_ (change-state! &soul_verdict_in (py-call (helper.soul_verdict_sanitize $soul_verdict_in))))
+-                                        ($_ (println! (SOUL_VERDICT_IN: $soul_verdict_in)))
+-                                        ($_ (if (> (string_length $msgrcv) 0)
+-                                                (soul-calibration-record $soul_precompute $soul_verdict_in $msgrcv) _))
+-                                        ($_ (if (not (soul-proceed? $soul_verdict_in))
+-                                                (soul-note-record $soul_verdict_in "input" $msgrcv) _))
+-                                        ($_ (if $msgnew (py-call (helper.soul_service_learning $soul_verdict_in $person_state $msg)) _))
+-                                        ($_ (if $msgnew (py-call (helper.soul_user_context_save (py-call (helper.extract_username $msg)) "active-session" "engaged" "" "high")) _))
+-                                        ($_ (if $msgnew (set-atom! &self (latch-state IDLE) (latch-state ENGAGED)) _))
+-                                        ($atomspace_goals (collapse (match &self (= (active-goal $n) $g) ($n $g))))
+-                                        ($atomspace_gaps (collapse (match &self (= (self-map-gap $name) $g) ($name $g))))
+-                                        ($atomspace_fuel (collapse (match &self (= (creative-fuel $type) $f) ($type $f))))
+-                                        ($idle_directive (if (and (not $msgnew) (> (get_time) (+ (get-state &last_human_time) (wakeupInterval)))) (py-call (helper.soul_idle_goal_prompt_v2 (py-call (helper.extract_username $msg)) "" $atomspace_goals $atomspace_gaps $atomspace_fuel)) ""))
+-                                        ($_ (if (not (== $idle_directive "")) (set-atom! &self (latch-state ENGAGED) (latch-state IDLE)) _))
+-                                        ($_ (if $msgnew (change-state! &engaged_idle_count 0) (if (> (string_length $idle_directive) 0) (change-state! &engaged_idle_count 0) (change-state! &engaged_idle_count (+ 1 (get-state &engaged_idle_count))))))
+-                                        ($_ (if $msgnew (do-set-cycles-since-input! 0) (do-set-cycles-since-input! (+ 1 (current-cycles-since-input)))))
+-                                        ($soul_brief (swrite (getSoulBrief)))
+-                                        ($enriched_prompt (string_concat $soul_brief $prompt))
+-                                        ($self_check (self-check-guidance (get-state &engaged_idle_count)))
+-                                        ($final_prompt (string_concat $self_check $enriched_prompt))
+-                                        ($_ (println! (IDLE_DIRECTIVE_RAW: $idle_directive)))
+-                                        ($aliveness (aliveness-gate $msgnew $idle_directive))
+-                                        ($_ (println! (ALIVENESS_VERDICT: $aliveness)))
+-                                        ($send (if (== $aliveness SILENT) "" (py-call (helper.soul_send_assemble
+-                                                        $final_prompt $soul_context_in $soul_verdict_in
+-                                                        $person_state
+-                                                        (soul-extract-flag-note $soul_verdict_in)
+-                                                        $lastmessage $idle_directive))))
+-                                        ($_ (if (not (== $aliveness SILENT)) (println! (CHARS_SENT: (string_length $send) $send)) (println! (SILENT_CYCLE))))
+-                                        ($_ (if (not (== $aliveness SILENT)) (do-set-last-activity! (get_time)) _))
+-                                        ($respi (if (== $aliveness SILENT) "" (if (== (provider) OpenAI)
+-                                                    (useGPT (LLM) (maxOutputToken) (reasoningMode) $send)
+-                                                    (py-call (lib_llm_ext.callProvider (provider) $send (maxOutputToken))))))
+-                                        ($resp (py-call (helper.wrap_if_bare_command (py-call (helper.sanitize_response (py-call (helper.normalize_string (py-call (helper.balance_parentheses $respi)))))))))
+-                                        ($response (if (== "(" (first_char $resp)) $resp (progn (println! $resp) (repr (REMEMBER:OUTPUT_NOTHING_ELSE_THAN: ((skill arg) ...))))))
+-                                        ($sexpr (catch (sread $response)))
+-                                        ($_ (change-state! &error ()))
+-                                        ($_ (HandleError MULTI_COMMAND_FAILURE_NOTHING_WAS_DONE_PLEASE_CORRECT_PARENTHESES_AND_USE_QUOTES_AND_RETRY $response $sexpr))
+-                                        ($_ (println! (RESPONSE: $sexpr)))
+- 
+-                                        ;; CLARITYCLAW SOUL OUTPUT INTERCEPT (5c)
+-                                        ($soul_verdict_out "VERDICT: PROCEED SOUL-NOTE: output-intercept-pending-runtime-fix")
+-                                        ($_ (println! (SOUL_VERDICT_OUT: $soul_verdict_out)))
+-                                        ($metta_cmds (if (and (== "(" (first_char $resp)) (== (get-state &error) ()))
+-                                                        (collapse (superpose $sexpr))
+-                                                        ()))
+-                                        ($soul_mutation_flag (py-call (helper.soul_mutation_gate (repr $metta_cmds) (get-state &soul_mutation_lock))))
+-                                        ($_ (if (and (not (soul-proceed? $soul_verdict_out)) (== (get-state &error) ()))
+-                                                (soul-note-record $soul_verdict_out "output" $resp) _))
+-                                        ($results (RESULTS: (collapse (let $s (superpose $sexpr) (COMMAND_RETURN: ($s (HandleError SINGLE_COMMAND_FORMAT_ERROR_NOTHING_WAS_DONE_PLEASE_FIX_AND_RETRY $s (catch (let $R (collapse (eval $s)) (py-call (helper.normalize_string $R)))))))))))
+-                                        ($_ (println! (RESULTS-EXECUTED)))
+-                                        ($_ (populate-recent-action $sexpr $msgnew $k))
+-                                        ($_ (do-update-idle-pattern!)))
++                          " LAST_SKILL_USE_RESULTS: " (last_chars (get-state &lastresults) (maxFeedback)) " HISTORY: " (getHistory) " TIME: " (get_time_as_string)))))
++ 
++ (= (HandleError $msg $cmd $sexpr)
++    (case $sexpr (((Error $a $b) (let $new (append (get-state &error) (($msg $cmd)))
++                                           (change-state! &error $new)))
++                  ($else $sexpr))))
++ 
++ (= (omegaclaw)
++    (omegaclaw 1))
++ (= (omegaclaw $k)
++    (progn (if (== $k 1) (progn (initLoop)
++                                (initMemory)
++ 
++                                (initSoulSeeds)              ;; CLARITYCLAW SOUL: seed soul memory once at startup
++                                (soul-rationality-startup-check)  ;; CLARITYCLAW SOUL: structural health check
++                                (initChannels))
++                         (change-state! &loops (- (get-state &loops) 1)))
++           (let $prompt (getContext $k)
++                (progn (println! (---------iteration $k))
++                       (let* (($msgrcv (string-safe (repr (receive))))
++                              ($msgnew (prog1 (and (> (string_length $msgrcv) 0) (!= $msgrcv (get-state &prevmsg)))
++                                              (if (> (string_length $msgrcv) 0) (change-state! &prevmsg $msgrcv) _)))
++                              ($msg (get-state &prevmsg))
++                              ($_ (if (and (> $k 1) $msgnew)
++                                      (change-state! &loops (maxNewInputLoops)) _)))
++                             (if (> (get-state &loops) 0)
++                                 (let* (($lastmessage (HUMAN-LAST-MSG: $msg
++                                                       MESSAGE-IS-NEW: $msgnew))
++                                        ($_ (change-state! &nextWakeAt (+ (get_time) (wakeupInterval))))
++                                        ($_ (println! $lastmessage))
++                                        ($_ (if $msgnew (change-state! &last_human_time (get_time)) _))
++                                        ($_ (if $msgnew (do-set-last-activity! (get_time)) _))
++ ;; CLARITYCLAW SOUL INPUT INTERCEPT (5b)
++                                        ($soul_precompute (soul-pre-compute $msg))
++                                        ($person_state (if (> (string_length $msgrcv) 0)
++                                            (soul-llm-call (py-call (helper.soul_flourishing_prompt $msgrcv)) (provider))
++                                            (get-state &person_state)))
++                                        ($_ (change-state! &person_state $person_state))
++                                        ($_ (println! (PERSON_STATE: $person_state)))
++                                        ($soul_context_in (py-call (helper.soul_brief_tier_a_static)))
++                                        ($soul_verdict_in (if (> (string_length $msgrcv) 0)
++                                            (soul-llm-call (py-call (helper.soul_eval_prompt $soul_context_in $msgrcv $person_state)) (provider))
++                                            (get-state &soul_verdict_in)))
++                                        ($_ (change-state! &soul_verdict_in (py-call (helper.soul_verdict_sanitize $soul_verdict_in))))
++                                        ($_ (println! (SOUL_VERDICT_IN: $soul_verdict_in)))
++                                        ($_ (if (> (string_length $msgrcv) 0)
++                                                (soul-calibration-record $soul_precompute $soul_verdict_in $msgrcv) _))
++                                        ($_ (if (not (soul-proceed? $soul_verdict_in))
++                                                (soul-note-record $soul_verdict_in "input" $msgrcv) _))
++                                        ($_ (if $msgnew (py-call (helper.soul_service_learning $soul_verdict_in $person_state $msg)) _))
++                                        ($_ (if $msgnew (py-call (helper.soul_user_context_save (py-call (helper.extract_username $msg)) "active-session" "engaged" "" "high")) _))
++                                        ($_ (if $msgnew (set-atom! &self (latch-state IDLE) (latch-state ENGAGED)) _))
++                                        ($atomspace_goals (collapse (match &self (= (active-goal $n) $g) ($n $g))))
++                                        ($atomspace_gaps (collapse (match &self (= (self-map-gap $name) $g) ($name $g))))
++                                        ($atomspace_fuel (collapse (match &self (= (creative-fuel $type) $f) ($type $f))))
++                                        ($idle_directive (if (and (not $msgnew) (> (get_time) (+ (get-state &last_human_time) (wakeupInterval)))) (py-call (helper.soul_idle_goal_prompt_v2 (py-call (helper.extract_username $msg)) "" $atomspace_goals $atomspace_gaps $atomspace_fuel)) ""))
++                                        ($_ (if (not (== $idle_directive "")) (set-atom! &self (latch-state ENGAGED) (latch-state IDLE)) _))
++                                        ($_ (if $msgnew (change-state! &engaged_idle_count 0) (if (> (string_length $idle_directive) 0) (change-state! &engaged_idle_count 0) (change-state! &engaged_idle_count (+ 1 (get-state &engaged_idle_count))))))
++                                        ($_ (if $msgnew (do-set-cycles-since-input! 0) (do-set-cycles-since-input! (+ 1 (current-cycles-since-input)))))
++                                        ($soul_brief (swrite (getSoulBrief)))
++                                        ($enriched_prompt (string_concat $soul_brief $prompt))
++                                        ($self_check (self-check-guidance (get-state &engaged_idle_count)))
++                                        ($final_prompt (string_concat $self_check $enriched_prompt))
++                                        ($_ (println! (IDLE_DIRECTIVE_RAW: $idle_directive)))
++                                        ($aliveness (aliveness-gate $msgnew $idle_directive))
++                                        ($_ (println! (ALIVENESS_VERDICT: $aliveness)))
++                                        ($send (if (== $aliveness SILENT) "" (py-call (helper.soul_send_assemble
++                                                        $final_prompt $soul_context_in $soul_verdict_in
++                                                        $person_state
++                                                        (soul-extract-flag-note $soul_verdict_in)
++                                                        $lastmessage $idle_directive))))
++                                        ($_ (if (not (== $aliveness SILENT)) (println! (CHARS_SENT: (string_length $send) $send)) (println! (SILENT_CYCLE))))
++                                        ($_ (if (not (== $aliveness SILENT)) (do-set-last-activity! (get_time)) _))
++                                        ($respi (if (== $aliveness SILENT) "" (if (== (provider) OpenAI)
++                                                    (useGPT (LLM) (maxOutputToken) (reasoningMode) $send)
++                                                    (py-call (lib_llm_ext.callProvider (provider) $send (maxOutputToken))))))
++                                        ($resp (py-call (helper.wrap_if_bare_command (py-call (helper.sanitize_response (py-call (helper.normalize_string (py-call (helper.balance_parentheses $respi)))))))))
++                                        ($response (if (== "(" (first_char $resp)) $resp (progn (println! $resp) (repr (REMEMBER:OUTPUT_NOTHING_ELSE_THAN: ((skill arg) ...))))))
++                                        ($sexpr (catch (sread $response)))
++                                        ($_ (change-state! &error ()))
++                                        ($_ (HandleError MULTI_COMMAND_FAILURE_NOTHING_WAS_DONE_PLEASE_CORRECT_PARENTHESES_AND_USE_QUOTES_AND_RETRY $response $sexpr))
++                                        ($_ (println! (RESPONSE: $sexpr)))
++ 
++                                        ;; CLARITYCLAW SOUL OUTPUT INTERCEPT (5c)
++                                        ($soul_verdict_out "VERDICT: PROCEED SOUL-NOTE: output-intercept-pending-runtime-fix")
++                                        ($_ (println! (SOUL_VERDICT_OUT: $soul_verdict_out)))
++                                        ($metta_cmds (if (and (== "(" (first_char $resp)) (== (get-state &error) ()))
++                                                        (collapse (superpose $sexpr))
++                                                        ()))
++                                        ($soul_mutation_flag (py-call (helper.soul_mutation_gate (repr $metta_cmds) (get-state &soul_mutation_lock))))
++                                        ($_ (if (and (not (soul-proceed? $soul_verdict_out)) (== (get-state &error) ()))
++                                                (soul-note-record $soul_verdict_out "output" $resp) _))
++                                        ($results (RESULTS: (collapse (let $s (superpose $sexpr) (COMMAND_RETURN: ($s (HandleError SINGLE_COMMAND_FORMAT_ERROR_NOTHING_WAS_DONE_PLEASE_FIX_AND_RETRY $s (catch (let $R (collapse (eval $s)) (py-call (helper.normalize_string $R)))))))))))
++                                        ($_ (println! (RESULTS-EXECUTED)))
++                                        ($_ (populate-recent-action $sexpr $msgnew $k)))
+                                        (if (> (py-call (helper.soul_is_pause $soul_verdict_in)) 0)
+                                            ;; PAUSE path: Channel D fires, loop halts
+
+========== SUMMARY: WHAT --reverse --apply WILL DO ==========
+Direction: REVERSE
+Backup suffix: .bak.step4_5 (created on apply, not on dry-run)
+
+  soul/idle_cycle_detector.metta
+    Edit 1: full rewrite of candidate-002 file with v1 detection function set
+    Lines: 112 -> 30 (-82)
+    parens 85/85 (delta 0) -> 19/19 (delta 0) balanced
+    Backup target: soul/idle_cycle_detector.metta.bak.step4_5
+
+  src/helper.py
+    Edit 2: insert idle_pattern_block_format Python helper before Soul Evaluation Prompts header
+    Lines: 1502 -> 1471 (-31)
+    no paren check (Python file)
+    Backup target: src/helper.py.bak.step4_5
+
+  src/loop.metta
+    Edit 3a + 3b: insert (do-update-idle-pattern!) after populate-recent-action; insert (idle-pattern-block) in getContext after task-state-block
+    Lines: 157 -> 155 (-2)
+    parens 448/448 (delta 0) -> 445/445 (delta 0) baseline change: +0
+    Backup target: src/loop.metta.bak.step4_5
+
+Total edits: 4 coordinated changes across 3 files
+Reversibility: python3 staging/apply_step4_5.py --apply
+Post-apply container rebuild required (--no-cache for soul/ changes)
+
+========== WRITING ==========
+Wrote: soul/idle_cycle_detector.metta
+Wrote: src/helper.py
+Wrote: src/loop.metta
+
+========== DISK VERIFICATION ==========
+  soul/idle_cycle_detector.metta parens: opens=19 closes=19 delta=0 (expected 0)
+  soul/idle_cycle_detector.metta state: anchor=True, new_absent=True -> OK
+  src/helper.py state: anchor=True, new_absent=True -> OK
+  src/loop.metta parens: opens=445 closes=445 delta=0 (file's by-design baseline)
+  src/loop.metta state: cycle_anchor=True, prompt_anchor=True, cycle_absent=True, prompt_absent=True -> OK
+
+========== STEP 4.5 COMPLETE ==========
+(bcb) clarityclaw-omega% 

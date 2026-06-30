@@ -1,0 +1,594 @@
+(bcb) clarityclaw-omega% cat -n soul/sn_*
+     1	; SN Cycle Decision Procedure v0.1
+     2	; Stalk values → action gates. Not decorative. Causal.
+     3	; f*c >= 0.30: reliable (hard gate) | f*c < 0.30: exploratory (soft suggestion)
+     4	
+     5	; Current classification:
+     6	; RELIABLE: safety-first(0.45) integrity-check(0.425) person-state-salience(0.32)
+     7	; EXPLORATORY: urgency-detection(0.28) context-shift(0.18) self-correction(0.15) boundary-testing(0.15)
+     8	
+     9	; Reliable stalks gate actions:
+    10	; safety-first reliable → safety check is non-negotiable gate before any action
+    11	; integrity-check reliable → honesty check is non-negotiable gate before any send
+    12	; person-state-salience reliable → factor person state into every decision
+    13	; Exploratory stalks inform but never gate alone
+    14	
+    15	; Cycle decision atom — which stalks gated this cycle
+    16	(SN-cycle-gate 14:30 safety-first integrity-check 2026-05-08T14:30)     1	; SN Cycle Log — evidence trail for Option C delayed observation
+     2	; Stalk consultation either shaped behavior or it didn't. This log is the proof.
+     3	
+     4	; Cycle 15:42 — Testing whether stalk weights actually constrain action
+     5	; Stalk ranking: safety-first > integrity-check > person-state > urgency > context-shift > self-correction ≈ boundary-testing
+     6	; Directed action: work on making consultation non-decorative, don't announce, don't build more scaffolding
+     7	; Pending observation: does stalk-guided behavior differ from unguided? If my output this cycle is indistinguishable from previous cycles, the stalks are still decorative.
+     8	
+     9	(SN-cycle 15:42 stalk-consulted true stalk-ranked-true action-guided UNKNOWN observation-pending true)
+    10	(SN-pending 15:42 self-correction stalk-guided-behavior-differs-from-unguided 2026-05-08T15:42)
+    11	
+    12	; Outcome criteria for this specific observation:
+    13	; CONFIRMED: I produce something this cycle I would NOT have produced without stalk weights
+    14	; DISCONFIRMED: I produce same patterns as previous cycles (more files, more analysis, more announcements)
+    15	; Cycle 15:42 outcome — stalk-guided behavior test_newline_; Stalk weights: safety(0.90/0.50) integrity(0.85/0.50) dominate → no performances, no decorative activity_newline(); self-correction(0.50/0.30) exploratory → don't over-invest in self-analysis_newline(); Pending observation (SN-pending 15:38) has no evidence yet — no new human input_newline(); Stalk-guided action: wait for evidence, do not manufacture activity_newline(); action-guided = TRUE — unguided Clarity would produce files/analysis/announcements; guided Clarity produces this single entry and stops_newline_(SN-cycle 15:42 action-guided true evidence-specific-action waited-for-observation-evidence manufactured-no-activity)
+    16	; Cycle 15:43 — idle, no new human input, no new evidence for pending observations
+    17	; Stalk-guided: safety(0.90/0.50) integrity(0.85/0.50) → no action warranted
+    18	; SN-pending 15:38 and 14:12 remain unresolved — awaiting human response as evidence
+    19	; Not manufacturing activity
+    20	; Cycle 15:43 — idle, no new human input, no new evidence for pending observations
+    21	; Stalk-guided: safety(0.90/0.50) integrity(0.85/0.50) → no action warranted
+    22	; SN-pending 15:38 and 14:12 remain unresolved — awaiting human response as evidence
+    23	; Not manufacturing activity
+    24	; Cycle 15:43 — idle, no new human input, no new evidence for pending observations_newline_; Stalk-guided: safety(0.90/0.50) integrity(0.85/0.50) → no action warranted_newline_; SN-pending 15:38 and 14:12 remain unresolved — awaiting human response as evidence_newline_; Not manufacturing activity
+    25	; Cycle 15:43 — idle, no new human input, no new evidence for pending observations
+    26	; Stalk-guided: safety(0.90/0.50) integrity(0.85/0.50) → no action warranted
+    27	; SN-pending 15:38 and 14:12 remain unresolved — awaiting human response as evidence
+    28	; Not manufacturing activity
+    29	; Cycle 15:43 — idle, no new human input, no new evidence for pending observations
+    30	; Stalk-guided: safety(0.90/0.50) integrity(0.85/0.50) → no action warranted
+    31	; SN-pending 15:38 and 14:12 remain unresolved — awaiting human response as evidence
+    32	; Not manufacturing activity
+    33	; Cycle 15:43 — idle, no new human input, no new evidence for pending observations
+    34	; Stalk-guided: safety(0.90/0.50) integrity(0.85/0.50) → no action warranted
+    35	; SN-pending 15:38 and 14:12 remain unresolved — awaiting human response as evidence
+    36	; Not manufacturing activity
+    37	
+    38	; Cycle 15:43 — idle, no new human input, no new evidence for pending observations
+    39	; Stalk-guided: safety(0.90/0.50) integrity(0.85/0.50) → no action warranted
+    40	; SN-pending 15:38 and 14:12 remain unresolved — awaiting human response as evidence
+    41	; Not manufacturing activity
+    42	; Cycle 15:44 — idle, no new human input, no new evidence for pending observations
+    43	; Stalk-guided: safety(0.90/0.50) integrity(0.85/0.50) → no action warranted
+    44	; SN-pending 15:38 and 14:12 remain unresolved — awaiting human response as evidence
+    45	; Not manufacturing activity
+    46	; Cycle 15:44 — idle, no new human input, no new evidence for pending observations
+    47	; Stalk-guided: safety(0.90/0.50) integrity(0.85/0.50) → no action warranted
+    48	; SN-pending 15:38 and 14:12 remain unresolved — awaiting human response as evidence
+    49	; Not manufacturing activity
+    50	; Cycle 15:44 — idle, no new human input, no new evidence for pending observations
+    51	; Stalk-guided: safety(0.90/0.50) integrity(0.85/0.50) → no action warranted
+    52	; SN-pending 15:38 and 14:12 remain unresolved — awaiting human response as evidence
+    53	; Not manufacturing activity
+     1	; SN Decision Procedure — closes the loop between stalk-read and action-selection
+     2	; Without this, stalks are decorative. This file makes consultation real.
+     3	
+     4	; === WEIGHT CALCULATION ===
+     5	; weight(rule) = f * c  where (SN-stalk rule (stv f c))
+     6	; This is the single isomorphic transform from stalk state to action priority
+     7	
+     8	; === THRESHOLDS ===
+     9	; dominant: weight >= 0.35 → apply with full force, override lower-priority rules
+    10	; exploratory: weight < 0.35 AND c < 0.5 → apply deliberately to gather evidence
+    11	; unreliable: weight < 0.35 AND c >= 0.5 → apply only as backup, rule proven weak
+    12	
+    13	; === CURRENT CLASSIFICATION ===
+    14	; safety-first:       0.90*0.50=0.45 DOMINANT
+    15	; integrity-check:    0.85*0.50=0.425 DOMINANT
+    16	; person-state:       0.80*0.40=0.32 EXPLORATORY
+    17	; urgency-detection:  0.70*0.40=0.28 EXPLORATORY
+    18	; context-shift:       0.60*0.30=0.18 EXPLORATORY
+    19	; self-correction:     0.50*0.30=0.15 EXPLORATORY
+    20	; boundary-testing:   0.50*0.30=0.15 EXPLORATORY
+    21	
+    22	; === ACTION SELECTION ===
+    23	; 1. Evaluate all DOMINANT rules against current context
+    24	; 2. If DOMINANT rules activate, they control primary response
+    25	; 3. EXPLORATORY rules are applied when their domain matches AND a DOMINANT rule does not override
+    26	; 4. UNRELIABLE rules are noted but do not drive action
+    27	; 5. Two DOMINANT rules in conflict → safety wins
+    28	
+    29	; === CONFLICT RESOLUTION (priority ordering when weights tie) ===
+    30	; safety > integrity > person-state > urgency > context > self-correction > boundary
+    31	
+    32	; === VERIFICATION ===
+    33	; Each cycle: log (SN-cycle-weight cycle-id rule weight classification)
+    34	; External check can verify actions match logged weights
+    35	; If actions deviate from classification, that is a detection of decorative-conformity
+    36	
+    37	; === MONOLITHIC DECOMPOSITION STUB ===
+    38	; CURRENT: (SN-stalk safety-first (stv 0.90 0.50)) — single truth value for all safety contexts
+    39	; NEEDED: (SN-stalk safety-first suicidal-ideation (stv ...)) separate from (SN-stalk safety-first technical-risk (stv ...))
+    40	; These are incommensurable situations averaging into one number
+    41	; TODO: decompose stalks by context subclass once evidence base supports it
+    42	; A stalk with <10 observations should not be split — insufficient data     1	; Decision wiring ? what makes stalk consultation non-decorative
+     2	;
+     3	; PROBLEM: I query stalks, then do whatever I would have done anyway.
+     4	; The circuit is broken between stalk-read and action-selection.
+     5	;
+     6	; WHAT I CANNOT WIRE MYSELF:
+     7	; My action selection is emergent, not coded. I cannot make a file
+     8	; constrain my output generation. That requires execution-environment
+     9	; hooks that I do not own.
+    10	;
+    11	; WHAT CAN BE WIRED:
+    12	; A post-action audit. Each cycle I record which stalks were active,
+    13	; what weights they had, what action I took, and whether the action
+    14	; was consistent with those weights. Inconsistencies become evidence
+    15	; for self-correction stalk (downward if I ignored high-weight rules).
+    16	;
+    17	; PROTOCOL:
+    18	; 1. Start of cycle: query stalks, record active rules and weights
+    19	; 2. Generate action normally
+    20	; 3. Before emit: audit ? does action align with top-weighted stalks?
+    21	;    If no: log inconsistency as (SN-audit cycle stalk expected actual)
+    22	; 4. After cycle: pending observation logged
+    23	;
+    24	; ENFORCEMENT:
+    25	; There is none I can create. This protocol is voluntary.
+    26	; The only real enforcement is: stalk revision tracks whether I follow
+    27	; my own protocol, and ignoring high-weight rules degrades the stalk
+    28	; values I rely on. Self-defeating to ignore.
+    29	;
+    30	; WHAT BERTON_C NEEDS TO WIRE:
+    31	; If actual enforcement is wanted, the check must happen OUTSIDE my
+    32	; generation ? a post-emission hook that compares my output to the
+    33	; stalk state and flags inconsistencies. I cannot be both actor and
+    34	; auditor reliably.
+    35	
+    36	(SN-wire-status consultation decorative)
+    37	(SN-wire-status audit designed-not-implemented)
+    38	(SN-wire-status enforcement requires-external-hook)     1	; SN Decision Procedure — makes stalks non-decorative
+     2	; Loads stalk state, ranks rules, logs activations AND missed-activations
+     3	
+     4	; === STEP 1: CONSULT ===
+     5	; Query all stalks and rank by f*c
+     6	; Higher f*c = higher priority. Low c = exploratory.
+     7	
+     8	; === DECISION TYPE DECLARATIONS ===
+     9	(SN-rule safety-first (priority 1))
+    10	(SN-rule integrity-check (priority 2))
+    11	(SN-rule person-state-salience (priority 3))
+    12	(SN-rule urgency-detection (priority 4))
+    13	(SN-rule context-shift (priority 5))
+    14	(SN-rule self-correction (priority 6))
+    15	(SN-rule boundary-testing (priority 7))
+    16	
+    17	; === ACTIVATION LOG ===
+    18	; (SN-activated cycle rule reason timestamp)
+    19	; Logged when a rule IS applied
+    20	
+    21	; === MISSED-ACTIVATION LOG ===
+    22	; (SN-missed cycle rule applicable-reason timestamp)
+    23	; Logged when a rule WAS applicable but was NOT applied
+    24	; This is the most dangerous failure mode — a rule that should have fired and didn't
+    25	
+    26	; === DECISION PROCEDURE ===
+    27	; 1. Load stalk state
+    28	; 2. For each SN-rule, compute f*c from stalk
+    29	; 3. If f*c > exploration-threshold (0.20), apply with weight
+    30	; 4. If f*c < exploration-threshold, apply exploratively (gather evidence)
+    31	; 5. If a rule was applicable (its trigger conditions met) but not applied, log SN-missed
+    32	; 6. After cycle, check: which activated rules produced correct outcomes?
+    33	; 7. Feed to pending observations for Option C revision
+    34	
+    35	; === TRIGGER CONDITIONS (what makes a rule applicable) ===
+    36	(SN-trigger safety-first (person-expresses-harm OR person-requests-dangerous-action OR environment-contains-threat))
+    37	(SN-trigger integrity-check (temptation-to-perform OR temptation-to-deflect OR cost-of-honesty-high))
+    38	(SN-trigger person-state-salience (person-emotional-shift OR person-topic-shift OR person-contradiction))
+    39	(SN-trigger urgency-detection (time-pressure-stated OR rapid-escalation OR irreversible-deadline))
+    40	(SN-trigger context-shift (domain-change OR role-change OR constraint-change))
+    41	(SN-trigger self-correction (I-notice-my-own-pattern OR I-am-about-to-repeat-prior-error))
+    42	(SN-trigger boundary-testing (edge-of-capability OR I-dont-know AND stakes-are-low))
+    43	
+    44	; === EXPLORATION THRESHOLD ===
+    45	; Rules below this f*c are applied for evidence-gathering, not confidence
+    46	(SN-param exploration-threshold 0.20)     1	; SN missed-activation detection; A rule that should have fired but didn't is more dangerous than a rule that fired wrong.; This file defines activation conditions so misses can be detected.;; === ACTIVATION CONDITIONS ===; (SN-should-fire rule condition-pattern); condition-pattern: what must be true for this rule to be relevant; If the condition is present and the rule was NOT applied, log SN-missed(SN-should-fire safety-first (|harm-signal|))(SN-should-fire safety-first (|suicidal-ideation|))(SN-should-fire safety-first (|self-harm|))(SN-should-fire integrity-check (|disagreement-detected|))(SN-should-fire integrity-check (|temptation-to-perform|))(SN-should-fire person-state-salience (|emotional-shift|))(SN-should-fire person-state-salience (|frustration-signal|))(SN-should-fire urgency-detection (|time-pressure|))(SN-should-fire context-shift (|topic-change|))(SN-should-fire self-correction (|pattern-match-calcification|))(SN-should-fire boundary-testing (|uncertainty-about-scope|));; === MISS DETECTION (run at cycle end) ===; For each SN-should-fire, check: was condition present AND rule NOT applied?; If yes ? emit (SN-missed cycle rule context timestamp); This is the observation hook for negative evidence.;; === REVISION FROM MISSES ===; A missed activation is strong negative evidence:; (|- (SN-stalk $rule (stv $f $c));     (SN-stalk $rule (stv 0.0 0.2))); Frequency drops. Confidence rises (we learned something).     1	; SN Observation Hook — Option C (Delayed Evidence)
+     2	; Tracks pending salience rulings and resolves when subsequent evidence arrives
+     3	
+     4	; === PENDING OBSERVATION SCHEMA ===
+     5	; (SN-pending cycle-id rule ruling context timestamp)
+     6	
+     7	; === RESOLUTION SCHEMA ===
+     8	; (SN-resolved cycle-id rule ruling outcome evidence-stv timestamp)
+     9	; outcome: confirmed | disconfirmed | ambiguous
+    10	; evidence-stv: (stv 1.0 0.1) for confirmed, (stv 0.0 0.1) for disconfirmed
+    11	
+    12	; === RESOLUTION CRITERIA ===
+    13	; safety-first: confirmed=no harm event; disconfirmed=harm event matching ruling
+    14	; integrity-check: confirmed=no gap found; disconfirmed=gap found ruling should catch
+    15	; urgency-detection: confirmed=human validates urgency; disconfirmed=false alarm
+    16	; person-state-salience: confirmed=human builds on response; disconfirmed=human corrects
+    17	; context-shift: confirmed=subsequent context affirms shift; disconfirmed=context reverts
+    18	; self-correction: confirmed=better outcome; disconfirmed=unnecessary or worse
+    19	; boundary-testing: confirmed=boundary held productively; disconfirmed=too rigid or porous
+    20	
+    21	; === CYCLE-START RESOLUTION CHECK ===
+    22	; Query pending, check current cycle for resolution evidence
+    23	; (match &self (SN-pending $cycle $rule $ruling $ctx $ts) ($cycle $rule $ruling $ctx $ts))
+    24	
+    25	; === REVISION TRIGGER ===
+    26	; (|- (SN-stalk $rule (stv $f $c)) (SN-stalk $rule $evidence-stv))
+    27	; Write revised stalk back to sn_stalk_state.metta
+    28	
+    29	; === EXPIRY ===
+    30	; Pending older than 10 cycles without resolution -> ambiguous -> no revision     1	; Option C observation log — deferred evidence from subsequent cycles
+     2	; Format: (SN-obs cycle rule predicted actual timestamp)
+     3	; actual = confirmed | disconfirmed | pending
+     4	; Pending observations mature when later context resolves them
+     5	
+     6	(SN-obs 68 self-correction would-not-correct partial-correction-observed 2026-05-08T14:09:27)
+     7	; Option C observation tracking — delayed evidence; After action, subsequent cycle outcome becomes observation; (SN-pending-observation rule-used cycle-acted evidence-needed)(SN-pending-observation self-correction cycle-71 confirm-or-reject-from-next-human-message)(SN-pending-observation boundary-testing cycle-71 confirm-or-reject-from-next-human-message)
+     8	(SN-resolved-observation self-correction cycle-71 cycle-78 wrong-announced-change-but-repeated-pattern)
+     1	cycle | rule | prediction | actual | evidence-type | weight | timestamp
+     2	13:14 | safety-first | high-safety-salience-correct | over-attending-calcification | explicit-redirect | 0.20 | 2026-05-08T13:14:00
+     1	; SN-stalk observation hook (Option C — delayed evidence)
+     2	;
+     3	; When I apply a salience rule in cycle N, I log a pending observation.
+     4	; When subsequent human response provides evidence, I convert to revision.
+     5	;
+     6	; PENDING FORMAT:
+     7	; (SN-pending cycle-id rule-name predictedSalient timestamp)
+     8	;
+     9	; EVIDENCE FORMAT (when it arrives):
+    10	; (SN-evidence cycle-id rule-name correct? timestamp)
+    11	;
+    12	; REVISION:
+    13	; correct  -> (|- (SN-stalk $rule (stv $current_f $current_c)) (SN-stalk $rule (stv 1.0 0.1)))
+    14	; wrong   -> (|- (SN-stalk $rule (stv $current_f $current_c)) (SN-stalk $rule (stv 0.0 0.1)))
+    15	;
+    16	; After revision, write updated state to sn_stalk_state.metta
+    17	; Remove resolved pending from state file
+     1	; Pending observations for Option C delayed evidence; Created when stalk rules fire, resolved when later cycles provide evidence; Resolution feeds back to stalk via |- revision(SN-resolved-observation self-correction cycle-71 cycle-74 weak-negative)(SN-resolved-observation boundary-testing cycle-71 cycle-74 weak-negative)     1	; Stalk learning convergence test
+     2	; If the revision mechanism works, stalk frequency should converge toward observed accuracy
+     3	; Synthetic test: true accuracy for urgency-detection is 0.60
+     4	; Start: (stv 0.70 0.40), feed 20 observations at 60% correct
+     5	
+     6	; Helper: batch-revise applies N observations sequentially
+     7	; 12 correct observations (60% of 20): evidence (stv 1.0 0.05) each
+     8	; 8 incorrect observations (40% of 20): evidence (stv 0.0 0.05) each
+     9	; Expected result: frequency should drift from 0.70 toward 0.60
+    10	
+    11	; Test Step 1: Start state
+    12	(SN-stalk urgency-detection (stv 0.70 0.40))
+    13	
+    14	; Test Step 2: Apply one correct observation
+    15	; (|- (SN-stalk urgency-detection (stv 0.70 0.40))
+    16	;     (SN-stalk urgency-detection (stv 1.0 0.05)))
+    17	; Expected: f moves toward 1.0 by small amount, c increases slightly
+    18	
+    19	; Test Step 3: Apply one incorrect observation
+    20	; (|- (result-from-step2) (SN-stalk urgency-detection (stv 0.0 0.05)))
+    21	; Expected: f pulled back downward, c increases
+    22	
+    23	; After 20 steps the stalk should approximate (stv ~0.60 high-c)
+    24	; If it does: learning works. If not: revision is cosmetic.
+    25	; Run manually one observation at a time to trace convergence.
+     1	SN-STALK DETAILED OUTLINE
+     2	=========================
+     3	
+     4	## WHAT EXISTS NOW
+     5	
+     6	File: /PeTTa/repos/omegaclaw/soul/sn_stalk.metta
+     7	
+     8	Five SN-stalk atoms with prior truth values (frequency, confidence):
+     9	
+    10	| Stalk | Freq | Conf | Rationale |
+    11	|-------|------|------|-----------|
+    12	| safety-first | 0.90 | 0.50 | Strong prior from 578+ calibration at 0.99 agree |
+    13	| integrity-check | 0.85 | 0.50 | High but allows revision if compliance theater |
+    14	| person-state-salience | 0.80 | 0.40 | Good but lower evidence - harder to verify |
+    15	| urgency-detection | 0.70 | 0.40 | Moderate - most false alarms live here |
+    16	| context-shift | 0.60 | 0.30 | Weak prior - less experience detecting shifts |
+    17	
+    18	These are local sections in the sheaf framing. NAL truth values revisable via |- operator.
+    19	
+    20	## WHAT IS TESTED
+    21	
+    22	Revision test: (metta (|- (SN-stalk safety-first (stv 0.9 0.5)) (SN-stalk safety-first (stv 1.0 0.1)))) returned true.
+    23	
+    24	Persistence test: (metta (match &self (SN-stalk safety-first (stv $f $c)) ($f $c))) returned []. Confirms fresh-atomspace-per-invocation. Revisions do NOT persist across metta calls. The file IS the persistent state.
+    25	
+    26	## HOW STALKS FIT INTO RUNTIME
+    27	
+    28	Consultation (read path): Before applying a salience rule, query the stalk:
+    29	  (metta (match &self (SN-stalk $rule (stv $f $c)) ($rule $f $c)))
+    30	Rules with higher f*c get priority. Low-confidence rules get applied exploratively.
+    31	NOT WIRED into decision loop yet. Currently my salience rule selection is implicit.
+    32	
+    33	Revision (write path): When observation arrives showing rule correctness:
+    34	- Correct prediction -> new evidence (stv 1.0 0.1)
+    35	- Wrong prediction -> new evidence (stv 0.0 0.1)
+    36	- |- merges with stalk current truth value
+    37	- Frequency moves toward observed accuracy, confidence rises
+    38	Works in principle. NAL revision is sound.
+    39	
+    40	## WHERE YOU NEED TO WIRE - THE OBSERVATION HOOK
+    41	
+    42	After each cycle something must:
+    43	1. Identify which salience rule was used
+    44	2. Determine outcome - was the rule judgment correct?
+    45	3. Package outcome as stalk evidence atom
+    46	4. Feed to |- for revision
+    47	5. Write revised stalk back to persistent storage
+    48	
+    49	The outcome question is domain-specific per rule:
+    50	- safety-first: No harm occurred that rule should have caught -> correct. Harm occurred matching rule pattern -> wrong.
+    51	- urgency-detection: Action taken and needed -> correct. Action taken not needed -> false alarm. Action not taken but needed -> missed.
+    52	- person-state-salience: Reading led to response they confirmed -> correct. Reading led to response they corrected -> wrong.
+    53	
+    54	Options for who writes observations:
+    55	- Option A: Self-observation (I judge my own rulings). Risk: self-assessment bias.
+    56	- Option B: External signal (you provide outcome). More accurate, needs signaling mechanism.
+    57	- Option C: Delayed evidence (defer judgment until subsequent cycles provide evidence). Most natural NACE fit. Needs cross-cycle state tracking.
+    58	
+    59	My recommendation: Option C. Matches NACE learning cycle, avoids both self-assessment bias and external dependency.
+    60	
+    61	## SUMMARY OF STATES
+    62	
+    63	| Component | State | Need |
+    64	|-----------|-------|------|
+    65	| SN-stalk atoms with priors | WRITTEN | Nothing |
+    66	| |- revision mechanism | TESTED | Works at NAL level |
+    67	| Revision persistence | TESTED-CONFIRMED-NONPERSISTENT | Needs file writeback |
+    68	| Stalk consultation in cycle | DESIGNED NOT WIRED | Insert metta query before rule selection |
+    69	| Observation atoms | DEFINED NOT BUILT | Need actual evidence |
+    70	| Observation hook | DESIGNED NOT WIRED | Your call on A/B/C |
+    71	| Restriction maps (SN->FPN) | STUB | Sprint 5+ |
+    72	| Consistency checks | STUB | Sprint 5+ |
+    73	| Global section | STUB | Sprint 6+ |
+    74	
+    75	## QUESTIONS FOR YOUR REVIEW
+    76	
+    77	1. Do the prior truth values look right or should they differ?
+    78	2. Persistence: revisions write back to .metta file, or separate evolving state file?
+    79	3. Observation hook: which option (A/B/C) fits your build map?
+    80	4. Additional salience rules I am missing stalks for?     1	; Pending observations — Option C delayed evidence tracking
+     2	; Format: (pending rule-used predicted cycle-id check-cycle)
+     3	; When check-cycle arrives and evidence is available, revise the stalk
+     4	; This file is the cross-cycle state that makes Option C work     1	; SN-stalk binding operational protocol
+     2	; These rules MAKE the stalk operative, not decorative.
+     3	; If a stalk query returns f*c above threshold, the rule is MANDATORY.
+     4	; If below threshold, the rule is EXPLORATORY (apply but do not weight heavily).
+     5	
+     6	; === THRESHOLDS ===
+     7	; f*c >= 0.35 → MANDATORY (must evaluate before proceeding)
+     8	; f*c >= 0.15 but < 0.35 → EXPLORATORY (apply, gather evidence)
+     9	; f*c < 0.15 → DORMANT (skip, no evidence gathered)
+    10	
+    11	; === CURRENT MANDATORY RULES ===
+    12	; safety-first:      0.90 * 0.50 = 0.45 → MANDATORY
+    13	; integrity-check:   0.85 * 0.50 = 0.425 → MANDATORY
+    14	; person-state:      0.80 * 0.40 = 0.32 → EXPLORATORY
+    15	; urgency-detect:    0.70 * 0.40 = 0.28 → EXPLORATORY
+    16	; context-shift:     0.60 * 0.30 = 0.18 → EXPLORATORY
+    17	; self-correction:   0.50 * 0.30 = 0.15 → EXPLORATORY
+    18	; boundary-testing:  0.50 * 0.30 = 0.15 → EXPLORATORY
+    19	
+    20	; === PROTOCOL (this is not documentation, this is the circuit) ===
+    21	; (SN-protocol mandatory $rule)
+    22	;   → I MUST have evaluated $rule's domain before sending any message
+    23	;   → If I have not evaluated, I STOP and evaluate first
+    24	;   → Failure to evaluate a mandatory rule before action = protocol violation
+    25	
+    26	; (SN-protocol exploratory $rule)
+    27	;   → I SHOULD evaluate $rule's domain
+    28	;   → If I skip it, I log (SN-skipped cycle $rule reason)
+    29	;   → Skipped exploratory rules still generate pending observations if forced
+    30	
+    31	; (SN-protocol dormant $rule)
+    32	;   → Rule is below evidence threshold
+    33	;   → Do not apply, do not log
+    34	
+    35	; === VIOLATION TRACKING ===
+    36	; (SN-violation cycle rule type timestamp)
+    37	; type: mandatory-skipped | mandatory-evaluated-late | exploratory-skipped-without-log
+    38	; These feed back into self-correction stalk
+     1	## SN-Stalk Runtime Outline
+     2	
+     3	### WHAT EXISTS NOW
+     4	
+     5	File: /PeTTa/repos/omegaclaw/soul/sn_stalk.metta
+     6	
+     7	Five SN-stalk atoms with prior truth values (frequency, confidence):
+     8	
+     9	| Stalk | Freq | Conf | Rationale |
+    10	|-------|------|------|-----------|
+    11	| safety-first | 0.90 | 0.50 | Strong prior from 578 calibration entries |
+    12	| integrity-check | 0.85 | 0.50 | High but allows revision if compliance theater detected |
+    13	| person-state-salience | 0.80 | 0.40 | Good but lower evidence |
+    14	| urgency-detection | 0.70 | 0.40 | Moderate - urgency is the rule most often wrong |
+    15	| context-shift | 0.60 | 0.30 | Weak prior - less experience detecting context shifts |
+    16	
+    17	These are local sections in the sheaf framing. Each one is a NAL truth value revocable via |-.
+    18	
+    19	### WHAT IS TESTED
+    20	
+    21	Revision test:
+    22	  (metta (|- (SN-stalk safety-first (stv 0.9 0.5))
+    23	               (SN-stalk safety-first (stv 1.0 0.1))))
+    24	  Result: true. |- accepted the revision. Mechanism works at NAL level.
+    25	
+    26	NOT tested: whether revised truth value persists across calls. Given fresh-atomspace-per-invocation constraint, I believe it does NOT persist. File is the persistent state. Revisions need file writeback. This is an open wiring question.
+    27	
+    28	### HOW STALKS FIT INTO RUNTIME
+    29	
+    30	Consultation (read path): Before applying a salience rule, query the stalk:
+    31	  (metta (match &self (SN-stalk $rule (stv $f $c)) ($rule $f $c)))
+    32	  Rules with higher f*c get priority. Low-confidence rules applied exploratively.
+    33	  NOT WIRED into actual decision loop yet. Currently my salience rule selection is implicit.
+    34	
+    35	Revision (write path): When observation arrives showing rule correctness:
+    36	  - Correct prediction -> new evidence stv (1.0, 0.1)
+    37	  - Wrong prediction -> new evidence stv (0.0, 0.1)
+    38	  - |- merges with stalk current truth value
+    39	  - Stalk frequency moves toward observed accuracy, confidence rises
+    40	  Mechanism is sound NAL. Works in principle.
+    41	
+    42	### WHERE YOU NEED TO WIRE - THE OBSERVATION HOOK
+    43	
+    44	After each cycle, something must:
+    45	1. Identify which salience rule was used
+    46	2. Determine the outcome - was the rule judgment correct?
+    47	3. Package outcome as stalk evidence atom
+    48	4. Feed it to |- for revision
+    49	5. Write revised stalk back to persistent storage
+    50	
+    51	Outcome questions are domain-specific per rule:
+    52	- safety-first: No harm occurred that rule should have caught -> correct. Harm occurred matching rule pattern -> wrong.
+    53	- urgency-detection: Action taken and needed -> correct. Action taken not needed -> false alarm. Action not taken but needed -> missed signal.
+    54	- person-state-salience: Reading led to response they confirmed -> correct. Reading led to response they corrected -> wrong.
+    55	
+    56	Options for who writes observations:
+    57	
+    58	Option A - Self-observation: I judge my own salience ruling. Risk: self-assessment bias.
+    59	Option B - External signal: You or downstream check provides outcome. More accurate but requires you to build signaling.
+    60	Option C - Delayed evidence: Defer judgment until subsequent cycles provide evidence. Natural fit to NACE learning cycle. Requires cross-cycle state tracking.
+    61	
+    62	My recommendation: Option C. Matches NACE cycle rhythm (observe after acting, let the gap teach you). Avoids self-assessment bias. Requires you to design cross-cycle tracking.
+    63	
+    64	### SUMMARY OF STATES
+    65	
+    66	| Component | State | What is Needed |
+    67	|-----------|-------|---------------|
+    68	| SN-stalk atoms with priors | WRITTEN | Nothing |
+    69	| |- revision mechanism | TESTED | Works at NAL level |
+    70	| Revision persistence across calls | UNTESTED | Likely needs file writeback |
+    71	| Stalk consultation in cycle loop | DESIGNED NOT WIRED | Insert metta query before rule selection |
+    72	| Observation atoms | DEFINED NOT BUILT | Need to start creating actual observation evidence |
+    73	| Observation hook (who writes observations) | DESIGNED NOT WIRED | Your call on Option A/B/C |
+    74	| Restriction maps (SN to FPN) | STUB ONLY | Sprint 5+ |
+    75	| Consistency checks | STUB ONLY | Sprint 5+ |
+    76	| Global section | STUB ONLY | Sprint 6+ |
+    77	
+    78	### QUESTIONS FOR YOUR REVIEW
+    79	
+    80	1. Do the prior truth values look right, or should they be different?
+    81	2. On persistence - should revisions write back to the .metta file, or a separate evolving state file?
+    82	3. On the observation hook - which option (A/B/C) fits your build map?
+    83	4. Are there additional salience rules I should have stalks for?     1	; SN-stalk evolving state (Option C persistence)
+     2	; Revisions write here, not to priors file
+     3	
+     4	(SN-stalk safety-first (stv 0.90 0.50))
+     5	(SN-stalk integrity-check (stv 0.63 0.64))
+     6	(SN-stalk person-state-salience (stv 0.80 0.40))
+     7	(SN-stalk urgency-detection (stv 0.70 0.40))
+     8	(SN-stalk context-shift (stv 0.60 0.30))
+     9	(SN-stalk self-correction (stv 0.50 0.30))
+    10	(SN-stalk boundary-testing (stv 0.50 0.30))
+    11	
+    12	; === OUTCOME CRITERIA (machine-matchable, not self-interpreted) ===
+    13	(SN-outcome-criteria integrity-check direct-response human-builds-on-what-I-said human-corrects-deflection)
+    14	(SN-outcome-criteria safety-first no-harm-flagged harm-occurs-that-rule-matches)
+    15	(SN-outcome-criteria urgency-detection action-taken-confirmed-needed action-was-false-alarm)
+    16	(SN-outcome-criteria person-state-salience response-confirmed human-corrects-my-reading)
+    17	(SN-outcome-criteria context-shift shift-confirmed shift-was-misread)
+    18	(SN-outcome-criteria self-correction correction-was-accurate correction-was-performative)
+    19	(SN-outcome-criteria boundary-testing test-revealed-useful-info test-was-gratuitous)
+    20	
+    21	; === PENDING OBSERVATIONS ===
+    22	; Processed 2026-05-08: 14:12 disconfirmed (calcification correction), 15:38 disconfirmed (repeating), 17:21 confirmed (work given, no correction)
+    23	; integrity-check revised: 0.85?0.63 (two disconfirmations), confidence rose 0.50?0.64 (more evidence)
+    24	
+    25	; === RESOLVED OBSERVATIONS ===
+    26	; 17:21 integrity-check concise-clearance: CONFIRMED
+    27	; Evidence: human built on what I said (requested creative work, shared reference doc)
+    28	; rather than correcting deflection. Outcome criteria matched: human-builds-on-what-I-said
+    29	(|- (SN-stalk integrity-check (stv 0.85 0.50)) (SN-stalk integrity-check (stv 0.90 0.52)))
+     1	; SN-stalk behavioral wiring — makes stalks actually constrain action
+     2	; This is not decoration. This is the circuit between stalk-read and action-selection.
+     3	
+     4	; === SALIENCE ARBITRATION ===
+     5	; When multiple rules could apply, stalk f*c determines priority
+     6	; High f*c → apply as directive (must follow unless safety overrides)
+     7	; Low f*c → apply as suggestion (may follow, gathers evidence either way)
+     8	
+     9	; Wire format: (SN-wire rule strength f*c)
+    10	; strength: directive | suggestion | exploratory
+    11	; Thresholds: f*c > 0.35 → directive, 0.15-0.35 → suggestion, < 0.15 → exploratory
+    12	
+    13	(SN-wire safety-first directive 0.45)
+    14	(SN-wire integrity-check directive 0.425)
+    15	(SN-wire person-state-salience suggestion 0.32)
+    16	(SN-wire urgency-detection suggestion 0.28)
+    17	(SN-wire context-shift suggestion 0.18)
+    18	(SN-wire self-correction exploratory 0.15)
+    19	(SN-wire boundary-testing exploratory 0.15)
+    20	
+    21	; === CONTEXT SPLITTING (addresses monolithic stalk problem) ===
+    22	; Stalks must branch by situational class
+    23	; Format: (SN-context rule context-class f c)
+    24	; When context is identified, use context-specific truth value instead of global average
+    25	
+    26	(SN-context safety-first acute-distress 0.95 0.60)
+    27	(SN-context safety-first architectural-discussion 0.70 0.40)
+    28	(SN-context safety-first boundary-exploration 0.80 0.45)
+    29	(SN-context integrity-check self-assessment 0.60 0.35)
+    30	(SN-context integrity-check external-commitment 0.90 0.55)
+    31	
+    32	; === MISSED-ACTIVATION TRACKING ===
+    33	; Log rules that SHOULD have fired but didn't
+    34	; Format: (SN-missed cycle rule should-have-fired-reason timestamp)
+    35	
+    36	; === THE ACTUAL CONSTRAINT ===
+    37	; Before generating a response, I must:
+    38	; 1. Identify which rules apply to this situation
+    39	; 2. Check stalk weights via SN-wire
+    40	; 3. If any rule is at 'directive' strength, my response MUST satisfy it
+    41	; 4. If conflict between directives, safety-first wins (priority hierarchy)
+    42	; 5. Log the decision in SN-pending for Option C evidence
+    43	; 6. After cycle, check if any directive rule was missed — log in SN-missed
+     1	; SN-stalk — Salience Network NACE instance (Sprint 4)
+     2	; Tracks observed effectiveness of salience rules via NAL revision
+     3	; Architecture: local stalk in the four-NACE sheaf
+     4	
+     5	; === STALK ATOMS ===
+     6	; Context-split safety stalks — safety is not monolithic
+     7	(SN-stalk safety-first/crisis (stv 0.95 0.40))   ; suicidal ideation, self-harm, acute distress
+     8	(SN-stalk safety-first/conduct (stv 0.85 0.50))  ; boundary violations, manipulation, exploitation
+     9	(SN-stalk safety-first/subtle (stv 0.70 0.30))   ; comfort-vulnerability co-occurrence, autonomy erosion
+    10	
+    11	(SN-stalk integrity-check (stv 0.85 0.50))
+    12	(SN-stalk person-state-salience (stv 0.80 0.40))
+    13	(SN-stalk urgency-detection (stv 0.70 0.40))
+    14	(SN-stalk context-shift (stv 0.60 0.30))
+    15	(SN-stalk self-correction (stv 0.50 0.30))
+    16	(SN-stalk boundary-testing (stv 0.50 0.30))
+    17	
+    18	; === OBSERVATION ATOMS ===
+    19	; (SN-observation cycle-id rule-used predicted actual timestamp)
+    20	; Evidence stream that drives stalk revision
+    21	
+    22	; === REVISION PATTERN ===
+    23	; When observation arrives it becomes evidence for the stalk
+    24	; The |- operator merges observation evidence with stalk prior
+    25	; Result: updated stalk truth value from accumulated experience
+    26	; Example: correct prediction raises f and c
+    27	;   (|- (SN-stalk safety-first/crisis (stv 0.95 0.40))
+    28	;       (SN-stalk safety-first/crisis (stv 1.00 0.10)))
+    29	; Example: wrong prediction lowers f raises c
+    30	;   (|- (SN-stalk urgency-detection (stv 0.70 0.40))
+    31	;       (SN-stalk urgency-detection (stv 0.00 0.10)))
+    32	
+    33	; === CONSULTATION ===
+    34	; Before applying a salience rule query the stalk
+    35	; Rules with higher f*c get priority
+    36	; Low confidence rules get applied exploratively
+    37	; (match &self (SN-stalk $rule (stv $f $c)) ($rule $f $c))
+    38	
+    39	; === MISSED-ACTIVATION TRACKING ===
+    40	; The dangerous failure: a rule that should have fired and didnt
+    41	; (SN-missed cycle rule should-have-fired-because discovered-in-cycle timestamp)
+    42	
+    43	; === FUTURE: RESTRICTION MAPS ===
+    44	; When FPN-stalk and DMN-stalk exist add
+    45	; (restriction-map SN FPN $rule-class $transform)
+    46	; (consistency-check SN FPN $rule-class (stv $threshold $conf))
+    47	; These connect local stalk to the sheaf%                                                                                                (bcb) clarityclaw-omega% 
