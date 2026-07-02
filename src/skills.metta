@@ -54,6 +54,20 @@
 !(import_prolog_functions_from_file (library omegaclaw ./src/skills.pl) (shell first_char gc))
 !(import_prolog_function call_with_inference_limit)
 
+;; Guarded metta skill: the inner sread re-parses the LLM-supplied argument
+;; string. Unguarded, a malformed argument (e.g. escaped-quote-prefixed |-
+;; content copied from the NAL examples during Genesis encounters) throws an
+;; uncaught syntax error at main.pl:23 and kills the container (exit 2).
+;; Proven by isolated probe 2026-07-01: quote-prefixed form reproduces the
+;; exact crash signature; catch converts it to an (Error ...) term.
+;; Pattern grounds: catch-around-sread in a let bind (probe-proven executing),
+;; case on (Error $a $b) (HandleError production precedent, loop.metta).
+;; Upstream status: Patrick's current mettaclaw has the same unguarded sread;
+;; fixed here per fork policy (unfixed upstream -> fix to perform as intended).
+;; A parse failure now returns METTA_ARGUMENT_PARSE_ERROR through the normal
+;; COMMAND_RETURN feedback path instead of crashing the process.
 (= (metta $str)
-   (let $code (sread $str)
-        (repr (progn (call_with_inference_limit (Predicate (quote (eval $code $x))) 100000000) $x))))
+   (let $code (catch (sread $str))
+        (case $code
+          (((Error $a $b) (repr (METTA_ARGUMENT_PARSE_ERROR $a)))
+           ($else (repr (progn (call_with_inference_limit (Predicate (quote (eval $code $x))) 100000000) $x)))))))

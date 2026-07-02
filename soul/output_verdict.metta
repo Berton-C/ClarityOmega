@@ -180,8 +180,27 @@
 ;; on a bound string is a direct builtin goal (no reduce hazard);
 ;; string detection rides the S1-proven py-call channel ON THE REPR
 ;; (repr is total over unbound vars; raw marshalling is not, F30).
+;; CRASH GUARD (2026-07-02): this sread was the second unguarded parse of an
+;; LLM-supplied string (first: the metta skill, guarded in src/skills.metta).
+;; A malformed metta argument (probe-proven: bang-prefixed "!(match ...)")
+;; threw an uncaught syntax error here during the per-cycle gate walk
+;; (batch-targets-soul? -> norm-metta-arg), killing the container at
+;; main.pl:23 exit 2 BEFORE the output verdict printed. Reproduced in an
+;; isolated probe on the exact live batch shape.
+;; The catch converts the throw to an (Error ...) term; the Error branch
+;; returns an EXPRESSION-shaped sentinel (not a bare atom) so downstream
+;; car-atom consumers (metta-arg-mutates?, F25 hazard) stay goal-safe and
+;; classify it non-mutating. Safety vs the "naively skipped waves mutations
+;; through" warning above: an unparseable arg cannot execute as a mutation,
+;; because the guarded metta skill returns METTA_ARGUMENT_PARSE_ERROR
+;; instead of evaluating it. Gate inspects safely; skill executes safely.
 (= (norm-metta-arg $a)
-   (if (== (py-call (soul_governance.repr_kind (repr $a))) 1) (sread $a) $a))
+   (if (== (py-call (soul_governance.repr_kind (repr $a))) 1)
+       (let $p (catch (sread $a))
+            (case $p
+              (((Error $e $d) (UNPARSEABLE-METTA-ARG $e))
+               ($else $p))))
+       $a))
 
 (= (metta-target-head-structural $arg)
    (car-atom (car-atom (cdr-atom (cdr-atom $arg)))))
