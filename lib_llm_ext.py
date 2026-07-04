@@ -104,8 +104,10 @@ class GlmProvider(AIProvider):
       - extra_body needs parse_reasoning AND nested
         chat_template_kwargs.enable_thinking (note: nested, not top-level)
       - In thinking mode, response may have empty message.content
-        with reasoning text in message.reasoning_content -- fall back
-        to reasoning_content when content is empty.
+        with reasoning text in message.reasoning_content. That reasoning
+        is PRINTED to the log for visibility but NOT returned as the
+        response (returning it fed her deliberation to the command
+        parser: draft send lines executed as real sends, 2026-07-04).
     """
 
     def __init__(self, name: str, var_name: str, model_name: str, base_url: str):
@@ -135,9 +137,26 @@ class GlmProvider(AIProvider):
             )
             msg = response.choices[0].message
             text = (getattr(msg, "content", None) or "").strip()
+            reasoning = (getattr(msg, "reasoning_content", None) or "").strip()
+            # Boundary diagnostic (2026-07-04): one line per call, makes the
+            # empty-content mechanism observable and this fix falsifiable.
+            print("[GlmProvider.chat] content_len=%d reasoning_len=%d fallback_would_have_fired=%s"
+                  % (len(text), len(reasoning), (not text) and bool(reasoning)))
             if not text:
-                # GLM thinking-mode fallback: substance may live in reasoning_content
-                text = (getattr(msg, "reasoning_content", None) or "").strip()
+                # Empty-content cycle. The old fallback returned
+                # reasoning_content as the response; the canon line splitter
+                # then executed every draft (send ...) line inside her
+                # deliberation (proven 2026-07-04: the 13:28 batch, one
+                # entry, three sends, reasoning-as-content header) and
+                # reasoning walls reached Mattermost. Visibility is
+                # preserved by printing the reasoning here, labeled; the
+                # command channel gets an empty response, which takes the
+                # existing safe path in the loop (first_char gate no-ops
+                # with a format reminder).
+                if reasoning:
+                    print("[GlmProvider.chat] content EMPTY; reasoning_content follows (visibility only, NOT returned as commands):")
+                    print(reasoning)
+                return ""
             return self._clean_text(text)
         except Exception as e:
             print(f"[lib_llm_ext.GlmProvider.chat] Exception while communicating with LLM: {e}")
