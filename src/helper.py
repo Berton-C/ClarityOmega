@@ -415,12 +415,11 @@ def wrap_if_bare_command(s):
     if stripped.startswith("(("):
         return s
 
-    # Known skills registry (13 items, from prompt SKILLS section)
-    known_skills = {
-        "remember", "query", "episodes", "pin", "shell",
-        "read-file", "write-file", "append-file", "send",
-        "search", "tavily-search", "technical-analysis", "metta",
-    }
+    # Known skills registry: single source of truth is LLM_COMMANDS (the canon
+    # set used by balance_parentheses/starts_command_line). Referencing it here
+    # keeps the bare-command safety net in agreement with the assembler, so every
+    # skill (including promote/demote) is recognized identically on both paths.
+    known_skills = LLM_COMMANDS
 
     # Extract the first token after the opening paren
     rest = stripped[1:].lstrip()
