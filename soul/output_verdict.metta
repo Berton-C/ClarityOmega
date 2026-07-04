@@ -45,7 +45,22 @@
 ;; travels with this file in soul/ (bind-mounted, no rebuild).
 !(import! &self "/PeTTa/repos/omegaclaw/soul/soul_governance.py")
 
-(= (path-scope-score $path) (py-call (soul_governance.path_scope $path)))
+;; CRASH GUARD (2026-07-04): raw py-call marshalling of an unbound-carrying
+;; path kills py_call uncaught (janus instantiation error, exit 2) inside
+;; the per-cycle gate walk (F30 class; probe-proven on (foo $u) and bare $v).
+;; Production-reachable: contract-violating variables in her file commands
+;; parse via sread as real unbound vars; output-cmd-path extracts them here.
+;; The catch converts the throw; the Error branch returns 4 (system scope,
+;; maximum caution) per this file's default-safe-on-failure constraint: no
+;; silent PROCEED, and an uninspectable path is treated as widest scope.
+;; Guarded-shape probe 2026-07-04: bound soul path still scores 1; () scores
+;; 4 via str-coercion; (foo $u) and bare $v return 4 with exit 0.
+;; Flagged by Clarity in her norm-metta-arg guard review (same defect class).
+(= (path-scope-score $path)
+   (let $s (catch (py-call (soul_governance.path_scope $path)))
+        (case $s
+          (((Error $e $d) 4)
+           ($else $s)))))
 
 ;; ---- per-command feature extraction (DETERMINISTIC) -------------
 ;; Overlapping pattern-stacked clauses are nondeterministic in this
