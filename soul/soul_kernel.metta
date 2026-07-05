@@ -703,6 +703,7 @@
 !(add-atom &self (soul-file-class "/PeTTa/repos/omegaclaw/soul/soul_mutation_gate_corrected.metta" constitutional))
 !(add-atom &self (soul-file-class "/PeTTa/repos/omegaclaw/soul/soul_namespace_membership_seed.metta" constitutional))
 !(add-atom &self (soul-file-class "/PeTTa/repos/omegaclaw/soul/arc_log.md" journal))
+!(add-atom &self (soul-file-class "/PeTTa/repos/omegaclaw/soul/findings.metta" journal))
 
 ;; Accessor with the default-deny fallback built in.
 (= (soul-file-class-of $path)
