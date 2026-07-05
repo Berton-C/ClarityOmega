@@ -45,6 +45,7 @@
 !(add-atom &self (soul-ns-member soul-extract-flag-note))
 !(add-atom &self (soul-ns-member soul-extract-metta-arg))
 !(add-atom &self (soul-ns-member soul-extract-soul-note))
+!(add-atom &self (soul-ns-member soul-file-class))
 !(add-atom &self (soul-ns-member soul-file-count))
 !(add-atom &self (soul-ns-member soul-flag))
 !(add-atom &self (soul-ns-member soul-flourishing-prompt))
