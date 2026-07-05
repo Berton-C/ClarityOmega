@@ -1109,3 +1109,11 @@ For elevation work, the recommended sequence based on this document:
 7. **Idle directive elevation** (Section 4 line 99) - the biggest move, but has the most existing substrate vocabulary to work with. Multi-session.
 
 Each elevation should be validated before the next begins.
+
+### Addendum (2026-07-05, Sprint 01): findings journal import
+
+Section 3 startup update: `lib_clarity_reasoning.metta` gains the import of
+`soul/findings.metta` (Clarity's durable findings journal, data atoms only,
+placed after the NACE data-atom imports per Sprint 01 design F8). No
+loop.metta change. Writer is Clarity's own append-file command route under
+her output verdict; the file is journal-classed in soul_kernel's D3 block.

@@ -103,6 +103,9 @@
 !(import! &self (library omegaclaw ./soul/nace_substrate))
 !(import! &self (library omegaclaw ./soul/nace_beliefs))
 
+;; Clarity durable findings journal (Sprint 01, D3 closure): her persisted findings load as live atoms at startup
+!(import! &self (library omegaclaw ./soul/findings))
+
 ;; Capability registry dispatch (Sprint 0-Coda Phase C)
 !(import! &self (library omegaclaw ./soul/capability_registry))
 !(import! &self (library omegaclaw ./soul/capabilities/skill_discovery))
