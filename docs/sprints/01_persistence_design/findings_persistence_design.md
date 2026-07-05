@@ -307,3 +307,33 @@ co-reviewed by Berton and Clarity.
 
 **v1.1 (2026-07-05).** Probe results folded in; newline contract added; commit
 A0 added to the build sequence.
+
+---
+
+## 13. Delivery-incident forensics (v1.2 addendum, 2026-07-05)
+
+Two mechanisms identified at source from the D3 survey delivery incident;
+neither is content malformation.
+
+**F9 finalized (generation truncation that parses).** history.metta line
+582699 records an executed batch whose send string ends mid-content with
+balanced tokens: a truncation at LLM generation or response capture that
+survived the parse-whole protection and delivered incomplete. Exposure for
+findings appends is narrow (nested atom shapes unbalance on most cuts, and
+an unparsed batch never touches the file), and the residual mitigation is
+behavioral: ONE finding per append command, short, never batched into long
+emissions. Added to the header teaching.
+
+**F10 NEW (corner-gate collision).** The corner gate suppresses idle-window
+command batches wholesale, and recognition moments occur during idle
+exploration. The original D3 answers were corner-suppressed (her record and
+the governance journal agree). A findings append emitted during a
+corner-confirmed idle window will not execute. Options, owner Clarity with
+Berton: accept and teach engaged-window appends; a deliberate journal-class
+append exemption in the corner gate; or corner detector v2 (the parked
+quantale merge) addressing over-fire at root. UNRESOLVED until they decide;
+the first real append (build step 5) happens in an engaged window
+regardless, so the build is not blocked.
+
+**v1.2 (2026-07-05).** F9 finalized from evidence; F10 added; header
+teaching gains the one-finding-per-append rule.
