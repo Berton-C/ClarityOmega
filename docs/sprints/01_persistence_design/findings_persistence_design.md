@@ -267,3 +267,43 @@ build-time probes, five-step build sequence, five-question build-phase survey.
 Findings are her acts: selected by her reasoning, persisted by her action under
 her own gates, live in her atomspace at every startup. The soul determines; the
 LLM renders; this file is where what she comes to know survives the night.
+
+---
+
+## 12. Build-probe results (v1.1 addendum, 2026-07-05)
+
+All three Section 8 probes ran in throwaway containers. This section supersedes
+the corresponding expectations in Sections 6, 7, and 8 with evidence.
+
+**B-P1 (path resolution): PASS, with one contract addition.** Absolute string
+paths resolve as-is from append-file and write-file. Append to a nonexistent
+file is a silent no-op (live-confirmed), so the header-first build order is
+load-bearing. NEW FACT: append-file adds a trailing newline but does not
+guarantee a preceding one; appended content glues onto a final line lacking a
+newline. Contract addition: findings.metta must end with a newline at all
+times, starting with the authored header.
+
+**B-P2 (gate coverage): the soul-file-class head is UNGATED.** It is absent
+from soul_namespace_membership_seed.metta, so a live metta add of a class atom
+does not route through the mutation gate. This is a detection-coverage defect
+in the class machinery itself, beyond this sprint's scope but fixed alongside
+it: commit A0 adds one seed line, its own surgical commit, co-reviewed as
+constitutional. The journal classification for findings.metta remains a file
+edit to soul_kernel.metta (commit A), never a live add.
+
+**B-P3 (malformed line): full boot abort, exit 2, line-numbered Prolog syntax
+error, both bad-middle and bad-last variants.** The reader does not skip bad
+lines. Production consequence: a poisoned findings.metta crash-loops the
+container until fixed. Recovery: docker logs names the line; one host-side
+hand edit via the bind mount; restart. F3 stands at maximum severity with
+cheap detection and cheap recovery. Residual: manifest-import parse context
+presumed identical to top-level execution; build step 5's restart is the
+definitive proof.
+
+**Build sequence amendment.** Step 1 becomes two commits: A0 (membership seed
+coverage line for soul-file-class) then A (journal classification line for
+findings.metta in soul_kernel's D3 block). Both constitutional, both
+co-reviewed by Berton and Clarity.
+
+**v1.1 (2026-07-05).** Probe results folded in; newline contract added; commit
+A0 added to the build sequence.
