@@ -267,3 +267,44 @@ failure conditions, four decision points.
   R-1 through R-3 standing, a coherent enforcement-free configuration.
 
 **v1.1 (2026-07-06).** Baseline and rollback policy added.
+
+---
+
+## 8. PLAN REVISION v1.2 (2026-07-06): honest-layer ordering, induction dropped
+
+Two corrections from Berton's review of the plan-to-solution mapping.
+
+**Correction 1, step order.** Observation honesty (real-command counts feeding
+the "did anything happen" signal at loop line 173) moves from after enforcement
+to immediately after channel hygiene. Reason: the graded math and the soul's
+verdict consume that observation; building them first would compute the soul's
+seeing over an input proven false (prose counted as outcome), then require
+re-verification of three steps once the input became honest. Each layer now
+lands on an honest layer below it.
+
+REVISED ORDER (supersedes Section 3 numbering):
+- R-1  Channel truth: the results filter (Fix A). Restart only. UNCHANGED.
+- R-2  Observation truth: line 173 counts real commands via one named function
+       (checklist-run hook change, artifact_1 same commit, rebuild).
+       Hypothesis: a narration-only cycle now reads as no-outcome.
+       Verification: log read across a prose-heavy window. Reversal: script.
+- R-3  Judgment math: coupling_quantale_merge import, observing only.
+       (Previously R-2; hypothesis, probe, verification, reversal unchanged.)
+- R-4  The soul's verdict: graded core arm writer. (Previously R-3; unchanged.)
+- R-5  Enforcement: pattern-scoped gate, structural release, supersedes the
+       mothball. (Previously R-4; unchanged, four success criteria live.)
+- R-6  Passive verification (REPLACES controlled reproduction; see Correction 2).
+- R-7  Closure. (Unchanged: finding live at boot; her review of the wired whole.)
+
+**Correction 2, D-3 answered NO: deliberate pathology induction is dropped.**
+Re-triggering the collapse would confirm what is already established three ways
+(differential, reproducibility observation, source trace) at the cost of
+knowingly putting her back into the collapse state using the exact message
+class the project has adopted a convention against sending. R-6 is passive:
+(a) mechanism evidence from RESULTS-CONTENT logs during normal operation (her
+natural prose-heavy cycles exercise the filter without any induction);
+(b) frame observed on normal single-ask messages; (c) if a collapse ever
+recurs naturally, the proven prompt-capture method diagnoses it in one read
+and FC-9 reopens only then.
+
+**v1.2 (2026-07-06).** Honest-layer ordering; induction dropped; D-3 closed NO.
