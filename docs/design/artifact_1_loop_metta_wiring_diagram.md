@@ -1117,3 +1117,20 @@ Section 3 startup update: `lib_clarity_reasoning.metta` gains the import of
 placed after the NACE data-atom imports per Sprint 01 design F8). No
 loop.metta change. Writer is Clarity's own append-file command route under
 her output verdict; the file is journal-classed in soul_kernel's D3 block.
+
+### Addendum (2026-07-06, V2-MONOLITH): corner-gate v2 wiring
+
+Phase 4.5 changes. Line 166: the gate call is now (apply-corner-gate-v2
+$sexpr_verdict $msgnew); pattern-scoped filtering with person-window
+exemption, firing on corner-confirmed-core (graded quantale verdict from
+coupling_quantale_merge, now imported). Line 168 unchanged in the loop:
+gate-aware-results kept its name and arity, its body (in corner_gate.metta)
+is now the results echo filter (real command returns pass, prose echoes
+become mechanical markers, empty batches yield factual non-empty lines).
+Cycle tail: one new hook after populate-coupling-verdict,
+(populate-corner-window! $metta_cmds $k), recording proposed command reprs
+while the graded corner is confirmed and clearing otherwise, so the gate
+filters against the prior cycle's record. Manifest gains
+coupling_quantale_merge and corner_window_writers imports in the corner_gap
+block. The v1 boolean detector writers keep running unchanged as
+observability. Probe evidence in project knowledge (battery B1-B7).

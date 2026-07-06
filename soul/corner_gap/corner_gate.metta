@@ -67,9 +67,16 @@
 (= (corner-gate-active) False)
 
 ;; The filter. Cornered -> () (force silence). Otherwise -> $sexpr unchanged.
-;; MOTHBALLED 2026-07-06 (interim until v2 lands): enforcement off, detectors keep observing.
-;; Original body: (if (== (corner-confirmed) True) () $sexpr)
-(= (apply-corner-gate $sexpr) $sexpr)
+;; V2-MONOLITH 2026-07-06: mothball superseded by apply-corner-gate-v2 (probes B1-B6).
+;; Pattern-scoped: only exact repeats recorded in the confirmed-corner window are
+;; held; novel commands pass and execute, so forward-outcome is observable and the
+;; gate releases on evidence (probe B3). Person windows are never gated (probe B6).
+(= (apply-corner-gate-v2 $sexpr $msgnew)
+   (if (== $msgnew True)
+       $sexpr
+       (if (== (corner-confirmed-core) True)
+           (filter-corner-cmds $sexpr)
+           $sexpr)))
 
 ;; Concrete feedback content (a result, not an advisory).
 (= (corner-gate-feedback)
@@ -83,7 +90,59 @@
 ;; result with the feedback, so &lastresults carries it into the next prompt's
 ;; LAST_SKILL_USE_RESULTS through the existing channel. Otherwise pass the real
 ;; execution results through unchanged.
+;; V2-MONOLITH 2026-07-06: results echo filter (probes B7, P1-P4). Real command
+;; returns pass verbatim; prose echoes become a mechanical marker; empty batches
+;; yield a factual non-empty line. Marker text is Clarity's to amend.
 (= (gate-aware-results $exec-results)
-   (if (== (corner-gate-active) True)
-       (RESULTS: (corner-gate-feedback))
-       $exec-results))
+   (let (RESULTS: $lst) $exec-results
+        (if (== $lst ())
+            (if (== (corner-confirmed-core) True)
+                (RESULTS: ((COMMAND_RETURN: (held-by-corner-gate))))
+                (RESULTS: ((COMMAND_RETURN: (no-commands-executed-this-cycle)))))
+            (RESULTS: (filter-returns $lst)))))
+
+;; ================================================================
+;; V2-MONOLITH 2026-07-06 pure filter functions. Probe-proven:
+;; filter fixtures P1-P4 (empty, real, prose, bare symbol) and
+;; battery B5/B6 (repr store-and-match, keep-order filtering).
+;; Maintenance: new skills must be added to allowed-heads or their
+;; returns get markered (fail-safe information loss, never poison).
+;; Single-head recursion, if-dispatch on () (P3 fork precedent),
+;; C12-safe (matches live in their own readers).
+;; ================================================================
+(= (allowed-heads)
+   (send metta shell read-file write-file append-file query remember
+    pin promote demote tavily-search technical-analysis agentverse progn))
+
+(= (head-in-list? $x $lst)
+   (if (== $lst ())
+       False
+       (let* (($h (car-atom $lst))
+              ($t (cdr-atom $lst)))
+             (if (== $h $x) True (head-in-list? $x $t)))))
+
+(= (real-return? $el)
+   (let (COMMAND_RETURN: ($s $r)) $el
+        (head-in-list? (car-atom $s) (allowed-heads))))
+
+(= (filter-returns $lst)
+   (if (== $lst ())
+       ()
+       (let* (($h (car-atom $lst))
+              ($t (filter-returns (cdr-atom $lst))))
+             (if (== (real-return? $h) True)
+                 (cons-atom $h $t)
+                 (cons-atom (COMMAND_RETURN: (non-command-element not-executed)) $t)))))
+
+(= (cmd-in-corner-window? $cmd)
+   (let $r (repr $cmd)
+        (> (size-atom (collapse (match &self (corner-window-cmd $c $r) $c))) 0)))
+
+(= (filter-corner-cmds $cmds)
+   (if (== $cmds ())
+       ()
+       (let* (($h (car-atom $cmds))
+              ($t (filter-corner-cmds (cdr-atom $cmds))))
+             (if (== (cmd-in-corner-window? $h) True)
+                 $t
+                 (cons-atom $h $t)))))

@@ -88,7 +88,11 @@
 !(import! &self (library omegaclaw ./soul/corner_gap/state_delta_writer_writers))
 !(import! &self (library omegaclaw ./soul/corner_gap/coupling_integrity_detector))
 !(import! &self (library omegaclaw ./soul/corner_gap/coupling_integrity_detector_writers))
+;; V2-MONOLITH 2026-07-06: graded corner detection (quantale merge, probe A/B1-B4)
+!(import! &self (library omegaclaw ./soul/corner_gap/coupling_quantale_merge))
 !(import! &self (library omegaclaw ./soul/corner_gap/corner_gate))
+;; V2-MONOLITH 2026-07-06: confirmed-corner window record (writers, probe B5/B6)
+!(import! &self (library omegaclaw ./soul/corner_gap/corner_window_writers))
 
 ;; Recent-action populator: writes recent-action atoms each iteration with pruning
 !(import! &self (library omegaclaw ./soul/recent_action_populator))
@@ -109,3 +113,17 @@
 ;; Capability registry dispatch (Sprint 0-Coda Phase C)
 !(import! &self (library omegaclaw ./soul/capability_registry))
 !(import! &self (library omegaclaw ./soul/capabilities/skill_discovery))
+
+;; BEGIN v08.7.2 soul-evolutionary quantale import block
+;; v08.7.2: quantale durable evolutionary governance engine + soul-owned topology
+!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY))
+!(import! &self (library omegaclaw ./soul/evolutionary/README))
+!(import! &self (library omegaclaw ./soul/evolutionary/index))
+!(import! &self (library omegaclaw ./soul/evolutionary/runtime))
+!(import! &self (library omegaclaw ./soul/evolutionary/pending))
+!(import! &self (library omegaclaw ./soul/evolutionary/validation))
+!(import! &self (library omegaclaw ./soul/evolutionary/restart))
+!(import! &self (library omegaclaw ./soul/evolutionary/rejected))
+!(import! &self (library omegaclaw ./soul/evolutionary/archive/README))
+!(import! &self (library omegaclaw ./soul/durable))
+;; END v08.7.2 soul-evolutionary quantale import block
