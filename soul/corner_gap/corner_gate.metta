@@ -63,14 +63,13 @@
 ;; ================================================================
 
 ;; Is the gate firing this cycle (reads the sustained signal from prior tails).
-(= (corner-gate-active)
-   (corner-confirmed))
+;; MOTHBALLED 2026-07-06: original body (corner-confirmed)
+(= (corner-gate-active) False)
 
 ;; The filter. Cornered -> () (force silence). Otherwise -> $sexpr unchanged.
-(= (apply-corner-gate $sexpr)
-   (if (== (corner-confirmed) True)
-       ()
-       $sexpr))
+;; MOTHBALLED 2026-07-06 (interim until v2 lands): enforcement off, detectors keep observing.
+;; Original body: (if (== (corner-confirmed) True) () $sexpr)
+(= (apply-corner-gate $sexpr) $sexpr)
 
 ;; Concrete feedback content (a result, not an advisory).
 (= (corner-gate-feedback)
