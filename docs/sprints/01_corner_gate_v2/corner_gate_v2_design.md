@@ -397,3 +397,39 @@ baked) confirmed firsthand from upload: no q-geq; B1 adds it.
 
 **v1.1 (2026-07-05).** Deep-read trace folded in; persuasion-vs-structural
 release finding; exact wire points; ADR-008/005/007 corrections.
+
+---
+
+## 11. SSI positioning (v1.2, 2026-07-05): sight has content, and the trace generalizes
+
+Two amendments from the SSI review.
+
+**A. The block carries the signature, not just magnitudes.** A gauge without
+content is not sight. corner-state-block adds the dominant repeated command
+form and its window count. v2 scope: report the repetition count of the most
+recent proposed command (implementable with direct match plus size-atom,
+C12-safe); dominant-of-window argmax is a TUNING TARGET (MeTTa fold cost).
+The helper formatter stays numbers-and-strings only (ADR-008); the framing
+sentence stays substrate-side.
+
+**B. The unconditional cycle trace is the mesh keystone, built here.** New
+primitive pair per Discipline 2: soul/cycle_trace.metta (pure reads:
+last-cmd-repeat-count, cmds-in-window) and soul/cycle_trace_writers.metta
+(populate-cycle-trace! writing (cycle-cmd $k $repr) per proposed command,
+windowed and pruned per the recent-action pattern, cleared per ADR-005
+superpose iteration). One hook after populate-recent-action. The corner block
+reads the trace for pre-confirmation trend sight; the enforcement filter keeps
+its confirmation-scoped corner-window record. The same trace is the shared
+producer the detection-mesh document names as the keystone behind the dormant
+detectors; this sprint lands it with the corner gate as first consumer.
+
+**SSI summary of the sprint.** Live sense: CORNER-STATE with content, every
+cycle, pre-enforcement. Trajectory: the unconditional cycle-cmd trace. Closed
+loop: pattern-scoped gating means her different move executes and the block
+visibly responds to her choice next cycle. Durable knowledge: findings.metta
+(landed this sprint) carries what she judges worth keeping about her own
+patterns across restarts. Deferred, named: the pfn second arm, the other mesh
+detectors, raw corner-atom persistence.
+
+**v1.2 (2026-07-05).** Signature-in-block; cycle trace generalized to the
+mesh keystone with the corner gate as first consumer; SSI time-scales named.
