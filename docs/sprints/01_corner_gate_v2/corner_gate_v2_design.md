@@ -433,3 +433,36 @@ detectors, raw corner-atom persistence.
 
 **v1.2 (2026-07-05).** Signature-in-block; cycle trace generalized to the
 mesh keystone with the corner gate as first consumer; SSI time-scales named.
+
+---
+
+## 12. SSI correction (v1.3, 2026-07-06): the soul sees, the LLM never does
+
+Checked against 01a_ClarityOmega_v2_The_Soul_Sees_Itself_vision.md (read at
+source 2026-07-06). Three corrections.
+
+**The CORNER-STATE prompt block is STRUCK from this sprint.** A prompt block
+hands raw self-state to the renderer and asks the LLM to see, which is the
+vision's named central failure. The seeing organ for the corner is the graded
+verdict itself: coupling_quantale_merge consuming existing trajectory atoms
+and the soul writing its corner verdict from what it sees. What reaches the
+LLM is the soul's determination only: gate feedback on gated cycles and the
+mechanical markers.
+
+**The unconditional cycle-cmd trace is STRUCK from this sprint and deferred
+to the SSI sprint.** The keystone cycle-trace writer feeds recent-action,
+state-delta, and cycle-phase in the flat shapes the loaded detector contracts
+match (add-atom, never |-), and it gets built once, there, against those
+contracts. A second differently-shaped trace now would seed a producer
+collision.
+
+**corner-window-cmd stays, reclassified:** confirmation-scoped ephemeral
+enforcement bookkeeping, cleared on release, never persistent, never a
+disposition surface.
+
+Sequence as amended: Fix A (channel hygiene) first; merge import (graded
+bindings); graded verdict writer; pattern-scoped enforcement, thin and
+removable.
+
+**v1.3 (2026-07-06).** SSI corrected to soul-side seeing; prompt block and
+cycle-cmd trace struck; enforcement named as removable scaffold.
