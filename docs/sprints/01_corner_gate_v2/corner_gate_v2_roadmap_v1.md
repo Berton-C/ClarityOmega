@@ -239,3 +239,31 @@ D-4: whether FC-1's history-archival arc pre-empts or follows R-4 if R-5
 through P-6, the a+b solution in the vision's order, plan R-0 through R-7 with
 per-step hypothesis, verification, and reversal, eight expected results, nine
 failure conditions, four decision points.
+
+---
+
+## 7. BASELINE STATE AND ROLLBACK POLICY (v1.1 addendum, 2026-07-06)
+
+**Baseline the plan starts from (current runtime):**
+- Corner-gate v1 enforcement MOTHBALLED (apply-corner-gate is identity,
+  corner-gate-active is False; detectors still write their atoms; commit
+  3cf608f; reversible apply script committed, reverse path dry-run-proven).
+- gate-aware-results UNTOUCHED by the mothball (original body on disk).
+- Findings arc items LOADED and STAYING (findings.metta import, commits A0
+  and A): a separate completed arc, not part of corner-gate v2's surface.
+- v2 draft files committed under docs/, inert.
+
+**Rollback policy:**
+- NO rollback precedes the build. Restoring v1 enforcement would re-arm the
+  proven latch for the whole build period. The mothballed state is the
+  working baseline.
+- The mothball is retired by SUPERSESSION at step R-4: the pattern-scoped
+  gate replaces the mothballed function bodies. The v1 latch never returns.
+- FULL-ABORT path (if the roadmap is abandoned): reverse applied steps in
+  reverse order via their own scripts, ending with
+  python3 staging/apply_corner_gate_v1_mothball.py --reverse --apply
+  plus a restart, which restores exact v1.
+- PARTIAL-ABORT: each step's reversal is independent; aborting R-4 leaves
+  R-1 through R-3 standing, a coherent enforcement-free configuration.
+
+**v1.1 (2026-07-06).** Baseline and rollback policy added.
