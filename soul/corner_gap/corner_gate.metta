@@ -110,20 +110,33 @@
 ;; Single-head recursion, if-dispatch on () (P3 fork precedent),
 ;; C12-safe (matches live in their own readers).
 ;; ================================================================
-(= (allowed-heads)
-   (send metta shell read-file write-file append-file query remember
-    pin promote demote tavily-search technical-analysis agentverse progn))
+;; ALLOWLIST-REPAIR 2026-07-06: the tuple body applied DEFINED skill heads and
+;; killed transpiler registration of everything after it (repro: m_repro exit 2,
+;; length/2 domain error, arity -13). Replaced by data atoms (membership-seed
+;; pattern; add-atom stores unreduced, defined heads inert) plus match-count
+;; membership (repro: m_fix exit 0, later functions register).
+!(add-atom &self (allowed-head send))
+!(add-atom &self (allowed-head metta))
+!(add-atom &self (allowed-head shell))
+!(add-atom &self (allowed-head read-file))
+!(add-atom &self (allowed-head write-file))
+!(add-atom &self (allowed-head append-file))
+!(add-atom &self (allowed-head query))
+!(add-atom &self (allowed-head remember))
+!(add-atom &self (allowed-head pin))
+!(add-atom &self (allowed-head promote))
+!(add-atom &self (allowed-head demote))
+!(add-atom &self (allowed-head tavily-search))
+!(add-atom &self (allowed-head technical-analysis))
+!(add-atom &self (allowed-head agentverse))
+!(add-atom &self (allowed-head progn))
 
-(= (head-in-list? $x $lst)
-   (if (== $lst ())
-       False
-       (let* (($h (car-atom $lst))
-              ($t (cdr-atom $lst)))
-             (if (== $h $x) True (head-in-list? $x $t)))))
+(= (head-allowed? $h)
+   (> (size-atom (collapse (match &self (allowed-head $h) $h))) 0))
 
 (= (real-return? $el)
    (let (COMMAND_RETURN: ($s $r)) $el
-        (head-in-list? (car-atom $s) (allowed-heads))))
+        (head-allowed? (car-atom $s))))
 
 (= (filter-returns $lst)
    (if (== $lst ())
