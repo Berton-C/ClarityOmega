@@ -7,19 +7,25 @@
 ;; Probe evidence: record body B5/B6; clear per ADR-005 superpose iteration;
 ;; the populate driver is if-dispatch composition of the probed parts.
 
+;; TOTALITY-FIX 2026-07-07: guard empty BEFORE superpose; collapse-wrap the drain
+;; (state_delta / do-clear-idle-pattern! verified idiom; repro R1=0, fix R3/R4/R5).
 (= (do-clear-corner-window!)
    (let $olds (collapse (match &self (corner-window-cmd $c $r) (corner-window-cmd $c $r)))
-        (let $o (superpose $olds)
-             (if (== $o ())
-                 ()
-                 (remove-atom &self $o)))))
-
-(= (do-record-corner-window! $cmds $cycle-id)
-   (let $c (superpose $cmds)
-        (if (== $c ())
+        (if (== $olds ())
             ()
-            (let $r (repr $c)
-                 (add-atom &self (corner-window-cmd $cycle-id $r))))))
+            (let $_drained (collapse (let $o (superpose $olds)
+                                          (remove-atom &self $o)))
+                 ()))))
+
+;; TOTALITY-FIX 2026-07-07: empty-batch guard + collapse-wrap so the writer
+;; returns exactly one solution and cannot fork the cycle tail (probe S1/S2/S3).
+(= (do-record-corner-window! $cmds $cycle-id)
+   (if (== $cmds ())
+       ()
+       (let $_recorded (collapse (let $c (superpose $cmds)
+                                      (let $r (repr $c)
+                                           (add-atom &self (corner-window-cmd $cycle-id $r)))))
+            ())))
 
 ;; Cycle driver. Hook ordering: AFTER populate-coupling-verdict (loop line 176),
 ;; so the gate always filters against the PRIOR cycle's record.
