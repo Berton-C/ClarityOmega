@@ -3,7 +3,9 @@
 ;; Patrick's lib_nal is already imported by lib_omegaclaw -- available in AtomSpace
 
 ;; Runtime-ready libraries (promoted from lib_candidates/)
-!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_quantale))
+;; RETIRED 2026-07-07: lib_quantale fully retired. All seven of its symbols are
+;; defined by the v08.7.2 engine (imported below in this manifest); zero loaded
+;; consumers of its bridges existed at retirement (survey + engine-only probe).
 !(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_self_continuity))
 !(import! &self (library omegaclaw ./lib_clarity_reasoning/substrate_kb))
 
@@ -117,13 +119,11 @@
 ;; BEGIN v08.7.2 soul-evolutionary quantale import block
 ;; v08.7.2: quantale durable evolutionary governance engine + soul-owned topology
 !(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY))
-!(import! &self (library omegaclaw ./soul/evolutionary/README))
 !(import! &self (library omegaclaw ./soul/evolutionary/index))
 !(import! &self (library omegaclaw ./soul/evolutionary/runtime))
 !(import! &self (library omegaclaw ./soul/evolutionary/pending))
 !(import! &self (library omegaclaw ./soul/evolutionary/validation))
 !(import! &self (library omegaclaw ./soul/evolutionary/restart))
 !(import! &self (library omegaclaw ./soul/evolutionary/rejected))
-!(import! &self (library omegaclaw ./soul/evolutionary/archive/README))
 !(import! &self (library omegaclaw ./soul/durable))
 ;; END v08.7.2 soul-evolutionary quantale import block
