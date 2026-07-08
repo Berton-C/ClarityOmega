@@ -4,8 +4,14 @@
 
 ;; Runtime-ready libraries (promoted from lib_candidates/)
 ;; RETIRED 2026-07-07: lib_quantale fully retired. All seven of its symbols are
-;; defined by the v08.7.2 engine (imported below in this manifest); zero loaded
+;; defined by the v08.7.2 engine (imported directly below); zero loaded
 ;; consumers of its bridges existed at retirement (survey + engine-only probe).
+;; IMPORT-ORDER FIX 2026-07-08 (ledger C1'): the engine import MOVED HERE from
+;; the v08.7.2 block so its operator heads are defined BEFORE every consumer
+;; file compiles. The import-path transpiler compiles applications by what is
+;; defined at each file's import time (proven by the live REPL differential:
+;; q-geq call-compiled, q-meet data-compiled, exprs 2/6/7 of 2026-07-08).
+!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY))
 !(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_self_continuity))
 !(import! &self (library omegaclaw ./lib_clarity_reasoning/substrate_kb))
 
@@ -118,7 +124,8 @@
 
 ;; BEGIN v08.7.2 soul-evolutionary quantale import block
 ;; v08.7.2: quantale durable evolutionary governance engine + soul-owned topology
-!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY))
+;; NOTE 2026-07-08: the engine import itself MOVED to the top of this manifest
+;; (import-order fix, ledger C1'); the evolutionary satellites remain here.
 !(import! &self (library omegaclaw ./soul/evolutionary/index))
 !(import! &self (library omegaclaw ./soul/evolutionary/runtime))
 !(import! &self (library omegaclaw ./soul/evolutionary/pending))
