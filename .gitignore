@@ -29,3 +29,33 @@ volumes/omegaclaw/chroma_db/
 
 # Claude thread orientation document (single-reader tool, not project artifact)
 docs/CLAUDE_ORIENTATION.md
+
+# ------------------------------------------------------------
+# Repository hygiene
+# ------------------------------------------------------------
+
+# Python caches
+__pycache__/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Runtime logs
+/logs/
+
+# Local databases and journals
+*.db
+*.db-shm
+*.db-wal
+
+# Runtime vector-store state
+/volumes/omegaclaw/memory/chromadb/
+
+# Local backups and scratch copies
+*.bak
+*.bak.*
+*.pre_*
+* copy_metta.txt
+staging/Untitled*
+*.swp
