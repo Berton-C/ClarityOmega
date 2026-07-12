@@ -1,0 +1,2 @@
+NAME=clarity_omega STATUS=Up 3 minutes IMAGE=clarityomega-clarityclaw
+RestartCount=0 StartedAt=2026-07-12T17:43:46.253908011Z Status=running

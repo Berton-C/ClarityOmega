@@ -1,0 +1,27 @@
+========================================================================
+CORNER-GATE V3 MONOLITH  mode=REVERSE  root=/Users/bcb/Documents/ClarityOmega/clarityomega
+========================================================================
+REVERSE: restoring backups, removing created files
+  PASS  backup present lib_clarity_reasoning/lib_clarity_reasoning.metta.bak.v3_monolith
+  PASS  backup present src/loop.metta.bak.v3_monolith
+  PASS  backup present src/helper.py.bak.v3_monolith
+  PASS  backup present soul/corner_gap/corner_gate.metta.bak.v3_monolith
+  PASS  backup present docs/design/artifact_1_loop_metta_wiring_diagram.md.bak.v3_monolith
+  PASS  retired file present
+REVERSE VERIFICATION (hash-level where the apply manifest exists):
+  PASS  restored hash matches pre-apply lib_clarity_reasoning/lib_clarity_reasoning.metta
+  PASS  restored hash matches pre-apply src/loop.metta
+  PASS  restored hash matches pre-apply src/helper.py
+  PASS  restored hash matches pre-apply soul/corner_gap/corner_gate.metta
+  PASS  restored hash matches pre-apply docs/design/artifact_1_loop_metta_wiring_diagram.md
+  PASS  restored hash matches pre-apply soul/corner_gap/corner_window_writers.metta
+  PASS  imports gone
+  PASS  corner_window_writers import restored
+  PASS  hook restored
+  PASS  bootstrap hook gone
+  PASS  helper payload gone
+  PASS  artifact_1 section gone
+  PASS  created soul files removed
+  PASS  v2 gate body restored (held markers present again)
+  PASS  engine untouched through reverse
+>>> REVERSE COMPLETE AND HASH-VERIFIED.

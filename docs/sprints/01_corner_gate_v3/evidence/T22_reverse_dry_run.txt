@@ -1,0 +1,11 @@
+========================================================================
+CORNER-GATE V3 MONOLITH  mode=REVERSE  root=/Users/bcb/Documents/ClarityOmega/clarityomega
+========================================================================
+REVERSE: restoring backups, removing created files
+  PASS  backup present lib_clarity_reasoning/lib_clarity_reasoning.metta.bak.v3_monolith
+  PASS  backup present src/loop.metta.bak.v3_monolith
+  PASS  backup present src/helper.py.bak.v3_monolith
+  PASS  backup present soul/corner_gap/corner_gate.metta.bak.v3_monolith
+  PASS  backup present docs/design/artifact_1_loop_metta_wiring_diagram.md.bak.v3_monolith
+  PASS  retired file present
+>>> DRY-RUN reverse: would restore the files above and delete created soul files.
