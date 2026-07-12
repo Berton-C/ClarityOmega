@@ -1,0 +1,1143 @@
+======================================================================
+Corner-gap pipeline harness (substrate validation, pre-wiring)
+timestamp: 20260604_121119   container: clarity_omega   graded: True
+======================================================================
+TRANSPORT: inline bodies (lib_import + file bodies, no import! of rules).
+FILES INLINED:
+  /PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/state_delta_writer.metta
+  /PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/state_delta_writer_writers.metta
+  /PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/coupling_integrity_detector.metta
+  /PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/coupling_integrity_detector_writers.metta
+  /PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/corner_gate.metta
+  /PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/coupling_quantale_merge.metta
+  /PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/cycle_continuity_probe.metta
+  /PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/cycle_continuity_probe_writers.metta
+  /PeTTa/repos/omegaclaw/lib_clarity_reasoning/lib_quantale.metta
+  /PeTTa/repos/omegaclaw/lib_clarity_reasoning/lib_self_continuity.metta
+
+======================================================================
+STAGE 0  PREFLIGHT + LOAD
+======================================================================
+  [OK] container 'clarity_omega' running
+
+----------------------------------------------------------------------
+PROBE: STAGE 0 load probe
+----------------------------------------------------------------------
+SCRIPT SENT (body lines only; inlined definition block omitted for brevity):
+  !(corner-gate-feedback)
+RAW OUTPUT (ansi-stripped, full):
+--> metta runnable  -->
+!(import! &self (library lib_import))
+-->  prolog goal  --> 
+:- findall(A,
+           ( library(lib_import, B),
+             'import!'('&self', B, A)
+           ),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(import_prolog_function consult)
+-->  prolog goal  --> 
+:- findall(A, import_prolog_function(consult, A), _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (import_prolog_functions_from_file $prologfile $importfunctions) (let* (($prologfile (exists_file))
+                                                                           ($prologfile (consult))
+                                                                           ($function (superpose $importfunctions)))
+                                                                          (import_prolog_function $function)))
+--> prolog clause -->
+import_prolog_functions_from_file(A, B, C) :-
+    A=D,
+    exists_file(D),
+    A=E,
+    consult(E),
+    F=G,
+    superpose(B, G),
+    import_prolog_function(F, C).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(import_prolog_function use_module)
+-->  prolog goal  --> 
+:- findall(A, import_prolog_function(use_module, A), _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (import_prolog_functions_from_module $prologfile $importfunctions) (let* (($prologfile (exists_file))
+                                                                             ($prologfile (use_module))
+                                                                             ($function (superpose $importfunctions)))
+                                                                            (import_prolog_function $function)))
+--> prolog clause -->
+import_prolog_functions_from_module(A, B, C) :-
+    A=D,
+    exists_file(D),
+    A=E,
+    use_module(E),
+    F=G,
+    superpose(B, G),
+    import_prolog_function(F, C).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(import_prolog_functions_from_file (library lib_import.pl) (static-import! git-import! use-module!))
+-->  prolog goal  --> 
+:- findall(A,
+           ( library('lib_import.pl', B),
+             import_prolog_functions_from_file(B,
+                                               [ 'static-import!',
+                                                 'git-import!',
+                                                 'use-module!'
+                                               ],
+                                               A)
+           ),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta sexpr -->
+(: pbit Type)
+^^^^^^^^^^^^^^^^^^^
+--> metta sexpr -->
+(: mk-pbit (-> Number Number pbit))
+^^^^^^^^^^^^^^^^^^^
+--> metta sexpr -->
+(: q-mul (-> pbit pbit pbit))
+^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (q-mul (mk-pbit $s1 $c1) (mk-pbit $s2 $c2))
+   (mk-pbit (* $s1 $s2) (min $c1 $c2)))
+--> prolog clause -->
+'q-mul'(['mk-pbit', A, B],
+             ['mk-pbit', C, D],
+             ['mk-pbit', E, F]) :-
+    *(A, C, E),
+    min(B, D, F).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta sexpr -->
+(: q-join (-> pbit pbit pbit))
+^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (q-join (mk-pbit $s1 $c1) (mk-pbit $s2 $c2))
+   (mk-pbit (max $s1 $s2) (min $c1 $c2)))
+--> prolog clause -->
+'q-join'(['mk-pbit', A, B],
+              ['mk-pbit', C, D],
+              ['mk-pbit', E, F]) :-
+    max(A, C, E),
+    min(B, D, F).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta sexpr -->
+(: q-meet (-> pbit pbit pbit))
+^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (q-meet (mk-pbit $s1 $c1) (mk-pbit $s2 $c2))
+   (mk-pbit (min $s1 $s2) (min $c1 $c2)))
+--> prolog clause -->
+'q-meet'(['mk-pbit', A, B],
+              ['mk-pbit', C, D],
+              ['mk-pbit', E, F]) :-
+    min(A, C, E),
+    min(B, D, F).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta sexpr -->
+(: q-neg (-> pbit pbit))
+^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (q-neg (mk-pbit $s $c))
+   (mk-pbit (- 1.0 $s) $c))
+--> prolog clause -->
+'q-neg'(['mk-pbit', A, B], ['mk-pbit', C, B]) :-
+    -(1.0, A, C).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta sexpr -->
+(: stv-to-pbit (-> Atom pbit))
+^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (stv-to-pbit (stv $s $c)) (mk-pbit $s $c))
+--> prolog clause -->
+'stv-to-pbit'([stv, A, B], ['mk-pbit', A, B]).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta sexpr -->
+(: pbit-to-stv (-> pbit Atom))
+^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (pbit-to-stv (mk-pbit $s $c)) (stv $s $c))
+--> prolog clause -->
+'pbit-to-stv'(['mk-pbit', A, B], [stv, A, B]).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta sexpr -->
+(: governance-pbit (-> Atom Atom pbit))
+^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (governance-pbit (stv $s1 $c1) (stv $s2 $c2))
+   (q-meet (mk-pbit $s1 $c1) (mk-pbit $s2 $c2)))
+--> prolog clause -->
+'governance-pbit'([stv, A, B], [stv, C, D], E) :-
+    (   'get-type'(['mk-pbit', A, B], pbit)
+    *-> true
+    ;   'get-metatype'(['mk-pbit', A, B], pbit)
+    ),
+    (   'get-type'(['mk-pbit', C, D], pbit)
+    *-> true
+    ;   'get-metatype'(['mk-pbit', C, D], pbit)
+    ),
+    'q-meet'(['mk-pbit', A, B], ['mk-pbit', C, D], E),
+    (   'get-type'(E, pbit)
+    *-> true
+    ;   'get-metatype'(E, pbit)
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta sexpr -->
+(: q-top pbit)
+^^^^^^^^^^^^^^^^^^^
+--> metta sexpr -->
+(= q-top (mk-pbit 1.0 1.0))
+^^^^^^^^^^^^^^^^^^^
+--> metta sexpr -->
+(: q-bot pbit)
+^^^^^^^^^^^^^^^^^^^
+--> metta sexpr -->
+(= q-bot (mk-pbit 0.0 1.0))
+^^^^^^^^^^^^^^^^^^^
+--> metta sexpr -->
+(: q-unknown pbit)
+^^^^^^^^^^^^^^^^^^^
+--> metta sexpr -->
+(= q-unknown (mk-pbit 0.5 0.0))
+^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (q-geq (mk-pbit $s1 $c1) (mk-pbit $s2 $c2))
+   (if (>= $s1 $s2) (if (>= $c1 $c2) True False) False))
+--> prolog clause -->
+'q-geq'(['mk-pbit', A, B], ['mk-pbit', C, D], E) :-
+    >=(A, C, F),
+    (   F==true
+    ->  >=(B, D, G),
+        (   G==true
+        ->  E=true
+        ;   E=false
+        )
+    ;   E=false
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (first-of (Cons $x $rest)) $x)
+--> prolog clause -->
+'first-of'(['Cons', A, _], A).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (last-of (Cons $x Nil)) $x)
+--> prolog clause -->
+'last-of'(['Cons', A, 'Nil'], A).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (last-of (Cons $x $rest)) (last-of $rest))
+--> prolog clause -->
+'last-of'(['Cons', _, A], B) :-
+    'last-of'(A, B).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (edge-weight Nil $s $t) (mk-pbit 0.0 1.0))
+--> prolog clause -->
+'edge-weight'('Nil', _, _, ['mk-pbit', 0.0, 1.0]).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (edge-weight (Cons (edge $x $y $w) $rest) $s $t)
+   (if (and (== $x $s) (== $y $t))
+       $w
+       (edge-weight $rest $s $t)))
+--> prolog clause -->
+'edge-weight'(['Cons', [edge, A, B, C], D],
+                   E,
+                   F,
+                   G) :-
+    ==(A, E, H),
+    ==(B, F, I),
+    and(H, I, J),
+    (   J==true
+    ->  G=C
+    ;   'edge-weight'(D, E, F, G)
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (q-residuate (mk-pbit $sa $ca) (mk-pbit $sb $cb))
+   (if (> $sb 0.0)
+       (mk-pbit (min 1.0 (/ $sa $sb)) (min $ca $cb))
+       (mk-pbit 1.0 (min $ca $cb))))
+--> prolog clause -->
+'q-residuate'(['mk-pbit', A, B], ['mk-pbit', C, D], E) :-
+    >(C, 0.0, F),
+    (   F==true
+    ->  E=['mk-pbit', G, H],
+        /(A, C, I),
+        min(1.0, I, G),
+        min(B, D, H)
+    ;   E=['mk-pbit', 1.0, J],
+        min(B, D, J)
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (deg-map-edges Nil $edges2) (mk-pbit 1.0 1.0))
+--> prolog clause -->
+'deg-map-edges'('Nil', _, ['mk-pbit', 1.0, 1.0]).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (deg-map-edges (Cons (edge $s $t $w1) $rest) $edges2)
+   (q-meet (q-residuate (edge-weight $edges2 $s $t) $w1)
+           (deg-map-edges $rest $edges2)))
+--> prolog clause -->
+'deg-map-edges'(['Cons', [edge, A, B, C], D],
+                     E,
+                     F) :-
+    'edge-weight'(E, A, B, G),
+    'q-residuate'(G, C, H),
+    (   'get-type'(H, pbit)
+    *-> true
+    ;   'get-metatype'(H, pbit)
+    ),
+    'deg-map-edges'(D, E, I),
+    (   'get-type'(I, pbit)
+    *-> true
+    ;   'get-metatype'(I, pbit)
+    ),
+    'q-meet'(H, I, F),
+    (   'get-type'(F, pbit)
+    *-> true
+    ;   'get-metatype'(F, pbit)
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (deg-map (pfn $nodes1 $edges1) (pfn $nodes2 $edges2))
+   (deg-map-edges $edges1 $edges2))
+--> prolog clause -->
+'deg-map'([pfn, _, A], [pfn, _, B], C) :-
+    'deg-map-edges'(A, B, C).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (theta-self-continuous $pfn1 $pfn2 $theta)
+   (q-geq (self-continuity-score $pfn1 $pfn2) $theta))
+--> prolog clause -->
+'theta-self-continuous'(A, B, C, D) :-
+    'self-continuity-score'(A, B, E),
+    'q-geq'(E, C, D).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (self-continuity-score $pfn1 $pfn2)
+   (deg-map $pfn1 $pfn2))
+--> prolog clause -->
+'self-continuity-score'(A, B, C) :-
+    'deg-map'(A, B, C).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (chain-continuity-bound (Cons $i Nil)) (mk-pbit 1.0 1.0))
+--> prolog clause -->
+'chain-continuity-bound'(['Cons', _, 'Nil'], ['mk-pbit', 1.0, 1.0]).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (chain-continuity-bound (Cons (interval $pfn1 $pfn2) Nil))
+   (self-continuity-score $pfn1 $pfn2))
+--> prolog clause -->
+'chain-continuity-bound'(['Cons', [interval, A, B], 'Nil'], C) :-
+    'self-continuity-score'(A, B, C).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (chain-continuity-bound (Cons (interval $pfn1 $pfn2) $rest))
+   (q-mul (self-continuity-score $pfn1 $pfn2)
+          (chain-continuity-bound $rest)))
+--> prolog clause -->
+'chain-continuity-bound'(['Cons', [interval, A, B], C], D) :-
+    'self-continuity-score'(A, B, E),
+    (   'get-type'(E, pbit)
+    *-> true
+    ;   'get-metatype'(E, pbit)
+    ),
+    'chain-continuity-bound'(C, F),
+    (   'get-type'(F, pbit)
+    *-> true
+    ;   'get-metatype'(F, pbit)
+    ),
+    'q-mul'(E, F, D),
+    (   'get-type'(D, pbit)
+    *-> true
+    ;   'get-metatype'(D, pbit)
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (continuity-held-across $intervals $theta)
+   (q-geq (chain-continuity-bound $intervals) $theta))
+--> prolog clause -->
+'continuity-held-across'(A, B, C) :-
+    'chain-continuity-bound'(A, D),
+    'q-geq'(D, B, C).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (classify-state-delta $msgnew $results-nonempty $results-novel)
+   (if (== $msgnew True)
+       forward
+       (if (and (== $results-nonempty True) (== $results-novel True))
+           forward
+           none)))
+--> prolog clause -->
+'classify-state-delta'(A, B, C, D) :-
+    ==(A, true, E),
+    (   E==true
+    ->  D=forward
+    ;   ==(B, true, F),
+        ==(C, true, G),
+        and(F, G, H),
+        (   H==true
+        ->  D=forward
+        ;   D=none
+        )
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (latest-state-delta-verdict)
+   (let $verdicts (collapse (match &self (state-delta $c $v) $v))
+      (if (== $verdicts ())
+          none
+          (car-atom $verdicts))))
+--> prolog clause -->
+'latest-state-delta-verdict'(A) :-
+    B=C,
+    findall(D,
+            match('&self', ['state-delta', _, D], D, D),
+            C),
+    ==(B, [], E),
+    (   E==true
+    ->  A=none
+    ;   'car-atom'(B, A)
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (do-clear-state-delta!)
+   (let $existing (collapse (match &self (state-delta $c $v) (state-delta $c $v)))
+      (let $old (superpose $existing)
+         (if (== $old ())
+             _
+             (remove-atom &self $old)))))
+--> prolog clause -->
+'do-clear-state-delta!'(A) :-
+    B=C,
+    findall(['state-delta', D, E],
+            match('&self',
+                  ['state-delta', D, E],
+                  ['state-delta', D, E],
+                  ['state-delta', D, E]),
+            C),
+    F=G,
+    superpose(B, G),
+    ==(F, [], H),
+    (   H==true
+    ->  A='_'
+    ;   'remove-atom'('&self', F, A)
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (populate-state-delta $msgnew $results-nonempty $results-novel $cycle-id)
+   (let* (($verdict (classify-state-delta $msgnew $results-nonempty $results-novel))
+          ($_clear  (do-clear-state-delta!))
+          ($_assert (add-atom &self (state-delta $cycle-id $verdict))))
+      ()))
+--> prolog clause -->
+'populate-state-delta'(A, B, C, D, []) :-
+    E=F,
+    'classify-state-delta'(A, B, C, F),
+    true,
+    'do-clear-state-delta!'(_),
+    true,
+    'add-atom'('&self', ['state-delta', D, E], _).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (count-actions-in-window)
+   (+ (size-atom (collapse (match &self (recent-action $c responsive-send $d) $c)))
+   (+ (size-atom (collapse (match &self (recent-action $c status-send-unprompted $d) $c)))
+   (+ (size-atom (collapse (match &self (recent-action $c verification-query $d) $c)))
+   (+ (size-atom (collapse (match &self (recent-action $c exploration-query $d) $c)))
+      (size-atom (collapse (match &self (recent-action $c pin-only $d) $c))))))))
+--> prolog clause -->
+'count-actions-in-window'(A) :-
+    findall(B,
+            match('&self',
+                  ['recent-action', B, 'responsive-send', C],
+                  B,
+                  B),
+            D),
+    'size-atom'(D, E),
+    findall(B,
+            match('&self',
+                  ['recent-action', B, 'status-send-unprompted', C],
+                  B,
+                  B),
+            F),
+    'size-atom'(F, G),
+    findall(B,
+            match('&self',
+                  ['recent-action', B, 'verification-query', C],
+                  B,
+                  B),
+            H),
+    'size-atom'(H, I),
+    findall(B,
+            match('&self',
+                  ['recent-action', B, 'exploration-query', C],
+                  B,
+                  B),
+            J),
+    'size-atom'(J, K),
+    findall(B,
+            match('&self',
+                  ['recent-action', B, 'pin-only', C],
+                  B,
+                  B),
+            L),
+    'size-atom'(L, M),
+    +(K, M, N),
+    +(I, N, O),
+    +(G, O, P),
+    +(E, P, A).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (emission-present)
+   (if (> (count-actions-in-window) 0) True False))
+--> prolog clause -->
+'emission-present'(A) :-
+    'count-actions-in-window'(B),
+    >(B, 0, C),
+    (   C==true
+    ->  A=true
+    ;   A=false
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (outcome-present)
+   (if (== (latest-state-delta-verdict) forward) True False))
+--> prolog clause -->
+'outcome-present'(A) :-
+    'latest-state-delta-verdict'(B),
+    ==(B, forward, C),
+    (   C==true
+    ->  A=true
+    ;   A=false
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (count-person-actions)
+   (+ (size-atom (collapse (match &self (recent-action $c responsive-send $d) $c)))
+      (size-atom (collapse (match &self (recent-action $c verification-query $d) $c)))))
+--> prolog clause -->
+'count-person-actions'(A) :-
+    findall(B,
+            match('&self',
+                  ['recent-action', B, 'responsive-send', C],
+                  B,
+                  B),
+            D),
+    'size-atom'(D, E),
+    findall(B,
+            match('&self',
+                  ['recent-action', B, 'verification-query', C],
+                  B,
+                  B),
+            F),
+    'size-atom'(F, G),
+    +(E, G, A).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (count-system-actions)
+   (+ (size-atom (collapse (match &self (recent-action $c status-send-unprompted $d) $c)))
+   (+ (size-atom (collapse (match &self (recent-action $c exploration-query $d) $c)))
+      (size-atom (collapse (match &self (recent-action $c pin-only $d) $c))))))
+--> prolog clause -->
+'count-system-actions'(A) :-
+    findall(B,
+            match('&self',
+                  ['recent-action', B, 'status-send-unprompted', C],
+                  B,
+                  B),
+            D),
+    'size-atom'(D, E),
+    findall(B,
+            match('&self',
+                  ['recent-action', B, 'exploration-query', C],
+                  B,
+                  B),
+            F),
+    'size-atom'(F, G),
+    findall(B,
+            match('&self',
+                  ['recent-action', B, 'pin-only', C],
+                  B,
+                  B),
+            H),
+    'size-atom'(H, I),
+    +(G, I, J),
+    +(E, J, A).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (intention-coupled)
+   (if (>= (count-person-actions) (count-system-actions)) True False))
+--> prolog clause -->
+'intention-coupled'(A) :-
+    'count-person-actions'(B),
+    'count-system-actions'(C),
+    >=(B, C, D),
+    (   D==true
+    ->  A=true
+    ;   A=false
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (coupling-verdict)
+   (if (== (emission-present) True)
+       (if (== (outcome-present) True)
+           healthy-coupling
+           (if (== (intention-coupled) True)
+               drifting
+               corner))
+       composure))
+--> prolog clause -->
+'coupling-verdict'(A) :-
+    'emission-present'(B),
+    ==(B, true, C),
+    (   C==true
+    ->  'outcome-present'(D),
+        ==(D, true, E),
+        (   E==true
+        ->  A='healthy-coupling'
+        ;   'intention-coupled'(F),
+            ==(F, true, G),
+            (   G==true
+            ->  A=drifting
+            ;   A=corner
+            )
+        )
+    ;   A=composure
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (corner-confirm-threshold 2) (stv 0.9 0.8))
+--> prolog clause -->
+'corner-confirm-threshold'(2, [stv, 0.9, 0.8]).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (count-corners-in-window)
+   (size-atom (collapse (match &self (coupling-status $c corner) $c))))
+--> prolog clause -->
+'count-corners-in-window'(A) :-
+    findall(B,
+            match('&self', ['coupling-status', B, corner], B, B),
+            C),
+    'size-atom'(C, A).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (corner-confirmed)
+   (if (>= (count-corners-in-window) 2) True False))
+--> prolog clause -->
+'corner-confirmed'(A) :-
+    'count-corners-in-window'(B),
+    >=(B, 2, C),
+    (   C==true
+    ->  A=true
+    ;   A=false
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (populate-coupling-verdict $cycle-id)
+   (let* (($verdict (coupling-verdict))
+          ($_clear  (if (== $verdict corner)
+                        ()
+                        (do-clear-coupling-status!)))
+          ($_assert (add-atom &self (coupling-status $cycle-id $verdict))))
+      ()))
+--> prolog clause -->
+'populate-coupling-verdict'(A, []) :-
+    B=C,
+    'coupling-verdict'(C),
+    true,
+    ==(B, corner, D),
+    (   D==true
+    ->  E=[]
+    ;   'do-clear-coupling-status!'(E)
+    ),
+    true,
+    'add-atom'('&self', ['coupling-status', A, B], _).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (do-clear-coupling-status!)
+   (let $existing (collapse (match &self (coupling-status $c $v) (coupling-status $c $v)))
+      (let $old (superpose $existing)
+         (if (== $old ())
+             _
+             (remove-atom &self $old)))))
+--> prolog clause -->
+'do-clear-coupling-status!'(A) :-
+    B=C,
+    findall(['coupling-status', D, E],
+            match('&self',
+                  ['coupling-status', D, E],
+                  ['coupling-status', D, E],
+                  ['coupling-status', D, E]),
+            C),
+    F=G,
+    superpose(B, G),
+    ==(F, [], H),
+    (   H==true
+    ->  A='_'
+    ;   'remove-atom'('&self', F, A)
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (corner-gate-active)
+   (corner-confirmed))
+--> prolog clause -->
+'corner-gate-active'(A) :-
+    'corner-confirmed'(A).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (apply-corner-gate $sexpr)
+   (if (== (corner-confirmed) True)
+       ()
+       $sexpr))
+--> prolog clause -->
+'apply-corner-gate'(A, B) :-
+    'corner-confirmed'(C),
+    ==(C, true, D),
+    (   D==true
+    ->  B=[]
+    ;   B=A
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (corner-gate-feedback)
+   "corner detected and emission gated. You are acting, but recent actions produced no forward outcome and were system-driven rather than coupled to a live intention. This is not a transient failure and the action did not execute. A different action, or stillness, is required.")
+--> prolog clause -->
+'corner-gate-feedback'("corner detected and emission gated. You are acting, but recent actions produced no forward outcome and were system-driven rather than coupled to a live intention. This is not a transient failure and the action did not execute. A different action, or stillness, is required.").
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (gate-aware-results $exec-results)
+   (if (== (corner-gate-active) True)
+       (RESULTS: (corner-gate-feedback))
+       $exec-results))
+--> prolog clause -->
+'gate-aware-results'(A, B) :-
+    'corner-gate-active'(C),
+    ==(C, true, D),
+    (   D==true
+    ->  B=['RESULTS:', E],
+        'corner-gate-feedback'(E)
+    ;   B=A
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (safe-ratio $a $b)
+   (if (> $b 0) (/ $a $b) 0))
+--> prolog clause -->
+'safe-ratio'(A, B, C) :-
+    >(B, 0, D),
+    (   D==true
+    ->  /(A, B, C)
+    ;   C=0
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (emission-pbit)
+   (if (> (count-actions-in-window) 0)
+       (mk-pbit 1.0 0.9)
+       (mk-pbit 0.0 0.9)))
+--> prolog clause -->
+'emission-pbit'(A) :-
+    'count-actions-in-window'(B),
+    >(B, 0, C),
+    (   C==true
+    ->  A=['mk-pbit', 1.0, 0.9]
+    ;   A=['mk-pbit', 0.0, 0.9]
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (outcome-flat-pbit)
+   (if (== (latest-state-delta-verdict) forward)
+       (mk-pbit 0.0 0.9)
+       (mk-pbit 1.0 0.7)))
+--> prolog clause -->
+'outcome-flat-pbit'(A) :-
+    'latest-state-delta-verdict'(B),
+    ==(B, forward, C),
+    (   C==true
+    ->  A=['mk-pbit', 0.0, 0.9]
+    ;   A=['mk-pbit', 1.0, 0.7]
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (intention-decoupled-pbit)
+   (let* (($p (count-person-actions))
+          ($s (count-system-actions))
+          ($total (+ $p $s)))
+      (if (> $total 0)
+          (mk-pbit (safe-ratio $s $total) (min 0.9 (safe-ratio $total 5)))
+          (mk-pbit 0.0 0.0))))
+--> prolog clause -->
+'intention-decoupled-pbit'(A) :-
+    B=C,
+    'count-person-actions'(C),
+    D=E,
+    'count-system-actions'(E),
+    F=G,
+    +(B, D, G),
+    >(F, 0, H),
+    (   H==true
+    ->  A=['mk-pbit', I, J],
+        'safe-ratio'(D, F, I),
+        'safe-ratio'(F, 5, K),
+        min(0.9, K, J)
+    ;   A=['mk-pbit', 0.0, 0.0]
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (corner-pbit-core)
+   (q-meet (emission-pbit)
+           (q-meet (outcome-flat-pbit)
+                   (intention-decoupled-pbit))))
+--> prolog clause -->
+'corner-pbit-core'(A) :-
+    'emission-pbit'(B),
+    (   'get-type'(B, pbit)
+    *-> true
+    ;   'get-metatype'(B, pbit)
+    ),
+    'outcome-flat-pbit'(C),
+    (   'get-type'(C, pbit)
+    *-> true
+    ;   'get-metatype'(C, pbit)
+    ),
+    'intention-decoupled-pbit'(D),
+    (   'get-type'(D, pbit)
+    *-> true
+    ;   'get-metatype'(D, pbit)
+    ),
+    'q-meet'(C, D, E),
+    (   'get-type'(E, pbit)
+    *-> true
+    ;   'get-metatype'(E, pbit)
+    ),
+    (   'get-type'(E, pbit)
+    *-> true
+    ;   'get-metatype'(E, pbit)
+    ),
+    'q-meet'(B, E, A),
+    (   'get-type'(A, pbit)
+    *-> true
+    ;   'get-metatype'(A, pbit)
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (corner-threshold-pbit) (mk-pbit 0.6 0.5))
+--> prolog clause -->
+'corner-threshold-pbit'(['mk-pbit', 0.6, 0.5]).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (corner-confirmed-core)
+   (q-geq (corner-pbit-core) (corner-threshold-pbit)))
+--> prolog clause -->
+'corner-confirmed-core'(A) :-
+    'corner-pbit-core'(B),
+    'corner-threshold-pbit'(C),
+    'q-geq'(B, C, A).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (build-cycle-pfn)
+   (let* (($rs (size-atom (collapse (match &self (recent-action $c responsive-send $d) $c))))
+          ($su (size-atom (collapse (match &self (recent-action $c status-send-unprompted $d) $c))))
+          ($vq (size-atom (collapse (match &self (recent-action $c verification-query $d) $c))))
+          ($eq (size-atom (collapse (match &self (recent-action $c exploration-query $d) $c))))
+          ($po (size-atom (collapse (match &self (recent-action $c pin-only $d) $c))))
+          ($total (+ $rs (+ $su (+ $vq (+ $eq $po)))))
+          ($conf  (min 0.9 (safe-ratio $total 5))))
+      (pfn (Cons profile Nil)
+           (Cons (edge profile responsive-send        (mk-pbit (safe-ratio $rs $total) $conf))
+           (Cons (edge profile status-send-unprompted (mk-pbit (safe-ratio $su $total) $conf))
+           (Cons (edge profile verification-query     (mk-pbit (safe-ratio $vq $total) $conf))
+           (Cons (edge profile exploration-query      (mk-pbit (safe-ratio $eq $total) $conf))
+           (Cons (edge profile pin-only               (mk-pbit (safe-ratio $po $total) $conf))
+                 Nil))))))))
+--> prolog clause -->
+'build-cycle-pfn'([ pfn,
+                         ['Cons', profile, 'Nil'],
+                         [ 'Cons',
+                           [ edge,
+                             profile,
+                             'responsive-send',
+                             ['mk-pbit', A, B]
+                           ],
+                           [ 'Cons',
+                             [ edge,
+                               profile,
+                               'status-send-unprompted',
+                               ['mk-pbit', C, B]
+                             ],
+                             [ 'Cons',
+                               [ edge,
+                                 profile,
+                                 'verification-query',
+                                 ['mk-pbit', D, B]
+                               ],
+                               [ 'Cons',
+                                 [ edge,
+                                   profile,
+                                   'exploration-query',
+                                   ['mk-pbit', E, B]
+                                 ],
+                                 [ 'Cons',
+                                   [ edge,
+                                     profile,
+                                     'pin-only',
+                                     ['mk-pbit', F, B]
+                                   ],
+                                   'Nil'
+                                 ]
+                               ]
+                             ]
+                           ]
+                         ]
+                       ]) :-
+    G=H,
+    findall(I,
+            match('&self',
+                  ['recent-action', I, 'responsive-send', J],
+                  I,
+                  I),
+            K),
+    'size-atom'(K, H),
+    L=M,
+    findall(I,
+            match('&self',
+                  ['recent-action', I, 'status-send-unprompted', J],
+                  I,
+                  I),
+            N),
+    'size-atom'(N, M),
+    O=P,
+    findall(I,
+            match('&self',
+                  ['recent-action', I, 'verification-query', J],
+                  I,
+                  I),
+            Q),
+    'size-atom'(Q, P),
+    R=S,
+    findall(I,
+            match('&self',
+                  ['recent-action', I, 'exploration-query', J],
+                  I,
+                  I),
+            T),
+    'size-atom'(T, S),
+    U=V,
+    findall(I,
+            match('&self',
+                  ['recent-action', I, 'pin-only', J],
+                  I,
+                  I),
+            W),
+    'size-atom'(W, V),
+    X=Y,
+    +(R, U, Z),
+    +(O, Z, A1),
+    +(L, A1, B1),
+    +(G, B1, Y),
+    B=C1,
+    'safe-ratio'(X, 5, D1),
+    min(0.9, D1, C1),
+    'safe-ratio'(G, X, A),
+    'safe-ratio'(L, X, C),
+    'safe-ratio'(O, X, D),
+    'safe-ratio'(R, X, E),
+    'safe-ratio'(U, X, F).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (behavior-stasis-pbit)
+   (let $snaps (collapse (match &self (cycle-pfn-snapshot $p) $p))
+      (if (== $snaps ())
+          (mk-pbit 0.5 0.0)
+          (self-continuity-score (car-atom $snaps) (build-cycle-pfn)))))
+--> prolog clause -->
+'behavior-stasis-pbit'(A) :-
+    B=C,
+    findall(D,
+            match('&self', ['cycle-pfn-snapshot', D], D, D),
+            C),
+    ==(B, [], E),
+    (   E==true
+    ->  A=['mk-pbit', 0.5, 0.0]
+    ;   'car-atom'(B, F),
+        'build-cycle-pfn'(G),
+        'self-continuity-score'(F, G, A)
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (corner-pbit-repetition)
+   (q-meet (emission-pbit)
+           (q-meet (outcome-flat-pbit)
+                   (behavior-stasis-pbit))))
+--> prolog clause -->
+'corner-pbit-repetition'(A) :-
+    'emission-pbit'(B),
+    (   'get-type'(B, pbit)
+    *-> true
+    ;   'get-metatype'(B, pbit)
+    ),
+    'outcome-flat-pbit'(C),
+    (   'get-type'(C, pbit)
+    *-> true
+    ;   'get-metatype'(C, pbit)
+    ),
+    'behavior-stasis-pbit'(D),
+    (   'get-type'(D, pbit)
+    *-> true
+    ;   'get-metatype'(D, pbit)
+    ),
+    'q-meet'(C, D, E),
+    (   'get-type'(E, pbit)
+    *-> true
+    ;   'get-metatype'(E, pbit)
+    ),
+    (   'get-type'(E, pbit)
+    *-> true
+    ;   'get-metatype'(E, pbit)
+    ),
+    'q-meet'(B, E, A),
+    (   'get-type'(A, pbit)
+    *-> true
+    ;   'get-metatype'(A, pbit)
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (corner-pbit-full)
+   (q-join (corner-pbit-core) (corner-pbit-repetition)))
+--> prolog clause -->
+'corner-pbit-full'(A) :-
+    'corner-pbit-core'(B),
+    (   'get-type'(B, pbit)
+    *-> true
+    ;   'get-metatype'(B, pbit)
+    ),
+    'corner-pbit-repetition'(C),
+    (   'get-type'(C, pbit)
+    *-> true
+    ;   'get-metatype'(C, pbit)
+    ),
+    'q-join'(B, C, A),
+    (   'get-type'(A, pbit)
+    *-> true
+    ;   'get-metatype'(A, pbit)
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (corner-confirmed-full)
+   (q-geq (corner-pbit-full) (corner-threshold-pbit)))
+--> prolog clause -->
+'corner-confirmed-full'(A) :-
+    'corner-pbit-full'(B),
+    'corner-threshold-pbit'(C),
+    'q-geq'(B, C, A).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (do-clear-cycle-pfn!)
+   (let $existing (collapse (match &self (cycle-pfn-snapshot $p) (cycle-pfn-snapshot $p)))
+      (let $old (superpose $existing)
+         (if (== $old ())
+             _
+             (remove-atom &self $old)))))
+--> prolog clause -->
+'do-clear-cycle-pfn!'(A) :-
+    B=C,
+    findall(['cycle-pfn-snapshot', D],
+            match('&self',
+                  ['cycle-pfn-snapshot', D],
+                  ['cycle-pfn-snapshot', D],
+                  ['cycle-pfn-snapshot', D]),
+            C),
+    E=F,
+    superpose(B, F),
+    ==(E, [], G),
+    (   G==true
+    ->  A='_'
+    ;   'remove-atom'('&self', E, A)
+    ).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (do-snapshot-cycle-pfn!)
+   (let* (($curr   (build-cycle-pfn))
+          ($_clear (do-clear-cycle-pfn!))
+          ($_store (add-atom &self (cycle-pfn-snapshot $curr))))
+      ()))
+--> prolog clause -->
+'do-snapshot-cycle-pfn!'([]) :-
+    A=B,
+    'build-cycle-pfn'(B),
+    true,
+    'do-clear-cycle-pfn!'(_),
+    true,
+    'add-atom'('&self', ['cycle-pfn-snapshot', A], _).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta function -->
+(= (do-update-corner-graded! $cycle-id)
+   (let* (($verdict      (if (== (corner-confirmed-full) True) corner not-corner))
+          ($_assert      (add-atom &self (coupling-status $cycle-id $verdict)))
+          ($prune-before (- $cycle-id (coupling-status-window)))
+          ($to-remove    (collapse (match &self (coupling-status $old-id $v)
+                                          (if (< $old-id $prune-before)
+                                              (coupling-status $old-id $v)
+                                              ()))))
+          ($_prune       (let $old (superpose $to-remove)
+                                   (if (== $old ())
+                                       ()
+                                       (remove-atom &self $old))))
+          ($_snap        (do-snapshot-cycle-pfn!)))
+      ()))
+--> prolog clause -->
+'do-update-corner-graded!'(A, []) :-
+    B=C,
+    'corner-confirmed-full'(D),
+    ==(D, true, E),
+    (   E==true
+    ->  C=corner
+    ;   C='not-corner'
+    ),
+    true,
+    'add-atom'('&self', ['coupling-status', A, B], _),
+    F=G,
+    -(A, ['coupling-status-window'], G),
+    H=I,
+    findall(J,
+            ( match('&self', ['coupling-status', K, L], J, J),
+              <(K, F, M),
+              (   M==true
+              ->  J=['coupling-status', K, L]
+              ;   J=[]
+              )
+            ),
+            I),
+    true,
+    N=O,
+    superpose(H, O),
+    ==(N, [], P),
+    (   P==true
+    ->  Q=[]
+    ;   'remove-atom'('&self', N, Q)
+    ),
+    true,
+    'do-snapshot-cycle-pfn!'(_).
+^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(corner-gate-feedback)
+-->  prolog goal  --> 
+:- findall(A, 'corner-gate-feedback'(A), _).
+^^^^^^^^^^^^^^^^^^^^^^^
+true
+"corner detected and emission gated. You are acting, but recent actions produced no forward outcome and were system-driven rather than coupled to a live intention. This is not a transient failure and the action did not execute. A different action, or stillness, is required."
+
+  Load gate (Clarity's import_ok / symbol_ok / reduce_ok split):
+  import_ok  (all file bodies present)                 PASS
+  symbol_ok  (corner-gate-feedback defined in source)  PASS
+  reduce_ok  (corner-gate-feedback reduces, not echoed) FAIL
+  STAGE 0 load gate (import + symbol + reduce)         FAIL
+
+  >>> reduce_ok FAILED. Bodies inlined and symbol present, but the
+  call did not reduce (echoed). Inspect the RAW tail above; a symbol
+  used by corner-gate-feedback may be defined in a file not inlined.

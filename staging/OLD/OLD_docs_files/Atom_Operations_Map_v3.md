@@ -1,0 +1,297 @@
+# Atom Operations Map (PeTTa/MeTTa substrate)
+
+**Purpose:** The complete, status-marked map of how atom operations actually behave
+in this substrate -- so substrate work (NACE writer, soul writers, any future
+primitive) rests on a fully-mapped foundation, not a partly-mapped one. Every cell
+is marked PROVEN / ASSUMED / UNKNOWN with its evidence. The UNKNOWN and ASSUMED cells
+are the test queue, ordered by danger.
+**Status:** LIVING DOCUMENT. Built 2026-06-13 from the N0/N0.5 nugget ladder; ALL
+TIER-1 cells PROVEN as of 2026-06-13 (the full atom-operation ladder ran clean). The
+N1 writer pattern is now fully grounded on proven cells (see Section 5). Remaining
+open cells are Tier 2-4, lower danger. Fill one cell per clean nugget.
+**Method:** each cell is filled by one clean live-loop test against a known-clean
+state, both-polarity where applicable, read via a PROVEN read instrument (never an
+unverified one), result match-verified in a separate command (never trust a return
+value). A cell moves to PROVEN only with an exact recorded result.
+**Companion:** `NAL_and_the_Marshal_Boundary_Reference.md` (the |- / marshalling /
+persistence findings this map extends); `nace_implementation_plan.md` (the consumer
+whose N1 writer this map de-risks).
+
+---
+
+## 0. Evidence legend
+
+- **PROVEN** -- tested live, exact result recorded, reproducible. Safe to build on.
+- **ASSUMED** -- believed true from indirect evidence or documentation, NOT cleanly
+  tested in isolation. Treat as a hypothesis. Do not build load-bearing logic on it
+  until promoted to PROVEN.
+- **UNKNOWN** -- not tested, no reliable evidence. A test-queue item.
+- **CONTRA** -- two sources disagree (e.g. a documented rule vs an observation);
+  needs a disambiguating test to resolve.
+
+Every PROVEN cell cites its evidence inline. Every ASSUMED cell names why it is not
+yet PROVEN. The danger ranking (Section 6) is built from the UNKNOWN/ASSUMED/CONTRA
+cells.
+
+---
+
+## 1. The read instrument (Axis 5) -- must be solid FIRST
+
+You cannot trust any operation test if you cannot trust the read that verifies it.
+This axis is mostly PROVEN, which is why the rest of the map is testable.
+
+| Read need | Pattern | Status | Evidence |
+|---|---|---|---|
+| Presence check (does an atom exist) | `(match &self (head ...) found)` -> `found` / `[]` | PROVEN | before-import `[]` vs after-import 3x `found`; clean both-polarity |
+| Read one scalar from an stv | `(match &self (cap-efficacy NAME (stv $s $c)) $s)` -> `['0.5']` | PROVEN | returned `['0.5']` / `['0.0']` clean, no throw |
+| Read the whole stv tuple | `(match &self (cap-efficacy NAME $tv) $tv)` | PROVEN (fails) | throws `type_error string` with value leaked inside; tuple render chokes |
+| Read tuple via destructure-in-pattern | `(match &self (cap-efficacy NAME (stv $s $c)) ($s $c))` | PROVEN (fails) | also throws-with-leak; destructuring in return position does not help |
+| Clean count of atoms under a head | scalar/symbol read, count the list length | PROVEN | match-count = atom-count confirmed: `(cap-efficacy $name ...)` returned web-search 3x while file-write/metta-query 1x each (the untouched controls) -- list length IS atom count for scalar/symbol returns |
+| Read a COMPLETE atom (all fields) cleanly | ??? | UNKNOWN | scalar reads work field-by-field; no proven single-read whole-atom (tuple return throws). Read fields individually instead |
+| Read all atoms of a head, one field each | `(match &self (cap-efficacy $x (stv $s $c)) $x)` -> list of names | PROVEN | returned `['web-search','web-search','file-write','metta-query']` clean (names are bare symbols, not tuples) |
+
+**Read-instrument rule (PROVEN):** bare scalars and bare symbols render clean; any
+return that carries an `(stv ...)` tuple (or any nested compound) throws-with-leak.
+So: read fields individually as scalars/symbols, never return a nested compound.
+COUNT by list length of a scalar/symbol read (match-count = atom-count, proven via
+the untouched-control method). Whole-atom-single-read is still UNKNOWN (D2) but
+unnecessary -- read fields individually.
+
+---
+
+## 2. Operation x cardinality (Axis 1 x Axis 2) -- where the danger lives
+
+For each operation, behavior when the pattern matches ZERO / ONE / MANY atoms. This
+is the core of the map and the most under-filled.
+
+### match (read/query)
+
+| Cardinality | Behavior | Status | Evidence |
+|---|---|---|---|
+| 0 match | returns clean `[]` | PROVEN | repeated clean empties throughout N0 ladder |
+| 1 match | returns single clean result (if scalar/symbol return) | PROVEN | `['0.5']` |
+| many match | returns all bindings as a list | PROVEN | `['0.5','0.3']` and `['web-search','web-search',...]` -- returns ALL, one per matching atom |
+
+match is the best-mapped operation. Note: "many" returns every binding, so a
+duplicate atom is VISIBLE as a repeated value -- this is how duplicates get detected.
+
+### add-atom (create)
+
+| Cardinality / case | Behavior | Status | Evidence |
+|---|---|---|---|
+| add a NEW atom (no identical exists) | creates, persists in-process | PROVEN | the cap-efficacy seeds; verified by later match |
+| add when an IDENTICAL atom already exists | creates a TRUE DUPLICATE -- NOT idempotent | PROVEN (B1) | clean state one web-search at 0.5, add identical, match -> `['0.5','0.5']` (two). add-atom does not dedupe |
+| add persists across rebuild | NO -- runtime only; file is source of truth | PROVEN | restart reloads from file, wiping runtime adds |
+
+**B1 RESOLVED: add-atom is NOT idempotent -- it creates true duplicates.** Adding an
+atom identical to one already present yields two copies. So add-atom is itself a
+duplicate source; any writer that adds without first clearing the old can accumulate
+duplicates. This is why the writer pattern is remove-then-add, never add-alone.
+
+### remove-atom (delete)  <-- HIGHEST DANGER, we rely on this for the writer
+
+| Cardinality | Behavior | Status | Evidence |
+|---|---|---|---|
+| 0 match | error? no-op? returns false? | **UNKNOWN** | never isolated removing a non-existent atom (low priority now -- the writer's variable pattern always matches if any atom exists) |
+| 1 match | removes it cleanly | PROVEN | implied + confirmed by the many-match and variable tests; remove returns `'true'`, atom gone |
+| **many identical match (literal pattern)** | removes ALL in one call | PROVEN (A1) | two identical web-search at 0.5, single `remove-atom` literal -> match `[]` (zero). Removes ALL matching, not one |
+| **many at DISTINCT values (variable pattern `$v`)** | removes ALL regardless of value or count | PROVEN | three web-search (one 0.5, two 0.8), single `(remove-atom &self (cap-efficacy web-search $v))` -> match `[]`. Cleared all three across two values |
+
+**A1 RESOLVED, and the variable pattern too -- this is the writer's safe pattern,
+fully proven.** `remove-atom` removes ALL matching atoms in one call. With a LITERAL
+pattern it clears all exact matches; with a VARIABLE in the value position
+`(cap-efficacy NAME $v)` it clears ALL atoms for that capability regardless of value
+or count. So "remove-then-add" is a SELF-HEALING clean-swap: `remove (cap-efficacy X
+$v)` clears whatever exists (one, many, stale-valued), then `add (cap-efficacy X new)`
+places exactly one. From ANY prior state the writer lands at exactly one correct
+belief. The duplicate-corruption risk is structurally eliminated by remove-all
+semantics. THE WRITER REMOVES BY VARIABLE VALUE, never by the literal old value
+(a literal that does not match current state would remove nothing).
+
+### set-atom! (replace / upsert)
+
+| Cardinality (source pattern) | Behavior | Status | Evidence |
+|---|---|---|---|
+| source matches 0 | does NOT replace, does NOT fail -- CREATES a new atom | PROVEN | controlled test: source `(stv 0.7 0.7)` absent, returned `'true'`, post-match `['0.5','0.3']` -- new atom created |
+| source matches 1 | replaces it in place | PROVEN | the N0.5 gate test: 0.5 0.0 -> 0.9 0.2, read-back showed new value |
+| source matches many | replaces which? one? all? errors? | **UNKNOWN** | never tested set-atom! with a source matching 2+ atoms |
+
+**set-atom! is upsert-toward-create on non-match (PROVEN, contradicts the older
+"requires exact match" rule).** This is why set-atom!-with-source-pattern is unsafe
+for the writer: in a revision loop the source (old value) may not exactly match, and
+a non-match silently CREATES rather than no-ops. **Queue item C1 (set-atom! on many):**
+unknown and reachable -- if a duplicate exists and the writer set-atom!s, what happens?
+
+### |- and |-nal (compute / derive)
+
+| Case | Behavior | Status | Evidence |
+|---|---|---|---|
+| `|-` compute a derivation | computes correct NAL truth values | PROVEN | three exact multiplicative-confidence deductions |
+| `|-` persist the derivation | does NOT persist; computes only | PROVEN (behavioral) + SOURCE-CORROBORATED 2026-06-25 | premises committed, A->C computed 0.81, match empty (prior behavioral test); plus source: the `|-` wrapper and the `|-nal` rule right-hand sides are computed-value returns with NO `add-atom` step in the operator (lib_nal.metta lines 108-202). Live in-loop re-confirm still the gold standard since lib_nal reduces live-loop only |
+| `|-` vs `|-nal` | `|-nal` is the FULL NAL inference family (lib_nal.metta lines 108-199: revision at 108, deduction 110, induction 111, abduction 112, plus the structural/set/product/implication tail). `|-` is a thin both-orders WRAPPER over it (line 201-202): `(= (|- $a $b) (unique-atom (collapse (superpose ((|-nal $a $b) (|-nal $b $a))))))`. It runs `|-nal` in both argument orders, collapses the nondet stream, and uniquifies. The both-orders wrapper is why one `|-` call yields both a forward deduction and a reverse abduction. | SOURCE-VERIFIED 2026-06-25 | read end to end from the live container `/PeTTa/repos/omegaclaw/lib_nal.metta` this session (lines 108-202). Supersedes the prior "not re-tested" note. Corrects `nace_implementation_plan.md`'s "bare \|- undefined / echoes unreduced" claim: `|-` IS defined; the echo-unreduced was a standalone-context artifact (lib_nal reduces live-loop only, so the wrapper sits unreduced standalone) |
+| `|-nal` reduces outside live loop | NO -- live loop only (lib_nal load) | PROVEN | per NACE plan, run.sh echoes unreduced |
+
+---
+
+## 3. Composition (Axis 3) -- behavior inside let / collapse, same vs across cycle
+
+| Composition case | Behavior | Status | Evidence |
+|---|---|---|---|
+| read -> modify -> read, SAME cycle (RMW) | composes; same-cycle read sees the write | PROVEN | N0.5 gate: set-atom! then same-command scalar read returned `['0.9']` |
+| write commits across cycle boundary | YES (in-process persistence) | PROVEN | persist-check next-command showed revised value |
+| a throwing read inside a `let` chain | leaks value in error; chain behavior otherwise | ASSUMED | the stale Nugget 7 leaked `$before -> $after` inside a type_error; not cleanly characterized whether the chain completed or partial-failed |
+| `collapse (eval ...)` over a command | materializes nondet stream; raw commands inside clause bodies EXECUTE | PROVEN | Repair-1 physics (collapse in clause body invokes reduce) |
+| `set-atom!` return value | returns `'true'` on success | PROVEN | controlled test returned `['true']` |
+| trust the return value of a write | NO -- return can differ from stored state | PROVEN | the discipline that caught multiple errors; match-verify separately always |
+
+**Queue item E-comp (throwing-read-in-chain):** characterize what a `let` chain does
+when a binding step throws -- does the chain abort, bind the error term, or continue?
+Matters because the writer composes reads and writes in chains.
+
+
+++++++++++++++(Berton_C --> THIS SECTION NEEDS REVIEW)++++++++++++++++
+### Composition (Axis 3) -- nested application reduction in a let BIND
+
+| Case | Behavior | Status | Evidence |
+|---|---|---|---|
+| core form nested in a bind: (collapse (match ...)) | REDUCES (findall) | PROVEN | getContext $results bind compiled to findall(E, match(...), D) |
+| ordinary fn, arg is a VALUE: (size-atom $v), (string_length $v) | REDUCES (real call) | PROVEN | p-dsize size-atom($s,D); loop marker string_length(F,I) |
+| ordinary fn, arg is a CALL: (string_length (py-str (getSkills))) | DOES NOT REDUCE -- compiled to inert DATA, only innermost runs | PROVEN | p-flat: A=[string_length,[py-str,B]], getSkills(B). string_length/py-str never called |
+| nested application in TAIL/body: (string-safe (py-str (...))) | REDUCES + sequences | PROVEN | getContext body: py-str([...],U), string-safe(U,B) |
+
+RULE: in a let BIND, an ordinary function whose argument is itself a function
+call is NOT reduced -- it becomes a silent data term (no error), only the
+innermost reducible piece runs. Core forms (collapse/match/let/if) compose
+nested fine. To compute (f (g x)) with ordinary f,g in a bind, sequence:
+(let $gx (g x) (let $r (f $gx) ...)). Silent: produces wrong data, not an error.
+++++++++++++++(END)++++++++++++++++
+
+---
+
+## 4. Persistence (Axis 4) -- runtime atomspace vs file
+
+| Persistence question | Behavior | Status | Evidence |
+|---|---|---|---|
+| runtime mutation touches the seed file | NO | PROVEN | file unchanged through atomspace tests; restart reloaded clean seeds |
+| restart reloads from file, wipes runtime | YES | PROVEN | crash-restart wiped the duplicate, reloaded 3 clean seeds; deliberate restart confirmed clean |
+| add/set/remove persist within process life | YES | PROVEN | add+set+remove all verified by later match within a process life |
+| `|-` derivations persist | NO | PROVEN | computes, does not store |
+| **file path resolution** | CWD is `/PeTTa`; relative paths resolve to `/PeTTa/soul/` (wrong); MUST use absolute paths | PROVEN | `shell pwd` -> `/PeTTa`; relative `read-file soul/...` -> `[]` (not-found); absolute `/PeTTa/repos/omegaclaw/soul/nace_beliefs.metta` -> content |
+| **write -> restart -> load round-trip (E-dual core)** | write-file to the absolute path lands in the file the boot import loads | PROVEN | appended `(cap-efficacy persist-marker-test (stv 0.42 0.42))` to the file, restart, atomspace match -> `['0.42']`. The writer-rewrites-the-file persistence model WORKS |
+| file restore via overwrite | write-file overwrite-whole + read-back verify | PROVEN | restored 3 clean seeds via write-file, read-back confirmed exactly 3 lines, marker gone |
+| dual-write mid-crash atomicity | file + atomspace can diverge on mid-write crash | UNKNOWN | not tested; v1-acceptable boundary per NACE plan (restart reverts to last-good file) |
+| file is the source of truth, runtime is disposable | YES | PROVEN | restart-reset behavior; round-trip confirms file drives the load |
+
+**E-dual core RESOLVED:** the writer persists a revision by rewriting
+`nace_beliefs.metta` at the ABSOLUTE path `/PeTTa/repos/omegaclaw/soul/nace_beliefs.metta`;
+the boot import loads it on restart. Proven by the marker round-trip. Mid-write-crash
+atomicity remains UNKNOWN but is a v1-acceptable boundary (restart reverts to
+last-good file). The writer MUST use absolute paths -- a relative path writes to a
+nonexistent `/PeTTa/soul/` and the revision silently vanishes.
+
+---
+
+## 5. What is PROVEN, consolidated (safe to build on today)
+
+- Read instrument: scalar/symbol reads clean; tuple reads throw-with-leak; `found`
+  presence check clean; `match` returns all bindings; match-count = atom-count
+  (count by list length of a scalar/symbol read).
+- `match`: 0 -> `[]`, 1 -> clean, many -> all bindings. Fully mapped.
+- `add-atom`: creates a new atom; NOT idempotent -- adding an identical atom makes a
+  true duplicate (B1 proven). Persists in-process, not across rebuild.
+- `remove-atom`: removes ALL matching in one call -- literal pattern clears all exact
+  matches; VARIABLE-value pattern `(cap-efficacy NAME $v)` clears ALL for the
+  capability regardless of value or count (A1 + variable proven).
+- `set-atom!`: source-matches-1 replaces; source-matches-0 CREATES (upsert). Source-
+  matches-many UNKNOWN (C1). Use remove-then-add, not set-atom!, for the writer.
+- `|-`: a both-orders WRAPPER over `|-nal` (line 201-202: runs `|-nal $a $b` and
+  `|-nal $b $a`, collapse + unique). `|-nal` is the full NAL inference family
+  (lib_nal.metta 108-199). `|-` computes correct NAL, does NOT persist (source: no
+  `add-atom` in the operator); `add-atom` is the only commit. Both reduce live-loop only.
+- RMW composes same-cycle; writes commit across the boundary; return values are NOT
+  trustworthy (match-verify separately).
+- Persistence: runtime disposable, file is source of truth, restart reloads clean.
+  CWD is `/PeTTa` -> file ops MUST use absolute paths. Write -> restart -> load
+  round-trip PROVEN (write-file to the absolute path lands in what the boot import
+  loads). File restore = write-file overwrite + read-back verify.
+
+### The N1 writer, fully grounded on the proven cells above
+
+Every step rests on a PROVEN cell, not an assumption:
+
+```
+do-process-pending-revisions! (per capability X with outcome):
+  1. read current belief        -> scalar reads (clean): current freq/conf of X
+  2. compute revised stv        -> |-nal / Truth_Revision (live-loop only)
+  3. remove-atom (cap-efficacy X $v)   <- VARIABLE value: clears ALL copies of X,
+                                           any value, any count (self-healing)
+  4. add-atom (cap-efficacy X revised-stv)   <- places exactly ONE
+  5. write-file the absolute path /PeTTa/repos/omegaclaw/soul/nace_beliefs.metta
+                                 <- persists across restart (round-trip proven)
+```
+
+Why each choice: remove-then-add (not set-atom!) because set-atom! upserts-on-non-
+match and a revision loop's source value drifts. Variable-value remove (not literal)
+because the writer does not know the exact current stv. Remove-ALL semantics make the
+swap self-healing against any pre-existing duplicates. Absolute path because CWD is
+`/PeTTa`. Step 1 reads scalars individually because tuple reads throw. The duplicate-
+corruption risk is structurally eliminated. The only remaining writer-design caution
+is mid-write-crash atomicity (file+atomspace divergence), a v1-acceptable boundary.
+
+## 6. The test queue -- remaining UNKNOWN cells (Tier 1 fully cleared)
+
+All TIER 1 cells are now PROVEN. Remaining items are lower-danger:
+
+**TIER 2 (minor, do during N1 build if relevant):**
+
+- **A0 -- remove-atom on ZERO match: no-op, error, or false?** Low priority now: the
+  writer's variable pattern matches if any atom exists, and remove-all means it never
+  leaves a partial state. Worth a one-line confirm that removing a non-existent atom
+  does not error.
+- **C1 -- set-atom! when source matches MANY.** Moot for the writer (it uses remove-
+  then-add, not set-atom!), but a real cell for completeness.
+- **E-comp -- throwing-read inside a `let` chain**: does the chain abort/continue/
+  bind-error? Matters if the writer composes reads and writes in one chain; safer to
+  keep them as separate commands (which we proved works).
+- **E-dual-atomicity -- mid-write-crash** file+atomspace divergence. v1-acceptable
+  boundary; revisit for durability.
+
+**TIER 3 (instrument completeness, optional):**
+
+- **D2 -- clean whole-atom single-read** (all fields at once). Unnecessary -- read
+  fields individually as scalars. (D1 count idiom is now PROVEN: list length of a
+  scalar read.)
+
+**TIER 4 (no live test needed -- but the CONTRA is a SAFETY correction, do it promptly):**
+
+- **CONTRA-setatom -- the existing documented rule is WRONG in a dangerous direction;
+  correct it promptly.** The task-state constraint catalog says (C-Set-Atom-Match)
+  that `set-atom!` "requires exact match." The PROVEN behavior is: set-atom! requires
+  a match TO REPLACE, but on a NON-match it CREATES a new atom rather than no-oping.
+  This is not housekeeping -- it is a latent landmine. Anyone who reads the old rule
+  and writes `set-atom!` expecting a no-op when the source does not match will instead
+  get SILENT ATOM CREATION (a duplicate where they expected nothing). That is exactly
+  the failure that produced duplicate beliefs in this investigation. No live test is
+  needed (the behavior is already PROVEN), which makes the fix cheap -- so there is no
+  reason to defer it. Correct the C-Set-Atom-Match entry in the task-state constraint
+  catalog to: "set-atom! requires a matching source TO REPLACE; on a non-matching
+  source it CREATES a new atom (upsert), it does NOT no-op. Do not use set-atom! with
+  a possibly-stale source pattern -- use remove-by-variable then add." (Credit: Clarity
+  flagged that this is a safety correction, not a doc-fix.)
+
+## 7. How filling a cell works (the per-nugget protocol)
+
+For each queue item:
+1. Establish KNOWN-CLEAN state (restart reloads clean from file is the cheapest reset).
+2. State the expected result for BOTH polarities before running.
+3. Run ONE properly-parenthesized command (mutations never batched -- a malformed
+   batch crashed the container once; single fully-wrapped `(metta "(cmd ...)")` only).
+4. Verify the result with a PROVEN read instrument in a SEPARATE command (never trust
+   the mutation's return value).
+5. Record the exact result in the cell; mark PROVEN with evidence, or record the
+   surprise as its own nugget.
+6. Re-establish clean state (restart) before the next cell if the test mutated state.
+
+The map is complete when every TIER 1 and TIER 2 cell is PROVEN. At that point the
+NACE writer (and any future atom-manipulating primitive) rests on a fully-mapped
+foundation: every operation's behavior on every cardinality is known, not assumed.

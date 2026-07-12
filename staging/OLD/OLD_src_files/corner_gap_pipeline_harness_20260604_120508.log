@@ -1,0 +1,21 @@
+======================================================================
+Corner-gap pipeline harness (substrate validation, pre-wiring)
+timestamp: 20260604_120508   container: clarity_omega   graded: True
+======================================================================
+TRANSPORT: inline bodies (lib_import + file bodies, no import! of rules).
+FILES INLINED:
+  /PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/state_delta_writer.metta
+  /PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/state_delta_writer_writers.metta
+  /PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/coupling_integrity_detector.metta
+  /PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/coupling_integrity_detector_writers.metta
+  /PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/corner_gate.metta
+  /PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/coupling_quantale_merge.metta
+  /PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/cycle_continuity_probe.metta
+  /PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/cycle_continuity_probe_writers.metta
+  /PeTTa/repos/omegaclaw/lib_clarity_reasoning/lib_quantale.metta
+  /PeTTa/repos/omegaclaw/lib_clarity_reasoning/lib_self_continuity.metta
+
+======================================================================
+STAGE 0  PREFLIGHT + LOAD
+======================================================================
+  [FAIL] container 'clarity_omega' not running. Start it and re-run.

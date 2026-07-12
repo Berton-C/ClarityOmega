@@ -1,0 +1,15 @@
+{
+  "captured": "2026-06-14T15:29:44.564057",
+  "container": "clarity_omega",
+  "cycles_read": 8,
+  "chars_sent": {
+    "min": 42293,
+    "max": 43577,
+    "median": 43474,
+    "n": 8
+  },
+  "chars_monotonic_up": true,
+  "chars_per_cycle_growth": null,
+  "parity_metric": "skills-len (stable, >0); CHARS_SENT trend-only",
+  "note": "pre-wiring getSkills path; absolute CHARS_SENT drifts with history"
+}

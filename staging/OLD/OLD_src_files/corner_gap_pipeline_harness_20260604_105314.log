@@ -1,0 +1,145 @@
+======================================================================
+Corner-gap pipeline harness (substrate validation, pre-wiring)
+timestamp: 20260604_105314   container: clarity_omega   graded: True
+======================================================================
+IMPORT PREAMBLE:
+  !(import! &self (library omegaclaw lib_quantale))
+  !(import! &self (library omegaclaw lib_self_continuity))
+  !(import! &self (file "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/state_delta_writer.metta"))
+  !(import! &self (file "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/state_delta_writer_writers.metta"))
+  !(import! &self (file "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/coupling_integrity_detector.metta"))
+  !(import! &self (file "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/coupling_integrity_detector_writers.metta"))
+  !(import! &self (file "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/corner_gate.metta"))
+  !(import! &self (file "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/coupling_quantale_merge.metta"))
+  !(import! &self (file "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/cycle_continuity_probe.metta"))
+  !(import! &self (file "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/cycle_continuity_probe_writers.metta"))
+
+======================================================================
+STAGE 0  PREFLIGHT + LOAD
+======================================================================
+  [OK] container 'clarity_omega' running
+
+----------------------------------------------------------------------
+PROBE: STAGE 0 load probe
+----------------------------------------------------------------------
+SCRIPT SENT (body lines only; preamble imports omitted for brevity):
+  !(corner-gate-feedback)
+RAW OUTPUT (ansi-stripped, full):
+--> metta runnable  -->
+!(import! &self (library omegaclaw lib_quantale))
+-->  prolog goal  --> 
+:- findall(A,
+           ( library(omegaclaw, lib_quantale, B),
+             'import!'('&self', B, A)
+           ),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(import! &self (library omegaclaw lib_self_continuity))
+-->  prolog goal  --> 
+:- findall(A,
+           ( library(omegaclaw, lib_self_continuity, B),
+             'import!'('&self', B, A)
+           ),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(import! &self (file "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/state_delta_writer.metta"))
+-->  prolog goal  --> 
+:- findall(A,
+           'import!'('&self',
+                     [ file,
+                       "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/state_delta_writer.metta"
+                     ],
+                     A),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(import! &self (file "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/state_delta_writer_writers.metta"))
+-->  prolog goal  --> 
+:- findall(A,
+           'import!'('&self',
+                     [ file,
+                       "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/state_delta_writer_writers.metta"
+                     ],
+                     A),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(import! &self (file "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/coupling_integrity_detector.metta"))
+-->  prolog goal  --> 
+:- findall(A,
+           'import!'('&self',
+                     [ file,
+                       "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/coupling_integrity_detector.metta"
+                     ],
+                     A),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(import! &self (file "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/coupling_integrity_detector_writers.metta"))
+-->  prolog goal  --> 
+:- findall(A,
+           'import!'('&self',
+                     [ file,
+                       "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/coupling_integrity_detector_writers.metta"
+                     ],
+                     A),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(import! &self (file "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/corner_gate.metta"))
+-->  prolog goal  --> 
+:- findall(A,
+           'import!'('&self',
+                     [ file,
+                       "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/corner_gate.metta"
+                     ],
+                     A),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(import! &self (file "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/coupling_quantale_merge.metta"))
+-->  prolog goal  --> 
+:- findall(A,
+           'import!'('&self',
+                     [ file,
+                       "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/coupling_quantale_merge.metta"
+                     ],
+                     A),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(import! &self (file "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/cycle_continuity_probe.metta"))
+-->  prolog goal  --> 
+:- findall(A,
+           'import!'('&self',
+                     [ file,
+                       "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/cycle_continuity_probe.metta"
+                     ],
+                     A),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(import! &self (file "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/cycle_continuity_probe_writers.metta"))
+-->  prolog goal  --> 
+:- findall(A,
+           'import!'('&self',
+                     [ file,
+                       "/PeTTa/repos/omegaclaw/soul/in_progress/corner_gap/cycle_continuity_probe_writers.metta"
+                     ],
+                     A),
+           _).
+^^^^^^^^^^^^^^^^^^^^^^^
+--> metta runnable  -->
+!(corner-gate-feedback)
+-->  prolog goal  --> 
+:- findall(['corner-gate-feedback'], true, _).
+^^^^^^^^^^^^^^^^^^^^^^^
+(corner-gate-feedback)
+
+  all files load; corner-gate-feedback reduces         FAIL
+
+  >>> Files did not load cleanly. Check the import preamble tokens
+  (library spelling for lib_quantale / lib_self_continuity), then the
+  file paths under in_progress/corner_gap/. Nothing below will be valid.
