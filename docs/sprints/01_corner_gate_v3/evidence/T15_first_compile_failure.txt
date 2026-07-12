@@ -1,0 +1,99 @@
+26246:[36m(= (coupling-legibility-schema-version) v3-18-field)
+26248:[32m'coupling-legibility-schema-version'('v3-18-field').
+26359:[36m(= (coupling-dedupe $xs $acc)
+26365:             (coupling-dedupe $t $acc)
+26367:               (coupling-dedupe $t $acc2))))))
+26369:[32m'coupling-dedupe'(A, B, C) :-
+26380:        ->  'coupling-dedupe'(G, B, C)
+26383:            'coupling-dedupe'(G, K, C)
+26388:ERROR: /PeTTa/src/main.pl:23: user:main length/2: Domain error: `not_less_than_zero' expected, found `-10'
+        >(E, B, I),
+        (   I==true
+        ->  'coupling-max-num'(G, E, C)
+        ;   'coupling-max-num'(G, B, C)
+        )
+    ).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta function -->
+[36m(= (coupling-min-num $xs $acc)
+   (if (== $xs ())
+       $acc
+       (let* (($h (car-atom $xs))
+              ($t (cdr-atom $xs)))
+         (if (< $h $acc) (coupling-min-num $t $h) (coupling-min-num $t $acc)))))
+[33m--> prolog clause -->
+[32m'coupling-min-num'(A, B, C) :-
+    ==(A, [], D),
+    (   D==true
+    ->  C=B
+    ;   E=F,
+        'car-atom'(A, F),
+        G=H,
+        'cdr-atom'(A, H),
+        <(E, B, I),
+        (   I==true
+        ->  'coupling-min-num'(G, E, C)
+        ;   'coupling-min-num'(G, B, C)
+        )
+    ).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta function -->
+[36m(= (coupling-mid-ord $xs $min $max)
+   (if (== $xs ())
+       0
+       (let* (($h (car-atom $xs))
+              ($t (cdr-atom $xs)))
+         (if (and (not (== $h $min)) (not (== $h $max)))
+             $h
+             (coupling-mid-ord $t $min $max)))))
+[33m--> prolog clause -->
+[32m'coupling-mid-ord'(A, B, C, D) :-
+    ==(A, [], E),
+    (   E==true
+    ->  D=0
+    ;   F=G,
+        'car-atom'(A, G),
+        H=I,
+        'cdr-atom'(A, I),
+        ==(F, B, J),
+        not(J, K),
+        ==(F, C, L),
+        not(L, M),
+        and(K, M, N),
+        (   N==true
+        ->  D=F
+        ;   'coupling-mid-ord'(H, B, C, D)
+        )
+    ).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta function -->
+[36m(= (coupling-dedupe $xs $acc)
+   (if (== $xs ())
+       $acc
+       (let* (($h (car-atom $xs))
+              ($t (cdr-atom $xs)))
+         (if (== (coupling-contains $acc $h) True)
+             (coupling-dedupe $t $acc)
+             (let $acc2 (cons-atom $h $acc)
+               (coupling-dedupe $t $acc2))))))
+[33m--> prolog clause -->
+[32m'coupling-dedupe'(A, B, C) :-
+    ==(A, [], D),
+    (   D==true
+    ->  C=B
+    ;   E=F,
+        'car-atom'(A, F),
+        G=H,
+        'cdr-atom'(A, H),
+        'coupling-contains'(B, E, I),
+        ==(I, true, J),
+        (   J==true
+        ->  'coupling-dedupe'(G, B, C)
+        ;   K=L,
+            'cons-atom'(E, B, L),
+            'coupling-dedupe'(G, K, C)
+        )
+    ).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m
+ERROR: /PeTTa/src/main.pl:23: user:main length/2: Domain error: `not_less_than_zero' expected, found `-10'

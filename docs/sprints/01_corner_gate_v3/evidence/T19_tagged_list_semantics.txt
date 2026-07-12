@@ -1,0 +1,98 @@
+26271:[36m(= (cg3-known-heads)
+26273:        (cg3-known-heads-data
+26278:[32m'cg3-known-heads'(A) :-
+26279:    B=['cg3-known-heads-data', 'write-file', 'append-file', shell, remember, 'read-file', query, episodes, metta, send, pin, search, 'tavily-search', 'technical-analysis'],
+26283:[36m(= (cg3-member-probe $head)
+26284:   (let $known (cg3-known-heads)
+26287:[32m'cg3-member-probe'(A, B) :-
+26289:    'cg3-known-heads'(D),
+26293:[36m!(cg3-known-heads)
+26295::- findall(A, 'cg3-known-heads'(A), _).
+26298:Not specialized cg3-member-probe_Spec_[write-file]/2
+26300:[36m!(cg3-member-probe write-file)
+26302::- findall(A, 'cg3-member-probe'('write-file', A), _).
+26305:Not specialized cg3-member-probe_Spec_[technical-analysis]/2
+26307:[36m!(cg3-member-probe technical-analysis)
+26309::- findall(A, 'cg3-member-probe'('technical-analysis', A), _).
+26312:[36m!(cg3-member-probe unknown-head)
+26314::- findall(A, 'cg3-member-probe'('unknown-head', A), _).
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta function -->
+[36m(= (cg3-contains $xs $sym)
+   (if (== $xs ())
+       False
+       (let* (($h (car-atom $xs))
+              ($t (cdr-atom $xs)))
+         (if (== $h $sym)
+             True
+             (cg3-contains $t $sym)))))
+[33m--> prolog clause -->
+[32m'cg3-contains'(A, B, C) :-
+    ==(A, [], D),
+    (   D==true
+    ->  C=false
+    ;   E=F,
+        'car-atom'(A, F),
+        G=H,
+        'cdr-atom'(A, H),
+        ==(E, B, I),
+        (   I==true
+        ->  C=true
+        ;   'cg3-contains'(G, B, C)
+        )
+    ).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta function -->
+[36m(= (cg3-known-heads)
+   (let $tagged
+        (cg3-known-heads-data
+          write-file append-file shell remember read-file query episodes metta
+          send pin search tavily-search technical-analysis)
+     (cdr-atom $tagged)))
+[33m--> prolog clause -->
+[32m'cg3-known-heads'(A) :-
+    B=['cg3-known-heads-data', 'write-file', 'append-file', shell, remember, 'read-file', query, episodes, metta, send, pin, search, 'tavily-search', 'technical-analysis'],
+    'cdr-atom'(B, A).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta function -->
+[36m(= (cg3-member-probe $head)
+   (let $known (cg3-known-heads)
+     (cg3-contains $known $head)))
+[33m--> prolog clause -->
+[32m'cg3-member-probe'(A, B) :-
+    C=D,
+    'cg3-known-heads'(D),
+    'cg3-contains'(C, A, B).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(cg3-known-heads)
+[33m-->  prolog goal  -->[35m 
+:- findall(A, 'cg3-known-heads'(A), _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0mNot specialized cg3-contains_Spec_[write-file]/3
+Not specialized cg3-member-probe_Spec_[write-file]/2
+[33m--> metta runnable  -->
+[36m!(cg3-member-probe write-file)
+[33m-->  prolog goal  -->[35m 
+:- findall(A, 'cg3-member-probe'('write-file', A), _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0mNot specialized cg3-contains_Spec_[technical-analysis]/3
+Not specialized cg3-member-probe_Spec_[technical-analysis]/2
+[33m--> metta runnable  -->
+[36m!(cg3-member-probe technical-analysis)
+[33m-->  prolog goal  -->[35m 
+:- findall(A, 'cg3-member-probe'('technical-analysis', A), _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(cg3-member-probe unknown-head)
+[33m-->  prolog goal  -->[35m 
+:- findall(A, 'cg3-member-probe'('unknown-head', A), _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0mtrue
+true
+true
+(write-file append-file shell remember read-file query episodes metta send pin search tavily-search technical-analysis)
+true
+true
+false

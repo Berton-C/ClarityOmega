@@ -1,0 +1,76 @@
+26246:[36m(= (cg3-known-heads-probe)
+26247:   (cg3-inert-list-head append-file shell remember read-file query episodes metta
+26250:[32m'cg3-known-heads-probe'([ 'cg3-inert-list-head',
+26266:[36m!(cg3-known-heads-probe)
+26268::- findall(A, 'cg3-known-heads-probe'(A), _).
+26273:(cg3-inert-list-head append-file shell remember read-file query episodes metta send pin search tavily-search technical-analysis)
+    sleep(O9, _),
+    !,
+    gc(_),
+    +(1, A, P9),
+    omegaclaw(P9, B).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(git-import! "https://github.com/patham9/petta_lib_chromadb.git")
+[33m-->  prolog goal  -->[35m 
+:- findall(A,
+           'git-import!'("https://github.com/patham9/petta_lib_chromadb.git",
+                         A),
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(import! &self (library petta_lib_chromadb lib_chromadb))
+[33m-->  prolog goal  -->[35m 
+:- findall(A,
+           ( library(petta_lib_chromadb, lib_chromadb, B),
+             'import!'('&self', B, A)
+           ),
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(import! &self (library petta_lib_chromadb lib_chromadb.py))
+[33m-->  prolog goal  -->[35m 
+:- findall(A,
+           ( library(petta_lib_chromadb, 'lib_chromadb.py', B),
+             'import!'('&self', B, A)
+           ),
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(import! &self (library petta_lib_chromadb lib_chromadb.py))
+[33m-->  prolog goal  -->[35m 
+:- findall(A,
+           ( library(petta_lib_chromadb, 'lib_chromadb.py', B),
+             'import!'('&self', B, A)
+           ),
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta function -->
+[36m(= (cg3-known-heads-probe)
+   (cg3-inert-list-head append-file shell remember read-file query episodes metta
+    send pin search tavily-search technical-analysis))
+[33m--> prolog clause -->
+[32m'cg3-known-heads-probe'([ 'cg3-inert-list-head',
+                               'append-file',
+                               shell,
+                               remember,
+                               'read-file',
+                               query,
+                               episodes,
+                               metta,
+                               send,
+                               pin,
+                               search,
+                               'tavily-search',
+                               'technical-analysis'
+                             ]).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(cg3-known-heads-probe)
+[33m-->  prolog goal  -->[35m 
+:- findall(A, 'cg3-known-heads-probe'(A), _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0mtrue
+true
+true
+(cg3-inert-list-head append-file shell remember read-file query episodes metta send pin search tavily-search technical-analysis)

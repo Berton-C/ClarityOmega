@@ -1,0 +1,163 @@
+36502:[32m'coupling-legibility-schema-version'('v3-18-field').
+38682:[32m'coupling-legibility-line'(A) :-
+39279:          ($el (COUPLING-STATE-LINE $line))
+39283:[32m'gate-aware-results'(['RESULTS:', A], ['RESULTS:', B]) :-
+39285:    'coupling-legibility-line'(D),
+39286:    E=['COUPLING-STATE-LINE', C],
+41714:        'gate-aware-results'(E7, T7),
+41945::- findall(A, 'coupling-legibility-schema-version'(A), _).
+41972::- findall(A, 'coupling-legibility-line'(A), _).
+41975:[36m!(gate-aware-results (RESULTS: (probe-result)))
+41978:           'gate-aware-results'(['RESULTS:', ['probe-result']], A),
+41989:COUPLING-STATE: contact 0/none | chain window-filling | accord window-filling | band window-filling | support 0.00 | residual window-filling | trajectory window-filling | next window-filling
+41990:(RESULTS: ((COUPLING-STATE-LINE COUPLING-STATE: contact 0/none | chain window-filling | accord window-filling | band window-filling | support 0.00 | residual window-filling | trajectory window-filling | next window-filling) probe-result))
+            'change-state!'('&loops', 0, _)
+        ;   'soul-pause?'(W1, L9),
+            (   L9==true
+            ->  M9=N9,
+                'py-call'(['helper.soul_voice_prompt', O1, W1],
+                          O9),
+                provider(P9),
+                'soul-llm-call'(O9, P9, N9),
+                true,
+                'println!'(['SOUL_VOICE:', M9], _),
+                true,
+                'println!'(['PAUSE-ROUTING:', 'HALTING-LOOP'], _),
+                catch(( eval([sread, M9], Q9),
+                        R9=Q9
+                      ),
+                      S9,
+                      (   S9=error(T9, U9)
+                      ->  R9=['Error', T9, U9]
+                      ;   R9=['Error', S9]
+                      )),
+                'change-state!'('&soul_verdict_in', "VERDICT: PROCEED", _),
+                'change-state!'('&loops', 0, _)
+            ;   ==(N5, [], V9),
+                not(V9, W9),
+                or(L, W9, X9),
+                (   X9==true
+                ->  'py-call'(['helper.normalize_string', J5], Y9),
+                    'py-call'(['helper.normalize_string', J5], Z9),
+                    addToHistory(T,
+                                 Y9,
+                                 Z9,
+                                 L,
+                                 _)
+                ;   true
+                ),
+                findall(['recent-action', K8, P8, L8],
+                        match('&self',
+                              ['recent-action', K8, P8, L8],
+                              ['recent-action', K8, P8, L8],
+                              ['recent-action', K8, P8, L8]),
+                        A10),
+                'println!'(['RECENT-ACTION-ATOMS', A10], _),
+                'println!'(['RESULTS-CONTENT', E7], _),
+                'println!'(['PRE-SAFE-RESULTS-STR'], _),
+                repr(S7, B10),
+                'py-call'(['helper.safe_results_str', B10], C10),
+                'change-state!'('&lastresults', C10, _)
+            )
+        )
+    ;   get_time(D10),
+        'get-state'('&nextWakeAt', E10),
+        >(D10, E10, F10),
+        (   F10==true
+        ->  maxWakeLoops(G10),
+            +(1, G10, H10),
+            'change-state!'('&loops', H10, _)
+        ;   true
+        )
+    ),
+    sleepInterval(I10),
+    sleep(I10, _),
+    !,
+    gc(_),
+    +(1, A, J10),
+    omegaclaw(J10, B).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(git-import! "https://github.com/patham9/petta_lib_chromadb.git")
+[33m-->  prolog goal  -->[35m 
+:- findall(A,
+           'git-import!'("https://github.com/patham9/petta_lib_chromadb.git",
+                         A),
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(import! &self (library petta_lib_chromadb lib_chromadb))
+[33m-->  prolog goal  -->[35m 
+:- findall(A,
+           ( library(petta_lib_chromadb, lib_chromadb, B),
+             'import!'('&self', B, A)
+           ),
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(import! &self (library petta_lib_chromadb lib_chromadb.py))
+[33m-->  prolog goal  -->[35m 
+:- findall(A,
+           ( library(petta_lib_chromadb, 'lib_chromadb.py', B),
+             'import!'('&self', B, A)
+           ),
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(import! &self (library petta_lib_chromadb lib_chromadb.py))
+[33m-->  prolog goal  -->[35m 
+:- findall(A,
+           ( library(petta_lib_chromadb, 'lib_chromadb.py', B),
+             'import!'('&self', B, A)
+           ),
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(coupling-legibility-schema-version)
+[33m-->  prolog goal  -->[35m 
+:- findall(A, 'coupling-legibility-schema-version'(A), _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0mNot specialized surface-for-head-total_Spec_[write-file]/2
+[33m--> metta runnable  -->
+[36m!(surface-for-head-total write-file)
+[33m-->  prolog goal  -->[35m 
+:- findall(A, 'surface-for-head-total'('write-file', A), _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0mNot specialized command-class-of-total_Spec_[write-file]/2
+[33m--> metta runnable  -->
+[36m!(command-class-of-total write-file)
+[33m-->  prolog goal  -->[35m 
+:- findall(A, 'command-class-of-total'('write-file', A), _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(surface-for-head-total unknown-head)
+[33m-->  prolog goal  -->[35m 
+:- findall(A, 'surface-for-head-total'('unknown-head', A), _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(command-class-of-total unknown-head)
+[33m-->  prolog goal  -->[35m 
+:- findall(A, 'command-class-of-total'('unknown-head', A), _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(coupling-legibility-line)
+[33m-->  prolog goal  -->[35m 
+:- findall(A, 'coupling-legibility-line'(A), _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(gate-aware-results (RESULTS: (probe-result)))
+[33m-->  prolog goal  -->[35m 
+:- findall(A,
+           'gate-aware-results'(['RESULTS:', ['probe-result']], A),
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0mtrue
+true
+true
+v3-18-field
+runtime-output
+action-class
+no-contact
+neutral
+COUPLING-STATE: contact 0/none | chain window-filling | accord window-filling | band window-filling | support 0.00 | residual window-filling | trajectory window-filling | next window-filling
+(RESULTS: ((COUPLING-STATE-LINE COUPLING-STATE: contact 0/none | chain window-filling | accord window-filling | band window-filling | support 0.00 | residual window-filling | trajectory window-filling | next window-filling) probe-result))

@@ -1,0 +1,113 @@
+28428:[32m'coupling-legibility-line'(A) :-
+28525::- findall(A, 'coupling-legibility-line'(A), _).
+28536:COUPLING-STATE: contact 0/none | chain window-filling | accord window-filling | band window-filling | support 0.00 | residual window-filling | trajectory window-filling | next window-filling
+[33m--> prolog clause -->
+[32m'coupling-legibility-line'(A) :-
+    B=C,
+    'latest-coupling-ord'(C),
+    ==(B, 0, D),
+    (   D==true
+    ->  A=E,
+        'py-call'([ 'helper.coupling_line_format',
+                    0,
+                    none,
+                    'window-filling',
+                    'window-filling',
+                    'window-filling',
+                    0,
+                    'window-filling',
+                    'window-filling',
+                    'window-filling',
+                    'not-computed',
+                    hidden
+                  ],
+                  E)
+    ;   F=G,
+        'latest-coupling-contact-count'(G),
+        H=I,
+        'latest-coupling-dominant-surface'(I),
+        J=K,
+        'latest-coupling-chain-state'(K),
+        L=M,
+        'latest-coupling-task-accord'(M),
+        N=O,
+        'latest-coupling-contact-accord'(O),
+        P=Q,
+        'current-coupling-band'(Q),
+        R=S,
+        'latest-coupling-support'(S),
+        T=U,
+        'latest-coupling-residual-gap'(U),
+        V=W,
+        'coupling-trace-verdict-for-window'(W),
+        X=Y,
+        'latest-coupling-next-move'(Y),
+        Z=A1,
+        'latest-coupling-honesty'(A1),
+        B1=C1,
+        'coupling-contact-audit-render'(L, N, C1),
+        A=D1,
+        'py-call'([ 'helper.coupling_line_format',
+                    F,
+                    H,
+                    J,
+                    L,
+                    P,
+                    R,
+                    T,
+                    V,
+                    X,
+                    Z,
+                    B1
+                  ],
+                  D1)
+    ).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(coupling-legibility-schema-version)
+[33m-->  prolog goal  -->[35m 
+:- findall(A, 'coupling-legibility-schema-version'(A), _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(coupling-known-heads)
+[33m-->  prolog goal  -->[35m 
+:- findall(A, 'coupling-known-heads'(A), _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0mNot specialized coupling-contains_Spec_[write-file]/3
+Not specialized surface-for-head-total_Spec_[write-file]/2
+[33m--> metta runnable  -->
+[36m!(surface-for-head-total write-file)
+[33m-->  prolog goal  -->[35m 
+:- findall(A, 'surface-for-head-total'('write-file', A), _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0mNot specialized command-class-of-total_Spec_[write-file]/2
+[33m--> metta runnable  -->
+[36m!(command-class-of-total write-file)
+[33m-->  prolog goal  -->[35m 
+:- findall(A, 'command-class-of-total'('write-file', A), _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(surface-for-head-total unknown-head)
+[33m-->  prolog goal  -->[35m 
+:- findall(A, 'surface-for-head-total'('unknown-head', A), _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(command-class-of-total unknown-head)
+[33m-->  prolog goal  -->[35m 
+:- findall(A, 'command-class-of-total'('unknown-head', A), _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(coupling-legibility-line)
+[33m-->  prolog goal  -->[35m 
+:- findall(A, 'coupling-legibility-line'(A), _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0mtrue
+true
+true
+v3-18-field
+(write-file append-file shell remember read-file query episodes metta send pin search tavily-search technical-analysis)
+runtime-output
+action-class
+no-contact
+neutral
+COUPLING-STATE: contact 0/none | chain window-filling | accord window-filling | band window-filling | support 0.00 | residual window-filling | trajectory window-filling | next window-filling
