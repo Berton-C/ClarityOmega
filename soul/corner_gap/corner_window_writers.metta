@@ -29,7 +29,7 @@
 
 ;; Cycle driver. Hook ordering: AFTER populate-coupling-verdict (loop line 176),
 ;; so the gate always filters against the PRIOR cycle's record.
+;; INERT-PROBE 2026-07-07: driver disabled for differential pinpoint of the
+;; cycle-tail failure. Real body preserved in the apply script; --reverse restores.
 (= (populate-corner-window! $cmds $cycle-id)
-   (if (== (corner-confirmed-core) True)
-       (do-record-corner-window! $cmds $cycle-id)
-       (do-clear-corner-window!)))
+   ())
