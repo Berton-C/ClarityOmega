@@ -1134,3 +1134,14 @@ filters against the prior cycle's record. Manifest gains
 coupling_quantale_merge and corner_window_writers imports in the corner_gap
 block. The v1 boolean detector writers keep running unchanged as
 observability. Probe evidence in project knowledge (battery B1-B7).
+
+
+<!-- V3-MONOLITH BEGIN -->
+## Corner-Gate v3 cutover (2026-07-10, apply_corner_gate_v3_monolith.py)
+Phase 4.5 seam: apply-corner-gate-v2 is a pass-through shim; gate-aware-results appends the
+COUPLING-STATE legibility line (S1: novelty still compares raw results). Cycle tail: the
+populate-corner-window! hook is replaced by do-record-coupling-cycle! (after populate-state-delta
+and populate-coupling-verdict; ordering load-bearing). initLoop gains do-bootstrap-coupling!.
+New imports soul/corner_gap/coupling_legibility and soul/corner_gap/coupling_legibility_writers sit after the engine
+block. corner_window_writers retired. Enforcement machinery removed by design (defects D-A, D-B).
+<!-- V3-MONOLITH END -->

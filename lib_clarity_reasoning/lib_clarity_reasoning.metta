@@ -98,9 +98,12 @@
 !(import! &self (library omegaclaw ./soul/corner_gap/coupling_integrity_detector_writers))
 ;; V2-MONOLITH 2026-07-06: graded corner detection (quantale merge, probe A/B1-B4)
 !(import! &self (library omegaclaw ./soul/corner_gap/coupling_quantale_merge))
+;; V3-MONOLITH BEGIN coupling_legibility imports
+!(import! &self (library omegaclaw ./soul/corner_gap/coupling_legibility))
+!(import! &self (library omegaclaw ./soul/corner_gap/coupling_legibility_writers))
+;; V3-MONOLITH END coupling_legibility imports
 !(import! &self (library omegaclaw ./soul/corner_gap/corner_gate))
 ;; V2-MONOLITH 2026-07-06: confirmed-corner window record (writers, probe B5/B6)
-!(import! &self (library omegaclaw ./soul/corner_gap/corner_window_writers))
 
 ;; Recent-action populator: writes recent-action atoms each iteration with pruning
 !(import! &self (library omegaclaw ./soul/recent_action_populator))
