@@ -2,13 +2,13 @@
 
 This file is the entry point for project knowledge. When opening a new working session, read this first to orient. The index lists what exists, where it lives, and what state it is in.
 
-**Last updated:** 2026-05-10
+**Last updated:** 2026-07-17 (identity header and tree current; full per-file content regeneration pending, tracked in the docs cleanup pass)
 
 ---
 
 ## Project Identity
 
-**ClarityOmega** is a soul-augmented AI agent. Repo: `github.com/Berton-C/clarityclaw` (mid-migration to OmegaClaw upstream at `github.com/asi-alliance/OmegaClaw-Core`). CLI: `clarityomega`. Connected to Mattermost. Runs on PeTTa/MeTTa runtime in Docker container `clarity_omega`.
+**ClarityOmega** is a soul-augmented AI agent; the agent is named Clarity. Repo: `github.com/Berton-C/ClarityOmega`, a fork of upstream OmegaClaw-Core at `github.com/asi-alliance/OmegaClaw-Core`. CLI: `clarityomega`. Connected to Mattermost. Runs on PeTTa/MeTTa runtime in Docker container `clarity_omega`. The repository README is the architectural front door; this index is the docs-tree entry point.
 
 Older names (ClarityClaw, MeTTaClaw fork) are historical. Naming cleanup pass across docs is on the backlog.
 
@@ -23,6 +23,9 @@ docs/
 ├── investigations/     Diagnostic work products (this is where backward-looking findings live)
 ├── hyperseed_docs/     Active development resources for MeTTa reasoning capacity
 ├── hyperseed_sections/ Active development resources, sectioned reference
+├── sprints/            Per-sprint working directories (corner gate v3, NACE adoption, quantale engine, mentor, capacity work) + first-principles ground truth
+├── examples/           Worked examples
+├── fixes/              Fix work products
 ├── merging/            STALE - was planned for upstream merge, needs revisit
 ├── INDEX.md            This file
 └── (root-level files)

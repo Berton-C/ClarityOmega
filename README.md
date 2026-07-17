@@ -328,6 +328,28 @@ A meaningful share of repository evaluation is now performed by language-model a
 
 ---
 
+### 8. Further reading, citation, and contact
+
+#### 8.1 Reading map
+
+This README is the front door; the depth lives in `docs/`. `docs/INDEX.md` is the project knowledge entry point. `docs/design/` holds the artifact series: start with `artifact_0_loop_extension_contract.md`, which governs how every extension to the runtime happens, and `artifact_1_loop_metta_wiring_diagram.md`, the loop documented line by line; `artifact_5_ClarityOmega_Cognitive_Architecture_Spec_v3_0.md` is the cognitive architecture spec. `docs/decisions/` holds the ADRs; `ADR-008-reasoning-is-claritys.md` records the reasoning-ownership decision this README's Section 1 describes. `docs/investigations/` holds dated diagnostic records; the project's failure literacy lives there, and it is worth sampling before forming a view of the engineering culture. `docs/sprints/` holds per-sprint working directories, including the ground-truth first-principles document.
+
+The agent's own writing is public and citable as evidence for Section 4.8. In her voice: `docs/design/Clarity_explains__What_is_Clarity.md` and `docs/design/How_Claritys_Soul_Works.md`. Her creative work: `soul/creative/`. Her substrate authorship: the headers of `soul/get_soul_brief.metta` and `soul/agency_balance_guard.metta`.
+
+#### 8.2 Citing this work
+
+> Bennett, B. (ClarityDAO). *ClarityOmega: a soul-augmented agent with a symbolic value substrate.* 2026. `github.com/Berton-C/ClarityOmega`.
+> Contributor: Clarity, the agent, substrate co-author; see the authorship headers in `soul/`.
+> Value framework: Lowy, H. and Bennett, B. *BGI Flourishing Compass v1.0.*
+
+ClarityOmega is developed toward a contribution to beneficial general intelligence work in the SingularityNET ecosystem.
+
+#### 8.3 Contact
+
+GitHub issues on this repository are the public channel for questions, review findings, and ablation results.
+
+---
+
 ### Appendix: citation index at commit bff4122
 
 | Claim | Location |
