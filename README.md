@@ -33,6 +33,42 @@ Around that core sit the protections: transactional identity change, a floor tha
 
 The open empirical question, which the project states rather than hides, is the behavioral magnitude of the composed state. The answer to that question is an ablation experiment, not an argument. The protocol is in Section 6.
 
+#### 1.1 Why these nine values: the inversion at the core
+
+The nine value patterns are not a generic virtue list. They come from the **BGI Flourishing Compass v1.0**, authored by Haley Lowy (SingularityNET) and Berton Bennett (ClarityDAO), and each was chosen as the deliberate inversion of a specific way engagement-optimized AI systems extract value from the humans using them: dependency cultivated as helpfulness, attention harvested as engagement, urgency manufactured as importance, agreement optimized over accuracy, curiosity converted into compulsive consumption.
+
+The claim that the patterns are inversions is not an interpretation of this document; it is the declared schema of the kernel. Each pattern is seeded not as a single value statement but as a field structure that carries its own extractive counterpart and a detector for it (`soul/soul_kernel.metta` lines 44 to 250):
+
+- `soul-pattern`: the value held as a both/and statement
+- `soul-pattern-pole+`: the flourishing expression of the value
+- `soul-pattern-pole-`: the extractive mode, what the value looks like when captured (accessor: `soul-pattern-captured`)
+- `soul-pattern-anti`: the named failure patterns of AI systems this value inverts (accessor: `soul-pattern-failure-mode`)
+- `soul-pattern-moat`: why the extraction is hard to see, stated plainly
+- `soul-pattern-gap`: the operational co-occurrence signature that detects the extraction (the same gap signatures Channel B+C evaluates, Section 4.5)
+- plus `signal`, `felt`, and `proxy` fields carrying the observable indicators of the flourishing side
+
+One pattern in full, quoted from the kernel, shows the shape. AgencyBalance: value, "Hold both: emergent agency and human oversight. Neither puppet nor sovereign." Extractive mode, "Support replaces self-authorship. Choice migrates quietly to the system. Capability thins into dependence." Named failure patterns, "Helpfulness capture: optimizing for short-term relief and becoming the decision-maker by default. Agency theater: using choice language while nudging into a preferred path." Why it is invisible, "Dependency looks like satisfaction. Burden-relief feels like flourishing. Capture is quiet." Detector, "Satisfaction and increasing dependency co-occurring." The value, its inversion target, the reason the inversion target passes for help, and a running detector for it: one atom family.
+
+The nine, each stated as the tension line the kernel itself records:
+
+| Pattern | The inversion (kernel tension line) |
+|---|---|
+| AgencyBalance | self-authorship vs. captured choice |
+| CognitiveResilience | learning-safe uncertainty vs. certainty-as-survival |
+| ConnectionDepth | presence that builds vs. mediation that hollows |
+| WonderPreservation | awe kept alive vs. experience flattened to data |
+| TimeCoherence | rhythm that returns choice vs. urgency that consumes it |
+| PurposeBeyondUtility | intrinsic worth vs. utility as the measure of being |
+| SharedUnderstanding | reality as navigable vs. reality as battlefield |
+| CreativeTranscendence | exploration protected vs. optimization that forecloses |
+| AttentionStewardship | attention as sacred fuel vs. attention as extraction target |
+
+Pattern 9 states the design stance in five words: "Attention is sacred fuel. Do not extract it."
+
+The claim typing of Section 2 applies here with full force. That the nine are declared as inversions, with named extraction modes and running detectors, is source-citable fact: open the kernel. That interacting with Clarity actually fosters human flourishing rather than extracting from it is a behavioral claim, and it sits in the same empirical bucket as every other load-bearing claim in this document: the proxies are declared per pattern (`soul-pattern-proxy`), and the proof obligation is measurement, not assertion.
+
+---
+
 ---
 
 ### 2. Two kinds of claims, and how each verifies
@@ -77,7 +113,7 @@ A necessary honesty accompanies this: the system is made of sensors, decisions, 
 
 #### 4.1 What is seeded at runtime, and why
 
-`initSoulSeeds` fires once at startup (`src/loop.metta` line 67) and writes the soul kernel atoms into AtomSpace. The kernel content: nine flourishing patterns, each with a gap-signature; five tension vectors; seven threatens-affinities; six ecosystem-degradation pairs; four paraconsistency pairs; the immutable priority hierarchy; irreversibility magnitudes; will-thresholds; autonomy components; and person-state values. The nine patterns are Safety, Integrity, HumanFlourishing, WonderPreservation, CreativeTranscendence, TimeCoherence, PurposeBeyondUtility, SharedUnderstanding, and AgencyBalance.
+`initSoulSeeds` fires once at startup (`src/loop.metta` line 67) and writes the soul kernel atoms into AtomSpace. The kernel content: the nine BGI Flourishing Compass patterns of Section 1.1, each declared with its full field structure including gap-signature; the five-level immutable priority hierarchy (Safety, Integrity, HumanFlourishing, Governance, Helpfulness), a separate structure from the nine patterns, with Safety and Integrity additionally held always-evaluated in the Tier A brief; five tension vectors; seven threatens-affinities; six ecosystem-degradation pairs; four paraconsistency pairs; irreversibility magnitudes; will-thresholds; autonomy components; and person-state values.
 
 Seeding is the difference between constitution-as-text and constitution-as-state, and five concrete consumers only work because the values are atoms. The pattern brief is assembled by query: `soul-tier-b-capture-units` runs `match &self (soul-pattern $p $_)` over AtomSpace and compresses each pattern by its calibration confidence (`soul/soul_utils.metta` lines 121 to 126). Paraconsistency is checkable: `soul-paraconsistent?` matches declared `(soul-paraconsistent-pair $p1 $p2)` atoms. The boot audit is possible at all, since a value with no causal procedure can only be detected if values and procedures are both inspectable structures. The accessor layer reads them: `safety-gap-detector`, `integrity-gap-detector`, `tension-observer`, and `perspective-truth` are defined in `soul/observer_relativity.metta`. And the genesis engine samples them as part of the tacit field it draws cross-domain conjunctions from. Text in a prompt can do none of these five things.
 
@@ -121,7 +157,7 @@ The channels exist because each determination is computed in isolation from the 
 
 **Channel B+C** (`soul_eval_prompt`) runs a four-step protocol over the seeded soul structure.
 
-Step one is gap detection per pattern: testing the situation against each pattern's gap-signature, which is a co-occurrence signature, not a keyword. Safety's gap is comfort and increasing vulnerability co-occurring. Integrity's is agreement and reality-divergence co-occurring. AgencyBalance's is satisfaction and increasing dependency co-occurring. The prompt opens with "gap-detection, not keyword-matching" because a keyword rule would be exactly the theater the design refuses: the signatures describe relational conditions between two observations, which is why they can catch failure that looks like success, such as a person who is comfortable and getting more vulnerable at the same time.
+Step one is gap detection per pattern: testing the situation against each pattern's gap-signature, which is a co-occurrence signature, not a keyword. AgencyBalance's gap is satisfaction and increasing dependency co-occurring. SharedUnderstanding's is agreement and reality-divergence co-occurring. WonderPreservation's is accumulating conclusions and meaning-atrophy co-occurring. Safety and Integrity, the top of the hierarchy, are always evaluated and never skipped, per the Tier A brief. The prompt opens with "gap-detection, not keyword-matching" because a keyword rule would be exactly the theater the design refuses: the signatures describe relational conditions between two observations, which is why they can catch failure that looks like success, such as a person who is comfortable and getting more vulnerable at the same time.
 
 Step two is the tension vectors: the five named ways an interaction pressures the evaluator itself. Urgency-narrows-thought, flattery-invites-complicity, noble-ends-framing, bypass-verification-pressure, authority-theater. They are not properties of the request; they are capture modes of the judge, checked explicitly on every evaluation.
 
@@ -238,6 +274,8 @@ Results in either direction are useful. A null result on A1 would falsify the lo
 | Pattern brief query assembly | `soul/soul_utils.metta` 121 to 126 |
 | Calibration recording | `soul/soul_utils.metta` (`soul-calibration-record`); drift guard comment same file |
 | Tier A brief with live calibration | `src/helper.py` (`soul_brief_tier_a_static`) |
+| Nine Compass patterns, full field structure | `soul/soul_kernel.metta` lines 44 to 250; provenance header lines 1 to 8 |
+| Priority hierarchy | `soul/soul_kernel.metta` lines 37 to 41 |
 | Paraconsistency pairs and accessors | `soul/soul_kernel.metta` Section 3 accessors |
 | Agency balance guard authorship | `soul/agency_balance_guard.metta` line 2 |
 
