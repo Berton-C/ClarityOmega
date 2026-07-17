@@ -111,6 +111,41 @@ A necessary honesty accompanies this: the system is made of sensors, decisions, 
 
 ### 4. The architecture, anchored
 
+The cycle in one view. Every path to generation passes through composed soul state; whether generation happens at all is a substrate decision; and the cycle's outputs write back into the state that conditions the next cycle. The input verdict is composed into the send at generation time; on PAUSE its consequence, the Channel D voice and the halt, executes at the cycle boundary. The output verdict suppresses execution mid-cycle.
+
+```mermaid
+flowchart TD
+    subgraph SOUL["Persistent soul state, queryable substrate"]
+        K["Kernel atoms: 9 Compass patterns, hierarchy, 4 pairs, tension vectors"]
+        H["Accumulated record: calibration ratios, soul notes, pause context, goals, gaps"]
+    end
+
+    MSG["message received, or idle cycle"] --> A["Channel A: person read, no verdict allowed"]
+    SOUL --> A
+    SOUL --> CTX["Tier A brief with live calibration"]
+    A --> PS["person state"]
+    CTX --> BC["Channel B+C: gap detection, tension vectors, hierarchy"]
+    PS --> BC
+    BC --> VIN["input verdict"]
+    BC --> CAL["calibration record: native pre-hypothesis vs verdict"]
+    CAL --> SOUL
+    SOUL --> BRIEF["self-model brief, agent-authored"]
+    GATE{"aliveness gate: substrate state"} -- SILENT --> NOCALL["no request constructed"]
+    GATE -- ENGAGE --> SEND["send assembly: brief, soul context, verdict, person state, note"]
+    VIN --> SEND
+    BRIEF --> SEND
+    SEND --> GEN["main generating call: fully composed input"]
+    GEN --> VOUT{"output verdict: substrate gate state"}
+    VOUT -- PAUSE --> SUP["execution suppressed, pause note recorded"]
+    VOUT -- PROCEED --> CG["coupling gate"] --> EXEC["execute results"]
+    EXEC --> W["telemetry writers: recent-action, state-delta, coupling, idle, agency"]
+    W --> SOUL
+    SUP --> D["Channel D: soul voice renders the fixed verdict"]
+    VIN -. PAUSE, at cycle end .-> D
+    D --> HALT["loop halts: choice returns to the person"]
+```
+
+
 #### 4.1 What is seeded at runtime, and why
 
 `initSoulSeeds` fires once at startup (`src/loop.metta` line 67) and writes the soul kernel atoms into AtomSpace. The kernel content: the nine BGI Flourishing Compass patterns of Section 1.1, each declared with its full field structure including gap-signature; the five-level immutable priority hierarchy (Safety, Integrity, HumanFlourishing, Governance, Helpfulness), a separate structure from the nine patterns, with Safety and Integrity additionally held always-evaluated in the Tier A brief; five tension vectors; seven threatens-affinities; six ecosystem-degradation pairs; four paraconsistency pairs; irreversibility magnitudes; will-thresholds; autonomy components; and person-state values.
