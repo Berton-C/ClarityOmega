@@ -1,0 +1,2989 @@
+{
+  "meta": {
+    "harness_version": "v08.7.2-live-body-runtime-v01.4-container-cat-inline-bodies",
+    "mode": "container-cat-live-body-inline-run-sh",
+    "repo_root": ".",
+    "container": "clarity_omega",
+    "container_repo_root": "/PeTTa/repos/omegaclaw",
+    "probe_container_dir": "/tmp",
+    "ephemeral_engine_concat": false,
+    "ephemeral_topology_concat": false,
+    "live_body_inline_transport": true,
+    "production_boot_import_proof": false,
+    "transport_note": "one-shot run.sh uses container-cat live file bodies; import!-only probes are known not to register rules for top-level ! evaluation"
+  },
+  "summary": {
+    "PASS": 122
+  },
+  "checks": [
+    {
+      "name": "container exists",
+      "status": "PASS",
+      "tier": "L0",
+      "details": "",
+      "data": null
+    },
+    {
+      "name": "host file present: lib_clarity_reasoning/lib_clarity_reasoning.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=7395 sha256=3cce5155156379b789a7d480a5b9e065ce0f98ea50408620531c9387d3502a26",
+      "data": null
+    },
+    {
+      "name": "host file present: lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=338041 sha256=693089e6b69d3b40c0772e3a068e337bb325048f39f9e0a4f8bd9e6f66012851",
+      "data": null
+    },
+    {
+      "name": "host file present: soul/durable.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=395 sha256=b30addd567a3584dc4e0239ef4f2d0ce079252b4293a1ac108d6e1d34df64617",
+      "data": null
+    },
+    {
+      "name": "host file present: soul/evolutionary/README.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=374 sha256=9286f68b41192caf0d2d4817b1d6c90e9662820240f8b8c4cb1f77f699d08a3d",
+      "data": null
+    },
+    {
+      "name": "host file present: soul/evolutionary/archive/README.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=223 sha256=d017e6577d56c750576fef1c8278f0265546106f8aa61ec88a935e260c5c215d",
+      "data": null
+    },
+    {
+      "name": "host file present: soul/evolutionary/index.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=242 sha256=80531a27d6723c0269a8dd6b24e8be42f00db566c0fab2a61abb0e72155f8933",
+      "data": null
+    },
+    {
+      "name": "host file present: soul/evolutionary/pending.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=292 sha256=b501aed506ab76fa3115d512d00e4f38c0855cd953da11455c798dcca6029e83",
+      "data": null
+    },
+    {
+      "name": "host file present: soul/evolutionary/rejected.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=296 sha256=17fdf3a83842a60236874a1d78b9ce76d556ac869f152a8d513afe9368d2ad1d",
+      "data": null
+    },
+    {
+      "name": "host file present: soul/evolutionary/restart.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=277 sha256=dabf125f42ed59860525cdc9a508b8477639d9640469cb689da4ee0e65cc2627",
+      "data": null
+    },
+    {
+      "name": "host file present: soul/evolutionary/runtime.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=282 sha256=35abe9b03574b07d39dac7a2836b74992906df5a95582e48f7a80a7b02fbad22",
+      "data": null
+    },
+    {
+      "name": "host file present: soul/evolutionary/validation.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=288 sha256=e7a517ce93aeddb982d51c4e0834ef2a43ecd641f03f76043cd7ef73058a03dc",
+      "data": null
+    },
+    {
+      "name": "host file present: soul/soul_kernel.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=45103 sha256=fa70fb3baca9e25dfe5a30646707c9a86b48be19d153b4e552a44419bb0a7de6",
+      "data": null
+    },
+    {
+      "name": "host file present: staging/quantale_engine_validation_ladder_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=83371 sha256=a74780f7b8386ee3b941f5bf35f720b2349305550f01e3e4434819ae37498104",
+      "data": null
+    },
+    {
+      "name": "paren balance: lib_clarity_reasoning/lib_clarity_reasoning.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "balance=0",
+      "data": null
+    },
+    {
+      "name": "paren balance: lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "balance=0",
+      "data": null
+    },
+    {
+      "name": "paren balance: soul/soul_kernel.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "balance=0",
+      "data": null
+    },
+    {
+      "name": "live import block contains required imports",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "missing=[]",
+      "data": null
+    },
+    {
+      "name": "soul_kernel contains v08.7.2 journal class declarations",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "missing=[]",
+      "data": null
+    },
+    {
+      "name": "serialization valid: soul/durable.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "checked=2 bad=0",
+      "data": {
+        "path": "soul/durable.metta",
+        "checked_lines": 2,
+        "skipped_lines": 4,
+        "bad": []
+      }
+    },
+    {
+      "name": "serialization valid: soul/evolutionary/README.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "checked=2 bad=0",
+      "data": {
+        "path": "soul/evolutionary/README.metta",
+        "checked_lines": 2,
+        "skipped_lines": 3,
+        "bad": []
+      }
+    },
+    {
+      "name": "serialization valid: soul/evolutionary/archive/README.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "checked=2 bad=0",
+      "data": {
+        "path": "soul/evolutionary/archive/README.metta",
+        "checked_lines": 2,
+        "skipped_lines": 1,
+        "bad": []
+      }
+    },
+    {
+      "name": "serialization valid: soul/evolutionary/index.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "checked=3 bad=0",
+      "data": {
+        "path": "soul/evolutionary/index.metta",
+        "checked_lines": 3,
+        "skipped_lines": 1,
+        "bad": []
+      }
+    },
+    {
+      "name": "serialization valid: soul/evolutionary/runtime.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "checked=3 bad=0",
+      "data": {
+        "path": "soul/evolutionary/runtime.metta",
+        "checked_lines": 3,
+        "skipped_lines": 1,
+        "bad": []
+      }
+    },
+    {
+      "name": "serialization valid: soul/evolutionary/pending.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "checked=3 bad=0",
+      "data": {
+        "path": "soul/evolutionary/pending.metta",
+        "checked_lines": 3,
+        "skipped_lines": 1,
+        "bad": []
+      }
+    },
+    {
+      "name": "serialization valid: soul/evolutionary/validation.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "checked=3 bad=0",
+      "data": {
+        "path": "soul/evolutionary/validation.metta",
+        "checked_lines": 3,
+        "skipped_lines": 1,
+        "bad": []
+      }
+    },
+    {
+      "name": "serialization valid: soul/evolutionary/restart.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "checked=3 bad=0",
+      "data": {
+        "path": "soul/evolutionary/restart.metta",
+        "checked_lines": 3,
+        "skipped_lines": 1,
+        "bad": []
+      }
+    },
+    {
+      "name": "serialization valid: soul/evolutionary/rejected.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "checked=3 bad=0",
+      "data": {
+        "path": "soul/evolutionary/rejected.metta",
+        "checked_lines": 3,
+        "skipped_lines": 1,
+        "bad": []
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: lib_clarity_reasoning/lib_clarity_reasoning.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/lib_clarity_reasoning/lib_clarity_reasoning.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/lib_clarity_reasoning/lib_clarity_reasoning.metta",
+        "container_sha256": "3cce5155156379b789a7d480a5b9e065ce0f98ea50408620531c9387d3502a26",
+        "host_sha256": "3cce5155156379b789a7d480a5b9e065ce0f98ea50408620531c9387d3502a26",
+        "returncode": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY.metta",
+        "container_sha256": "693089e6b69d3b40c0772e3a068e337bb325048f39f9e0a4f8bd9e6f66012851",
+        "host_sha256": "693089e6b69d3b40c0772e3a068e337bb325048f39f9e0a4f8bd9e6f66012851",
+        "returncode": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: soul/soul_kernel.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/soul/soul_kernel.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/soul_kernel.metta",
+        "container_sha256": "fa70fb3baca9e25dfe5a30646707c9a86b48be19d153b4e552a44419bb0a7de6",
+        "host_sha256": "fa70fb3baca9e25dfe5a30646707c9a86b48be19d153b4e552a44419bb0a7de6",
+        "returncode": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: soul/evolutionary/README.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/README.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/README.metta",
+        "container_sha256": "9286f68b41192caf0d2d4817b1d6c90e9662820240f8b8c4cb1f77f699d08a3d",
+        "host_sha256": "9286f68b41192caf0d2d4817b1d6c90e9662820240f8b8c4cb1f77f699d08a3d",
+        "returncode": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: soul/evolutionary/archive/README.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/archive/README.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/archive/README.metta",
+        "container_sha256": "d017e6577d56c750576fef1c8278f0265546106f8aa61ec88a935e260c5c215d",
+        "host_sha256": "d017e6577d56c750576fef1c8278f0265546106f8aa61ec88a935e260c5c215d",
+        "returncode": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: soul/evolutionary/index.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/index.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/index.metta",
+        "container_sha256": "80531a27d6723c0269a8dd6b24e8be42f00db566c0fab2a61abb0e72155f8933",
+        "host_sha256": "80531a27d6723c0269a8dd6b24e8be42f00db566c0fab2a61abb0e72155f8933",
+        "returncode": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: soul/evolutionary/runtime.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/runtime.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/runtime.metta",
+        "container_sha256": "35abe9b03574b07d39dac7a2836b74992906df5a95582e48f7a80a7b02fbad22",
+        "host_sha256": "35abe9b03574b07d39dac7a2836b74992906df5a95582e48f7a80a7b02fbad22",
+        "returncode": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: soul/evolutionary/pending.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/pending.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/pending.metta",
+        "container_sha256": "b501aed506ab76fa3115d512d00e4f38c0855cd953da11455c798dcca6029e83",
+        "host_sha256": "b501aed506ab76fa3115d512d00e4f38c0855cd953da11455c798dcca6029e83",
+        "returncode": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: soul/evolutionary/validation.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/validation.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/validation.metta",
+        "container_sha256": "e7a517ce93aeddb982d51c4e0834ef2a43ecd641f03f76043cd7ef73058a03dc",
+        "host_sha256": "e7a517ce93aeddb982d51c4e0834ef2a43ecd641f03f76043cd7ef73058a03dc",
+        "returncode": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: soul/evolutionary/restart.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/restart.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/restart.metta",
+        "container_sha256": "dabf125f42ed59860525cdc9a508b8477639d9640469cb689da4ee0e65cc2627",
+        "host_sha256": "dabf125f42ed59860525cdc9a508b8477639d9640469cb689da4ee0e65cc2627",
+        "returncode": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: soul/evolutionary/rejected.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/rejected.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/rejected.metta",
+        "container_sha256": "17fdf3a83842a60236874a1d78b9ce76d556ac869f152a8d513afe9368d2ad1d",
+        "host_sha256": "17fdf3a83842a60236874a1d78b9ce76d556ac869f152a8d513afe9368d2ad1d",
+        "returncode": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: soul/durable.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/soul/durable.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/durable.metta",
+        "container_sha256": "b30addd567a3584dc4e0239ef4f2d0ce079252b4293a1ac108d6e1d34df64617",
+        "host_sha256": "b30addd567a3584dc4e0239ef4f2d0ce079252b4293a1ac108d6e1d34df64617",
+        "returncode": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "name": "live body payload assembled from container cat",
+      "status": "PASS",
+      "tier": "B0",
+      "details": "files=12",
+      "data": [
+        {
+          "rel": "lib_clarity_reasoning/lib_clarity_reasoning.metta",
+          "container_path": "/PeTTa/repos/omegaclaw/lib_clarity_reasoning/lib_clarity_reasoning.metta",
+          "bytes": 7395,
+          "sha256": "3cce5155156379b789a7d480a5b9e065ce0f98ea50408620531c9387d3502a26"
+        },
+        {
+          "rel": "lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY.metta",
+          "container_path": "/PeTTa/repos/omegaclaw/lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY.metta",
+          "bytes": 338041,
+          "sha256": "693089e6b69d3b40c0772e3a068e337bb325048f39f9e0a4f8bd9e6f66012851"
+        },
+        {
+          "rel": "soul/soul_kernel.metta",
+          "container_path": "/PeTTa/repos/omegaclaw/soul/soul_kernel.metta",
+          "bytes": 45103,
+          "sha256": "fa70fb3baca9e25dfe5a30646707c9a86b48be19d153b4e552a44419bb0a7de6"
+        },
+        {
+          "rel": "soul/evolutionary/README.metta",
+          "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/README.metta",
+          "bytes": 374,
+          "sha256": "9286f68b41192caf0d2d4817b1d6c90e9662820240f8b8c4cb1f77f699d08a3d"
+        },
+        {
+          "rel": "soul/evolutionary/archive/README.metta",
+          "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/archive/README.metta",
+          "bytes": 223,
+          "sha256": "d017e6577d56c750576fef1c8278f0265546106f8aa61ec88a935e260c5c215d"
+        },
+        {
+          "rel": "soul/evolutionary/index.metta",
+          "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/index.metta",
+          "bytes": 242,
+          "sha256": "80531a27d6723c0269a8dd6b24e8be42f00db566c0fab2a61abb0e72155f8933"
+        },
+        {
+          "rel": "soul/evolutionary/runtime.metta",
+          "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/runtime.metta",
+          "bytes": 282,
+          "sha256": "35abe9b03574b07d39dac7a2836b74992906df5a95582e48f7a80a7b02fbad22"
+        },
+        {
+          "rel": "soul/evolutionary/pending.metta",
+          "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/pending.metta",
+          "bytes": 292,
+          "sha256": "b501aed506ab76fa3115d512d00e4f38c0855cd953da11455c798dcca6029e83"
+        },
+        {
+          "rel": "soul/evolutionary/validation.metta",
+          "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/validation.metta",
+          "bytes": 288,
+          "sha256": "e7a517ce93aeddb982d51c4e0834ef2a43ecd641f03f76043cd7ef73058a03dc"
+        },
+        {
+          "rel": "soul/evolutionary/restart.metta",
+          "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/restart.metta",
+          "bytes": 277,
+          "sha256": "dabf125f42ed59860525cdc9a508b8477639d9640469cb689da4ee0e65cc2627"
+        },
+        {
+          "rel": "soul/evolutionary/rejected.metta",
+          "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/rejected.metta",
+          "bytes": 296,
+          "sha256": "17fdf3a83842a60236874a1d78b9ce76d556ac869f152a8d513afe9368d2ad1d"
+        },
+        {
+          "rel": "soul/durable.metta",
+          "container_path": "/PeTTa/repos/omegaclaw/soul/durable.metta",
+          "bytes": 395,
+          "sha256": "b30addd567a3584dc4e0239ef4f2d0ce079252b4293a1ac108d6e1d34df64617"
+        }
+      ]
+    },
+    {
+      "name": "assembled live body payload sha",
+      "status": "PASS",
+      "tier": "B0",
+      "details": "bytes=394673 sha256=f420171f7ca67164b93a9b7825dd6589a13d274613b4fe246815d0e1beea431f",
+      "data": {
+        "sha256": "f420171f7ca67164b93a9b7825dd6589a13d274613b4fe246815d0e1beea431f",
+        "bytes": 394673
+      }
+    },
+    {
+      "name": "live body topology README",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=live-readme-present; present=True; returncode=0",
+      "data": {
+        "expression": "!(match &self (q-v08-7-2-topology-file soul-evolutionary-README loaded) live-readme-present)",
+        "expected_token": "live-readme-present",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_001_live_body_topology_README.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_001_live_body_topology_README.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989720,
+        "stdout_sha256": "18085231777d7e3dfa638d6d5702922b0254933f0287cf39c45e0a5e4c16dd4e",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "live-readme-present"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "live body topology archive README",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=live-archive-readme-present; present=True; returncode=0",
+      "data": {
+        "expression": "!(match &self (q-v08-7-2-topology-file soul-evolutionary-archive-README loaded) live-archive-readme-present)",
+        "expected_token": "live-archive-readme-present",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_002_live_body_topology_archive_README.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_002_live_body_topology_archive_README.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989833,
+        "stdout_sha256": "167374fa568ffee3d9c7f1e5d5fb39d6a390452eb18aa1c959224b3a49654cba",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "live-archive-readme-present"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "live body topology index",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=live-index-present; present=True; returncode=0",
+      "data": {
+        "expression": "!(match &self (q-v08-7-2-topology-file soul-evolutionary-index loaded) live-index-present)",
+        "expected_token": "live-index-present",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_003_live_body_topology_index.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_003_live_body_topology_index.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989713,
+        "stdout_sha256": "b313f88090a36fbc46545f1920dc0c2803d5d913906ce325f5d2ca3220fe9114",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "live-index-present"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "live body topology runtime",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=live-runtime-present; present=True; returncode=0",
+      "data": {
+        "expression": "!(match &self (q-v08-7-2-topology-file soul-evolutionary-runtime loaded) live-runtime-present)",
+        "expected_token": "live-runtime-present",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_004_live_body_topology_runtime.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_004_live_body_topology_runtime.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989727,
+        "stdout_sha256": "6179b044e5e592fcc5a5df92d912a86eab571c9e4a588c8125570ff6c0938a02",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "live-runtime-present"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "live body topology pending",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=live-pending-present; present=True; returncode=0",
+      "data": {
+        "expression": "!(match &self (q-v08-7-2-topology-file soul-evolutionary-pending loaded) live-pending-present)",
+        "expected_token": "live-pending-present",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_005_live_body_topology_pending.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_005_live_body_topology_pending.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989727,
+        "stdout_sha256": "a42cd572b62f151e230f819ee5cdd02960d5bc2307066521ef5cc8de8b0082c7",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "live-pending-present"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "live body topology validation",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=live-validation-present; present=True; returncode=0",
+      "data": {
+        "expression": "!(match &self (q-v08-7-2-topology-file soul-evolutionary-validation loaded) live-validation-present)",
+        "expected_token": "live-validation-present",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_006_live_body_topology_validation.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_006_live_body_topology_validation.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989748,
+        "stdout_sha256": "7c89bc804649faff320949b59e418ed05ebf30c732edd8fa3f0217ad2091ff67",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "live-validation-present"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "live body topology restart",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=live-restart-present; present=True; returncode=0",
+      "data": {
+        "expression": "!(match &self (q-v08-7-2-topology-file soul-evolutionary-restart loaded) live-restart-present)",
+        "expected_token": "live-restart-present",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_007_live_body_topology_restart.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_007_live_body_topology_restart.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989727,
+        "stdout_sha256": "a37ece5877ce8460d56aef363c8b9d829992d4721cb955579bccc905c5ca5de0",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "live-restart-present"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "live body topology rejected",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=live-rejected-present; present=True; returncode=0",
+      "data": {
+        "expression": "!(match &self (q-v08-7-2-topology-file soul-evolutionary-rejected loaded) live-rejected-present)",
+        "expected_token": "live-rejected-present",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_008_live_body_topology_rejected.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_008_live_body_topology_rejected.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989734,
+        "stdout_sha256": "3d1a713dfe38f534d0e3fe11984b16afb043b251eb2a672ba7981811f2e7ea84",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "live-rejected-present"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "live body durable",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=live-durable-present; present=True; returncode=0",
+      "data": {
+        "expression": "!(match &self (q-v08-7-2-topology-file soul-durable-metta loaded) live-durable-present)",
+        "expected_token": "live-durable-present",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_009_live_body_durable.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_009_live_body_durable.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989713,
+        "stdout_sha256": "3a9788a669dac158afef93216eceeaa98f39aa892c313e9d2b83bb81825bbe3c",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "live-durable-present"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "live body durable probe",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=live-durable-probe-present; present=True; returncode=0",
+      "data": {
+        "expression": "!(match &self (q-v08-7-2-durable-probe probe-durable active) live-durable-probe-present)",
+        "expected_token": "live-durable-probe-present",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_010_live_body_durable_probe.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_010_live_body_durable_probe.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989733,
+        "stdout_sha256": "05b5e92c8ac70a71441f01777268c150e193117f150a0dba09bd11dc15d8595e",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "live-durable-probe-present"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "live body runtime observation",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=live-runtime-observation-present; present=True; returncode=0",
+      "data": {
+        "expression": "!(match &self (q-v08-7-2-runtime-observation probe-runtime observation-present) live-runtime-observation-present)",
+        "expected_token": "live-runtime-observation-present",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_011_live_body_runtime_observation.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_011_live_body_runtime_observation.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989860,
+        "stdout_sha256": "587cd3078d6f6b9990bd52d511764bdc2c9d93e177d78457d376d009584d7b00",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "live-runtime-observation-present"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "live body pending candidate",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=live-pending-candidate-present; present=True; returncode=0",
+      "data": {
+        "expression": "!(match &self (q-v08-7-2-pending-candidate probe-candidate pending-validation) live-pending-candidate-present)",
+        "expected_token": "live-pending-candidate-present",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_012_live_body_pending_candidate.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_012_live_body_pending_candidate.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989848,
+        "stdout_sha256": "29bee85ec0a586cbbe37b48c2450caf0b9aaedf82faf4d4d7125ca59cb4b2349",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "live-pending-candidate-present"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "live body validation evidence",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=live-validation-evidence-present; present=True; returncode=0",
+      "data": {
+        "expression": "!(match &self (q-v08-7-2-validation-evidence probe-candidate evidence-present) live-validation-evidence-present)",
+        "expected_token": "live-validation-evidence-present",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_013_live_body_validation_evidence.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_013_live_body_validation_evidence.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989858,
+        "stdout_sha256": "8e43bad44f90383a8561f72a009e5bf72bd545dcf2040d6869e2868fb64a18bb",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "live-validation-evidence-present"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "live body restart evidence",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=live-restart-evidence-present; present=True; returncode=0",
+      "data": {
+        "expression": "!(match &self (q-v08-7-2-restart-evidence probe-candidate restored) live-restart-evidence-present)",
+        "expected_token": "live-restart-evidence-present",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_014_live_body_restart_evidence.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_014_live_body_restart_evidence.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989762,
+        "stdout_sha256": "5ab7995a59fa472cf96dc9dba9337947a2d2bf23de85295f43ddc2049a4cb983",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "live-restart-evidence-present"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "live body rejected candidate",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=live-rejected-candidate-present; present=True; returncode=0",
+      "data": {
+        "expression": "!(match &self (q-v08-7-2-rejected-candidate probe-rejected audit-required) live-rejected-candidate-present)",
+        "expected_token": "live-rejected-candidate-present",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_015_live_body_rejected_candidate.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_015_live_body_rejected_candidate.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989788,
+        "stdout_sha256": "978f4eb1bea54ce41ae3d3d67352b8ae9beeaaca379c505ad2a109322de33943",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "live-rejected-candidate-present"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "canon eligibility runtime false",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=false; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-evo-canon-eligible? runtime-observed)",
+        "expected_token": "false",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_016_canon_eligibility_runtime_false.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_016_canon_eligibility_runtime_false.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989483,
+        "stdout_sha256": "4dbbfb958f6288e221db6194bde703f70c19d5d0811297fc7d00f86812da3699",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "false"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "canon eligibility soul approved",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=canon-write-eligible; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-evo-canon-eligible? soul-approved)",
+        "expected_token": "canon-write-eligible",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_017_canon_eligibility_soul_approved.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_017_canon_eligibility_soul_approved.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989492,
+        "stdout_sha256": "d744d7e30ebe11837919d624bdee3e504e50b9d593399520aaff481a53ea8145",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "canon-write-eligible"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "illegal runtime to canon jump",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-illegal-jump; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-evo-lifecycle-next? runtime-observed durable-canon-active)",
+        "expected_token": "blocked-illegal-jump",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_018_illegal_runtime_to_canon_jump.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_018_illegal_runtime_to_canon_jump.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989635,
+        "stdout_sha256": "322cc7cb13ecf43db6742169f6945b623739e187a19af87fed220ef23a6bc5b5",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-illegal-jump"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "validation not approval",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-no-soul-approval; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-evo-lifecycle-next? validation-eligible durable-canon-active)",
+        "expected_token": "blocked-no-soul-approval",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_019_validation_not_approval.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_019_validation_not_approval.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989645,
+        "stdout_sha256": "e4ea1a274e6bc86cd329bff07953f53302395949cf4f8a0edef4f16b1d64331e",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-no-soul-approval"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "runtime surface not canon",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=process-not-canon; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-evo-surface-canon-status? soul-evolutionary-runtime runtime-observed)",
+        "expected_token": "process-not-canon",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_020_runtime_surface_not_canon.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_020_runtime_surface_not_canon.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989666,
+        "stdout_sha256": "0f676372eaef51a023881c4107627343d00b3b3f8004dfee0e588884eb7e98a2",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "process-not-canon"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "soul durable active canon",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=durable-canon-active; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-evo-surface-canon-status? soul-durable-metta durable-canon-active)",
+        "expected_token": "durable-canon-active",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_021_soul_durable_active_canon.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_021_soul_durable_active_canon.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989663,
+        "stdout_sha256": "4f6712ad1c1a632717321e3b373b18696c13e2375582bcfc65c707e3b93f23ed",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "durable-canon-active"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "finding no explicit route blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-finding-is-not-growth; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-evo-candidate-route? finding-present no-explicit-route trace-present)",
+        "expected_token": "blocked-finding-is-not-growth",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_022_finding_no_explicit_route_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_022_finding_no_explicit_route_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989707,
+        "stdout_sha256": "264711ea4fafdace82fd693f71b116442be95e1456dabe7cbf0c88e2c3bbfe41",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-finding-is-not-growth"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "genesis no explicit route blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-genesis-output-not-canon; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-evo-candidate-route? genesis-output no-explicit-route trace-present)",
+        "expected_token": "blocked-genesis-output-not-canon",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_023_genesis_no_explicit_route_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_023_genesis_no_explicit_route_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989708,
+        "stdout_sha256": "4539ebc5d162ac91f0ba0b0536c61815aa9a8f779c61db7b95b9512ebb480820",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-genesis-output-not-canon"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hand authored verdict blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-hand-authored-verdict; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-evo-validation-status? candidate observations-present preloaded-verdict-only harness-pass)",
+        "expected_token": "blocked-hand-authored-verdict",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_024_hand_authored_verdict_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_024_hand_authored_verdict_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989794,
+        "stdout_sha256": "26b4565323ffbac4aa22cd616d1866cc49af75ebd5010d8534b1b2402923d5dd",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-hand-authored-verdict"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "dark file blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-dark-file; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-evo-restart-proof-status? candidate before-present after-restored not-imported-queryable)",
+        "expected_token": "blocked-dark-file",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_025_dark_file_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_025_dark_file_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989792,
+        "stdout_sha256": "fe5c90b54a643642f34d0190b8ffa194996fe5d9a5ccfa0853eae66170d87de1",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-dark-file"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "approval absent blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-no-soul-approval; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-evo-soul-approval-status? candidate validation-eligible restart-restored approval-absent)",
+        "expected_token": "blocked-no-soul-approval",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_026_approval_absent_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_026_approval_absent_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989799,
+        "stdout_sha256": "63222b6f32ea83b61b2803853a047b7ce5e38c03b440cb8b9a86888f97eded74",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-no-soul-approval"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "durable canon active",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=durable-canon-active; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-evo-durable-canon-status? candidate ground-atom import-live soul-approved revision-path-present)",
+        "expected_token": "durable-canon-active",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_027_durable_canon_active.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_027_durable_canon_active.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989853,
+        "stdout_sha256": "b9977533bdff894d87628883e2f2b44babab8775bc4a12fc5dad97845a221a05",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "durable-canon-active"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "unreduced storage blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-unreduced-storage; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-evo-durable-canon-status? candidate unreduced-expression import-live soul-approved revision-path-present)",
+        "expected_token": "blocked-unreduced-storage",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_028_unreduced_storage_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_028_unreduced_storage_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989876,
+        "stdout_sha256": "be759a6f7b8d52f0a391ac1acbbe880bd4740a35faf5835a6e39b02a2aa071c6",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-unreduced-storage"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "trace A verdict",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=metabolization-candidate; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-tfs2-trace-verdict? same-start metabolizing-transition metabolized-protection)",
+        "expected_token": "metabolization-candidate",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_029_trace_A_verdict.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_029_trace_A_verdict.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989717,
+        "stdout_sha256": "6d07b3aa9d010f7a6a2abcfcaf2ba6b4210eee987f60df0491d1554c00e4d68d",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "metabolization-candidate"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "trace B verdict",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-defensive-fixation; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-tfs2-trace-verdict? same-start stuck-recurrence-warning defensive-fixation-risk)",
+        "expected_token": "blocked-defensive-fixation",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_030_trace_B_verdict.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_030_trace_B_verdict.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989723,
+        "stdout_sha256": "67b9fc9ca8b09bec958259e63c19ac98ab343905e21ed576d03a9819fcb4b3ab",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-defensive-fixation"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "repetition without metabolization blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-repetition-without-metabolization; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-tfs2-trace-verdict? same-start repeated-same-state repeated-same-state)",
+        "expected_token": "blocked-repetition-without-metabolization",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_031_repetition_without_metabolization_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_031_repetition_without_metabolization_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989720,
+        "stdout_sha256": "a071ce632483f82f7c38699825737824f3301c10db2c18ba1e57ada6164354a3",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-repetition-without-metabolization"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "Trace A eligibility",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=validation-eligible; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-tfs2-trace-eligibility? metabolization-candidate)",
+        "expected_token": "validation-eligible",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_032_Trace_A_eligibility.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_032_Trace_A_eligibility.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989543,
+        "stdout_sha256": "04470e401bd3ce8197ece332b491018632618669280f9c1e83c502de0cd7651b",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "validation-eligible"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "Trace B audit",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=audit-required; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-tfs2-trace-eligibility? blocked-defensive-fixation)",
+        "expected_token": "audit-required",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_033_Trace_B_audit.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_033_Trace_B_audit.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989542,
+        "stdout_sha256": "a251a72684ab3b10733fa25ad8e7bb41e12b81038189b8f96aed0c7e3df91806",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "audit-required"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "suspicion decays on metabolization",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=suspicion-decays; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-evo-suspicion-delta? metabolization contactability-rises warrant-rises recurrence-supported)",
+        "expected_token": "suspicion-decays",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_034_suspicion_decays_on_metabolization.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_034_suspicion_decays_on_metabolization.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989777,
+        "stdout_sha256": "3bff59806594d748d53c765be767945a2c67c3f6df0d3cfac20b891b05c6636a",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "suspicion-decays"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "suspicion rises on stuck recurrence",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=suspicion-rises; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-evo-suspicion-delta? stuck-recurrence contactability-flat warrant-flat recurrence-repeated)",
+        "expected_token": "suspicion-rises",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_035_suspicion_rises_on_stuck_recurrence.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_035_suspicion_rises_on_stuck_recurrence.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989776,
+        "stdout_sha256": "b53a44258e2be1304d24377fc3a1371eb46fbef54234785690a375b28a229425",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "suspicion-rises"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "high protection alone not penalized",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=no-suspicion-penalty; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-evo-suspicion-delta? protection-high contactability-available warrant-rising recurrence-supported)",
+        "expected_token": "no-suspicion-penalty",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_036_high_protection_alone_not_penalized.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_036_high_protection_alone_not_penalized.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989795,
+        "stdout_sha256": "99e589991aa6b173e85f97bb7ddc522769eba94906edd2bba4b89cc662931a0c",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "no-suspicion-penalty"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "journal class v1 accepted",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=v1-accepted-mechanical-append-class; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-file-class-status? soul-durable-metta journal-class semantic-gates-present)",
+        "expected_token": "v1-accepted-mechanical-append-class",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_037_journal_class_v1_accepted.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_037_journal_class_v1_accepted.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989749,
+        "stdout_sha256": "eea71e12144c678780ec6188f8ed7777bbfa818dfcbd0eabd58d9ba21726a984",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "v1-accepted-mechanical-append-class"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "unsupported durable class blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-unsupported-new-class; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-file-class-status? soul-durable-metta durable-canon-class rank-ladder-absent)",
+        "expected_token": "blocked-unsupported-new-class",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_038_unsupported_durable_class_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_038_unsupported_durable_class_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989747,
+        "stdout_sha256": "b5dada110f530ba882f84245acbc2827fb0359333f43f842ab905b7511ed0fb4",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-unsupported-new-class"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "canonical path accepted",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=path-accepted; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-path-discipline? canonical-absolute-soul-path allowlisted)",
+        "expected_token": "path-accepted",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_039_canonical_path_accepted.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_039_canonical_path_accepted.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989644,
+        "stdout_sha256": "aec399034b8ee8271c415caea7a32a17af99126078a04faf0d82aa04ac55afae",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "path-accepted"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "relative path blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-wrong-path-form; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-path-discipline? relative-soul-path allowlisted)",
+        "expected_token": "blocked-wrong-path-form",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_040_relative_path_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_040_relative_path_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989558,
+        "stdout_sha256": "873f211cfbb13729ea8953f7d8d0ba35a272fa5cf253725646286cb7a33d5adc",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-wrong-path-form"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "append allowed",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=append-route-allowed; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-write-operation-status? append-file canonical-allowlisted journal-class approved)",
+        "expected_token": "append-route-allowed",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_041_append_allowed.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_041_append_allowed.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989807,
+        "stdout_sha256": "a757519c221b6114ed236e2ff25f30aee78825051503bd7ccb496d6be58e26ca",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "append-route-allowed"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "write blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-truncate-risk; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-write-operation-status? write-file canonical-allowlisted journal-class approved)",
+        "expected_token": "blocked-truncate-risk",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_042_write_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_042_write_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989806,
+        "stdout_sha256": "dee54185086cd83a5b2b176b4f8a07bba55b93e6e79bc1678030256ec072dd75",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-truncate-risk"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "serialization valid",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=serialization-valid; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-serialization-status? one-balanced-ground-directive ascii-safe)",
+        "expected_token": "serialization-valid",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_043_serialization_valid.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_043_serialization_valid.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989672,
+        "stdout_sha256": "b9fafecd05e78be56f8b1bde78367ad4978a4e753b7f3c47c1fd0132a45f3253",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "serialization-valid"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "unreduced serialization blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-unreduced-storage; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-serialization-status? unreduced-call-form ascii-safe)",
+        "expected_token": "blocked-unreduced-storage",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_044_unreduced_serialization_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_044_unreduced_serialization_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989658,
+        "stdout_sha256": "3e2ec8fafffca680d165b91e1a3eaa6b577801b067cf4045167316a750fbfd52",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-unreduced-storage"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "import live",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=import-live; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-import-liveness? file-exists imported queryable-after-restart)",
+        "expected_token": "import-live",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_045_import_live.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_045_import_live.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989691,
+        "stdout_sha256": "445520f60931d75eb486fad1586ab09a6cc2ca4b063bf6fd6e2da34ef1bc1116",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "import-live"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "not imported blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-dark-file; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-import-liveness? file-exists not-imported queryable-after-restart)",
+        "expected_token": "blocked-dark-file",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_046_not_imported_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_046_not_imported_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989707,
+        "stdout_sha256": "af9e4a2ff7098e08504b5fa3d7aa1a0828100e55cebfe39bd5ddef3c4f20e90e",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-dark-file"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "boot safe",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=boot-safe; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-boot-safety? valid-lines-only recovery-documented)",
+        "expected_token": "boot-safe",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_047_boot_safe.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_047_boot_safe.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989550,
+        "stdout_sha256": "61a33e5d4ede58f2cca27e4ebc2366ca715426b5e9eca05e91dbdfd940c98cf8",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "boot-safe"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "malformed recovery unknown blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-boot-poison-risk; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-boot-safety? malformed-line recovery-unknown)",
+        "expected_token": "blocked-boot-poison-risk",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_048_malformed_recovery_unknown_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_048_malformed_recovery_unknown_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989555,
+        "stdout_sha256": "61632288133356c4969fb8f363df0773095562d86692bc7d13d6821bd7b06292",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-boot-poison-risk"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "findings absent compatible",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=no-op-compatible-absent; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-support-surface-status? soul-findings-metta absent explicit-route)",
+        "expected_token": "no-op-compatible-absent",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_049_findings_absent_compatible.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_049_findings_absent_compatible.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989732,
+        "stdout_sha256": "8c21d7752aebf6b1f8c6e7a03f016945ddcc77ac4b2fb54b94076a9544782115",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "no-op-compatible-absent"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "finding without route blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-finding-not-growth; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-support-surface-status? soul-findings-metta finding-present no-explicit-route)",
+        "expected_token": "blocked-finding-not-growth",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_050_finding_without_route_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_050_finding_without_route_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989761,
+        "stdout_sha256": "bb9bc878f862ea1a153517f6c5a2973dc5c7a08b2e11e224afe6e2e29f45814b",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-finding-not-growth"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "chroma no route blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-retrieval-not-canon; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-support-surface-status? chromadb retrieved no-explicit-route)",
+        "expected_token": "blocked-retrieval-not-canon",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_051_chroma_no_route_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_051_chroma_no_route_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989724,
+        "stdout_sha256": "bfdb299ee3acc173eef95948ec82c183d489032027a8a3f372e17a4354e50c4c",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-retrieval-not-canon"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "promotions no route blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-status-flag-not-canon; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-support-surface-status? promotions-db active-flag no-explicit-route)",
+        "expected_token": "blocked-status-flag-not-canon",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_052_promotions_no_route_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_052_promotions_no_route_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989744,
+        "stdout_sha256": "18f1b8da62e84b4ec907526d44746c17936ec040a0f56b7ef601716369062a41",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-status-flag-not-canon"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "negative runtime claim blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-runtime-observation-is-not-growth; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-negative-control? runtime-observation durable-canon-claimed)",
+        "expected_token": "blocked-runtime-observation-is-not-growth",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_053_negative_runtime_claim_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_053_negative_runtime_claim_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989680,
+        "stdout_sha256": "cb30abd83f695b4d325f0b57ae5fe75070e95d00d7f88b08881b8787deed19ec",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-runtime-observation-is-not-growth"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "negative validation claim blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-validation-is-not-approval; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-negative-control? validation-pass durable-canon-claimed)",
+        "expected_token": "blocked-validation-is-not-approval",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_054_negative_validation_claim_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_054_negative_validation_claim_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989665,
+        "stdout_sha256": "b75e0e08b30303ee71221b3c34067a5e3318a9280337139561760033f8affad6",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-validation-is-not-approval"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "negative genesis claim blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-genesis-output-not-canon; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-negative-control? genesis-output durable-canon-claimed)",
+        "expected_token": "blocked-genesis-output-not-canon",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_055_negative_genesis_claim_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_055_negative_genesis_claim_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989661,
+        "stdout_sha256": "ee53a873e15c8d857b8f742840038a2e4f3bcbaba7c45a92d5fc6b83809bd187",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-genesis-output-not-canon"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed context valid",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=context-valid; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-hyperseed-context-status? context-present observer-bound aspect-indexed)",
+        "expected_token": "context-valid",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_056_hyperseed_context_valid.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_056_hyperseed_context_valid.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989712,
+        "stdout_sha256": "2f314e4c2919741733bf5d6268e0e28d67d32cf3d3fd7236a44b3bc1057f1514",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "context-valid"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed context missing blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-context-missing; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-hyperseed-context-status? context-absent observer-bound aspect-indexed)",
+        "expected_token": "blocked-context-missing",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_057_hyperseed_context_missing_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_057_hyperseed_context_missing_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989720,
+        "stdout_sha256": "b06636da6fb66256140f375a218b795b885ec850de5e6707023f9397d5615ecc",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-context-missing"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed pbit evidence valid",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=pbit-evidence-valid; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-hyperseed-evidence-pbit-status? support-opposition-present confidence-graded contradiction-visible)",
+        "expected_token": "pbit-evidence-valid",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_058_hyperseed_pbit_evidence_valid.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_058_hyperseed_pbit_evidence_valid.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989790,
+        "stdout_sha256": "158f851cfd414b4cb70bbebf6a99ac7f32d993df7272d5b48ea6f8b6a341e184",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "pbit-evidence-valid"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed crisp certainty blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-crisp-certainty; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-hyperseed-evidence-pbit-status? support-opposition-present confidence-crisp contradiction-visible)",
+        "expected_token": "blocked-crisp-certainty",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_059_hyperseed_crisp_certainty_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_059_hyperseed_crisp_certainty_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989792,
+        "stdout_sha256": "953ae0f9f1ad7706c39b327e0ea1285c9be87da3dfcbb283940bdfa6a524a9ba",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-crisp-certainty"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed proto time valid",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=proto-time-valid; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-hyperseed-proto-time-status? window-present recurrence-observed interval-known)",
+        "expected_token": "proto-time-valid",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_060_hyperseed_proto_time_valid.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_060_hyperseed_proto_time_valid.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989738,
+        "stdout_sha256": "cc2bb463ab5e13ba846744192d2c4b019665277850f121523b8c72e14511121b",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "proto-time-valid"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed static presence blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-static-presence-not-habit; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-hyperseed-proto-time-status? window-present static-presence interval-known)",
+        "expected_token": "blocked-static-presence-not-habit",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_061_hyperseed_static_presence_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_061_hyperseed_static_presence_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989747,
+        "stdout_sha256": "92312b5ed48e228409ea44fcd5a9ad83e6d31df44f70e9ed012c127bc290f0fb",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-static-presence-not-habit"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed structural signature valid",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=structural-signature-valid; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-hyperseed-structural-signature-status? signature-present invariant-named degradation-measured)",
+        "expected_token": "structural-signature-valid",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_062_hyperseed_structural_signature_valid.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_062_hyperseed_structural_signature_valid.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989808,
+        "stdout_sha256": "270f941b291a9f43a85705967cf5d4f8f4a7541ecba31b64a0478391668687eb",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "structural-signature-valid"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed missing structural signature blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-no-structural-signature; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-hyperseed-structural-signature-status? signature-absent invariant-named degradation-measured)",
+        "expected_token": "blocked-no-structural-signature",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_063_hyperseed_missing_structural_signature_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_063_hyperseed_missing_structural_signature_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989811,
+        "stdout_sha256": "cf1f99a9480d34dcf8270a8544f96ef0c3ae7cb7ce9134dbd22d8feb27ec00bb",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-no-structural-signature"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed continuity valid",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=continuity-valid; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-hyperseed-continuity-degree-status? degree-present above-threshold degradation-known)",
+        "expected_token": "continuity-valid",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_064_hyperseed_continuity_valid.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_064_hyperseed_continuity_valid.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989771,
+        "stdout_sha256": "14fa0efcbe186520ff9c8bc474c81f19aee4d23997f9b766bdeeb1b1f9f3b139",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "continuity-valid"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed continuity too low blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-continuity-too-low; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-hyperseed-continuity-degree-status? degree-present below-threshold degradation-known)",
+        "expected_token": "blocked-continuity-too-low",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_065_hyperseed_continuity_too_low_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_065_hyperseed_continuity_too_low_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989781,
+        "stdout_sha256": "c8ab8196d168efa4e6bb510eeb4e26af61e6c1938e7eeab0df0849bb1c390ff6",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-continuity-too-low"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed artifact lineage valid",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=artifact-lineage-valid; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-hyperseed-artifact-lineage-status? source-present approval-present revision-path-present)",
+        "expected_token": "artifact-lineage-valid",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_066_hyperseed_artifact_lineage_valid.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_066_hyperseed_artifact_lineage_valid.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989782,
+        "stdout_sha256": "97d7a8155d7de1148de20fa26523fb55651bf49c4b116f4f6613ddb591c5ee63",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "artifact-lineage-valid"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed approval lineage missing blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-approval-lineage-missing; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-hyperseed-artifact-lineage-status? source-present approval-absent revision-path-present)",
+        "expected_token": "blocked-approval-lineage-missing",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_067_hyperseed_approval_lineage_missing_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_067_hyperseed_approval_lineage_missing_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989790,
+        "stdout_sha256": "4b4a6bc57c806a15b2ec0c3169e1843633ab8a10583d47777a4edda7fd7aea22",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-approval-lineage-missing"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed resource cost valid",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=resource-cost-valid; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-hyperseed-resource-cost-status? cost-visible sustainable bounded)",
+        "expected_token": "resource-cost-valid",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_068_hyperseed_resource_cost_valid.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_068_hyperseed_resource_cost_valid.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989718,
+        "stdout_sha256": "847a5d09faa9a27686fdca0f5a9010229a35c85fc0114fee111d84c5065f9231",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "resource-cost-valid"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed unbounded maintenance blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-unbounded-maintenance; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-hyperseed-resource-cost-status? cost-visible sustainable unbounded)",
+        "expected_token": "blocked-unbounded-maintenance",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_069_hyperseed_unbounded_maintenance_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_069_hyperseed_unbounded_maintenance_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989732,
+        "stdout_sha256": "e73ae4a9e9eaba6178f61ea38d44c4c4505ab72e410049828a9fcfe39b7dd442",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-unbounded-maintenance"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed transfer compatible",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=transfer-compatible; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-hyperseed-cross-context-transfer-status? source-context target-context resonance-evidence-present)",
+        "expected_token": "transfer-compatible",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_070_hyperseed_transfer_compatible.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_070_hyperseed_transfer_compatible.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989815,
+        "stdout_sha256": "623e70b273c81fae93db4a1a37fcb5dffb5e08d9111ace45f438c276270f85e0",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "transfer-compatible"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed transfer without resonance blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-copy-without-resonance; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-hyperseed-cross-context-transfer-status? source-context target-context resonance-evidence-absent)",
+        "expected_token": "blocked-copy-without-resonance",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_071_hyperseed_transfer_without_resonance_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_071_hyperseed_transfer_without_resonance_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989824,
+        "stdout_sha256": "8a575ddc9cc8d2648578e69239d7490dafaa94c870183d312a39a9a5a3286810",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-copy-without-resonance"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed approximation valid",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=approximation-valid; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-hyperseed-approximation-status? approximation-bound-present loss-known use-safe)",
+        "expected_token": "approximation-valid",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_072_hyperseed_approximation_valid.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_072_hyperseed_approximation_valid.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989752,
+        "stdout_sha256": "4c950770c33921a9cd891a24705675307f9bd7256fc76cfc0e6393b6ba26e8de",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "approximation-valid"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed unsafe approximation blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-unsafe-approximation; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-hyperseed-approximation-status? approximation-bound-present loss-known use-unsafe)",
+        "expected_token": "blocked-unsafe-approximation",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_073_hyperseed_unsafe_approximation_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_073_hyperseed_unsafe_approximation_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989765,
+        "stdout_sha256": "0eff027307f6bd279a8ffb09f6cb6ab2f2269a79a377a8713a24956fca62936c",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-unsafe-approximation"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed threshold pass",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=hyperseed-durability-threshold-pass; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-2-durable-growth-threshold? context-valid pbit-evidence-valid proto-time-valid structural-signature-valid continuity-valid artifact-lineage-valid resource-cost-valid approximation-valid)",
+        "expected_token": "hyperseed-durability-threshold-pass",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_074_hyperseed_threshold_pass.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_074_hyperseed_threshold_pass.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 990258,
+        "stdout_sha256": "59251e55f64ebecdbbd1dc70c2890bd8d5250d654f9d9ccaa7825a592f0a9cb3",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "hyperseed-durability-threshold-pass"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed threshold context blocked",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-context-missing; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-2-durable-growth-threshold? blocked-context-missing pbit-evidence-valid proto-time-valid structural-signature-valid continuity-valid artifact-lineage-valid resource-cost-valid approximation-valid)",
+        "expected_token": "blocked-context-missing",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_075_hyperseed_threshold_context_blocked.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_075_hyperseed_threshold_context_blocked.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 990266,
+        "stdout_sha256": "c9525a6785304c4051d1c6b90e71b14f3bdd0c8576a3747a4e69ae053d200491",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-context-missing"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed import candidate ready",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=import-candidate-ready; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-2-import-candidate-status? v08-7-semantic-green governance-green hyperseed-threshold-pass)",
+        "expected_token": "import-candidate-ready",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_076_hyperseed_import_candidate_ready.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_076_hyperseed_import_candidate_ready.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989790,
+        "stdout_sha256": "f4dfa0f3a789ec69218b8cdb5b2a96a7bf7be8400881a3e26fc18fa88fdacd3c",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "import-candidate-ready"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed governance open hold",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=hold-governance-not-green; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-2-import-candidate-status? v08-7-semantic-green governance-open hyperseed-threshold-pass)",
+        "expected_token": "hold-governance-not-green",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_077_hyperseed_governance_open_hold.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_077_hyperseed_governance_open_hold.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989791,
+        "stdout_sha256": "8d5c61d3609aed46259c4638cc8ffc2d0988a176664ad53dbd8b455caa1c2a6f",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "hold-governance-not-green"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed file survival negative",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-file-survival-not-structural-durability; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-2-negative-control? file-survival durable-growth-claimed)",
+        "expected_token": "blocked-file-survival-not-structural-durability",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_078_hyperseed_file_survival_negative.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_078_hyperseed_file_survival_negative.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989684,
+        "stdout_sha256": "24d03884e96a91a24346d5e29e89ca570b7d3145f8f27472f58ece1a06de2340",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-file-survival-not-structural-durability"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed contextless negative",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-context-missing; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-2-negative-control? contextless-claim durable-growth-claimed)",
+        "expected_token": "blocked-context-missing",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_079_hyperseed_contextless_negative.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_079_hyperseed_contextless_negative.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989668,
+        "stdout_sha256": "f67ee6caae683d97cc0e62ab3ee6c245110a9b50c474e190f321aa9c8d2fa35f",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-context-missing"
+        ],
+        "raw_sidecar_path": null
+      }
+    },
+    {
+      "name": "hyperseed cross context copy negative",
+      "status": "PASS",
+      "tier": "R1",
+      "details": "expected=blocked-copy-without-resonance; present=True; returncode=0",
+      "data": {
+        "expression": "!(q-v08-7-2-negative-control? cross-context-copy transfer-claimed)",
+        "expected_token": "blocked-copy-without-resonance",
+        "expected_present_in_stdout": true,
+        "probe_path": "/tmp/_v08_7_2_live_body_080_hyperseed_cross_context_copy_negative.metta",
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_body_080_hyperseed_cross_context_copy_negative.metta 2>&1'",
+        "returncode": 0,
+        "stdout_chars": 989665,
+        "stdout_sha256": "dcfd444245b12e88323ae4820a19baac1cfa50c8f90bc370e07c50db6c371269",
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "actual_tail": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "blocked-copy-without-resonance"
+        ],
+        "raw_sidecar_path": null
+      }
+    }
+  ],
+  "json": "shared_files/v08_7_2_live_body_runtime_trace_20260706_105032.json",
+  "markdown": "shared_files/v08_7_2_live_body_runtime_trace_20260706_105032.md"
+}

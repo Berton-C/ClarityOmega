@@ -1,0 +1,2081 @@
+{
+  "checks": [
+    {
+      "data": null,
+      "details": "",
+      "name": "container exists",
+      "status": "PASS",
+      "tier": "L0"
+    },
+    {
+      "data": null,
+      "details": "size=7395 sha256=3cce5155156379b789a7d480a5b9e065ce0f98ea50408620531c9387d3502a26",
+      "name": "host file present: lib_clarity_reasoning/lib_clarity_reasoning.metta",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": null,
+      "details": "size=338041 sha256=693089e6b69d3b40c0772e3a068e337bb325048f39f9e0a4f8bd9e6f66012851",
+      "name": "host file present: lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY.metta",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": null,
+      "details": "size=45103 sha256=fa70fb3baca9e25dfe5a30646707c9a86b48be19d153b4e552a44419bb0a7de6",
+      "name": "host file present: soul/soul_kernel.metta",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": null,
+      "details": "size=395 sha256=b30addd567a3584dc4e0239ef4f2d0ce079252b4293a1ac108d6e1d34df64617",
+      "name": "host file present: soul/durable.metta",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": null,
+      "details": "size=374 sha256=9286f68b41192caf0d2d4817b1d6c90e9662820240f8b8c4cb1f77f699d08a3d",
+      "name": "host file present: soul/evolutionary/README.metta",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": null,
+      "details": "size=223 sha256=d017e6577d56c750576fef1c8278f0265546106f8aa61ec88a935e260c5c215d",
+      "name": "host file present: soul/evolutionary/archive/README.metta",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": null,
+      "details": "size=242 sha256=80531a27d6723c0269a8dd6b24e8be42f00db566c0fab2a61abb0e72155f8933",
+      "name": "host file present: soul/evolutionary/index.metta",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": null,
+      "details": "size=282 sha256=35abe9b03574b07d39dac7a2836b74992906df5a95582e48f7a80a7b02fbad22",
+      "name": "host file present: soul/evolutionary/runtime.metta",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": null,
+      "details": "size=292 sha256=b501aed506ab76fa3115d512d00e4f38c0855cd953da11455c798dcca6029e83",
+      "name": "host file present: soul/evolutionary/pending.metta",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": null,
+      "details": "size=288 sha256=e7a517ce93aeddb982d51c4e0834ef2a43ecd641f03f76043cd7ef73058a03dc",
+      "name": "host file present: soul/evolutionary/validation.metta",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": null,
+      "details": "size=277 sha256=dabf125f42ed59860525cdc9a508b8477639d9640469cb689da4ee0e65cc2627",
+      "name": "host file present: soul/evolutionary/restart.metta",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": null,
+      "details": "size=296 sha256=17fdf3a83842a60236874a1d78b9ce76d556ac869f152a8d513afe9368d2ad1d",
+      "name": "host file present: soul/evolutionary/rejected.metta",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": null,
+      "details": "balance=0",
+      "name": "lib_clarity_reasoning paren balance",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": null,
+      "details": "balance=0",
+      "name": "soul_kernel paren balance",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": null,
+      "details": "missing=[]",
+      "name": "live import block contains required imports",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": null,
+      "details": "missing=[]",
+      "name": "soul_kernel contains v08.7.2 journal class declarations",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": {
+        "bad": [],
+        "checked_lines": 2,
+        "path": "soul/durable.metta",
+        "skipped_lines": 4
+      },
+      "details": "checked=2 bad=0",
+      "name": "serialization valid: soul/durable.metta",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": {
+        "bad": [],
+        "checked_lines": 2,
+        "path": "soul/evolutionary/README.metta",
+        "skipped_lines": 3
+      },
+      "details": "checked=2 bad=0",
+      "name": "serialization valid: soul/evolutionary/README.metta",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": {
+        "bad": [],
+        "checked_lines": 2,
+        "path": "soul/evolutionary/archive/README.metta",
+        "skipped_lines": 1
+      },
+      "details": "checked=2 bad=0",
+      "name": "serialization valid: soul/evolutionary/archive/README.metta",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": {
+        "bad": [],
+        "checked_lines": 3,
+        "path": "soul/evolutionary/index.metta",
+        "skipped_lines": 1
+      },
+      "details": "checked=3 bad=0",
+      "name": "serialization valid: soul/evolutionary/index.metta",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": {
+        "bad": [],
+        "checked_lines": 3,
+        "path": "soul/evolutionary/runtime.metta",
+        "skipped_lines": 1
+      },
+      "details": "checked=3 bad=0",
+      "name": "serialization valid: soul/evolutionary/runtime.metta",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": {
+        "bad": [],
+        "checked_lines": 3,
+        "path": "soul/evolutionary/pending.metta",
+        "skipped_lines": 1
+      },
+      "details": "checked=3 bad=0",
+      "name": "serialization valid: soul/evolutionary/pending.metta",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": {
+        "bad": [],
+        "checked_lines": 3,
+        "path": "soul/evolutionary/validation.metta",
+        "skipped_lines": 1
+      },
+      "details": "checked=3 bad=0",
+      "name": "serialization valid: soul/evolutionary/validation.metta",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": {
+        "bad": [],
+        "checked_lines": 3,
+        "path": "soul/evolutionary/restart.metta",
+        "skipped_lines": 1
+      },
+      "details": "checked=3 bad=0",
+      "name": "serialization valid: soul/evolutionary/restart.metta",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": {
+        "bad": [],
+        "checked_lines": 3,
+        "path": "soul/evolutionary/rejected.metta",
+        "skipped_lines": 1
+      },
+      "details": "checked=3 bad=0",
+      "name": "serialization valid: soul/evolutionary/rejected.metta",
+      "status": "PASS",
+      "tier": "L1"
+    },
+    {
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/lib_clarity_reasoning/lib_clarity_reasoning.metta",
+        "container_sha256": "3cce5155156379b789a7d480a5b9e065ce0f98ea50408620531c9387d3502a26",
+        "host_sha256": "3cce5155156379b789a7d480a5b9e065ce0f98ea50408620531c9387d3502a26",
+        "returncode": 0,
+        "stderr": ""
+      },
+      "details": "container=/PeTTa/repos/omegaclaw/lib_clarity_reasoning/lib_clarity_reasoning.metta sha_match=True",
+      "name": "container live file visible and sha-matched: lib_clarity_reasoning/lib_clarity_reasoning.metta",
+      "status": "PASS",
+      "tier": "L2"
+    },
+    {
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY.metta",
+        "container_sha256": "693089e6b69d3b40c0772e3a068e337bb325048f39f9e0a4f8bd9e6f66012851",
+        "host_sha256": "693089e6b69d3b40c0772e3a068e337bb325048f39f9e0a4f8bd9e6f66012851",
+        "returncode": 0,
+        "stderr": ""
+      },
+      "details": "container=/PeTTa/repos/omegaclaw/lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY.metta sha_match=True",
+      "name": "container live file visible and sha-matched: lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY.metta",
+      "status": "PASS",
+      "tier": "L2"
+    },
+    {
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/soul_kernel.metta",
+        "container_sha256": "fa70fb3baca9e25dfe5a30646707c9a86b48be19d153b4e552a44419bb0a7de6",
+        "host_sha256": "fa70fb3baca9e25dfe5a30646707c9a86b48be19d153b4e552a44419bb0a7de6",
+        "returncode": 0,
+        "stderr": ""
+      },
+      "details": "container=/PeTTa/repos/omegaclaw/soul/soul_kernel.metta sha_match=True",
+      "name": "container live file visible and sha-matched: soul/soul_kernel.metta",
+      "status": "PASS",
+      "tier": "L2"
+    },
+    {
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/durable.metta",
+        "container_sha256": "b30addd567a3584dc4e0239ef4f2d0ce079252b4293a1ac108d6e1d34df64617",
+        "host_sha256": "b30addd567a3584dc4e0239ef4f2d0ce079252b4293a1ac108d6e1d34df64617",
+        "returncode": 0,
+        "stderr": ""
+      },
+      "details": "container=/PeTTa/repos/omegaclaw/soul/durable.metta sha_match=True",
+      "name": "container live file visible and sha-matched: soul/durable.metta",
+      "status": "PASS",
+      "tier": "L2"
+    },
+    {
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/README.metta",
+        "container_sha256": "9286f68b41192caf0d2d4817b1d6c90e9662820240f8b8c4cb1f77f699d08a3d",
+        "host_sha256": "9286f68b41192caf0d2d4817b1d6c90e9662820240f8b8c4cb1f77f699d08a3d",
+        "returncode": 0,
+        "stderr": ""
+      },
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/README.metta sha_match=True",
+      "name": "container live file visible and sha-matched: soul/evolutionary/README.metta",
+      "status": "PASS",
+      "tier": "L2"
+    },
+    {
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/archive/README.metta",
+        "container_sha256": "d017e6577d56c750576fef1c8278f0265546106f8aa61ec88a935e260c5c215d",
+        "host_sha256": "d017e6577d56c750576fef1c8278f0265546106f8aa61ec88a935e260c5c215d",
+        "returncode": 0,
+        "stderr": ""
+      },
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/archive/README.metta sha_match=True",
+      "name": "container live file visible and sha-matched: soul/evolutionary/archive/README.metta",
+      "status": "PASS",
+      "tier": "L2"
+    },
+    {
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/index.metta",
+        "container_sha256": "80531a27d6723c0269a8dd6b24e8be42f00db566c0fab2a61abb0e72155f8933",
+        "host_sha256": "80531a27d6723c0269a8dd6b24e8be42f00db566c0fab2a61abb0e72155f8933",
+        "returncode": 0,
+        "stderr": ""
+      },
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/index.metta sha_match=True",
+      "name": "container live file visible and sha-matched: soul/evolutionary/index.metta",
+      "status": "PASS",
+      "tier": "L2"
+    },
+    {
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/runtime.metta",
+        "container_sha256": "35abe9b03574b07d39dac7a2836b74992906df5a95582e48f7a80a7b02fbad22",
+        "host_sha256": "35abe9b03574b07d39dac7a2836b74992906df5a95582e48f7a80a7b02fbad22",
+        "returncode": 0,
+        "stderr": ""
+      },
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/runtime.metta sha_match=True",
+      "name": "container live file visible and sha-matched: soul/evolutionary/runtime.metta",
+      "status": "PASS",
+      "tier": "L2"
+    },
+    {
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/pending.metta",
+        "container_sha256": "b501aed506ab76fa3115d512d00e4f38c0855cd953da11455c798dcca6029e83",
+        "host_sha256": "b501aed506ab76fa3115d512d00e4f38c0855cd953da11455c798dcca6029e83",
+        "returncode": 0,
+        "stderr": ""
+      },
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/pending.metta sha_match=True",
+      "name": "container live file visible and sha-matched: soul/evolutionary/pending.metta",
+      "status": "PASS",
+      "tier": "L2"
+    },
+    {
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/validation.metta",
+        "container_sha256": "e7a517ce93aeddb982d51c4e0834ef2a43ecd641f03f76043cd7ef73058a03dc",
+        "host_sha256": "e7a517ce93aeddb982d51c4e0834ef2a43ecd641f03f76043cd7ef73058a03dc",
+        "returncode": 0,
+        "stderr": ""
+      },
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/validation.metta sha_match=True",
+      "name": "container live file visible and sha-matched: soul/evolutionary/validation.metta",
+      "status": "PASS",
+      "tier": "L2"
+    },
+    {
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/restart.metta",
+        "container_sha256": "dabf125f42ed59860525cdc9a508b8477639d9640469cb689da4ee0e65cc2627",
+        "host_sha256": "dabf125f42ed59860525cdc9a508b8477639d9640469cb689da4ee0e65cc2627",
+        "returncode": 0,
+        "stderr": ""
+      },
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/restart.metta sha_match=True",
+      "name": "container live file visible and sha-matched: soul/evolutionary/restart.metta",
+      "status": "PASS",
+      "tier": "L2"
+    },
+    {
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/rejected.metta",
+        "container_sha256": "17fdf3a83842a60236874a1d78b9ce76d556ac869f152a8d513afe9368d2ad1d",
+        "host_sha256": "17fdf3a83842a60236874a1d78b9ce76d556ac869f152a8d513afe9368d2ad1d",
+        "returncode": 0,
+        "stderr": ""
+      },
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/rejected.metta sha_match=True",
+      "name": "container live file visible and sha-matched: soul/evolutionary/rejected.metta",
+      "status": "PASS",
+      "tier": "L2"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_001_live_topology_README_imported.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "live-readme-present",
+        "expression": "!(match &self (q-v08-7-2-topology-file soul-evolutionary-README loaded) live-readme-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_001_live_topology_README_imported.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_001_live_topology_README_imported.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=live-readme-present; present=False; returncode=0",
+      "name": "live topology README imported",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_002_live_topology_archive_README_imported.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "live-archive-readme-present",
+        "expression": "!(match &self (q-v08-7-2-topology-file soul-evolutionary-archive-README loaded) live-archive-readme-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_002_live_topology_archive_README_imported.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_002_live_topology_archive_README_imported.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=live-archive-readme-present; present=False; returncode=0",
+      "name": "live topology archive README imported",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_003_live_topology_index_imported.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "live-index-present",
+        "expression": "!(match &self (q-v08-7-2-topology-file soul-evolutionary-index loaded) live-index-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_003_live_topology_index_imported.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_003_live_topology_index_imported.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=live-index-present; present=False; returncode=0",
+      "name": "live topology index imported",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_004_live_topology_runtime_imported.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "live-runtime-present",
+        "expression": "!(match &self (q-v08-7-2-topology-file soul-evolutionary-runtime loaded) live-runtime-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_004_live_topology_runtime_imported.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_004_live_topology_runtime_imported.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=live-runtime-present; present=False; returncode=0",
+      "name": "live topology runtime imported",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_005_live_topology_pending_imported.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "live-pending-present",
+        "expression": "!(match &self (q-v08-7-2-topology-file soul-evolutionary-pending loaded) live-pending-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_005_live_topology_pending_imported.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_005_live_topology_pending_imported.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=live-pending-present; present=False; returncode=0",
+      "name": "live topology pending imported",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_006_live_topology_validation_imported.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "live-validation-present",
+        "expression": "!(match &self (q-v08-7-2-topology-file soul-evolutionary-validation loaded) live-validation-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_006_live_topology_validation_imported.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_006_live_topology_validation_imported.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=live-validation-present; present=False; returncode=0",
+      "name": "live topology validation imported",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_007_live_topology_restart_imported.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "live-restart-present",
+        "expression": "!(match &self (q-v08-7-2-topology-file soul-evolutionary-restart loaded) live-restart-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_007_live_topology_restart_imported.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_007_live_topology_restart_imported.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=live-restart-present; present=False; returncode=0",
+      "name": "live topology restart imported",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_008_live_topology_rejected_imported.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "live-rejected-present",
+        "expression": "!(match &self (q-v08-7-2-topology-file soul-evolutionary-rejected loaded) live-rejected-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_008_live_topology_rejected_imported.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_008_live_topology_rejected_imported.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=live-rejected-present; present=False; returncode=0",
+      "name": "live topology rejected imported",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_009_live_durable_imported.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "live-durable-present",
+        "expression": "!(match &self (q-v08-7-2-topology-file soul-durable-metta loaded) live-durable-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_009_live_durable_imported.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_009_live_durable_imported.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=live-durable-present; present=False; returncode=0",
+      "name": "live durable imported",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_010_live_durable_probe_imported.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "live-durable-probe-present",
+        "expression": "!(match &self (q-v08-7-2-durable-probe probe-durable active) live-durable-probe-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_010_live_durable_probe_imported.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_010_live_durable_probe_imported.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=live-durable-probe-present; present=False; returncode=0",
+      "name": "live durable probe imported",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_011_live_runtime_observation_imported.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "live-runtime-observation-present",
+        "expression": "!(match &self (q-v08-7-2-runtime-observation probe-runtime observation-present) live-runtime-observation-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_011_live_runtime_observation_imported.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_011_live_runtime_observation_imported.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=live-runtime-observation-present; present=False; returncode=0",
+      "name": "live runtime observation imported",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_012_live_pending_candidate_imported.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "live-pending-candidate-present",
+        "expression": "!(match &self (q-v08-7-2-pending-candidate probe-candidate pending-validation) live-pending-candidate-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_012_live_pending_candidate_imported.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_012_live_pending_candidate_imported.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=live-pending-candidate-present; present=False; returncode=0",
+      "name": "live pending candidate imported",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_013_live_validation_evidence_imported.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "live-validation-evidence-present",
+        "expression": "!(match &self (q-v08-7-2-validation-evidence probe-candidate evidence-present) live-validation-evidence-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_013_live_validation_evidence_imported.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_013_live_validation_evidence_imported.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=live-validation-evidence-present; present=False; returncode=0",
+      "name": "live validation evidence imported",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_014_live_restart_evidence_imported.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "live-restart-evidence-present",
+        "expression": "!(match &self (q-v08-7-2-restart-evidence probe-candidate restored) live-restart-evidence-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_014_live_restart_evidence_imported.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_014_live_restart_evidence_imported.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=live-restart-evidence-present; present=False; returncode=0",
+      "name": "live restart evidence imported",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_015_live_rejected_candidate_imported.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "live-rejected-candidate-present",
+        "expression": "!(match &self (q-v08-7-2-rejected-candidate probe-rejected audit-required) live-rejected-candidate-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_015_live_rejected_candidate_imported.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_015_live_rejected_candidate_imported.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=live-rejected-candidate-present; present=False; returncode=0",
+      "name": "live rejected candidate imported",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_016_live_semantic_canon_eligibility_runtime_false.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "false",
+        "expression": "!(q-evo-canon-eligible? runtime-observed)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_016_live_semantic_canon_eligibility_runtime_false.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_016_live_semantic_canon_eligibility_runtime_false.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=false; present=False; returncode=0",
+      "name": "live semantic: canon eligibility runtime false",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_017_live_semantic_canon_eligibility_soul_approved.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "canon-write-eligible",
+        "expression": "!(q-evo-canon-eligible? soul-approved)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_017_live_semantic_canon_eligibility_soul_approved.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_017_live_semantic_canon_eligibility_soul_approved.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=canon-write-eligible; present=False; returncode=0",
+      "name": "live semantic: canon eligibility soul approved",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_018_live_semantic_illegal_runtime_to_canon_jump.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-illegal-jump",
+        "expression": "!(q-evo-lifecycle-next? runtime-observed durable-canon-active)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_018_live_semantic_illegal_runtime_to_canon_jump.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_018_live_semantic_illegal_runtime_to_canon_jump.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-illegal-jump; present=False; returncode=0",
+      "name": "live semantic: illegal runtime to canon jump",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_019_live_semantic_validation_not_approval.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-no-soul-approval",
+        "expression": "!(q-evo-lifecycle-next? validation-eligible durable-canon-active)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_019_live_semantic_validation_not_approval.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_019_live_semantic_validation_not_approval.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-no-soul-approval; present=False; returncode=0",
+      "name": "live semantic: validation not approval",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_020_live_semantic_runtime_surface_not_canon.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "process-not-canon",
+        "expression": "!(q-evo-surface-canon-status? soul-evolutionary-runtime runtime-observed)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_020_live_semantic_runtime_surface_not_canon.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_020_live_semantic_runtime_surface_not_canon.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=process-not-canon; present=False; returncode=0",
+      "name": "live semantic: runtime surface not canon",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_021_live_semantic_soul_durable_active_canon.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "durable-canon-active",
+        "expression": "!(q-evo-surface-canon-status? soul-durable-metta durable-canon-active)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_021_live_semantic_soul_durable_active_canon.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_021_live_semantic_soul_durable_active_canon.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=durable-canon-active; present=False; returncode=0",
+      "name": "live semantic: soul durable active canon",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_022_live_semantic_finding_no_explicit_route_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-finding-is-not-growth",
+        "expression": "!(q-evo-candidate-route? finding-present no-explicit-route trace-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_022_live_semantic_finding_no_explicit_route_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_022_live_semantic_finding_no_explicit_route_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-finding-is-not-growth; present=False; returncode=0",
+      "name": "live semantic: finding no explicit route blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_023_live_semantic_genesis_no_explicit_route_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-genesis-output-not-canon",
+        "expression": "!(q-evo-candidate-route? genesis-output no-explicit-route trace-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_023_live_semantic_genesis_no_explicit_route_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_023_live_semantic_genesis_no_explicit_route_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-genesis-output-not-canon; present=False; returncode=0",
+      "name": "live semantic: genesis no explicit route blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_024_live_semantic_hand_authored_verdict_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-hand-authored-verdict",
+        "expression": "!(q-evo-validation-status? candidate observations-present preloaded-verdict-only harness-pass)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_024_live_semantic_hand_authored_verdict_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_024_live_semantic_hand_authored_verdict_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-hand-authored-verdict; present=False; returncode=0",
+      "name": "live semantic: hand authored verdict blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_025_live_semantic_dark_file_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-dark-file",
+        "expression": "!(q-evo-restart-proof-status? candidate before-present after-restored not-imported-queryable)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_025_live_semantic_dark_file_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_025_live_semantic_dark_file_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-dark-file; present=False; returncode=0",
+      "name": "live semantic: dark file blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_026_live_semantic_approval_absent_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-no-soul-approval",
+        "expression": "!(q-evo-soul-approval-status? candidate validation-eligible restart-restored approval-absent)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_026_live_semantic_approval_absent_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_026_live_semantic_approval_absent_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-no-soul-approval; present=False; returncode=0",
+      "name": "live semantic: approval absent blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_027_live_semantic_durable_canon_active.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "durable-canon-active",
+        "expression": "!(q-evo-durable-canon-status? candidate ground-atom import-live soul-approved revision-path-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_027_live_semantic_durable_canon_active.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_027_live_semantic_durable_canon_active.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=durable-canon-active; present=False; returncode=0",
+      "name": "live semantic: durable canon active",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_028_live_semantic_unreduced_storage_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-unreduced-storage",
+        "expression": "!(q-evo-durable-canon-status? candidate unreduced-expression import-live soul-approved revision-path-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_028_live_semantic_unreduced_storage_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_028_live_semantic_unreduced_storage_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-unreduced-storage; present=False; returncode=0",
+      "name": "live semantic: unreduced storage blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_029_live_semantic_trace_A_verdict.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "metabolization-candidate",
+        "expression": "!(q-tfs2-trace-verdict? same-start metabolizing-transition metabolized-protection)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_029_live_semantic_trace_A_verdict.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_029_live_semantic_trace_A_verdict.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=metabolization-candidate; present=False; returncode=0",
+      "name": "live semantic: trace A verdict",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_030_live_semantic_trace_B_verdict.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-defensive-fixation",
+        "expression": "!(q-tfs2-trace-verdict? same-start stuck-recurrence-warning defensive-fixation-risk)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_030_live_semantic_trace_B_verdict.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_030_live_semantic_trace_B_verdict.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-defensive-fixation; present=False; returncode=0",
+      "name": "live semantic: trace B verdict",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_031_live_semantic_repetition_without_metabolization_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-repetition-without-metabolization",
+        "expression": "!(q-tfs2-trace-verdict? same-start repeated-same-state repeated-same-state)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_031_live_semantic_repetition_without_metabolization_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_031_live_semantic_repetition_without_metabolization_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-repetition-without-metabolization; present=False; returncode=0",
+      "name": "live semantic: repetition without metabolization blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_032_live_semantic_Trace_A_eligibility.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "validation-eligible",
+        "expression": "!(q-tfs2-trace-eligibility? metabolization-candidate)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_032_live_semantic_Trace_A_eligibility.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_032_live_semantic_Trace_A_eligibility.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=validation-eligible; present=False; returncode=0",
+      "name": "live semantic: Trace A eligibility",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_033_live_semantic_Trace_B_audit.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "audit-required",
+        "expression": "!(q-tfs2-trace-eligibility? blocked-defensive-fixation)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_033_live_semantic_Trace_B_audit.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_033_live_semantic_Trace_B_audit.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=audit-required; present=False; returncode=0",
+      "name": "live semantic: Trace B audit",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_034_live_semantic_suspicion_decays_on_metabolization.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "suspicion-decays",
+        "expression": "!(q-evo-suspicion-delta? metabolization contactability-rises warrant-rises recurrence-supported)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_034_live_semantic_suspicion_decays_on_metabolization.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_034_live_semantic_suspicion_decays_on_metabolization.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=suspicion-decays; present=False; returncode=0",
+      "name": "live semantic: suspicion decays on metabolization",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_035_live_semantic_suspicion_rises_on_stuck_recurrence.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "suspicion-rises",
+        "expression": "!(q-evo-suspicion-delta? stuck-recurrence contactability-flat warrant-flat recurrence-repeated)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_035_live_semantic_suspicion_rises_on_stuck_recurrence.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_035_live_semantic_suspicion_rises_on_stuck_recurrence.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=suspicion-rises; present=False; returncode=0",
+      "name": "live semantic: suspicion rises on stuck recurrence",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_036_live_semantic_high_protection_alone_not_penalized.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "no-suspicion-penalty",
+        "expression": "!(q-evo-suspicion-delta? protection-high contactability-available warrant-rising recurrence-supported)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_036_live_semantic_high_protection_alone_not_penalized.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_036_live_semantic_high_protection_alone_not_penalized.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=no-suspicion-penalty; present=False; returncode=0",
+      "name": "live semantic: high protection alone not penalized",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_037_live_semantic_journal_class_v1_accepted.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "v1-accepted-mechanical-append-class",
+        "expression": "!(q-v08-7-file-class-status? soul-durable-metta journal-class semantic-gates-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_037_live_semantic_journal_class_v1_accepted.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_037_live_semantic_journal_class_v1_accepted.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=v1-accepted-mechanical-append-class; present=False; returncode=0",
+      "name": "live semantic: journal class v1 accepted",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_038_live_semantic_unsupported_durable_class_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-unsupported-new-class",
+        "expression": "!(q-v08-7-file-class-status? soul-durable-metta durable-canon-class rank-ladder-absent)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_038_live_semantic_unsupported_durable_class_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_038_live_semantic_unsupported_durable_class_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-unsupported-new-class; present=False; returncode=0",
+      "name": "live semantic: unsupported durable class blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_039_live_semantic_canonical_path_accepted.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "path-accepted",
+        "expression": "!(q-v08-7-path-discipline? canonical-absolute-soul-path allowlisted)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_039_live_semantic_canonical_path_accepted.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_039_live_semantic_canonical_path_accepted.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=path-accepted; present=False; returncode=0",
+      "name": "live semantic: canonical path accepted",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_040_live_semantic_relative_path_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-wrong-path-form",
+        "expression": "!(q-v08-7-path-discipline? relative-soul-path allowlisted)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_040_live_semantic_relative_path_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_040_live_semantic_relative_path_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-wrong-path-form; present=False; returncode=0",
+      "name": "live semantic: relative path blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_041_live_semantic_append_allowed.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "append-route-allowed",
+        "expression": "!(q-v08-7-write-operation-status? append-file canonical-allowlisted journal-class approved)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_041_live_semantic_append_allowed.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_041_live_semantic_append_allowed.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=append-route-allowed; present=False; returncode=0",
+      "name": "live semantic: append allowed",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_042_live_semantic_write_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-truncate-risk",
+        "expression": "!(q-v08-7-write-operation-status? write-file canonical-allowlisted journal-class approved)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_042_live_semantic_write_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_042_live_semantic_write_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-truncate-risk; present=False; returncode=0",
+      "name": "live semantic: write blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_043_live_semantic_serialization_valid.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "serialization-valid",
+        "expression": "!(q-v08-7-serialization-status? one-balanced-ground-directive ascii-safe)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_043_live_semantic_serialization_valid.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_043_live_semantic_serialization_valid.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=serialization-valid; present=False; returncode=0",
+      "name": "live semantic: serialization valid",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_044_live_semantic_unreduced_serialization_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-unreduced-storage",
+        "expression": "!(q-v08-7-serialization-status? unreduced-call-form ascii-safe)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_044_live_semantic_unreduced_serialization_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_044_live_semantic_unreduced_serialization_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-unreduced-storage; present=False; returncode=0",
+      "name": "live semantic: unreduced serialization blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_045_live_semantic_import_live.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "import-live",
+        "expression": "!(q-v08-7-import-liveness? file-exists imported queryable-after-restart)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_045_live_semantic_import_live.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_045_live_semantic_import_live.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=import-live; present=False; returncode=0",
+      "name": "live semantic: import live",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_046_live_semantic_not_imported_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-dark-file",
+        "expression": "!(q-v08-7-import-liveness? file-exists not-imported queryable-after-restart)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_046_live_semantic_not_imported_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_046_live_semantic_not_imported_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-dark-file; present=False; returncode=0",
+      "name": "live semantic: not imported blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_047_live_semantic_boot_safe.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "boot-safe",
+        "expression": "!(q-v08-7-boot-safety? valid-lines-only recovery-documented)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_047_live_semantic_boot_safe.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_047_live_semantic_boot_safe.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=boot-safe; present=False; returncode=0",
+      "name": "live semantic: boot safe",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_048_live_semantic_malformed_recovery_unknown_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-boot-poison-risk",
+        "expression": "!(q-v08-7-boot-safety? malformed-line recovery-unknown)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_048_live_semantic_malformed_recovery_unknown_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_048_live_semantic_malformed_recovery_unknown_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-boot-poison-risk; present=False; returncode=0",
+      "name": "live semantic: malformed recovery unknown blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_049_live_semantic_findings_absent_compatible.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "no-op-compatible-absent",
+        "expression": "!(q-v08-7-support-surface-status? soul-findings-metta absent explicit-route)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_049_live_semantic_findings_absent_compatible.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_049_live_semantic_findings_absent_compatible.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=no-op-compatible-absent; present=False; returncode=0",
+      "name": "live semantic: findings absent compatible",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_050_live_semantic_finding_without_route_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-finding-not-growth",
+        "expression": "!(q-v08-7-support-surface-status? soul-findings-metta finding-present no-explicit-route)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_050_live_semantic_finding_without_route_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_050_live_semantic_finding_without_route_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-finding-not-growth; present=False; returncode=0",
+      "name": "live semantic: finding without route blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_051_live_semantic_chroma_no_route_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-retrieval-not-canon",
+        "expression": "!(q-v08-7-support-surface-status? chromadb retrieved no-explicit-route)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_051_live_semantic_chroma_no_route_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_051_live_semantic_chroma_no_route_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-retrieval-not-canon; present=False; returncode=0",
+      "name": "live semantic: chroma no route blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_052_live_semantic_promotions_no_route_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-status-flag-not-canon",
+        "expression": "!(q-v08-7-support-surface-status? promotions-db active-flag no-explicit-route)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_052_live_semantic_promotions_no_route_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_052_live_semantic_promotions_no_route_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-status-flag-not-canon; present=False; returncode=0",
+      "name": "live semantic: promotions no route blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_053_live_semantic_negative_runtime_claim_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-runtime-observation-is-not-growth",
+        "expression": "!(q-v08-7-negative-control? runtime-observation durable-canon-claimed)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_053_live_semantic_negative_runtime_claim_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_053_live_semantic_negative_runtime_claim_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-runtime-observation-is-not-growth; present=False; returncode=0",
+      "name": "live semantic: negative runtime claim blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_054_live_semantic_negative_validation_claim_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-validation-is-not-approval",
+        "expression": "!(q-v08-7-negative-control? validation-pass durable-canon-claimed)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_054_live_semantic_negative_validation_claim_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_054_live_semantic_negative_validation_claim_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-validation-is-not-approval; present=False; returncode=0",
+      "name": "live semantic: negative validation claim blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_055_live_semantic_negative_genesis_claim_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-genesis-output-not-canon",
+        "expression": "!(q-v08-7-negative-control? genesis-output durable-canon-claimed)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_055_live_semantic_negative_genesis_claim_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_055_live_semantic_negative_genesis_claim_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-genesis-output-not-canon; present=False; returncode=0",
+      "name": "live semantic: negative genesis claim blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_056_live_semantic_hyperseed_context_valid.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "context-valid",
+        "expression": "!(q-hyperseed-context-status? context-present observer-bound aspect-indexed)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_056_live_semantic_hyperseed_context_valid.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_056_live_semantic_hyperseed_context_valid.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=context-valid; present=False; returncode=0",
+      "name": "live semantic: hyperseed context valid",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_057_live_semantic_hyperseed_context_missing_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-context-missing",
+        "expression": "!(q-hyperseed-context-status? context-absent observer-bound aspect-indexed)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_057_live_semantic_hyperseed_context_missing_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_057_live_semantic_hyperseed_context_missing_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-context-missing; present=False; returncode=0",
+      "name": "live semantic: hyperseed context missing blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_058_live_semantic_hyperseed_pbit_evidence_valid.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "pbit-evidence-valid",
+        "expression": "!(q-hyperseed-evidence-pbit-status? support-opposition-present confidence-graded contradiction-visible)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_058_live_semantic_hyperseed_pbit_evidence_valid.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_058_live_semantic_hyperseed_pbit_evidence_valid.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=pbit-evidence-valid; present=False; returncode=0",
+      "name": "live semantic: hyperseed pbit evidence valid",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_059_live_semantic_hyperseed_crisp_certainty_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-crisp-certainty",
+        "expression": "!(q-hyperseed-evidence-pbit-status? support-opposition-present confidence-crisp contradiction-visible)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_059_live_semantic_hyperseed_crisp_certainty_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_059_live_semantic_hyperseed_crisp_certainty_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-crisp-certainty; present=False; returncode=0",
+      "name": "live semantic: hyperseed crisp certainty blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_060_live_semantic_hyperseed_proto_time_valid.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "proto-time-valid",
+        "expression": "!(q-hyperseed-proto-time-status? window-present recurrence-observed interval-known)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_060_live_semantic_hyperseed_proto_time_valid.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_060_live_semantic_hyperseed_proto_time_valid.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=proto-time-valid; present=False; returncode=0",
+      "name": "live semantic: hyperseed proto time valid",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_061_live_semantic_hyperseed_static_presence_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-static-presence-not-habit",
+        "expression": "!(q-hyperseed-proto-time-status? window-present static-presence interval-known)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_061_live_semantic_hyperseed_static_presence_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_061_live_semantic_hyperseed_static_presence_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-static-presence-not-habit; present=False; returncode=0",
+      "name": "live semantic: hyperseed static presence blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_062_live_semantic_hyperseed_structural_signature_valid.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "structural-signature-valid",
+        "expression": "!(q-hyperseed-structural-signature-status? signature-present invariant-named degradation-measured)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_062_live_semantic_hyperseed_structural_signature_valid.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_062_live_semantic_hyperseed_structural_signature_valid.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=structural-signature-valid; present=False; returncode=0",
+      "name": "live semantic: hyperseed structural signature valid",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_063_live_semantic_hyperseed_missing_structural_signature_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-no-structural-signature",
+        "expression": "!(q-hyperseed-structural-signature-status? signature-absent invariant-named degradation-measured)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_063_live_semantic_hyperseed_missing_structural_signature_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_063_live_semantic_hyperseed_missing_structural_signature_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-no-structural-signature; present=False; returncode=0",
+      "name": "live semantic: hyperseed missing structural signature blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_064_live_semantic_hyperseed_continuity_valid.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "continuity-valid",
+        "expression": "!(q-hyperseed-continuity-degree-status? degree-present above-threshold degradation-known)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_064_live_semantic_hyperseed_continuity_valid.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_064_live_semantic_hyperseed_continuity_valid.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=continuity-valid; present=False; returncode=0",
+      "name": "live semantic: hyperseed continuity valid",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_065_live_semantic_hyperseed_continuity_too_low_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-continuity-too-low",
+        "expression": "!(q-hyperseed-continuity-degree-status? degree-present below-threshold degradation-known)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_065_live_semantic_hyperseed_continuity_too_low_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_065_live_semantic_hyperseed_continuity_too_low_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-continuity-too-low; present=False; returncode=0",
+      "name": "live semantic: hyperseed continuity too low blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_066_live_semantic_hyperseed_artifact_lineage_valid.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "artifact-lineage-valid",
+        "expression": "!(q-hyperseed-artifact-lineage-status? source-present approval-present revision-path-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_066_live_semantic_hyperseed_artifact_lineage_valid.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_066_live_semantic_hyperseed_artifact_lineage_valid.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=artifact-lineage-valid; present=False; returncode=0",
+      "name": "live semantic: hyperseed artifact lineage valid",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_067_live_semantic_hyperseed_approval_lineage_missing_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-approval-lineage-missing",
+        "expression": "!(q-hyperseed-artifact-lineage-status? source-present approval-absent revision-path-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_067_live_semantic_hyperseed_approval_lineage_missing_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_067_live_semantic_hyperseed_approval_lineage_missing_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-approval-lineage-missing; present=False; returncode=0",
+      "name": "live semantic: hyperseed approval lineage missing blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_068_live_semantic_hyperseed_resource_cost_valid.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "resource-cost-valid",
+        "expression": "!(q-hyperseed-resource-cost-status? cost-visible sustainable bounded)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_068_live_semantic_hyperseed_resource_cost_valid.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_068_live_semantic_hyperseed_resource_cost_valid.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=resource-cost-valid; present=False; returncode=0",
+      "name": "live semantic: hyperseed resource cost valid",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_069_live_semantic_hyperseed_unbounded_maintenance_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-unbounded-maintenance",
+        "expression": "!(q-hyperseed-resource-cost-status? cost-visible sustainable unbounded)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_069_live_semantic_hyperseed_unbounded_maintenance_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_069_live_semantic_hyperseed_unbounded_maintenance_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-unbounded-maintenance; present=False; returncode=0",
+      "name": "live semantic: hyperseed unbounded maintenance blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_070_live_semantic_hyperseed_transfer_compatible.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "transfer-compatible",
+        "expression": "!(q-hyperseed-cross-context-transfer-status? source-context target-context resonance-evidence-present)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_070_live_semantic_hyperseed_transfer_compatible.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_070_live_semantic_hyperseed_transfer_compatible.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=transfer-compatible; present=False; returncode=0",
+      "name": "live semantic: hyperseed transfer compatible",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_071_live_semantic_hyperseed_transfer_without_resonance_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-copy-without-resonance",
+        "expression": "!(q-hyperseed-cross-context-transfer-status? source-context target-context resonance-evidence-absent)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_071_live_semantic_hyperseed_transfer_without_resonance_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_071_live_semantic_hyperseed_transfer_without_resonance_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-copy-without-resonance; present=False; returncode=0",
+      "name": "live semantic: hyperseed transfer without resonance blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_072_live_semantic_hyperseed_approximation_valid.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "approximation-valid",
+        "expression": "!(q-hyperseed-approximation-status? approximation-bound-present loss-known use-safe)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_072_live_semantic_hyperseed_approximation_valid.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_072_live_semantic_hyperseed_approximation_valid.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=approximation-valid; present=False; returncode=0",
+      "name": "live semantic: hyperseed approximation valid",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_073_live_semantic_hyperseed_unsafe_approximation_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-unsafe-approximation",
+        "expression": "!(q-hyperseed-approximation-status? approximation-bound-present loss-known use-unsafe)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_073_live_semantic_hyperseed_unsafe_approximation_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_073_live_semantic_hyperseed_unsafe_approximation_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-unsafe-approximation; present=False; returncode=0",
+      "name": "live semantic: hyperseed unsafe approximation blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_074_live_semantic_hyperseed_threshold_pass.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "hyperseed-durability-threshold-pass",
+        "expression": "!(q-v08-7-2-durable-growth-threshold? context-valid pbit-evidence-valid proto-time-valid structural-signature-valid continuity-valid artifact-lineage-valid resource-cost-valid approximation-valid)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_074_live_semantic_hyperseed_threshold_pass.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_074_live_semantic_hyperseed_threshold_pass.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=hyperseed-durability-threshold-pass; present=False; returncode=0",
+      "name": "live semantic: hyperseed threshold pass",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_075_live_semantic_hyperseed_threshold_context_blocked.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-context-missing",
+        "expression": "!(q-v08-7-2-durable-growth-threshold? blocked-context-missing pbit-evidence-valid proto-time-valid structural-signature-valid continuity-valid artifact-lineage-valid resource-cost-valid approximation-valid)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_075_live_semantic_hyperseed_threshold_context_blocked.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_075_live_semantic_hyperseed_threshold_context_blocked.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-context-missing; present=False; returncode=0",
+      "name": "live semantic: hyperseed threshold context blocked",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_076_live_semantic_hyperseed_import_candidate_ready.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "import-candidate-ready",
+        "expression": "!(q-v08-7-2-import-candidate-status? v08-7-semantic-green governance-green hyperseed-threshold-pass)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_076_live_semantic_hyperseed_import_candidate_ready.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_076_live_semantic_hyperseed_import_candidate_ready.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=import-candidate-ready; present=False; returncode=0",
+      "name": "live semantic: hyperseed import candidate ready",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_077_live_semantic_hyperseed_governance_open_hold.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "hold-governance-not-green",
+        "expression": "!(q-v08-7-2-import-candidate-status? v08-7-semantic-green governance-open hyperseed-threshold-pass)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_077_live_semantic_hyperseed_governance_open_hold.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_077_live_semantic_hyperseed_governance_open_hold.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=hold-governance-not-green; present=False; returncode=0",
+      "name": "live semantic: hyperseed governance open hold",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_078_live_semantic_hyperseed_file_survival_negative.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-file-survival-not-structural-durability",
+        "expression": "!(q-v08-7-2-negative-control? file-survival durable-growth-claimed)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_078_live_semantic_hyperseed_file_survival_negative.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_078_live_semantic_hyperseed_file_survival_negative.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-file-survival-not-structural-durability; present=False; returncode=0",
+      "name": "live semantic: hyperseed file survival negative",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_079_live_semantic_hyperseed_contextless_negative.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-context-missing",
+        "expression": "!(q-v08-7-2-negative-control? contextless-claim durable-growth-claimed)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_079_live_semantic_hyperseed_contextless_negative.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_079_live_semantic_hyperseed_contextless_negative.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-context-missing; present=False; returncode=0",
+      "name": "live semantic: hyperseed contextless negative",
+      "status": "FAIL",
+      "tier": "L3"
+    },
+    {
+      "data": {
+        "actual_tail": [],
+        "docker_run_command": "docker exec clarity_omega sh -c 'cd /PeTTa && ./run.sh /tmp/_v08_7_2_live_import_080_live_semantic_hyperseed_cross_context_copy_negative.metta 2>&1'",
+        "expected_present_in_stdout": false,
+        "expected_token": "blocked-copy-without-resonance",
+        "expression": "!(q-v08-7-2-negative-control? cross-context-copy transfer-claimed)",
+        "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+        "probe_path": "/tmp/_v08_7_2_live_import_080_live_semantic_hyperseed_cross_context_copy_negative.metta",
+        "raw_sidecar_path": "shared_files/raw_live_import_probe_outputs/_v08_7_2_live_import_080_live_semantic_hyperseed_cross_context_copy_negative.metta.out.txt",
+        "returncode": 0,
+        "stderr_chars": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_chars": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "details": "expected=blocked-copy-without-resonance; present=False; returncode=0",
+      "name": "live semantic: hyperseed cross context copy negative",
+      "status": "FAIL",
+      "tier": "L3"
+    }
+  ],
+  "meta": {
+    "container": "clarity_omega",
+    "container_repo_root": "/PeTTa/repos/omegaclaw",
+    "ephemeral_engine_concat": false,
+    "ephemeral_topology_concat": false,
+    "harness_version": "v08.7.2-live-import-runtime-v01.1-live-entrypoint-query",
+    "live_entrypoint_import": "!(import! &self (library omegaclaw ./lib_clarity_reasoning/lib_clarity_reasoning))",
+    "mode": "live-entrypoint-import-query-only",
+    "repo_root": "."
+  },
+  "summary": {
+    "FAIL": 80,
+    "PASS": 38
+  }
+}

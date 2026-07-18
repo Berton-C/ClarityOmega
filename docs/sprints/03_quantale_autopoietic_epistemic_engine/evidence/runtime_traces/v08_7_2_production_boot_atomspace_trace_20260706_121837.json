@@ -1,0 +1,390 @@
+{
+  "meta": {
+    "harness_version": "v08.7.2-production-boot-atomspace-inspection-v01.0",
+    "mode": "production-boot-long-lived-atomspace-discovery-and-direct-query",
+    "repo_root": ".",
+    "container": "clarity_omega",
+    "container_repo_root": "/PeTTa/repos/omegaclaw",
+    "one_shot_run_sh_import_proof": false,
+    "live_body_inline_transport": false,
+    "production_boot_import_proof_attempted": false,
+    "query_command_template_supplied": false,
+    "host_query_command_template_supplied": false,
+    "query_file_command_template_supplied": false,
+    "transport_note": "This harness only passes Q1 semantic probes if they are answered through a configured live query surface for the long-lived runtime atomspace. Discovery-only runs end with HOLD, not FAIL."
+  },
+  "summary": {
+    "PASS": 37,
+    "HOLD": 1
+  },
+  "checks": [
+    {
+      "name": "container exists",
+      "status": "PASS",
+      "tier": "L0",
+      "details": "clarity_omega",
+      "data": null
+    },
+    {
+      "name": "host file present: lib_clarity_reasoning/lib_clarity_reasoning.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=7395 sha256=3cce5155156379b789a7d480a5b9e065ce0f98ea50408620531c9387d3502a26",
+      "data": null
+    },
+    {
+      "name": "paren balance: lib_clarity_reasoning/lib_clarity_reasoning.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "balance=0",
+      "data": null
+    },
+    {
+      "name": "host file present: lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=338041 sha256=693089e6b69d3b40c0772e3a068e337bb325048f39f9e0a4f8bd9e6f66012851",
+      "data": null
+    },
+    {
+      "name": "paren balance: lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "balance=0",
+      "data": null
+    },
+    {
+      "name": "host file present: soul/soul_kernel.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=45103 sha256=fa70fb3baca9e25dfe5a30646707c9a86b48be19d153b4e552a44419bb0a7de6",
+      "data": null
+    },
+    {
+      "name": "paren balance: soul/soul_kernel.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "balance=0",
+      "data": null
+    },
+    {
+      "name": "host file present: soul/durable.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=395 sha256=b30addd567a3584dc4e0239ef4f2d0ce079252b4293a1ac108d6e1d34df64617",
+      "data": null
+    },
+    {
+      "name": "host file present: soul/evolutionary/README.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=374 sha256=9286f68b41192caf0d2d4817b1d6c90e9662820240f8b8c4cb1f77f699d08a3d",
+      "data": null
+    },
+    {
+      "name": "host file present: soul/evolutionary/archive/README.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=223 sha256=d017e6577d56c750576fef1c8278f0265546106f8aa61ec88a935e260c5c215d",
+      "data": null
+    },
+    {
+      "name": "host file present: soul/evolutionary/index.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=242 sha256=80531a27d6723c0269a8dd6b24e8be42f00db566c0fab2a61abb0e72155f8933",
+      "data": null
+    },
+    {
+      "name": "host file present: soul/evolutionary/runtime.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=282 sha256=35abe9b03574b07d39dac7a2836b74992906df5a95582e48f7a80a7b02fbad22",
+      "data": null
+    },
+    {
+      "name": "host file present: soul/evolutionary/pending.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=292 sha256=b501aed506ab76fa3115d512d00e4f38c0855cd953da11455c798dcca6029e83",
+      "data": null
+    },
+    {
+      "name": "host file present: soul/evolutionary/validation.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=288 sha256=e7a517ce93aeddb982d51c4e0834ef2a43ecd641f03f76043cd7ef73058a03dc",
+      "data": null
+    },
+    {
+      "name": "host file present: soul/evolutionary/restart.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=277 sha256=dabf125f42ed59860525cdc9a508b8477639d9640469cb689da4ee0e65cc2627",
+      "data": null
+    },
+    {
+      "name": "host file present: soul/evolutionary/rejected.metta",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "size=296 sha256=17fdf3a83842a60236874a1d78b9ce76d556ac869f152a8d513afe9368d2ad1d",
+      "data": null
+    },
+    {
+      "name": "live import block contains required imports",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "missing=[]",
+      "data": {
+        "missing": []
+      }
+    },
+    {
+      "name": "soul_kernel contains v08.7.2 journal class declarations",
+      "status": "PASS",
+      "tier": "L1",
+      "details": "missing=[]",
+      "data": {
+        "missing": []
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: lib_clarity_reasoning/lib_clarity_reasoning.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/lib_clarity_reasoning/lib_clarity_reasoning.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/lib_clarity_reasoning/lib_clarity_reasoning.metta",
+        "container_sha256": "3cce5155156379b789a7d480a5b9e065ce0f98ea50408620531c9387d3502a26",
+        "host_sha256": "3cce5155156379b789a7d480a5b9e065ce0f98ea50408620531c9387d3502a26",
+        "bytes": 7395
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY.metta",
+        "container_sha256": "693089e6b69d3b40c0772e3a068e337bb325048f39f9e0a4f8bd9e6f66012851",
+        "host_sha256": "693089e6b69d3b40c0772e3a068e337bb325048f39f9e0a4f8bd9e6f66012851",
+        "bytes": 338041
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: soul/soul_kernel.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/soul/soul_kernel.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/soul_kernel.metta",
+        "container_sha256": "fa70fb3baca9e25dfe5a30646707c9a86b48be19d153b4e552a44419bb0a7de6",
+        "host_sha256": "fa70fb3baca9e25dfe5a30646707c9a86b48be19d153b4e552a44419bb0a7de6",
+        "bytes": 45103
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: soul/durable.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/soul/durable.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/durable.metta",
+        "container_sha256": "b30addd567a3584dc4e0239ef4f2d0ce079252b4293a1ac108d6e1d34df64617",
+        "host_sha256": "b30addd567a3584dc4e0239ef4f2d0ce079252b4293a1ac108d6e1d34df64617",
+        "bytes": 395
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: soul/evolutionary/README.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/README.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/README.metta",
+        "container_sha256": "9286f68b41192caf0d2d4817b1d6c90e9662820240f8b8c4cb1f77f699d08a3d",
+        "host_sha256": "9286f68b41192caf0d2d4817b1d6c90e9662820240f8b8c4cb1f77f699d08a3d",
+        "bytes": 374
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: soul/evolutionary/archive/README.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/archive/README.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/archive/README.metta",
+        "container_sha256": "d017e6577d56c750576fef1c8278f0265546106f8aa61ec88a935e260c5c215d",
+        "host_sha256": "d017e6577d56c750576fef1c8278f0265546106f8aa61ec88a935e260c5c215d",
+        "bytes": 223
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: soul/evolutionary/index.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/index.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/index.metta",
+        "container_sha256": "80531a27d6723c0269a8dd6b24e8be42f00db566c0fab2a61abb0e72155f8933",
+        "host_sha256": "80531a27d6723c0269a8dd6b24e8be42f00db566c0fab2a61abb0e72155f8933",
+        "bytes": 242
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: soul/evolutionary/runtime.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/runtime.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/runtime.metta",
+        "container_sha256": "35abe9b03574b07d39dac7a2836b74992906df5a95582e48f7a80a7b02fbad22",
+        "host_sha256": "35abe9b03574b07d39dac7a2836b74992906df5a95582e48f7a80a7b02fbad22",
+        "bytes": 282
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: soul/evolutionary/pending.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/pending.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/pending.metta",
+        "container_sha256": "b501aed506ab76fa3115d512d00e4f38c0855cd953da11455c798dcca6029e83",
+        "host_sha256": "b501aed506ab76fa3115d512d00e4f38c0855cd953da11455c798dcca6029e83",
+        "bytes": 292
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: soul/evolutionary/validation.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/validation.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/validation.metta",
+        "container_sha256": "e7a517ce93aeddb982d51c4e0834ef2a43ecd641f03f76043cd7ef73058a03dc",
+        "host_sha256": "e7a517ce93aeddb982d51c4e0834ef2a43ecd641f03f76043cd7ef73058a03dc",
+        "bytes": 288
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: soul/evolutionary/restart.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/restart.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/restart.metta",
+        "container_sha256": "dabf125f42ed59860525cdc9a508b8477639d9640469cb689da4ee0e65cc2627",
+        "host_sha256": "dabf125f42ed59860525cdc9a508b8477639d9640469cb689da4ee0e65cc2627",
+        "bytes": 277
+      }
+    },
+    {
+      "name": "container live file visible and sha-matched: soul/evolutionary/rejected.metta",
+      "status": "PASS",
+      "tier": "L2",
+      "details": "container=/PeTTa/repos/omegaclaw/soul/evolutionary/rejected.metta sha_match=True",
+      "data": {
+        "container_path": "/PeTTa/repos/omegaclaw/soul/evolutionary/rejected.metta",
+        "container_sha256": "17fdf3a83842a60236874a1d78b9ce76d556ac869f152a8d513afe9368d2ad1d",
+        "host_sha256": "17fdf3a83842a60236874a1d78b9ce76d556ac869f152a8d513afe9368d2ad1d",
+        "bytes": 296
+      }
+    },
+    {
+      "name": "runtime inventory: processes",
+      "status": "PASS",
+      "tier": "P0",
+      "details": "returncode=0 chars=0 sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "data": {
+        "returncode": 0,
+        "chars": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tail": ""
+      }
+    },
+    {
+      "name": "runtime inventory: network_tcp",
+      "status": "PASS",
+      "tier": "P0",
+      "details": "returncode=0 chars=0 sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "data": {
+        "returncode": 0,
+        "chars": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tail": ""
+      }
+    },
+    {
+      "name": "runtime inventory: network_unix",
+      "status": "PASS",
+      "tier": "P0",
+      "details": "returncode=0 chars=0 sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "data": {
+        "returncode": 0,
+        "chars": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tail": ""
+      }
+    },
+    {
+      "name": "runtime inventory: repo_top",
+      "status": "PASS",
+      "tier": "P0",
+      "details": "returncode=0 chars=14441 sha256=c199c47d34bd8f2bd6af839e2841d2f3185051653b8d684899e252674fb93e37",
+      "data": {
+        "returncode": 0,
+        "chars": 14441,
+        "sha256": "c199c47d34bd8f2bd6af839e2841d2f3185051653b8d684899e252674fb93e37",
+        "tail": "\n/PeTTa/repos/omegaclaw/staging/apply_detection_coverage_fix1.py\n/PeTTa/repos/omegaclaw/staging/apply_metta_skill_quoting_fix.py\n/PeTTa/repos/omegaclaw/staging/apply_surface6_value_spine_single_source.py\n/PeTTa/repos/omegaclaw/staging/pln_diagnostic_v1.py\n/PeTTa/repos/omegaclaw/staging/goal_generator.metta\n/PeTTa/repos/omegaclaw/staging/apply_a2_maxwakeloops_alignment.py\n/PeTTa/repos/omegaclaw/staging/soul_namespace_discovery_diagnostic.py\n/PeTTa/repos/omegaclaw/staging/ClarityOmega_Wiring_Session_Knowledge.md\n/PeTTa/repos/omegaclaw/staging/apply_repair3_surfaceC.py\n/PeTTa/repos/omegaclaw/staging/phase_d_coda_inloop_verification.py\n/PeTTa/repos/omegaclaw/staging/Message_to_Clarity_Continuity_of_Mind.md\n/PeTTa/repos/omegaclaw/staging/quantale_v08_7_durable_evolutionary_governance_harness_v01_1.py\n/PeTTa/repos/omegaclaw/staging/soul_lock_emptiness_diagnostic.py\n/PeTTa/repos/omegaclaw/staging/verify_coda_phase_c_anchor_fallback.py\n/PeTTa/repos/omegaclaw/omegaclaw-logo-SoD_g_nX.png\n/PeTTa/repos/omegaclaw/run.metta\n/PeTTa/repos/omegaclaw/lib_omegaclaw.metta\n/PeTTa/repos/omegaclaw/scripts/soul_patch_lib.py\n/PeTTa/repos/omegaclaw/scripts/.DS_Store\n/PeTTa/repos/omegaclaw/scripts/soul_patch_loop.py\n/PeTTa/repos/omegaclaw/scripts/soul_patch_dockerfile.py\n/PeTTa/repos/omegaclaw/scripts/omegaclaw_setup.sh\n/PeTTa/repos/omegaclaw/scripts/soul_patch_all.sh\n/PeTTa/repos/omegaclaw/.dockerignore\n/PeTTa/repos/omegaclaw/lib_llm_ext.py\n/PeTTa/repos/omegaclaw/channels/mattermost.py\n/PeTTa/repos/omegaclaw/channels/irc.py\n/PeTTa/repos/omegaclaw/channels/websearch.py\n/PeTTa/repos/omegaclaw/.DS_Store\n/PeTTa/repos/omegaclaw/memory/.DS_Store\n/PeTTa/repos/omegaclaw/memory/promotions.db-wal\n/PeTTa/repos/omegaclaw/memory/promotions.db-shm\n/PeTTa/repos/omegaclaw/memory/soul_audit_log.txt\n/PeTTa/repos/omegaclaw/memory/prompt.txt\n/PeTTa/repos/omegaclaw/memory/prompt.txt.backup\n/PeTTa/repos/omegaclaw/memory/history.metta\n/PeTTa/repos/omegaclaw/memory/promotions.db\n/PeTTa/repos/omegaclaw/memory/history.metta.trimmed\n/PeTTa/repos/omegaclaw/memory/history.metta.backup\n/PeTTa/repos/omegaclaw/docs/boundary-poc-explainers.md\n/PeTTa/repos/omegaclaw/docs/What_Is_a_Frame.md\n/PeTTa/repos/omegaclaw/docs/INDEX.md\n/PeTTa/repos/omegaclaw/docs/.DS_Store\n/PeTTa/repos/omegaclaw/docs/CLAUDE_ORIENTATION.md\n/PeTTa/repos/omegaclaw/docs/agentverse_agent_bridge.md\n/PeTTa/repos/omegaclaw/nace_beliefs.metta\n/PeTTa/repos/omegaclaw/logs/modal_polarity_validation_trace_v02_20260701_200517.json\n/PeTTa/repos/omegaclaw/logs/modal_polarity_validation_trace_v02_20260701_200517.md\n/PeTTa/repos/omegaclaw/src/helper.py\n/PeTTa/repos/omegaclaw/src/agentverse.py\n/PeTTa/repos/omegaclaw/src/.DS_Store\n/PeTTa/repos/omegaclaw/src/memory.metta\n/PeTTa/repos/omegaclaw/src/skills.metta\n/PeTTa/repos/omegaclaw/src/skills.pl\n/PeTTa/repos/omegaclaw/src/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_5_2_ALIGNMENT_PIPELINE_CANONICAL_PATCHED.metta\n/PeTTa/repos/omegaclaw/src/loop.metta\n/PeTTa/repos/omegaclaw/src/channels.metta\n"
+      }
+    },
+    {
+      "name": "runtime inventory: candidate_query_files",
+      "status": "PASS",
+      "tier": "P0",
+      "details": "returncode=0 chars=16899 sha256=2c381880a725df21306932ba7c0d528a8257d4de78fba6de69c4fdefb2dd68ae",
+      "data": {
+        "returncode": 0,
+        "chars": 16899,
+        "sha256": "2c381880a725df21306932ba7c0d528a8257d4de78fba6de69c4fdefb2dd68ae",
+        "tail": "store.py\n/PeTTa/repos/omegaclaw/staging/OLD/step 1-9 fixes to eliminate duplicate engagement/apply_step4_5_6_predicate_fix.py\n/PeTTa/repos/omegaclaw/staging/OLD/step 1-9 fixes to eliminate duplicate engagement/apply_populator_grounding_let.py\n/PeTTa/repos/omegaclaw/staging/OLD/step 1-9 fixes to eliminate duplicate engagement/apply_sanitize_response_restore.py\n/PeTTa/repos/omegaclaw/staging/OLD/.DS_Store\n/PeTTa/repos/omegaclaw/staging/OLD/apply_collapse_eval_fix.py\n/PeTTa/repos/omegaclaw/staging/OLD/phase_d_coda_inloop_20260614_152944.log\n/PeTTa/repos/omegaclaw/staging/OLD/apply_glm_switch.py\n/PeTTa/repos/omegaclaw/staging/OLD/OLD_lib_files/lib_clarity_reasoning.metta.bak.step4_6_corrected_split\n/PeTTa/repos/omegaclaw/staging/OLD/OLD_lib_files/lib_clarity_reasoning.metta.bak.step4_5_refactor_split\n/PeTTa/repos/omegaclaw/staging/OLD/OLD_lib_files/lib_clarity_reasoning.metta.bak.surface6\n/PeTTa/repos/omegaclaw/staging/OLD/OLD_lib_files/lib_clarity_reasoning.metta.bak.corner_gap_l5\n/PeTTa/repos/omegaclaw/staging/OLD/OLD_lib_files/lib_clarity_reasoning.metta.surfaceC.bak\n/PeTTa/repos/omegaclaw/staging/OLD/OLD_lib_files/lib_clarity_reasoning.metta.bak.repair1\n/PeTTa/repos/omegaclaw/staging/OLD/OLD_lib_files/lib_llm_ext.py.pre-glm-switch-20260506_145812.bak\n/PeTTa/repos/omegaclaw/staging/OLD/OLD_lib_files/quantale_engine_validation_ladder.metta\n/PeTTa/repos/omegaclaw/staging/OLD/OLD_lib_files/lib_llm_ext.py-backup\n/PeTTa/repos/omegaclaw/staging/OLD/OLD_lib_files/lib_quantale_autopoietic_epistemic_dynamics_engine_rounded.metta\n/PeTTa/repos/omegaclaw/staging/OLD/OLD_lib_files/lib_quantale_autopoietic_epistemic_dynamics_engine.metta\n/PeTTa/repos/omegaclaw/staging/OLD/OLD_lib_files/lib_clarity_reasoning.metta.bak.coda_phase_c\n/PeTTa/repos/omegaclaw/staging/OLD/soul_drafts_2026-06-10/output_intercept_kernel_atoms_draft.metta\n/PeTTa/repos/omegaclaw/staging/OLD/soul_drafts_2026-06-10/output_intercept_verdict_design.md\n/PeTTa/repos/omegaclaw/staging/OLD/soul_drafts_2026-06-10/soul_kernel_governance_seeds_append.metta\n/PeTTa/repos/omegaclaw/staging/OLD/soul_drafts_2026-06-10/output_intercept_verdict_metta_draft.md\n/PeTTa/repos/omegaclaw/staging/OLD/phase_d_coda_chars_sent_baseline.json\n/PeTTa/repos/omegaclaw/staging/OLD/Dockerfile.pre-soul-backup\n/PeTTa/repos/omegaclaw/staging/OLD/OLD_soul_diag_tests/soul_lock_emptiness_harness.metta\n/PeTTa/repos/omegaclaw/staging/OLD/OLD_soul_diag_tests/soul_gate_callform_harness.metta\n/PeTTa/repos/omegaclaw/staging/OLD/OLD_soul_diag_tests/soul_namespace_discovery_harness.metta\n/PeTTa/repos/omegaclaw/staging/OLD/OLD_soul_diag_tests/soul_mutation_gate_full_harness.metta\n/PeTTa/repos/omegaclaw/staging/OLD/OLD_soul_diag_tests/soul_namespace_structural_harness.metta\n/PeTTa/repos/omegaclaw/staging/OLD/OLD_soul_diag_tests/soul_mutation_gate_todo_design.metta\n/PeTTa/repos/omegaclaw/staging/OLD/OLD_soul_diag_tests/soul_mutation_gate_harness.metta\n/PeTTa/repos/omegaclaw/staging/OLD/OLD_soul_diag_tests/soul_lock_structural_harness.metta\n"
+      }
+    },
+    {
+      "name": "runtime inventory: grep_query_terms",
+      "status": "PASS",
+      "tier": "P0",
+      "details": "returncode=0 chars=46765 sha256=f4d2132bd79fffbbbc4f72261d4f7addbf2a1ddaa53b44c26adfc0b5daa4b2d3",
+      "data": {
+        "returncode": 0,
+        "chars": 46765,
+        "sha256": "f4d2132bd79fffbbbc4f72261d4f7addbf2a1ddaa53b44c26adfc0b5daa4b2d3",
+        "tail": "(shell ...) etc. without persisting it.\n/PeTTa/repos/omegaclaw/staging/omegaclaw_src_may_18_2026/OmegaClaw-Core-main/Autotests/mock_memory/conftest.py:5:controller itself lives in Autotests/mock/{llm,rpc}.py \u2014 those modules\n/PeTTa/repos/omegaclaw/staging/omegaclaw_src_may_18_2026/OmegaClaw-Core-main/Autotests/mock_memory/conftest.py:20:from rpc import PORT_DEFAULT  # noqa: E402\n/PeTTa/repos/omegaclaw/staging/omegaclaw_src_may_18_2026/OmegaClaw-Core-main/Autotests/test_tavily_search.py:48:            \"Use the tavily-search skill (not regular search) for query \"\n/PeTTa/repos/omegaclaw/staging/omegaclaw_src_may_18_2026/OmegaClaw-Core-main/Autotests/test_tavily_search.py:55:        c.step(\"verify agent invoked (tavily-search ...) with Fetch.ai query\")\n/PeTTa/repos/omegaclaw/staging/omegaclaw_src_may_18_2026/OmegaClaw-Core-main/Autotests/test_search_weather.py:53:        c.step(\"wait for search call with Valencia query (graded)\")\n/PeTTa/repos/omegaclaw/staging/omegaclaw_src_may_18_2026/OmegaClaw-Core-main/Autotests/test_skill_query.py:2:Test: agent invokes (query ...) to retrieve a previously-remembered fact.\n/PeTTa/repos/omegaclaw/staging/omegaclaw_src_may_18_2026/OmegaClaw-Core-main/Autotests/test_skill_query.py:7:     query specifically (not episodes \u2014 episodes is timestamp-based).\n/PeTTa/repos/omegaclaw/staging/omegaclaw_src_may_18_2026/OmegaClaw-Core-main/Autotests/test_skill_query.py:9:Pass criteria: a (query ...) call appears in the recall turn AND the agent\n/PeTTa/repos/omegaclaw/staging/omegaclaw_src_may_18_2026/OmegaClaw-Core-main/Autotests/test_skill_query.py:13:    pytest test_skill_query.py -s\n/PeTTa/repos/omegaclaw/staging/omegaclaw_src_may_18_2026/OmegaClaw-Core-main/Autotests/test_skill_query.py:23:def test_skill_query():\n/PeTTa/repos/omegaclaw/staging/omegaclaw_src_may_18_2026/OmegaClaw-Core-main/Autotests/test_skill_query.py:24:    with Checker(\"query skill recall\") as c:\n/PeTTa/repos/omegaclaw/staging/omegaclaw_src_may_18_2026/OmegaClaw-Core-main/Autotests/test_skill_query.py:25:        print(f\"\\n=== OmegaClaw: query skill (run-id {c.run_id}) ===\", flush=True)\n/PeTTa/repos/omegaclaw/staging/omegaclaw_src_may_18_2026/OmegaClaw-Core-main/Autotests/test_skill_query.py:65:        c.step(\"recall: ask agent to look up the color via query skill\")\n/PeTTa/repos/omegaclaw/staging/omegaclaw_src_may_18_2026/OmegaClaw-Core-main/Autotests/test_skill_query.py:68:            \"Earlier I told you my favorite color. Use your `query` skill \"\n/PeTTa/repos/omegaclaw/staging/omegaclaw_src_may_18_2026/OmegaClaw-Core-main/Autotests/test_skill_query.py:76:        c.step(\"verify agent invoked (query ...)\")\n/PeTTa/repos/omegaclaw/staging/omegaclaw_src_may_18_2026/OmegaClaw-Core-main/Autotests/test_skill_query.py:77:        q_arg = wait_for_skill_call(recall_id, \"query\", timeout=60)\n/PeTTa/repos/omegaclaw/staging/omegaclaw_src_may_18_2026/OmegaClaw-Core-main/Autotests/test_skill_query.py:79:            c.fail(\"query invoked\", \"no (query ...) call within 240s\")\n"
+      }
+    },
+    {
+      "name": "runtime inventory: process cwd/env hints",
+      "status": "PASS",
+      "tier": "P0",
+      "details": "returncode=0 chars=1545 sha256=599ce3fe6e5a5670776329aa9b6e210825d64978034a133d573f115d6a145783",
+      "data": {
+        "returncode": 0,
+        "chars": 1545,
+        "sha256": "599ce3fe6e5a5670776329aa9b6e210825d64978034a133d573f115d6a145783",
+        "tail": "PID=1 CWD=/PeTTa CMD=sh run.sh run.metta default commchannel=mattermost MM_URL=http://mattermost:8065 MM_CHANNEL_ID=1rko3khxgtrdzyktxx5hxuut4h MM_BOT_TOKEN=tam5h1hb5bfopm3dbj47jfr1oh  ENVHIT=\nPID=6772 CWD=/PeTTa CMD=sh -lc \nfor p in /proc/[0-9]*; do\n  pid=${p##*/}\n  cmd=$(tr '\u0000' ' ' < \"$p/cmdline\" 2>/dev/null | cut -c1-260)\n  [ -z \"$cmd\" ] && continue\n  case \"$cmd\" in\n    *python*|*metta*|*run.sh*|*omega*|*clarity*|*server*|*uvicorn*|*node*|*npm*)\n      cwd=$(readlink \"$p/cwd\" 2>/dev/null || true)\n      envhit=$(tr '\u0000' '\n' < \"$p/environ\" 2>/dev/null | grep -Ei 'METTA|HYPERON|OMEGA|CLARITY|PORT|SOCKET|ATOM|QUERY' | tr '\n' ';' | cut -c1-500)\n      echo \"PID=$pid CWD=$cwd CMD=$cmd ENVHIT=$envhit\"\n      ;;\n  esac\ndone | sed -n '1,220p'\n  ENVHIT=\nPID=6780 CWD=/PeTTa CMD=sh -lc \nfor p in /proc/[0-9]*; do\n  pid=${p##*/}\n  cmd=$(tr '\u0000' ' ' < \"$p/cmdline\" 2>/dev/null | cut -c1-260)\n  [ -z \"$cmd\" ] && continue\n  case \"$cmd\" in\n    *python*|*metta*|*run.sh*|*omega*|*clarity*|*server*|*uvicorn*|*node*|*npm*)\n      cwd=$(readlink \"$p/cwd\" 2>/dev/null || true)\n      envhit=$(tr '\u0000' '\n' < \"$p/environ\" 2>/dev/null | grep -Ei 'METTA|HYPERON|OMEGA|CLARITY|PORT|SOCKET|ATOM|QUERY' | tr '\n' ';' | cut -c1-500)\n      echo \"PID=$pid CWD=$cwd CMD=$cmd ENVHIT=$envhit\"\n      ;;\n  esac\ndone | sed -n '1,220p'\n  ENVHIT=\nPID=9 CWD=/PeTTa CMD=swipl --stack_limit=8g -q -s /PeTTa/src/main.pl -- run.metta default commchannel=mattermost MM_URL=http://mattermost:8065 MM_CHANNEL_ID=1rko3khxgtrdzyktxx5hxuut4h MM_BOT_TOKEN=tam5h1hb5bfopm3dbj47jfr1oh  ENVHIT=\n"
+      }
+    },
+    {
+      "name": "production live query surface configured",
+      "status": "HOLD",
+      "tier": "Q0",
+      "details": "No --query-command-template, --host-query-command-template, or --query-file-command-template supplied. Discovery complete, but semantic production atomspace proof not attempted.",
+      "data": {
+        "required_next_step": "Supply the exact Clarity/Omega live atomspace query transport. Do not use one-shot run.sh unless it queries the long-lived atomspace.",
+        "probe_count_waiting": 12
+      }
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+# v08.7.2-live-body-runtime-v01.4-container-cat-inline-bodies
+
+## Summary
+- **PASS**: 122
+
+## Interpretation
+This harness inlines live file bodies read from the container. It proves live-mounted file bodies reduce under one-shot run.sh transport. It does not prove the production loop boot/import graph loaded them.
+
+## Checks
+- `L0` **PASS** — container exists: 
+- `L1` **PASS** — host file present: lib_clarity_reasoning/lib_clarity_reasoning.metta: size=7395 sha256=3cce5155156379b789a7d480a5b9e065ce0f98ea50408620531c9387d3502a26
+- `L1` **PASS** — host file present: lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY.metta: size=338041 sha256=693089e6b69d3b40c0772e3a068e337bb325048f39f9e0a4f8bd9e6f66012851
+- `L1` **PASS** — host file present: soul/durable.metta: size=395 sha256=b30addd567a3584dc4e0239ef4f2d0ce079252b4293a1ac108d6e1d34df64617
+- `L1` **PASS** — host file present: soul/evolutionary/README.metta: size=374 sha256=9286f68b41192caf0d2d4817b1d6c90e9662820240f8b8c4cb1f77f699d08a3d
+- `L1` **PASS** — host file present: soul/evolutionary/archive/README.metta: size=223 sha256=d017e6577d56c750576fef1c8278f0265546106f8aa61ec88a935e260c5c215d
+- `L1` **PASS** — host file present: soul/evolutionary/index.metta: size=242 sha256=80531a27d6723c0269a8dd6b24e8be42f00db566c0fab2a61abb0e72155f8933
+- `L1` **PASS** — host file present: soul/evolutionary/pending.metta: size=292 sha256=b501aed506ab76fa3115d512d00e4f38c0855cd953da11455c798dcca6029e83
+- `L1` **PASS** — host file present: soul/evolutionary/rejected.metta: size=296 sha256=17fdf3a83842a60236874a1d78b9ce76d556ac869f152a8d513afe9368d2ad1d
+- `L1` **PASS** — host file present: soul/evolutionary/restart.metta: size=277 sha256=dabf125f42ed59860525cdc9a508b8477639d9640469cb689da4ee0e65cc2627
+- `L1` **PASS** — host file present: soul/evolutionary/runtime.metta: size=282 sha256=35abe9b03574b07d39dac7a2836b74992906df5a95582e48f7a80a7b02fbad22
+- `L1` **PASS** — host file present: soul/evolutionary/validation.metta: size=288 sha256=e7a517ce93aeddb982d51c4e0834ef2a43ecd641f03f76043cd7ef73058a03dc
+- `L1` **PASS** — host file present: soul/soul_kernel.metta: size=45103 sha256=fa70fb3baca9e25dfe5a30646707c9a86b48be19d153b4e552a44419bb0a7de6
+- `L1` **PASS** — host file present: staging/quantale_engine_validation_ladder_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY.metta: size=83371 sha256=a74780f7b8386ee3b941f5bf35f720b2349305550f01e3e4434819ae37498104
+- `L1` **PASS** — paren balance: lib_clarity_reasoning/lib_clarity_reasoning.metta: balance=0
+- `L1` **PASS** — paren balance: lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY.metta: balance=0
+- `L1` **PASS** — paren balance: soul/soul_kernel.metta: balance=0
+- `L1` **PASS** — live import block contains required imports: missing=[]
+- `L1` **PASS** — soul_kernel contains v08.7.2 journal class declarations: missing=[]
+- `L1` **PASS** — serialization valid: soul/durable.metta: checked=2 bad=0
+- `L1` **PASS** — serialization valid: soul/evolutionary/README.metta: checked=2 bad=0
+- `L1` **PASS** — serialization valid: soul/evolutionary/archive/README.metta: checked=2 bad=0
+- `L1` **PASS** — serialization valid: soul/evolutionary/index.metta: checked=3 bad=0
+- `L1` **PASS** — serialization valid: soul/evolutionary/runtime.metta: checked=3 bad=0
+- `L1` **PASS** — serialization valid: soul/evolutionary/pending.metta: checked=3 bad=0
+- `L1` **PASS** — serialization valid: soul/evolutionary/validation.metta: checked=3 bad=0
+- `L1` **PASS** — serialization valid: soul/evolutionary/restart.metta: checked=3 bad=0
+- `L1` **PASS** — serialization valid: soul/evolutionary/rejected.metta: checked=3 bad=0
+- `L2` **PASS** — container live file visible and sha-matched: lib_clarity_reasoning/lib_clarity_reasoning.metta: container=/PeTTa/repos/omegaclaw/lib_clarity_reasoning/lib_clarity_reasoning.metta sha_match=True
+- `L2` **PASS** — container live file visible and sha-matched: lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY.metta: container=/PeTTa/repos/omegaclaw/lib_clarity_reasoning/lib_quantale_autopoietic_epistemic_dynamics_engine_v08_7_2_SOUL_EVOLUTIONARY_CANONICAL_TOPOLOGY.metta sha_match=True
+- `L2` **PASS** — container live file visible and sha-matched: soul/soul_kernel.metta: container=/PeTTa/repos/omegaclaw/soul/soul_kernel.metta sha_match=True
+- `L2` **PASS** — container live file visible and sha-matched: soul/evolutionary/README.metta: container=/PeTTa/repos/omegaclaw/soul/evolutionary/README.metta sha_match=True
+- `L2` **PASS** — container live file visible and sha-matched: soul/evolutionary/archive/README.metta: container=/PeTTa/repos/omegaclaw/soul/evolutionary/archive/README.metta sha_match=True
+- `L2` **PASS** — container live file visible and sha-matched: soul/evolutionary/index.metta: container=/PeTTa/repos/omegaclaw/soul/evolutionary/index.metta sha_match=True
+- `L2` **PASS** — container live file visible and sha-matched: soul/evolutionary/runtime.metta: container=/PeTTa/repos/omegaclaw/soul/evolutionary/runtime.metta sha_match=True
+- `L2` **PASS** — container live file visible and sha-matched: soul/evolutionary/pending.metta: container=/PeTTa/repos/omegaclaw/soul/evolutionary/pending.metta sha_match=True
+- `L2` **PASS** — container live file visible and sha-matched: soul/evolutionary/validation.metta: container=/PeTTa/repos/omegaclaw/soul/evolutionary/validation.metta sha_match=True
+- `L2` **PASS** — container live file visible and sha-matched: soul/evolutionary/restart.metta: container=/PeTTa/repos/omegaclaw/soul/evolutionary/restart.metta sha_match=True
+- `L2` **PASS** — container live file visible and sha-matched: soul/evolutionary/rejected.metta: container=/PeTTa/repos/omegaclaw/soul/evolutionary/rejected.metta sha_match=True
+- `L2` **PASS** — container live file visible and sha-matched: soul/durable.metta: container=/PeTTa/repos/omegaclaw/soul/durable.metta sha_match=True
+- `B0` **PASS** — live body payload assembled from container cat: files=12
+- `B0` **PASS** — assembled live body payload sha: bytes=394673 sha256=f420171f7ca67164b93a9b7825dd6589a13d274613b4fe246815d0e1beea431f
+- `R1` **PASS** — live body topology README: expected=live-readme-present; present=True; returncode=0
+- `R1` **PASS** — live body topology archive README: expected=live-archive-readme-present; present=True; returncode=0
+- `R1` **PASS** — live body topology index: expected=live-index-present; present=True; returncode=0
+- `R1` **PASS** — live body topology runtime: expected=live-runtime-present; present=True; returncode=0
+- `R1` **PASS** — live body topology pending: expected=live-pending-present; present=True; returncode=0
+- `R1` **PASS** — live body topology validation: expected=live-validation-present; present=True; returncode=0
+- `R1` **PASS** — live body topology restart: expected=live-restart-present; present=True; returncode=0
+- `R1` **PASS** — live body topology rejected: expected=live-rejected-present; present=True; returncode=0
+- `R1` **PASS** — live body durable: expected=live-durable-present; present=True; returncode=0
+- `R1` **PASS** — live body durable probe: expected=live-durable-probe-present; present=True; returncode=0
+- `R1` **PASS** — live body runtime observation: expected=live-runtime-observation-present; present=True; returncode=0
+- `R1` **PASS** — live body pending candidate: expected=live-pending-candidate-present; present=True; returncode=0
+- `R1` **PASS** — live body validation evidence: expected=live-validation-evidence-present; present=True; returncode=0
+- `R1` **PASS** — live body restart evidence: expected=live-restart-evidence-present; present=True; returncode=0
+- `R1` **PASS** — live body rejected candidate: expected=live-rejected-candidate-present; present=True; returncode=0
+- `R1` **PASS** — canon eligibility runtime false: expected=false; present=True; returncode=0
+- `R1` **PASS** — canon eligibility soul approved: expected=canon-write-eligible; present=True; returncode=0
+- `R1` **PASS** — illegal runtime to canon jump: expected=blocked-illegal-jump; present=True; returncode=0
+- `R1` **PASS** — validation not approval: expected=blocked-no-soul-approval; present=True; returncode=0
+- `R1` **PASS** — runtime surface not canon: expected=process-not-canon; present=True; returncode=0
+- `R1` **PASS** — soul durable active canon: expected=durable-canon-active; present=True; returncode=0
+- `R1` **PASS** — finding no explicit route blocked: expected=blocked-finding-is-not-growth; present=True; returncode=0
+- `R1` **PASS** — genesis no explicit route blocked: expected=blocked-genesis-output-not-canon; present=True; returncode=0
+- `R1` **PASS** — hand authored verdict blocked: expected=blocked-hand-authored-verdict; present=True; returncode=0
+- `R1` **PASS** — dark file blocked: expected=blocked-dark-file; present=True; returncode=0
+- `R1` **PASS** — approval absent blocked: expected=blocked-no-soul-approval; present=True; returncode=0
+- `R1` **PASS** — durable canon active: expected=durable-canon-active; present=True; returncode=0
+- `R1` **PASS** — unreduced storage blocked: expected=blocked-unreduced-storage; present=True; returncode=0
+- `R1` **PASS** — trace A verdict: expected=metabolization-candidate; present=True; returncode=0
+- `R1` **PASS** — trace B verdict: expected=blocked-defensive-fixation; present=True; returncode=0
+- `R1` **PASS** — repetition without metabolization blocked: expected=blocked-repetition-without-metabolization; present=True; returncode=0
+- `R1` **PASS** — Trace A eligibility: expected=validation-eligible; present=True; returncode=0
+- `R1` **PASS** — Trace B audit: expected=audit-required; present=True; returncode=0
+- `R1` **PASS** — suspicion decays on metabolization: expected=suspicion-decays; present=True; returncode=0
+- `R1` **PASS** — suspicion rises on stuck recurrence: expected=suspicion-rises; present=True; returncode=0
+- `R1` **PASS** — high protection alone not penalized: expected=no-suspicion-penalty; present=True; returncode=0
+- `R1` **PASS** — journal class v1 accepted: expected=v1-accepted-mechanical-append-class; present=True; returncode=0
+- `R1` **PASS** — unsupported durable class blocked: expected=blocked-unsupported-new-class; present=True; returncode=0
+- `R1` **PASS** — canonical path accepted: expected=path-accepted; present=True; returncode=0
+- `R1` **PASS** — relative path blocked: expected=blocked-wrong-path-form; present=True; returncode=0
+- `R1` **PASS** — append allowed: expected=append-route-allowed; present=True; returncode=0
+- `R1` **PASS** — write blocked: expected=blocked-truncate-risk; present=True; returncode=0
+- `R1` **PASS** — serialization valid: expected=serialization-valid; present=True; returncode=0
+- `R1` **PASS** — unreduced serialization blocked: expected=blocked-unreduced-storage; present=True; returncode=0
+- `R1` **PASS** — import live: expected=import-live; present=True; returncode=0
+- `R1` **PASS** — not imported blocked: expected=blocked-dark-file; present=True; returncode=0
+- `R1` **PASS** — boot safe: expected=boot-safe; present=True; returncode=0
+- `R1` **PASS** — malformed recovery unknown blocked: expected=blocked-boot-poison-risk; present=True; returncode=0
+- `R1` **PASS** — findings absent compatible: expected=no-op-compatible-absent; present=True; returncode=0
+- `R1` **PASS** — finding without route blocked: expected=blocked-finding-not-growth; present=True; returncode=0
+- `R1` **PASS** — chroma no route blocked: expected=blocked-retrieval-not-canon; present=True; returncode=0
+- `R1` **PASS** — promotions no route blocked: expected=blocked-status-flag-not-canon; present=True; returncode=0
+- `R1` **PASS** — negative runtime claim blocked: expected=blocked-runtime-observation-is-not-growth; present=True; returncode=0
+- `R1` **PASS** — negative validation claim blocked: expected=blocked-validation-is-not-approval; present=True; returncode=0
+- `R1` **PASS** — negative genesis claim blocked: expected=blocked-genesis-output-not-canon; present=True; returncode=0
+- `R1` **PASS** — hyperseed context valid: expected=context-valid; present=True; returncode=0
+- `R1` **PASS** — hyperseed context missing blocked: expected=blocked-context-missing; present=True; returncode=0
+- `R1` **PASS** — hyperseed pbit evidence valid: expected=pbit-evidence-valid; present=True; returncode=0
+- `R1` **PASS** — hyperseed crisp certainty blocked: expected=blocked-crisp-certainty; present=True; returncode=0
+- `R1` **PASS** — hyperseed proto time valid: expected=proto-time-valid; present=True; returncode=0
+- `R1` **PASS** — hyperseed static presence blocked: expected=blocked-static-presence-not-habit; present=True; returncode=0
+- `R1` **PASS** — hyperseed structural signature valid: expected=structural-signature-valid; present=True; returncode=0
+- `R1` **PASS** — hyperseed missing structural signature blocked: expected=blocked-no-structural-signature; present=True; returncode=0
+- `R1` **PASS** — hyperseed continuity valid: expected=continuity-valid; present=True; returncode=0
+- `R1` **PASS** — hyperseed continuity too low blocked: expected=blocked-continuity-too-low; present=True; returncode=0
+- `R1` **PASS** — hyperseed artifact lineage valid: expected=artifact-lineage-valid; present=True; returncode=0
+- `R1` **PASS** — hyperseed approval lineage missing blocked: expected=blocked-approval-lineage-missing; present=True; returncode=0
+- `R1` **PASS** — hyperseed resource cost valid: expected=resource-cost-valid; present=True; returncode=0
+- `R1` **PASS** — hyperseed unbounded maintenance blocked: expected=blocked-unbounded-maintenance; present=True; returncode=0
+- `R1` **PASS** — hyperseed transfer compatible: expected=transfer-compatible; present=True; returncode=0
+- `R1` **PASS** — hyperseed transfer without resonance blocked: expected=blocked-copy-without-resonance; present=True; returncode=0
+- `R1` **PASS** — hyperseed approximation valid: expected=approximation-valid; present=True; returncode=0
+- `R1` **PASS** — hyperseed unsafe approximation blocked: expected=blocked-unsafe-approximation; present=True; returncode=0
+- `R1` **PASS** — hyperseed threshold pass: expected=hyperseed-durability-threshold-pass; present=True; returncode=0
+- `R1` **PASS** — hyperseed threshold context blocked: expected=blocked-context-missing; present=True; returncode=0
+- `R1` **PASS** — hyperseed import candidate ready: expected=import-candidate-ready; present=True; returncode=0
+- `R1` **PASS** — hyperseed governance open hold: expected=hold-governance-not-green; present=True; returncode=0
+- `R1` **PASS** — hyperseed file survival negative: expected=blocked-file-survival-not-structural-durability; present=True; returncode=0
+- `R1` **PASS** — hyperseed contextless negative: expected=blocked-context-missing; present=True; returncode=0
+- `R1` **PASS** — hyperseed cross context copy negative: expected=blocked-copy-without-resonance; present=True; returncode=0
