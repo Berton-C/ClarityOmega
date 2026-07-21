@@ -57,6 +57,79 @@ services:
       - clarityclaw_net
 
 # Use the existing network from clarityclaw-main stack
+
+  postgres:
+    image: postgres:16-alpine
+    platform: linux/amd64
+    container_name: clarityclaw_db
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ./volumes/db/var/lib/postgresql/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=mmuser
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-mmuser_password}
+      - POSTGRES_DB=mattermost
+      - TZ=UTC
+    networks:
+      - clarityclaw_net
+
+  # ----------------------------------------------------------------
+  # Mattermost Team Edition (free, self-hosted)
+  # Access admin UI at: http://localhost:8065
+  # MeTTaClaw connects internally at: http://mattermost:8065
+  # External access on local network: http://[your-mac-ip]:8065
+  # ----------------------------------------------------------------
+  mattermost:
+    image: mattermost/mattermost-team-edition:latest
+    platform: linux/amd64
+    container_name: clarityclaw_mattermost
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "8065:8065"
+    volumes:
+      - ./volumes/app/mattermost/config:/mattermost/config:rw
+      - ./volumes/app/mattermost/data:/mattermost/data:rw
+      - ./volumes/app/mattermost/logs:/mattermost/logs:rw
+      - ./volumes/app/mattermost/plugins:/mattermost/plugins:rw
+      - ./volumes/app/mattermost/client/plugins:/mattermost/client/plugins:rw
+      - ./volumes/app/mattermost/bleve-indexes:/mattermost/bleve-indexes:rw
+    environment:
+      - TZ=UTC
+      - MM_SQLSETTINGS_DRIVERNAME=postgres
+      - MM_SQLSETTINGS_DATASOURCE=postgres://mmuser:${POSTGRES_PASSWORD:-mmuser_password}@postgres:5432/mattermost?sslmode=disable&connect_timeout=10
+      - MM_BLEVESETTINGS_INDEXDIR=/mattermost/bleve-indexes
+      - MM_SERVICESETTINGS_SITEURL=http://localhost:8065
+      # Allow internal connections (mettaclaw -> mattermost API)
+      - MM_SERVICESETTINGS_ALLOWEDUNTRUSTEDINTERNALCONNECTIONS=mettaclaw,localhost,127.0.0.1
+      # Allow websocket upgrades from the mettaclaw container (Origin: http://mattermost:8065)
+      # and from the host browser. "*" is fine for a LAN-only deployment.
+      - MM_SERVICESETTINGS_ALLOWCORSFROM=*
+      - MM_SERVICESETTINGS_CORSALLOWCREDENTIALS=true
+    # NOTE: the minimal Mattermost image has neither `wget` nor `sh` on PATH,
+    # so CMD-form wget and CMD-SHELL healthchecks both fail with "executable
+    # not found" even though Mattermost itself is serving traffic fine. Use
+    # the mattermost binary directly (exec form, no shell needed).
+    healthcheck:
+      test: ["CMD", "/mattermost/bin/mattermost", "version"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 90s
+    networks:
+      - clarityclaw_net
+
+  # ----------------------------------------------------------------
+  # MeTTaClaw Agent
+  # Connects to Mattermost at http://mattermost:8065 (Docker internal)
+  # ChromaDB persists to ./volumes/mettaclaw/chroma_db
+  # ----------------------------------------------------------------
+
 networks:
   clarityclaw_net:
     external: true
