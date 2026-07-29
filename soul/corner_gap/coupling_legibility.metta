@@ -379,12 +379,12 @@
    (if (>= $windowcount 1) trace-present trace-absent))
 
 (= (derive-chain-state $repeat $errsurface $errfeedback $probe $trace $contactcount)
-   (let* (($capture (q-self-seeing-loop-capture? $repeat $errsurface))
-          ($newvis (q-self-seeing-newly-visible-surface? $errsurface $errfeedback))
+   (let* (($capture (let $g1 (collapse (q-self-seeing-loop-capture? $repeat $errsurface)) (if (== $g1 ()) not-computed (car-atom $g1))))
+          ($newvis (let $g2 (collapse (q-self-seeing-newly-visible-surface? $errsurface $errfeedback)) (if (== $g2 ()) not-computed (car-atom $g2))))
           ($newverr (if (== $newvis newly-visible-surface) newly-visible-error no-newly-visible-error))
-          ($shift (q-self-seeing-orientation-shift? repeated-command $probe $newverr))
+          ($shift (let $g3 (collapse (q-self-seeing-orientation-shift? repeated-command $probe $newverr)) (if (== $g3 ()) not-computed (car-atom $g3))))
           ($future (if (== $probe corrective-probe) future-command-changed future-command-unchanged))
-          ($nav (q-self-seeing-navigation-change? orientation-shift $trace $future)))
+          ($nav (let $g4 (collapse (q-self-seeing-navigation-change? orientation-shift $trace $future)) (if (== $g4 ()) not-computed (car-atom $g4)))))
      (if (and (== $shift orientation-shift) (== $nav navigation-change)) navigation-change
      (if (== $shift orientation-shift) orientation-shift
      (if (== $newvis newly-visible-surface) newly-visible-surface
@@ -463,16 +463,9 @@
    (let* (($is (leg-strength $ileg))
           ($as (leg-strength $aleg))
           ($os (leg-strength $oleg))
-          ($ipbit (mk-pbit $is 0.7))
-          ($apbit (mk-pbit $as 0.7))
-          ($opbit (mk-pbit $os 0.7))
-          ($iapbit (q-meet $ipbit $apbit))
-          ($aopbit (q-meet $apbit $opbit))
-          ($e1 (q-intention-action intention action $iapbit))
-          ($e2 (q-action-outcome action outcome $aopbit))
-          ($chain (q-coherence-chain $e1 $e2))
-          ($cpbit (qalignment-pbit $chain))
-          ($s (coupling-pbit-strength $cpbit)))
+          ($ia (min $is $as))
+          ($ao (min $as $os))
+          ($s (* $ia $ao)))
      $s))
 ;; RB1 (ratified patch): the action leg participates in BOTH edges via
 ;; q-meet (verified (-> pbit pbit pbit), min strength min confidence,
@@ -509,7 +502,7 @@
    (let* (($hi (coupling-upper-band))
           ($supsym (if (>= $support $hi) target-met current-support))
           ($ressym (if (>= $windowcount 2) residual-available residual-absent)))
-     (q-residual-threshold-gap? $supsym target-threshold $ressym)))
+     (let $g5 (collapse (q-residual-threshold-gap? $supsym target-threshold $ressym)) (if (== $g5 ()) not-computed (car-atom $g5)))))
 
 ;; ------------------------------------------------------------
 ;; RF8 next-move mapping. RATIFY-PENDING (Berton). Every output symbol is
