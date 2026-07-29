@@ -27,10 +27,9 @@
    (let $existing (collapse (match &self (agency-balance $v $p $s) (agency-balance $v $p $s)))
       (if (== $existing ())
           _
-          (let $old (superpose $existing)
-                    (if (== $old ())
-                        ()
-                        (remove-atom &self $old))))))
+          (let $_drained (collapse (let $old (superpose $existing)
+                                        (if (== $old ()) () (remove-atom &self $old))))
+             _))))
 
 ;; ================================================================
 ;; SECTION 2: CYCLE-LEVEL WRITER
