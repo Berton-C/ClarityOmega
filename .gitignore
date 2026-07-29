@@ -63,3 +63,8 @@ staging/Untitled*
 # Mattermost and PostgreSQL runtime volumes
 volumes/db/
 volumes/app/
+volumes/omegaclaw/memory/*.backup
+volumes/omegaclaw/memory/*.trimmed
+volumes/omegaclaw/memory/promotions.db-shm
+volumes/omegaclaw/memory/promotions.db-wal
+volumes/omegaclaw/memory/prompt.txt
