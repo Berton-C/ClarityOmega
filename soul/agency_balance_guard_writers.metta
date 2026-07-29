@@ -43,7 +43,8 @@
 ;; Clears prior atom via do-clear-agency-balance!, emits fresh atom.
 ;; Verdict labels: healthy / dependency-risk per Clarity Q2 (May 15 2026).
 (= (do-update-agency-balance!)
-   (let* (($person (count-person-actions-in-window))
+   (let* (($_entry (println! (TRACE-179-ENTRY)))
+          ($person (count-person-actions-in-window))
           ($system (count-system-actions-in-window))
           ($verdict (if (dependency-detected $person $system)
                         dependency-risk

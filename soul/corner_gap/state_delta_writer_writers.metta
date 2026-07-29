@@ -39,7 +39,8 @@
 ;; populate-coupling-verdict (the coupling detector reads this cycle's verdict via
 ;; latest-state-delta-verdict). Ordering is load-bearing.
 (= (populate-state-delta $msgnew $results-nonempty $results-novel $cycle-id)
-   (let* (($verdict (classify-state-delta $msgnew $results-nonempty $results-novel))
+   (let* (($_entry (println! (TRACE-175-ENTRY)))
+          ($verdict (classify-state-delta $msgnew $results-nonempty $results-novel))
           ($_clear  (do-clear-state-delta!))
           ($_assert (add-atom &self (state-delta $cycle-id $verdict))))
       ()))

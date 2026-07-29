@@ -53,5 +53,6 @@
           ($_prune       (let $old (superpose $to-remove)
                                    (if (== $old ())
                                        ()
-                                       (remove-atom &self $old)))))
+                                       (remove-atom &self $old))))
+          ($_exit        (println! (TRACE-172-EXIT))))
          ()))
