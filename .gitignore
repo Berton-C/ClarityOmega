@@ -68,3 +68,4 @@ volumes/omegaclaw/memory/*.trimmed
 volumes/omegaclaw/memory/promotions.db-shm
 volumes/omegaclaw/memory/promotions.db-wal
 volumes/omegaclaw/memory/prompt.txt
+/volumes/omegaclaw/memory/history.metta
