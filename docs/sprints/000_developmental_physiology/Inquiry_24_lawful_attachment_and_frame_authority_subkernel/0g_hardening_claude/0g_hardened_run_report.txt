@@ -1,0 +1,16 @@
+base model under shipped + hardened checks: PASS
+
+[DETECTED] M5b sub-apex provenance promotion
+    hardened failure: hg5_full_order_provenance: standing transform st_net_origin promotes provenance below the apex (generation -> inference)
+[DETECTED] V1 authority with no probe stage
+    hardened failure: hg3_probe_before_authority: authoritative F_evt has no prior or current probe-eligibility record
+[DETECTED] V2 dangling reintroduction witness
+    hardened failure: hg4_recovery_resolves: recovery rec_latency cites a nonexistent contact
+[DETECTED] V3 stale-support authority contact
+    hardened failure: hg1_route_provenance: authority eps_evt cites a contact with no generating-route provenance
+[DETECTED] V4 self-generation cone declared empty
+    hardened failure: hg6_selfgen_lower_bound: witness omega_evt under-declares its self-generation cone (formation event missing): the cone must be recomputed, not stipulated
+[DETECTED] C1 echo-authority countermodel
+    hardened failure: hg1_route_provenance: authority eps_evt cites a contact with no generating-route provenance
+
+hardening result: all previously vacuous adversarial models are now detected

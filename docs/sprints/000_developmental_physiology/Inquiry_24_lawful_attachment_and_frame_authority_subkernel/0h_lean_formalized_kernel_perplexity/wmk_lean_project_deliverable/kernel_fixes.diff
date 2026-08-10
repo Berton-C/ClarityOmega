@@ -1,0 +1,108 @@
+--- uploaded_attachments/a9d3c8ffd81b49ed8ce545bf54b2170b/0h_WMK_Canonical_Hardened.lean	2026-08-07 12:18:21.841844762 +0000
++++ lean_check/WmkCheck/Kernel.lean	2026-08-07 12:37:16.385844762 +0000
+@@ -65,7 +65,7 @@
+ 
+ inductive Provenance
+     (Event Contact Route Source : Type u) : Type u where
+-  | contact (seal : ContactSeal Event Contact Route)
++  | contact (sealF : ContactSeal Event Contact Route)
+   | testimony (source : Source) (event : Event)
+   | memory (event : Event) (parent : Provenance Event Contact Route Source)
+   | infer (event : Event) (parents : List (Provenance Event Contact Route Source))
+@@ -75,8 +75,8 @@
+ inductive DirectContact
+     {Event Contact Route Source : Type u} :
+     Provenance Event Contact Route Source → Prop where
+-  | intro (seal : ContactSeal Event Contact Route) :
+-      DirectContact (.contact seal)
++  | intro (sealF : ContactSeal Event Contact Route) :
++      DirectContact (.contact sealF)
+ 
+ theorem infer_not_direct
+     {Event Contact Route Source : Type u}
+@@ -223,12 +223,12 @@
+   event : Event
+   world : World
+   datum : Observation
+-  seal : ContactSeal Event Contact Route
++  sealF : ContactSeal Event Contact Route
+   route : Route
+   generated : observe route world = datum
+-  sealedRef : seal.contact = contact
+-  sealedEvent : seal.event = event
+-  sealedRoute : seal.route = route
++  sealedRef : sealF.contact = contact
++  sealedEvent : sealF.event = event
++  sealedRoute : sealF.route = route
+ 
+ structure ProbeEligible
+     {Event Frame Witness Live Action : Type u}
+@@ -509,7 +509,7 @@
+     {RestoresRoute : Route → Distinction → Context → Prop}
+     {d : Distinction}
+     {ctx : Context}
+-    (t : AvailabilityTransition CarriesContact CarriesFrame RetainedFor
++    (t : AvailabilityTransition (Event := Event) CarriesContact CarriesFrame RetainedFor
+       RestoresRoute d ctx) :
+     Nonempty (ReintroductionWitness Distinction Context Contact Frame SideInfo Route
+       CarriesContact CarriesFrame RetainedFor RestoresRoute d ctx) := by
+@@ -621,6 +621,10 @@
+   a.major ≤ b.major ∧ a.branch ≤ b.branch ∧
+     (a.major < b.major ∨ a.branch < b.branch)
+ 
++instance mmBefore.decidable (a b : MMEvent) : Decidable (mmBefore a b) := by
++  unfold mmBefore
++  infer_instance
++
+ theorem mmBefore_irrefl : ∀ e, ¬ mmBefore e e := by
+   intro e h
+   rcases h with ⟨_, _, hlt⟩
+@@ -754,7 +758,7 @@
+     event := e12
+     world := .subscriptionMissing
+     datum := .subscriptionConfirmedMissing
+-    seal := mmSeal
++    sealF := mmSeal
+     route := .subscriptionConfirmation
+     generated := rfl
+     sealedRef := rfl
+@@ -833,10 +837,8 @@
+ theorem mmNotSelfGenerated :
+     ¬ SelfGenReach mmInternalEdge mmWitness e12 := by
+   intro h
+-  induction h with
+-  | formation => exact e10_ne_e12 rfl
+-  | assembly => exact e10_ne_e12 rfl
+-  | step _ edge _ => exact edge
++  cases h with
++  | step _ edge => exact edge
+ 
+ 
+ def mmIndependent : IndependentOf mmInternalEdge mmWitness mmContactEvent .confirmation :=
+@@ -905,7 +907,7 @@
+ def mmRestoresRoute : MMRoute → MMDistinction → MMLossContext → Prop := fun _ _ _ => False
+ 
+ 
+-def mmRecovery : AvailabilityTransition mmCarriesContact mmCarriesFrame mmRetainedFor
++def mmRecovery : AvailabilityTransition (Event := MMEvent) mmCarriesContact mmCarriesFrame mmRetainedFor
+     mmRestoresRoute .fineLatency .netToEvent :=
+   { event := e12
+     witness := .retainedSideInfo .latencySample ⟨rfl, rfl, rfl⟩ }
+@@ -1018,7 +1020,7 @@
+     recurrenceNonempty := by decide
+     sameEffect := by
+       intro a h
+-      simp only [List.mem_cons, List.mem_singleton] at h
++      simp only [List.mem_cons, List.not_mem_nil, or_false] at h
+       rcases h with h | h | h | h
+       · cases h; rfl
+       · cases h; rfl
+@@ -1036,7 +1038,7 @@
+     Authoritative mmTime MMReverses mmDoctrine mmObserve mmRelevant mmContactWriter
+       mmContactSupport mmMaterialContribution mmWitnessSupport mmInternalEdge
+       mmContactEvent mmWitness .eventDelivery e12
+-  recovery : AvailabilityTransition mmCarriesContact mmCarriesFrame mmRetainedFor
++  recovery : AvailabilityTransition (Event := MMEvent) mmCarriesContact mmCarriesFrame mmRetainedFor
+     mmRestoresRoute .fineLatency .netToEvent
+   interpretationUse :
+     InterpretationUse (Scope := MMScope) (Action := MMAction)

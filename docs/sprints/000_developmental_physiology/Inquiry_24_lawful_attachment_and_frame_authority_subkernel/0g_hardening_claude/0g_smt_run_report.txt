@@ -1,0 +1,49 @@
+------------------------------------------------------------------------
+A. Authority guard as written, materiality doctrine-free
+------------------------------------------------------------------------
+laundered authority (all contacts are echoes): sat
+  witness: formation e0, authority e1
+  echo contact e0: Contact, MaterialTo, Disc=False, SelfGen=False
+  echo contact e1: Contact, MaterialTo, Disc=False, SelfGen=False
+  echo contact e2: Contact, MaterialTo, Disc=False, SelfGen=False
+  echo contact e3: Contact, MaterialTo, Disc=False, SelfGen=False
+  echo contact e4: Contact, MaterialTo, Disc=False, SelfGen=False
+  echo contact e5: Contact, MaterialTo, Disc=False, SelfGen=False
+  echo contact e6: Contact, MaterialTo, Disc=False, SelfGen=False
+  echo contact e7: Contact, MaterialTo, Disc=False, SelfGen=False
+  => Z3 independently reconstructs countermodel C1: the guard as
+     written admits authority resting entirely on non-discriminating
+     contact, because materiality has no structural lower bound.
+
+------------------------------------------------------------------------
+B. Same fragment plus repair axiom G-DISC
+------------------------------------------------------------------------
+laundered authority under G-DISC: unsat
+  => with MaterialTo(c) -> Disc(c), echo-authority is unwritable at bound.
+
+------------------------------------------------------------------------
+C. Lifecycle probe-skip (concrete vacuity V1) and L-PROBE
+------------------------------------------------------------------------
+authority with no probe stage, as shipped (rank monotonicity only): sat
+  witness: Cand at e0, Auth at e5, no Probe record
+authority with no probe stage, with L-PROBE: unsat
+  => matches the concrete V1 vacuity; L-PROBE closes it.
+
+------------------------------------------------------------------------
+D. No-unwitnessed-recovery: bounded proof (obligation 14.5)
+------------------------------------------------------------------------
+recovered-without-witness trace of length 6: unsat
+  => at bound, every restoration of availability after loss passes
+     through a witnessed reintroduce: the constructor discipline
+     proves 14.5 rather than merely exhibiting it.
+
+------------------------------------------------------------------------
+E. Sub-apex provenance promotion (concrete vacuity M5b) and W3-FULL
+------------------------------------------------------------------------
+strict sub-apex promotion, apex guard only (as shipped): sat
+  witness: kind 0 promoted to kind 1 (below apex)
+strict sub-apex promotion, with W3-FULL: unsat
+  => matches the concrete M5b vacuity; W3-FULL closes it.
+
+SMT hardening complete: 3 SAT countermodels against the laws as
+written, 4 UNSAT repair proofs at bound (G-DISC, L-PROBE, 14.5, W3-FULL).

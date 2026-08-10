@@ -1,0 +1,12 @@
+0h LEAN KERNEL COMPILATION REPORT
+
+timestamp_utc: 2026-08-06T20:14:46Z
+source: /mnt/data/0h_WMK_Canonical_Hardened.lean
+source_sha256: 077e6eb197c301f4c883377eacebd168a32fc6c0f914311d324c0c37396d4b43
+requested_binary: lean
+static_hole_audit: PASS
+kernel_status: NOT_RUN
+reason: Lean executable not available in this runtime
+required_closure_command: LEAN_BIN=/path/to/lean /mnt/data/0h_run_lean_kernel_check.sh /mnt/data/0h_WMK_Canonical_Hardened.lean /mnt/data/0h_Lean_Kernel_Compilation_Report.txt
+pass_condition: exit_code=0 and no Lean errors
+gate_e: BLOCKED

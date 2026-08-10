@@ -1,0 +1,59 @@
+ℹ [4/5] Built Verification (259ms)
+info: Verification.lean:24:0: 'Inv25.materiality_not_from_use_alone_soundness' does not depend on any axioms
+info: Verification.lean:25:0: 'Inv25.rel_floor_noncompensatory' does not depend on any axioms
+info: Verification.lean:26:0: 'Inv25.prec_floor_noncompensatory' does not depend on any axioms
+info: Verification.lean:27:0: 'Inv25.readapp_requires_adm' does not depend on any axioms
+info: Verification.lean:28:0: 'Inv25.readapp_no_contact_masquerade' depends on axioms: [propext]
+info: Verification.lean:29:0: 'Inv25.readapp_rel_floor' does not depend on any axioms
+info: Verification.lean:30:0: 'Inv25.readapp_prec_floor' does not depend on any axioms
+info: Verification.lean:31:0: 'Inv25.source_identity_rel' does not depend on any axioms
+info: Verification.lean:32:0: 'Inv25.source_identity_app' does not depend on any axioms
+info: Verification.lean:33:0: 'Inv25.source_identity_prec' does not depend on any axioms
+info: Verification.lean:34:0: 'Inv25.no_scalar_override' does not depend on any axioms
+info: Verification.lean:35:0: 'Inv25.harmonic_alignment_requires_rel_floors' does not depend on any axioms
+info: Verification.lean:36:0: 'Inv25.harmonic_alignment_requires_prec_floors' does not depend on any axioms
+info: Verification.lean:37:0: 'Inv25.harmonic_align_rel_noncompensatory' does not depend on any axioms
+info: Verification.lean:38:0: 'Inv25.bounded_harmonic_continuation' does not depend on any axioms
+info: Verification.lean:39:0: 'Inv25.nonharmonic_falsifier' does not depend on any axioms
+info: Verification.lean:40:0: 'Inv25.stuck_implies_sns' does not depend on any axioms
+info: Verification.lean:46:0: 'Inv25.M1.m1_materiality_used_not_material' depends on axioms: [propext]
+info: Verification.lean:47:0: 'Inv25.M1.m1_materiality_good_is_material' depends on axioms: [propext]
+info: Verification.lean:48:0: 'Inv25.M1.m1_rel_noncomp_fails_floors' depends on axioms: [propext]
+info: Verification.lean:49:0: 'Inv25.M1.m1_prec_noncomp_fails_floors' depends on axioms: [propext]
+info: Verification.lean:50:0: 'Inv25.M1.m1_readapp_fails_unavailable' depends on axioms: [propext]
+info: Verification.lean:51:0: 'Inv25.M1.m1_readapp_fails_relfloor' depends on axioms: [propext]
+info: Verification.lean:52:0: 'Inv25.M1.m1_readapp_fails_precfloor' depends on axioms: [propext]
+info: Verification.lean:53:0: 'Inv25.M1.skilledAdm' depends on axioms: [propext]
+info: Verification.lean:54:0: 'Inv25.M1.skilledReadApp' depends on axioms: [propext]
+info: Verification.lean:55:0: 'Inv25.M1.m1_skilled_never_direct_contact' depends on axioms: [propext]
+info: Verification.lean:56:0: 'Inv25.M1.T25_rap_summary_noninjective' depends on axioms: [propext]
+info: Verification.lean:57:0: 'Inv25.M1.T18_energetic_case_A_skilled' depends on axioms: [propext]
+info: Verification.lean:58:0: 'Inv25.M1.T18_energetic_case_B_lowActHighForce' depends on axioms: [propext]
+info: Verification.lean:59:0: 'Inv25.M1.T18_pns_high_force_contrast' depends on axioms: [propext]
+info: Verification.lean:60:0: 'Inv25.M1.T18_tBusy_is_PNSLike' depends on axioms: [propext]
+info: Verification.lean:61:0: 'Inv25.M1.m1_bhc_good_layer1' depends on axioms: [propext]
+info: Verification.lean:62:0: 'Inv25.M1.m1_bhc_bad_layer2_falsifier' depends on axioms: [propext]
+info: Verification.lean:63:0: 'Inv25.M1.T_adv15_tLow' depends on axioms: [propext]
+info: Verification.lean:64:0: 'Inv25.M1.T_adv15_tStuck' depends on axioms: [propext]
+info: Verification.lean:65:0: 'Inv25.M1.T_adv15_tBusy' depends on axioms: [propext]
+info: Verification.lean:72:0: 'Inv25.M2.m2_severed_fails_precfloor' depends on axioms: [propext]
+info: Verification.lean:73:0: 'Inv25.M2.m2_retryBefore_not_penalized' depends on axioms: [propext]
+info: Verification.lean:74:0: 'Inv25.M2.T19_frame_sovereignty' depends on axioms: [propext]
+info: Verification.lean:75:0: 'Inv25.M2.m2_severed_no_readapp' depends on axioms: [propext]
+info: Verification.lean:76:0: 'Inv25.M2.T20_interface_growth' depends on axioms: [propext]
+info: Verification.lean:77:0: 'Inv25.M2.T20_interface_growth_not_faked' does not depend on any axioms
+info: Verification.lean:78:0: 'Inv25.M2.retryTraceVisibleAdm' depends on axioms: [propext]
+info: Verification.lean:79:0: 'Inv25.M2.T21_meta_awareness_bite' depends on axioms: [propext]
+info: Verification.lean:86:0: 'Inv25.M3.bridgeMoveAdm' depends on axioms: [propext]
+info: Verification.lean:87:0: 'Inv25.M3.m3_missingA_fails_relfloor' depends on axioms: [propext]
+info: Verification.lean:88:0: 'Inv25.M3.m3_missingB_fails_relfloor' depends on axioms: [propext]
+info: Verification.lean:89:0: 'Inv25.M3.m3_missingZ_not_penalized' depends on axioms: [propext]
+info: Verification.lean:90:0: 'Inv25.M3.T22_fourthness' depends on axioms: [propext]
+info: Verification.lean:91:0: 'Inv25.M3.m3_missingA_no_readapp' depends on axioms: [propext]
+info: Verification.lean:92:0: 'Inv25.M3.m3_missingB_no_readapp' depends on axioms: [propext]
+info: Verification.lean:93:0: 'Inv25.M3.T23_interface_growth_from_LA' depends on axioms: [propext]
+info: Verification.lean:94:0: 'Inv25.M3.T23_interface_growth_from_LB' depends on axioms: [propext]
+info: Verification.lean:95:0: 'Inv25.M3.T23_interface_growth_not_faked' does not depend on any axioms
+info: Verification.lean:96:0: 'Inv25.M3.localMoveBAdm' depends on axioms: [propext]
+info: Verification.lean:97:0: 'Inv25.M3.T24_no_global_model_required' depends on axioms: [propext]
+Build completed successfully (5 jobs).

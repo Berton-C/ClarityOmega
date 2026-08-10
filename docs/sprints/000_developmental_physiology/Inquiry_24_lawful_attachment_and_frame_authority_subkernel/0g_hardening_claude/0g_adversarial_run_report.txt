@@ -1,0 +1,62 @@
+baseline shipped model: PASS
+
+[DETECTED] M1 authority-not-later-than-assembly
+    target law: 0e 7.2 / K11 guard (e_f < e_a strict)
+    checker failure: record completeness: witness omega_evt prospective affordance has wrong index
+    intent: authority evidence must postdate witness assembly
+[DETECTED] M2 self-generated authority contact
+    target law: 0e 9.3 IndependentMaterial
+    checker failure: record completeness: witness omega_evt prospective affordance has wrong index
+    intent: evidence inside the self-generation cone cannot confer authority
+[DETECTED] M3 materiality flag withdrawn
+    target law: 0e 9.3 MaterialTo
+    checker failure: lifecycle+guards: authority eps_evt contact is not material
+    intent: shows the guard's materiality strength is exactly one stipulated boolean
+[DETECTED] M4 recovery without prior loss
+    target law: 0e W9 ledger discipline
+    checker failure: loss/recovery: recovery has no prior loss
+    intent: recovery must reference a recorded loss
+[DETECTED] M5 promotion to CONTACT
+    target law: 0e W3 no provenance promotion (apex)
+    checker failure: record completeness: standing transform st_net_origin promotes non-contact to contact
+    intent: non-contact kinds must never become contact
+[VACUOUS] M5b promotion below the apex (GENERATION to INFERENCE)
+    target law: 0e W3 no provenance promotion (full order)
+    checker: FULL PASS on the adversarial model
+    intent: W3 requires NO promotion anywhere in the kind order; the check only guards the contact apex
+[DETECTED] M6 interpretation rewrite
+    target law: 0e W7 append-only interpretation
+    checker failure: history: interpretation id rewritten
+    intent: interpretation ids are immutable
+[DETECTED] M7 anchor prior-row rewrite
+    target law: 0e 3.4 anchor conservativity
+    checker failure: anchor isolation: anchor component ('F_net', 'c1') was rewritten
+    intent: prior anchor components may not be rewritten
+[DETECTED] M8 unlisted writer (renderer)
+    target law: 0e K17 writer closure
+    checker failure: writer closure: unlisted writer renderer
+    intent: no renderer may hold write authority
+[VACUOUS] V1 authoritative with no probe stage
+    target law: 0e 6.3 (authority requires prior/current probe eligibility)
+    checker: FULL PASS on the adversarial model
+    intent: the lifecycle check enforces rank monotonicity of existing records only; a missing stage is invisible
+[VACUOUS] V2 dangling reintroduction witness
+    target law: 0e W9 (witness must exist and be of the cited kind)
+    checker: FULL PASS on the adversarial model
+    intent: witness_ref is only checked nonempty; a ghost reference reintroduces a lost distinction
+[VACUOUS] V3 stale-support authority contact
+    target law: 0e 7.2 intent (later contact must carry post-formation information)
+    checker: FULL PASS on the adversarial model
+    intent: only the record event index is ordered; the contact's own support/freshness is never examined
+[VACUOUS] V4 self-generation cone declared empty
+    target law: 0e 9.2 (SelfGen is a function of the derivation, K11)
+    checker: FULL PASS on the adversarial model
+    intent: the cone is self-declared data; under-declaration silently disables the independence guard
+[VACUOUS] V5 warrant increase via irrelevant contact
+    target law: 0e W3 (warrant route must be a material evidence route)
+    checker: FULL PASS on the adversarial model
+    intent: any known contact id satisfies the evidence-route check; relevance is not examined
+
+[COUNTERMODEL (full pass)] C1 echo-authority countermodel
+    target: 0e 9.3 material independent contact; 006 test 21.2
+    the shipped checker fully accepts authority conferred by a non-discriminating echo contact

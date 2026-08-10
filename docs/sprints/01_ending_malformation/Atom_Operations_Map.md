@@ -6,7 +6,9 @@ primitive) rests on a fully-mapped foundation, not a partly-mapped one. Every ce
 is marked PROVEN / ASSUMED / UNKNOWN with its evidence. The UNKNOWN and ASSUMED cells
 are the test queue, ordered by danger.
 **Status:** LIVING DOCUMENT. Built 2026-06-13 from the N0/N0.5 nugget ladder; ALL
-TIER-1 cells PROVEN as of 2026-06-13 (the full atom-operation ladder ran clean). The
+TIER-1 cells PROVEN as of 2026-06-13. Axis 6 (type declarations and reduction
+guards) and superpose/partial-table composition cells added 2026-07-30 from the
+corner-gate v3 investigation (the full atom-operation ladder ran clean). The
 N1 writer pattern is now fully grounded on proven cells (see Section 5). Remaining
 open cells are Tier 2-4, lower danger. Fill one cell per clean nugget.
 **Method:** each cell is filled by one clean live-loop test against a known-clean
@@ -166,6 +168,26 @@ nested fine. To compute (f (g x)) with ordinary f,g in a bind, sequence:
 (let $gx (g x) (let $r (f $gx) ...)). Silent: produces wrong data, not an error.
 ++++++++++++++(END)++++++++++++++++
 
+
+### Composition additions -- superpose choice points, partial tables, failing bindings (added 2026-07-30, corner-gate v3 arc)
+
+| Composition case | Behavior | Status | Evidence |
+|---|---|---|---|
+| bare `(let $x (superpose $list) ...)` in a let* bind | N members = N Prolog solutions; choice points stay OPEN and escape to the CALLER's let* | PROVEN | T58 cardinality probe; production log: replay count tracked to-remove member count exactly (1, 2, 3; later samples grew as consecutive-pair sums 3+4, 5+6, 7+8) |
+| downstream failure with open choice points upstream | failure-driven backtracking REPLAYS the segment between the superpose bind and the failure point, once per remaining solution; presents as balanced repeating trace segments with the iteration counter frozen (body never completes) | PROVEN | production: TRACE 172/175/176 triplets repeating, 178 never reached, body re-entering at iteration 1 |
+| collapse-wrapped superpose-remove (guard-empty first) | exactly one solution; containment total | PROVEN | Phase A / A.1 v2 probes all-pass; live steady state one triplet per cycle at 9-member snapshots |
+| `(superpose ())` in a let bind | ZERO solutions; halts the let* before anything downstream | PROVEN | 2026-06-04 fix-era comment block plus this arc's re-derivation; the guard-empty-first shape exists for this reason |
+| bare call to a PARTIAL clause table (no matching clause for the input) | silent Prolog failure; kills the enclosing let* with no error text | PROVEN | guard probe T2: line absent for the clause-less input while T1 matching-input control reduced |
+| `collapse` over a defined-but-unmatched call | returns clean `()`, not an error; the safe guard shape for partial tables | PROVEN | guard probe T3 printed the collapse-guarded default |
+| a FAILING (non-throwing) binding inside a let* chain | aborts the whole chain silently; later bindings never run; no partial results | PROVEN | the corner-gate death corridor; sentinel bisection showed a clean stop at the failing binding, nothing after |
+
+**Superpose containment rule (PROVEN):** any superpose iteration inside a let* must
+be collapse-wrapped unless downstream multiplication is intended; the certified shape
+is guard-empty-first then collapse-wrap (per do-clear-state-delta! 2026-06-04, applied
+repo-wide by the 2026-07-29 audit). Note the throwing case is DIFFERENT from the
+failing case (see E-comp in the queue): failure is now PROVEN to abort silently and
+completely; the throw-with-leak case remains its own open cell.
+
 ---
 
 ## 4. Persistence (Axis 4) -- runtime atomspace vs file
@@ -191,6 +213,50 @@ nonexistent `/PeTTa/soul/` and the revision silently vanishes.
 
 ---
 
+## 4.5. Type declarations and reduction guards (Axis 6) -- added 2026-07-30
+
+Filled from the corner-gate v3 investigation (probes N0-N5, guard-isolation probe
+P1-P4, declared-symbol probe D1-D3, A.1 v2 bisect; raw compile traces retained).
+Environment: PeTTa on SWI-Prolog 9.2.4 x86_64-linux. Numbered 4.5 to avoid
+renumbering the sections below.
+
+| Case | Behavior | Status | Evidence |
+|---|---|---|---|
+| get-type on an UNDECLARED bare symbol | `%Undefined%`, never Atom | PROVEN | N4: `(get-type intention)` -> `%Undefined%` |
+| get-type on a DECLARED symbol | the declared type | PROVEN | D1: with `(: alpha Atom)`, `(get-type alpha)` -> `Atom` |
+| get-type on constructor term, Number args | reduces to declared return type | PROVEN | N1: `(get-type (mk-pbit 0.9 0.7))` -> `pbit` |
+| get-type on constructor term, UNDECLARED-symbol args | does NOT reduce; returns unreduced arrow form with `%Undefined%` in the symbol slots | PROVEN | N2: `((-> Atom Atom pbit qalignment) %Undefined% %Undefined% pbit)` |
+| get-type on constructor term, DECLARED-symbol args | reduces to declared return type | PROVEN | D2: `(get-type (mk-t alpha alpha))` -> `tsym` with `(: alpha Atom)` present |
+| get-metatype on a compound / a symbol | `Expression` / `Symbol` (never a user type) | PROVEN | P3 -> `Expression`, P4 -> `Symbol` |
+| call-site compilation of a TYPE-DECLARED function | transpiler wraps EVERY call site: per-argument guards AND a return-value guard, shape `('get-type'(X, T) *-> true ; 'get-metatype'(X, T))` | PROVEN | compile trace: p1 clause carries pre-call and post-call guards; production derive-support carried eleven |
+| call-site compilation of an UNTYPED function | bare call, no guards | PROVEN | p2 clause: `'u-pass'([...], A).` only |
+| function BODY compilation, typed vs untyped | identical (guards are call-site only) | PROVEN | `'t-pass'(A, A).` and `'u-pass'(A, A).` byte-identical in the trace |
+| typed call, argument contains an UNDECLARED symbol | SILENT clause failure: no output, no error, no warning; enclosing let* dies | PROVEN | P1 absent while byte-identical untyped control P2 printed; error/warn grep over the full raw trace: zero matches |
+| typed call, argument symbols DECLARED | passes end to end | PROVEN | D3 printed `(mk-t alpha alpha)` |
+| failing goal is the GUARD (not head, not body, not argument evaluation) | yes, by exhaustive elimination | PROVEN | single-variable differential (declaration only), identical compiled bodies, inert data argument in both clauses, zero errors; the only differing goals are the guards |
+| collapse-wrapping a typed call rescues it | NO -- it only converts the death into a clean empty collapse (a usable guard, not a fix) | PROVEN | S7/S12 collapse-guarded typed calls yielded not-computed every cycle in A.1 while the arithmetic bypass restored real values |
+| return guard alone kills on an untypable return value | plausible second kill surface | ASSUMED | the return guard EXISTS in the trace (proven); a case where argument guards pass and the return guard alone fails has never been isolated |
+| typed function receiving an unbound VARIABLE argument | ??? | UNKNOWN | all probes passed ground terms |
+| nested declared constructors (a declared type in an INNER argument position failing) | ??? | UNKNOWN | only one nesting level tested; the tested inner position (pbit inside qalignment) was the passing kind |
+| runtime-generated symbols (cannot be pre-declared) in typed positions | presumed to hit the undeclared-symbol failure | ASSUMED | follows from the undeclared-symbol cell; never tested with genuinely runtime-minted symbols |
+
+**Axis-6 rule (PROVEN):** a type declaration on a function converts every call site
+into guarded compilation; any argument (or return) that get-type cannot reduce to the
+declared type AND whose metatype is not that type fails BOTH guard disjuncts, and the
+`*->` soft-cut makes that failure SILENT clause death, indistinguishable from a
+declined polymorphic branch (Clarity's framing: type resolution compiled as control
+flow, so invalid-program collapses into wrong-branch-tried). Practical consequences:
+(1) never route adapter logic through type-declared functions whose signatures carry
+Atom positions unless every symbol fed in carries its own type declaration;
+(2) two valid repairs exist -- declare the symbols' types, or bypass the typed path
+with an equivalent untyped computation (the corner-gate fix used the arithmetic
+bypass; the declaration route was viable and was not taken);
+(3) a typed corridor dying silently is localized by sentinel bisection, not by
+reading. Upstream report drafted 2026-07-30 (silent-failure-instead-of-type-error
+framing, non-fatal-warning suggestion).
+
+---
+
 ## 5. What is PROVEN, consolidated (safe to build on today)
 
 - Read instrument: scalar/symbol reads clean; tuple reads throw-with-leak; `found`
@@ -212,6 +278,16 @@ nonexistent `/PeTTa/soul/` and the revision silently vanishes.
   CWD is `/PeTTa` -> file ops MUST use absolute paths. Write -> restart -> load
   round-trip PROVEN (write-file to the absolute path lands in what the boot import
   loads). File restore = write-file overwrite + read-back verify.
+
+- Superpose in a let* bind: N solutions, open choice points escape to the caller;
+  downstream failure replays the intervening segment per solution. Containment =
+  guard-empty then collapse-wrap (certified shape, repo-wide as of 2026-07-29).
+- Partial clause tables: a bare unmatched call is a silent let*-killer; collapse
+  over the call returns clean `()` (the guard shape). A failing binding aborts a
+  let* chain silently and completely (distinct from the still-open throwing case).
+- Type declarations (Axis 6, Section 4.5): typed call sites are guard-wrapped;
+  undeclared-symbol arguments fail both guard disjuncts silently; declared-symbol
+  arguments pass; collapse does not rescue a typed call, it only absorbs the death.
 
 ### The N1 writer, fully grounded on the proven cells above
 
@@ -250,7 +326,20 @@ All TIER 1 cells are now PROVEN. Remaining items are lower-danger:
   then-add, not set-atom!), but a real cell for completeness.
 - **E-comp -- throwing-read inside a `let` chain**: does the chain abort/continue/
   bind-error? Matters if the writer composes reads and writes in one chain; safer to
-  keep them as separate commands (which we proved works).
+  keep them as separate commands (which we proved works). PARTIAL RESOLUTION
+  2026-07-30: the FAILING (non-throwing) case is now PROVEN -- a failing binding
+  aborts the chain silently and completely (Section 3 additions). The THROWING
+  case remains open; the two cases need separate cells.
+- **F-ret (Axis 6) -- isolate the return guard**: construct a case where argument
+  guards pass and the return-value guard alone fails; confirms the second kill
+  surface currently ASSUMED.
+- **F-var (Axis 6) -- typed call with an unbound variable argument**: behavior
+  UNKNOWN; all probes passed ground terms.
+- **F-nest (Axis 6) -- nested declared constructor failing in an INNER position**:
+  only one nesting level tested, and the tested inner position was the passing kind.
+- **F-mint (Axis 6) -- runtime-minted symbols in typed positions**: presumed to hit
+  the undeclared-symbol failure; never tested with genuinely runtime-generated
+  symbols.
 - **E-dual-atomicity -- mid-write-crash** file+atomspace divergence. v1-acceptable
   boundary; revisit for durability.
 
