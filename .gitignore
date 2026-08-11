@@ -91,3 +91,7 @@ docs/sprints/**/*.zip
 .github/workflows/common.yml
 .github/workflows/release.yml
 staging/**/*.zip
+
+# Large runtime logs (hundreds of MB, never versioned)
+staging/*.log
+logs/
