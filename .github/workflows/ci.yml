@@ -1,0 +1,64 @@
+name: CI
+
+# Lightweight release-hygiene checks for ClarityOmega v0.1.0.
+#
+# Deliberately narrow. These do NOT test agent behaviour: soul evaluation and
+# NAL reduction only occur inside the live loop process, which cannot run in
+# CI (see docs/LIMITATIONS.md). What runs here are the checks that catch the
+# failure classes this project has actually hit: unbalanced parentheses in
+# MeTTa files, Python syntax breakage, committed secrets, and .env.example
+# drifting out of sync with docker-compose.yml.
+
+on:
+  push:
+    branches: [main, "v0.2.0-development"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  hygiene:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: MeTTa parenthesis balance
+        run: python3 .github/scripts/check_metta_parens.py
+
+      - name: Python syntax check
+        run: |
+          set -e
+          fail=0
+          while IFS= read -r f; do
+            python3 -m py_compile "$f" 2>/dev/null || { echo "SYNTAX FAIL: $f"; fail=1; }
+          done < <(git ls-files '*.py' | grep -v '^staging/OLD/')
+          if [ "$fail" -ne 0 ]; then
+            echo "One or more Python files failed to compile."
+            exit 1
+          fi
+          echo "All checked Python files compile."
+
+      - name: No committed .env
+        run: |
+          if git ls-files --error-unmatch .env >/dev/null 2>&1; then
+            echo "ERROR: .env is tracked. It must never be committed."
+            exit 1
+          fi
+          echo ".env is not tracked."
+
+      - name: Secret pattern scan
+        run: |
+          # Narrow, high-signal patterns only. Broad patterns produce false
+          # positives against this repo's hyphenated identifiers.
+          if git grep -nIE '(sk-ant-[A-Za-z0-9_-]{20,}|ghp_[A-Za-z0-9]{30,}|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----)' -- . ; then
+            echo "ERROR: possible credential found above."
+            exit 1
+          fi
+          echo "No credential patterns found."
+
+      - name: .env.example covers docker-compose variables
+        run: python3 .github/scripts/check_env_example.py
