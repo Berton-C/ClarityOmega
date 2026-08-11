@@ -28,7 +28,8 @@
 ;; CYCLE-LEVEL WRITER (consecutive-clear, then assert verdict)
 ;; ----------------------------------------------------------------
 (= (populate-coupling-verdict $cycle-id)
-   (let* (($verdict (coupling-verdict))
+   (let* (($_entry (println! (TRACE-176-ENTRY)))
+          ($verdict (coupling-verdict))
           ($_clear  (if (== $verdict corner)
                         ()
                         (do-clear-coupling-status!)))

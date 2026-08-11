@@ -1,0 +1,6 @@
+!((--> X belief) (stv 0.7318 0.677))
+! (--> safety resilience) (stv 1.0 0.9)
+! (--> resilience capability) (stv 1.0 0.9)
+! (--> integrity understanding) (stv 1.0 0.9)
+! (--> human-flourishing autonomy) (stv 1.0 0.9)
+! (--> autonomy capability) (stv 1.0 0.9)

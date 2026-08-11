@@ -1,0 +1,11 @@
+name = "wmk_check"
+version = "0.1.0"
+defaultTargets = ["WmkCheck"]
+
+[[require]]
+name = "batteries"
+scope = "leanprover-community"
+
+[[lean_lib]]
+name = "WmkCheck"
+

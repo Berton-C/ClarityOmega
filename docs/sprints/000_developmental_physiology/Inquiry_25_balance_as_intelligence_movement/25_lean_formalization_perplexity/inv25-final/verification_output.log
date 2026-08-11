@@ -1,0 +1,1 @@
+Investigation 25 — Lean 4 formalization (final faithfulness patch): Core + M1 + M2 + M3 loaded; T01-T25 + N01-N07 theorem inventory type-checked; central Adm25Witness / HarmonicAlign / Stuck instances confirmed inhabited. See Verification.lean / 25_final_build_and_axiom_report.md for the #print axioms / sorryAx audit.

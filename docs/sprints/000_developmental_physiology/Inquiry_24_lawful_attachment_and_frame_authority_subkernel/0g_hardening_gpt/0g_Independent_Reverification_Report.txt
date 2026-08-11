@@ -1,0 +1,34 @@
+ClarityOmega Inquiry 24 — Independent Reverification of the 0g Adversarial/Hardening Bundle
+Date: 2026-08-06
+
+Exact attacked signature:
+  file: 0f_Inquiry_24_Gate_B_Formal_Signature_and_Gate_C_Finite_Interpretation.md
+  sha256: b96cb4932a1e1cda5f34d0f5917aa9cdfa5e9b70cf227e6c3cdf5533bd54ebc2
+
+Source-identity warning:
+  alternate 0f file: 0f_Inquiry_24_Gate_B_Formal_Kernel_Signature_and_Gate_C_Finite_Interpretation.md
+  alternate sha256: a0f17fec8463c353ee542c49249f535611d224767de8ec4fc7c1f3614988dac7
+  byte-identical: no
+
+Re-executed checks:
+  original Gate C finite interpretation: PASS (19/19 groups)
+  mutation tests against original checker: PASS (6/6 deliberate corruptions rejected)
+  adversarial countermodels found: 7/7
+  hardened PyProver theorem schemas: PASS (10/10)
+  independent explicit proof terms: PASS (9/9)
+  bounded hardening closures: PASS (4/4)
+  hardened finite-model overlay: PASS
+
+Principal hardening delta:
+  - replace global loss with context-indexed LostIn/RecoveredIn;
+  - replace false global commit uniqueness with branch-local atomicity;
+  - require sealed direct-contact provenance;
+  - require a soundness contract for Soul-doctrine instances;
+  - make anchor/history preservation proof-carrying;
+  - distinguish recovery records from restored availability;
+  - reclassify carrier non-sovereignty as partly an operational Gate E obligation.
+
+Proof-assistant status:
+  Lean 4 source is prepared in 0g_WMK_Attachment_Hardened_Core.lean.
+  No Lean, Coq, or Agda executable is installed in this runtime, so an external proof-assistant kernel has not accepted the file here.
+  Gate E remains blocked until the hardened delta is merged into one canonical checksum-frozen signature and the resulting source is accepted by an actual proof-assistant kernel.

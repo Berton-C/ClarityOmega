@@ -1,0 +1,1 @@
+!(|- ((--> test-revision-target belief) (stv 0.7 0.5)) ((--> test-revision-target belief) (stv 0.8 0.4)))

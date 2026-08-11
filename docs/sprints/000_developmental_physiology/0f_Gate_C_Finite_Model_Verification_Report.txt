@@ -1,0 +1,21 @@
+FINITE MODEL VERIFICATION: PASS
+  [PASS] K5 finite quantaloid
+  [PASS] K1 proto-time, event tags, and causal cuts
+  [PASS] K2 typed standing
+  [PASS] K3-K4 partial frame formation
+  [PASS] K5-K7 equipment and stage-typed anchors
+  [PASS] K8-K14 records and four-stage lifecycle
+  [PASS] K15 traction and stuck
+  [PASS] K16-K17 joint use and writers
+  [PASS] K6/K17 causal-cut carrier transitions
+  [PASS] Gate C theorem obligations
+  events: 15
+  proto-time relations: 103
+  event tags: 56
+  attached frames after e12: 2
+  prospective anchor contacts at e11: 4
+  authority anchor contacts at e12: 5
+  contact nodes after e14: 6
+  interpretations: 10
+  losses: 1; recoveries: 1
+  stuck events: e10 only

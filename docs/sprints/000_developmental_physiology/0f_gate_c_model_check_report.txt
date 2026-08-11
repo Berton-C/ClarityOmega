@@ -1,0 +1,56 @@
+Gate C finite interpretation: all checks passed.
+Checks: 19
+PASS — finite quantale
+  L3 with max/min is a finite commutative unital quantale.
+PASS — proto-time
+  The 15-event relation is a strict partial order with the required incomparable branch.
+  Material derivational dependence is explicitly interpreted as a strict subrelation of proto-time.
+PASS — event-role predicates
+  Every event predicate used by K1 is explicitly interpreted over the same proto-time carrier.
+PASS — raw fields and frame formation
+  K3 raw fields remain finite graph-like contact structures rather than assumed categories.
+  Every K4 frame is formed by an explicit partial map with a disjoint, preserved undefined region.
+PASS — Soul-doctrine interface
+  The finite doctrine interprets candidacy, probing, authority, durability, materiality, joint use, and discharge.
+  The doctrine is used as judgmental semantics; no carrier writer stores or mutates Soul as an object.
+PASS — typed standings
+  Standing records are typed; only contact writers construct direct-contact provenance.
+PASS — attachment record completeness
+  Every K9 witness carries an explicit K5 spine, K4 formation, live continuation, provenance transport, loss, lineage, and prospective reach field.
+  No witness promotes provenance kind or warrant without a typed contact route.
+PASS — anchor spines and stage extension
+  Both prospective anchor spines type and satisfy their graded route bounds.
+  The F_net and F_evt authoritative rows conservatively target-extend their prospective rows.
+  The F_evt row is enlarged only by the material e12 contact route.
+PASS — anchor writer isolation
+  Anchor source rows and target columns are append-only and written by disjoint authorized writer classes.
+PASS — lifecycle and guards
+  Lifecycle records are locally serial and stage-typed; operational frame status remains a separate type.
+  Every authoritative attachment is supported by materially relevant contact strictly later than witness assembly and outside its self-generation set.
+  F_evt durability is supported by later consequence, permeability, integration, and lineage evidence.
+PASS — immutable history
+  History is immutable and reinterpretation is append-only, frame-indexed, and non-overwriting.
+PASS — loss and recovery
+  Every recovered distinction has a typed reintroduction witness; measured adequacy has no ledger writer.
+PASS — CarrierOpen versus Discharge
+  Discharge can coexist with CarrierOpen (e5), so the two judgments are non-equivalent.
+  No living-question closure sort or writer exists; represented carrier closure cannot exhaust the living inquiry.
+PASS — prospective versus retrospective affordance
+  Predicted reach and exercised reach are different types, events, and evidential roles.
+  K14 reorganization evidence is retrospective and cites exercised participation plus renewed contact.
+PASS — contact starvation and stuck
+  Before rich contact, repetition is correctly classified as contact-starved.
+  At e10, rich contact discriminates but F_net coequalizes the distinction; the full stuck signature fires.
+  F_evt preserves the same distinction and opens a different movement.
+  Traction remains a six-component profile; the later profile dominates componentwise without a sovereign scalar.
+PASS — non-amalgamation and joint use
+  Frames coexist without a global merge; their joint repair action carries an explicit local compatibility witness.
+PASS — writer closure
+  Every model mutation is an authority-bounded append-only patch owned by a listed writer.
+  All same-event patches share one pre-cut, satisfy a local acyclic order, and are committed exactly once.
+  The closed K17 writer signature contains no renderer, evaluator, capability, frame, or generic carrier writer.
+PASS — failed attachment
+  The adjacent performance frame remains a candidate and neither attaches nor automatically founds another inquiry.
+PASS — causal meta-awareness
+  Trajectory-visible and trace-severed arms share contact and words but choose different e11 actions.
+  The difference is grounded history linkage, not a second observer or a different external input.

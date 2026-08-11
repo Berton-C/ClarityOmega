@@ -41,7 +41,8 @@
 ;; Threshold 3 hardcoded per F39 + F42 (declaration atom in pure file is
 ;; documentation only).
 (= (do-update-idle-pattern!)
-   (let* (($count (count-sends-in-window))
+   (let* (($_entry (println! (TRACE-178-ENTRY)))
+          ($count (count-sends-in-window))
           ($_diag_count (println! (DIAG-WRITER-COUNT $count)))
           ($verdict (if (> $count 3)
                         send-burst

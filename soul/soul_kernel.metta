@@ -704,6 +704,15 @@
 !(add-atom &self (soul-file-class "/PeTTa/repos/omegaclaw/soul/soul_namespace_membership_seed.metta" constitutional))
 !(add-atom &self (soul-file-class "/PeTTa/repos/omegaclaw/soul/arc_log.md" journal))
 !(add-atom &self (soul-file-class "/PeTTa/repos/omegaclaw/soul/findings.metta" journal))
+;; BEGIN v08.7.2 soul-evolutionary file-class block
+;; v08.7.2: journal is mechanical append permission; durable canon remains semantic.
+!(add-atom &self (soul-file-class "/PeTTa/repos/omegaclaw/soul/durable.metta" journal))
+!(add-atom &self (soul-file-class "/PeTTa/repos/omegaclaw/soul/evolutionary/runtime.metta" journal))
+!(add-atom &self (soul-file-class "/PeTTa/repos/omegaclaw/soul/evolutionary/pending.metta" journal))
+!(add-atom &self (soul-file-class "/PeTTa/repos/omegaclaw/soul/evolutionary/validation.metta" journal))
+!(add-atom &self (soul-file-class "/PeTTa/repos/omegaclaw/soul/evolutionary/restart.metta" journal))
+!(add-atom &self (soul-file-class "/PeTTa/repos/omegaclaw/soul/evolutionary/rejected.metta" journal))
+;; END v08.7.2 soul-evolutionary file-class block
 
 ;; Accessor with the default-deny fallback built in.
 (= (soul-file-class-of $path)

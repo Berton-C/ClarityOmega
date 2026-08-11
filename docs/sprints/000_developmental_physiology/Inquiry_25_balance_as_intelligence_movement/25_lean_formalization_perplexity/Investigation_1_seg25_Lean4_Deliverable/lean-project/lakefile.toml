@@ -1,0 +1,15 @@
+name = "inv25"
+version = "0.1.0"
+
+[[lean_lib]]
+name = "Core"
+
+[[lean_lib]]
+name = "Models"
+
+[[lean_lib]]
+name = "Verification"
+
+[[lean_exe]]
+name = "main"
+root = "Main"

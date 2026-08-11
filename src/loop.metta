@@ -39,6 +39,7 @@
           (change-state! &engaged_idle_count 0)
           (change-state! &loops (maxNewInputLoops))
           ;; Task-state primitive: conditional bootstrap of scalar atoms
+          (do-bootstrap-coupling!)
           (do-bootstrap-task-state!)))
 
 (= (getContext $k)
@@ -174,7 +175,7 @@
                                        ($results_novel (if (== (py-call (helper.safe_results_str (repr $results))) (get-state &lastresults)) False True))
                                        ($_ (populate-state-delta $msgnew $results_nonempty $results_novel $k))
                                        ($_ (populate-coupling-verdict $k))
-                                       ($_ (populate-corner-window! $metta_cmds $k))
+                                       ($_ (do-record-coupling-cycle! $metta_cmds $msgnew $k (get-state &error)))
                                        ($_ (do-update-idle-pattern!))
                                        ($_ (do-update-agency-balance!))
                                        ($_d1 (println! (DIAG-CYCLE-START $k)))

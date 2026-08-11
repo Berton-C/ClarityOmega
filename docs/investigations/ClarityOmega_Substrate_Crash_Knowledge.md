@@ -264,3 +264,136 @@ These are unanswered as of HEAD `21dce35`:
 - Bundling multiple changes into one commit
 - Treating "applied to disk" as equivalent to "committed at HEAD" or "running in container"
 - Long verbose responses when the actual evidence is thin (this is the long-thread degradation pattern)
+
+---
+
+# APPEND 2026-07-29: Corner-Gate v3 stability investigation (three defects, probe-proven)
+
+**Status:** CLOSED. All three defects fixed, live-verified at steady state, committed.
+**Fix lineage:** 04c6e7c (v3 monolith install, as-installed) -> c351dd7 (corridor
+trace instrumentation) -> 4ef1116 (stability fixes). Branch fix/recent-action-populator.
+**Instruments:** staging/phase_a_completeness_probe.py (19-sentinel completeness gate),
+staging/phase_a1_core_bisect_probe.py (16-sentinel core bisect),
+staging/apply_corner_gate_v3_stability_fixes.py (template-compliant reversible apply).
+
+## The presenting picture
+
+Two boots, two presentations, one corridor. Boot one crashed at end of iteration 1
+with unknown procedure coupling-legibility-line/1 (a separate import-vintage issue).
+Subsequent boots ran but iteration never advanced past 1, with TRACE 172/175/176
+repeating in balanced triplets that grew by one repetition per pass, and TRACE 178/179
+never firing. Clarity unreachable; LLM cycles executing; no error text anywhere.
+
+The full account required three defects, each proven at mechanism level before repair.
+
+## Defect D-1: partial engine clause tables called bare
+
+soul/corner_gap/coupling_legibility.metta called four q-self-seeing-* engine functions
+and q-residual-threshold-gap? bare inside let* chains. These engine tables are partial:
+each is missing precisely the mundane no-signal input combination (for example
+q-self-seeing-loop-capture? has no clause for one-off-failing-command
+visible-error-surface, the combination every first post-restart pass necessarily
+produces). A bare call whose input matches no clause is a silent Prolog failure that
+kills the enclosing let* with no error text. The recorder died between TRACE-176 and
+TRACE-178 on every production cycle.
+
+Proof: four-prediction probe with positive control (T1 matching-input reduces;
+T2 bare missing-input line absent; T3 collapse-wrapped returns default; T4 let* with
+a following binding dies). Fix: collapse guards with not-computed default, the
+in-file derive-polarity-verdict convention.
+
+## Defect D-2: Atom-typed constructor guards are unsatisfiable in this runtime
+
+This PeTTa runtime types bare symbols as %Undefined%, never Atom. The transpiler
+emits runtime type guards (get-type X T *-> true ; get-metatype X T) at every call
+site of a type-declared function. For constructor signatures containing Atom-typed
+positions (mk-qalignment (-> Atom Atom pbit qalignment)), get-type on the compound
+fails to reduce to the declared type because the Atom slots type as %Undefined%,
+so the guard fails and the clause fails silently. pbit-only signatures
+(mk-pbit (-> Number Number pbit)) pass their guards fine.
+
+The sole corridor victim was derive-support (eleven guards in its compiled clause).
+Runtime fingerprint captured by probe: get-type on (mk-pbit 0.9 0.7) yields pbit;
+get-type on a bare symbol yields %Undefined%; get-type on the qalignment compound
+yields the unreduced arrow form with %Undefined% in the Atom slots; every
+qalignment-guarded call absent from output, every pbit-guarded call present.
+
+Fix: derive-support rewritten to engine-identical arithmetic,
+support = (min is as) * (min as os), per engine q-meet min-strength and
+coherence-chain strength product. Fixtures verified: RB1 0.04 (aligned, misaligned,
+aligned); 0.18 and 0.81 in the corridor probes. Engine untouched (canon).
+
+Upstream-report candidate (parked list): the %Undefined%-vs-Atom typed-guard
+behavior, with the N-probe minimal reproducer.
+
+## Defect D-3: bare superpose prune leaked choice points (the replay amplifier)
+
+soul/recent_action_populator.metta pruned its window with a bare
+(let $old (superpose $to-remove) ...) binding. superpose over an N-member list yields
+N Prolog solutions; un-collapsed, those N choice points stay open across the rest of
+the cycle. When D-1/D-2 failed the recorder downstream, the engine backtracked into
+the open choice points and replayed the 172/175/176 segment once per snapshot member.
+That is why the triplets were balanced and grew by one per pass (one recent-action
+atom added per body re-entry). The same defect shape had already been found and fixed
+in the sibling clearers on 2026-06-04; the populator was the last writer carrying the
+pre-fix shape. Fix: guard-empty plus collapse-wrap, the certified clearer shape.
+
+## Durable facts (add to standing knowledge)
+
+1. Any superpose iteration inside a let* must be collapse-wrapped unless downstream
+   multiplication is intended. N members means N open Prolog choice points that
+   escape to the caller. Failure downstream converts them into replays
+   (failure-driven backtracking), which presents as balanced repeating trace
+   segments that grow as the iterated set grows, with the loop iteration counter
+   frozen because the body never completes.
+2. A bare call to a partial clause table is a silent let* killer. Any engine
+   function whose clause table does not cover the full input product must be called
+   through a collapse guard with an explicit default. not-computed is the ratified
+   default vocabulary. Guarded partial tables are functional, not dead: when a
+   clause matches, the real verdict comes through (proven live: loop-capture-seen,
+   stuck-recurrence-warning).
+3. This runtime types bare symbols as %Undefined%, not Atom. Transpiler-emitted
+   type guards for any constructor signature containing Atom-typed positions are
+   permanently unsatisfiable at every call site. Untyped clause tables carry no
+   guards and are unaffected. Consequence: adapter code must not route through
+   type-declared engine functions whose signatures carry Atom positions; use
+   untyped tables, collapse-guarded calls, or arithmetic equivalents.
+4. Silent failures localize by observation, not reading. The working pattern:
+   ordered sentinel prints inserted into an in-memory copy of the suspect function
+   (never production), run against injected inputs through a deterministic seam,
+   one run names the dying segment and every value bound before it.
+5. Two clean commands beat one model. The TRACE-176 count growing in
+   consecutive-pair sums (+7, +11, +15) while COUPLING-STATE stayed frozen at 2 was
+   readable arithmetic evidence of per-cycle replay growth plus a corridor that
+   never completed, before any source was read.
+
+## Runtime and process facts confirmed along the way
+
+- soul/ is bind-mounted (./soul -> /PeTTa/repos/omegaclaw/soul per compose config
+  read 2026-07-21). soul/-only fixes deploy by container restart, no rebuild.
+  src/ is NOT bind-mounted and still requires the rebuild path.
+- docker exec reaches the live runtime; docker run --rm reads the baked image.
+  The baked image may not even contain the bind-mounted trees at the expected path.
+- zsh: bare unmatched globs abort command chains before ls runs (use find);
+  exclamation marks inside double-quoted git commit messages trigger history
+  expansion (single-quote commit messages).
+- run.sh output carries ANSI codes; grep anchors like ^( fail against it. Strip or
+  grep -a on unanchored patterns.
+- git update-index --cacheinfo with a hash-object of a .bak file stages a
+  historical state for a path without touching the worktree: the mechanism for
+  provenance-separated commits over a live bind mount.
+
+## Post-fix production exhibits (known classes, now with clean evidence)
+
+- Stale ACTIVE-NEED persists after fulfillment and keeps ALIVENESS_VERDICT at
+  ENGAGE, producing attending-pin loops under the no-re-send instruction
+  (F-DIRECTIVE-CONTEXT-STALE, deferred task-state extension). Clarity detected and
+  named the loop herself at c436; the coupling audit labeled it
+  intention-drift-hidden, matching probe C4 exactly.
+- GLM content hygiene: a leaked think-tag fragment and an empty-string description
+  entered the recent-action window and degraded classification (unclassified),
+  visible in the retriever output (deferred GLM empty-content and tag-leak fixes).
+- Steady window count is 11, not 10 (assert-then-prune boundary semantics,
+  preserved by the fix; intent question parked for Clarity).
+
+Ratifications 2026-07-29 (Clarity): window stays at 11, present-cycle plus trailing 10 is the intended semantics. Agency-balance dependency-risk verdict to be refined in her file as a follow-up: either a third state (autonomous-directed, for system-heavy windows with person greater than 0 during directed idle work) or a person=0 full-window threshold.

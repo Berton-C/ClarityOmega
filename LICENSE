@@ -1,6 +1,12 @@
 MIT License
 
 Copyright (c) 2026 Patrick Hammer
+Copyright (c) 2026 Berton Bennett
+
+This repository, ClarityOmega, is a fork of OmegaClaw-Core by Patrick Hammer.
+Portions of this software originate in that upstream project and remain under
+his copyright. Additions made in this fork are copyright the ClarityOmega
+maintainer. All of it is licensed under the same MIT terms below.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
