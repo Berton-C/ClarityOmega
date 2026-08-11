@@ -30,16 +30,19 @@ RUN apt-get update \
 
 # Build dependencies from source. Pin refs at build time for reproducibility.
 ARG PETTA_REPO=https://github.com/patham9/PeTTa.git
-ARG PETTA_REF=main
+ARG PETTA_REF=6b7f52f064bdbc82fabd0a0998404121fb01d52e  # pinned 2026-07-30: floating main pulled 43705f5d which fails our boot; this is the proven-working runtime commit
 ARG FAISS_REPO=https://github.com/facebookresearch/faiss.git
 ARG FAISS_REF=v1.8.0
 ARG CHROMADB_REPO=https://github.com/patham9/petta_lib_chromadb.git
-ARG CHROMADB_REF=master
+ARG CHROMADB_REF=456385457e4e99ee049c2c0966988a6cd7ff3705  # pinned 2026-07-30, same floating-ref class
 
 # Embedding model to pre-download at build time.
 ARG EMBEDDING_MODEL=intfloat/e5-large-v2
 
-RUN git clone --depth 1 --branch "${PETTA_REF}" "${PETTA_REPO}" /PeTTa
+RUN git init /PeTTa \
+ && git -C /PeTTa remote add origin "${PETTA_REPO}" \
+ && git -C /PeTTa fetch --depth 1 origin "${PETTA_REF}" \
+ && git -C /PeTTa checkout FETCH_HEAD
 RUN git clone --depth 1 --branch "${FAISS_REF}" "${FAISS_REPO}" /faiss
 
 WORKDIR /faiss
@@ -50,7 +53,10 @@ RUN cmake -B build -DFAISS_ENABLE_GPU=OFF -DFAISS_ENABLE_PYTHON=OFF -DBUILD_SHAR
 WORKDIR /PeTTa
 RUN sh build.sh
 RUN mkdir -p /PeTTa/repos \
- && git clone --depth 1 --branch "${CHROMADB_REF}" "${CHROMADB_REPO}" /PeTTa/repos/petta_lib_chromadb
+ && git init /PeTTa/repos/petta_lib_chromadb \
+ && git -C /PeTTa/repos/petta_lib_chromadb remote add origin "${CHROMADB_REPO}" \
+ && git -C /PeTTa/repos/petta_lib_chromadb fetch --depth 1 origin "${CHROMADB_REF}" \
+ && git -C /PeTTa/repos/petta_lib_chromadb checkout FETCH_HEAD
 
 # Single resolver pass so torch + transformers co-resolve compatibly.
 # --extra-index-url keeps the CPU-only torch wheel (no CUDA); PyPI stays primary
