@@ -80,3 +80,14 @@ soul/_tmp_scan.txt
 soul/verification_dead_end.txt
 soul/uncertainty_brief.txt
 soul/v08_7_2_soul_evolutionary_files_bundle.zip
+
+# Archive bundles kept on disk, not versioned
+docs/sprints/**/*.zip
+
+# Upstream OmegaClaw-Core Docker publishing workflows (Patrick Hammer).
+# Not used by this fork: they push to his Docker Hub namespace using
+# secrets we do not hold, and release.yml would fire on our GitHub Releases.
+.github/workflows/build.yml
+.github/workflows/common.yml
+.github/workflows/release.yml
+staging/**/*.zip
