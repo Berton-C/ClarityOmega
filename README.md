@@ -4,6 +4,44 @@ ClarityOmega is a soul-augmented agentic AI system: a fork of Patrick Hammer's *
 
 ---
 
+## Quick start
+
+> **Read this first.** ClarityOmega runs continuously and acts without
+> per-action approval: it executes shell commands, modifies files, searches the
+> web, and sends messages autonomously. **Run it only in an isolated
+> environment.** See [`docs/LIMITATIONS.md`](docs/LIMITATIONS.md) for what the
+> agent can do, known defects, and safety requirements.
+
+Requires Docker and Docker Compose, plus an API key for at least one LLM
+provider.
+
+```bash
+git clone https://github.com/Berton-C/ClarityOmega.git
+cd ClarityOmega
+cp .env.example .env        # then edit .env and fill in your keys
+docker compose build --no-cache && docker compose up -d
+docker logs -f clarity_omega
+```
+
+Clarity communicates through Mattermost, which the Compose stack brings up at
+`http://localhost:8065`. Creating the bot account and obtaining
+`MM_BOT_TOKEN` and `MM_CHANNEL_ID` is covered step by step in
+[`docs/SETUP.md`](docs/SETUP.md).
+
+**Documentation map**
+
+|         Document                             |             What it answers                               |
+|---                                           |                                                        ---|
+| [`docs/SETUP.md`](docs/SETUP.md)             | How do I install, configure, and run it?                  |
+| [`docs/LIMITATIONS.md`](docs/LIMITATIONS.md) | What can it do, what is broken, what is experimental?     |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md)         | How do I propose a change?                                |
+| [`CHANGELOG.md`](CHANGELOG.md)               | What is in this release?                                  |
+| The rest of this README                      | What is the architecture, and how is each claim verified? |
+
+**Status.** ClarityOmega v0.1.0 is a working research prototype, not a production system. There is no automated behavioural test suite; continuous integration checks hygiene only. Several substantial subsystems are present as design and substrate but are not yet wired into the running loop.
+
+---
+
 ## Architecture, Claims, and Verification
 
 **Status:** Standing reference. States what the ClarityOmega value architecture is, what claims it makes, and how each claim is verified. Read this before the code.
