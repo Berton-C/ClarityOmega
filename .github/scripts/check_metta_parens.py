@@ -5,7 +5,8 @@ Unbalanced parens are a recurring, high-cost failure in this project: a file
 loads silently wrong rather than erroring cleanly. This catches it at PR time.
 
 Ignores parens inside double-quoted strings and after a `;` line comment.
-Skips staging/OLD/ (archived scratch, not loaded at runtime).
+Skips staging/OLD/ and staging/backups/ (archived scratch and point-in-time
+backups, not loaded at runtime).
 """
 import subprocess
 import sys
@@ -16,7 +17,7 @@ def tracked_metta_files():
         ["git", "ls-files", "*.metta"],
         capture_output=True, text=True, check=True,
     ).stdout.splitlines()
-    return [f for f in out if f and not f.startswith("staging/OLD/")]
+    return [f for f in out if f and not f.startswith(("staging/OLD/", "staging/backups/"))]
 
 
 def balance(path):
